@@ -1,0 +1,45 @@
+<resources>
+    <!--欢迎界面-->
+    <string name="app_name">车辆检验</string>
+    <string name="corporationName">良源科技</string>
+    <string name="corporationInfomation">提供稳定、安全、高效的汽车检测服务</string>
+    <string name="startEnjoy">立即体验</string>
+    <!--登录界面-->
+    <string name="login">登录</string>
+    <string name="usernameHint">请输入用户名</string>
+    <string name="passwordHint">请输入密码</string>
+    <string name="rememberUsername">记住用户名</string>
+    <string name="corporationLogo">良源科技Logo</string>
+    <!--功能选择界面-->
+    <string name="selectFunctionTitle">功能模块选择</string>
+    <string name="unRegisterVehicleInspection">未登记车辆预检</string>
+    <string name="charge">车辆检验登记收费</string>
+    <string name="personInspectionItem">人工检验项目</string>
+    <string name="dispatch">调度上线</string>
+    <string name="verifySignature">审核签字</string>
+    <string name="vehicleInfomation">车辆信息明细</string>
+    <!--人工查验界面-->
+    <string name="InspectionVehicleTitle">人工检验-查询车辆</string>
+    <string name="Registered">已登记</string>
+    <string name="notRegistered">未登记</string>
+    <string name="AJ">安检</string>
+    <string name="HB">环保</string>
+    <string name="regularInspection">在用车定期检验</string>
+    <string name="annualInspection">年检</string>
+    <!--检验详情界面-->
+    <string name="vehicleBaseInfo">车辆基本信息</string>
+    <string name="lsh">流水号</string>
+    <string name="hphm">号牌号码</string>
+    <string name="hpzl">号牌种类</string>
+    <string name="hpys">号牌颜色</string>
+    <string name="cllx">车辆类型</string>
+    <string name="wkcc">外廓尺寸</string>
+    <string name="zbzl">整备质量</string>
+    <string name="ltgg">轮胎规格</string>
+    <string name="ccrq">出厂日期</string>
+    <string name="inspectionItemStatus">检验项目状态</string>
+    <string name="inspectionItem">检验项目</string>
+    <string name="inspectionCondition">检验情况</string>
+    <string name="inspectionDate">检验时间</string>
+    <string name="inspectionPersonnel">检验时间</string>
+</resources>
