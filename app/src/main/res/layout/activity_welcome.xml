@@ -77,9 +77,11 @@
         android:id="@+id/corporationLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_baseline_cloud_24"
+        android:src="@mipmap/ic_logo"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

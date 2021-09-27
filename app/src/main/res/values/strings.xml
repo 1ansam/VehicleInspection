@@ -12,7 +12,7 @@
     <string name="corporationLogo">良源科技Logo</string>
     <!--功能选择界面-->
     <string name="selectFunctionTitle">功能模块选择</string>
-    <string name="unRegisterVehicleInspection">未登记车辆预检</string>
+    <string name="notRegisterVehicleInspection">未登记车辆预检</string>
     <string name="charge">车辆检验登记收费</string>
     <string name="personInspectionItem">人工检验项目</string>
     <string name="dispatch">调度上线</string>

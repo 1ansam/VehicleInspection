@@ -15,13 +15,13 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="256dp"
+        android:layout_height="117dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_cloud_24" />
+        app:srcCompat="@mipmap/ic_logo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -99,7 +99,10 @@
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
         android:includeFontPadding="false"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/login"
+        android:textColor="#616161"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="@+id/password"
