@@ -7,35 +7,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHphm"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/hphm"/>
+            android:text="@string/hphm" />
+
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHpzl"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/hpzl"/>
+            android:text="@string/hpzl" />
+
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/Registered"/>
+            android:text="@string/Registered" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAjywlb"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/AJ"/>
+            android:text="@string/AJ" />
+
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHjjwlb"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/HB"/>
+            android:text="@string/HB" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -47,14 +57,16 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLsh"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/lsh"/>
+            android:text="@string/lsh" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/inspectionDate"/>
+            android:text="@string/inspectionDate" />
     </LinearLayout>
 
 </LinearLayout>
