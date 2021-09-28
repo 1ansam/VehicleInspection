@@ -49,23 +49,23 @@ import java.util.*
  *   @param shzt	审核状态
 
  */
-data class QcyJcDateCover(val InfoID : Int,
+data class QcyJcDateCover(val InfoID : String,
                           val Lsh : String,
                           val ajywlb : String?,
-                          val ajjccs : Int?,
+                          val ajjccs : String?,
                           val zjywlb : String?,
-                          val zjjccs : Int?,
+                          val zjjccs : String?,
                           val hjywlb : String?,
-                          val hjjccs : Int?,
-                          val Jccs : Int,
+                          val hjjccs : String?,
+                          val Jccs : String,
                           val Jcxm : String?,
                           val ajjcxm : String?,
                           val zjjcxm : String?,
                           val hjjcxm : String?,
-                          val Jcrq : Date?,
-                          val JcTime : Date?,
-                          val JcKsTime : Date?,
-                          val JcJsTime : Date?,
+                          val Jcrq : String?,
+                          val JcTime : String?,
+                          val JcKsTime : String?,
+                          val JcJsTime : String?,
                           val JcXH : String?,
                           val jcpj : String?,
                           val JcJg : String?,
@@ -93,9 +93,9 @@ data class QcyJcDateCover(val InfoID : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
-        Jccs: Int
+        Jccs: String
     ) : this(
         id,
         Lsh,

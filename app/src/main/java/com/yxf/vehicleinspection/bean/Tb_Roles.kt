@@ -11,14 +11,14 @@ package com.yxf.vehicleinspection.bean
  *   @param bz	备注	varchar(200)
 
  */
-data class Tb_Roles (val id : Int,
+data class Tb_Roles (val id : String,
                      val dm : String,
                      val mc : String?,
                      val isWork : String?,
                      val bz : String?,
 ){
     constructor(
-        id: Int,
+        id: String,
         dm: String,
     ) : this(
         id,

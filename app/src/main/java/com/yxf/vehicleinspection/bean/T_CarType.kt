@@ -10,14 +10,14 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz01	备注	varchar(200)
 
  */
-data class T_CarType(val id : Int,
+data class T_CarType(val id : String,
                 val lxbh : String,
                 val lxms : String?,
                 val Bz01 : String?
 )
 {
     constructor(
-        id: Int,
+        id: String,
         lxbh: String,
     ) : this(
         id,

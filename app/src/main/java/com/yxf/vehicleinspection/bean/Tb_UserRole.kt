@@ -10,13 +10,13 @@ package com.yxf.vehicleinspection.bean
  *   @param isWork	是否有效	varchar(1)
 
  */
-class Tb_UserRole(val id : Int,
+class Tb_UserRole(val id : String,
                   val username : String?,
                   val roleDm : String?,
                   val isWork : String?
 ){
     constructor(
-        id: Int,
+        id: String,
     ) : this(
         id,
         null,

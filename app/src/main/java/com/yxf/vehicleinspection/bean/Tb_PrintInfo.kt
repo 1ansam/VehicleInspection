@@ -11,14 +11,14 @@ package com.yxf.vehicleinspection.bean
  *   @param printHj	打印环检	varchar(2)
 
  */
-data class Tb_PrintInfo(val id : Int,
+data class Tb_PrintInfo(val id : String,
                         val lsh : String,
                         val printAj : String?,
                         val printZj : String?,
                         val printHj : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         lsh: String,
     ) : this(
         id,

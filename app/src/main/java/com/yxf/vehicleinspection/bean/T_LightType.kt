@@ -10,13 +10,13 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz01	备注	varchar(200)
 
  */
-data class T_LightType(val id : Int,
+data class T_LightType(val id : String,
                        val dzbh : String?,
                        val dzms : String?,
                        val Bz01 : String?
 ){
     constructor(
-        id: Int,
+        id: String,
     ) : this(
         id,
         null,

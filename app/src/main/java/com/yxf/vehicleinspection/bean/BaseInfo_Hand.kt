@@ -82,7 +82,7 @@ package com.yxf.vehicleinspection.bean
  *   @param sjrdh	送检人电话	varchar(20)
 
  */
-data class BaseInfo_Hand(val id : Int,
+data class BaseInfo_Hand(val id : String,
                     val Lsh : String,
                     val hpzl: String?,
                     val hphm: String?,
@@ -161,7 +161,7 @@ data class BaseInfo_Hand(val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
     ) : this(
         id,

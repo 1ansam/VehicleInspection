@@ -18,7 +18,7 @@ import java.util.*
  *   @param changeTime	修改时间	smalldatetime
 
  */
-data class tb_cartypeandphotodm(val id : Int,
+data class tb_cartypeandphotodm(val id : String,
                            val pkey : String,
                            val cartype : String?,
                            val photoDm : String?,
@@ -30,7 +30,7 @@ data class tb_cartypeandphotodm(val id : Int,
                            val changeTime : Date?
 ){
     constructor(
-        id: Int,
+        id: String,
         pkey: String,
     ) : this(
         id,

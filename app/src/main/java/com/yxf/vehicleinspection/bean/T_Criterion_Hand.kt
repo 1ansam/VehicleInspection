@@ -11,14 +11,14 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz01	备注	nvarchar(200)
 
  */
-data class T_Criterion_Hand(val id : Int,
+data class T_Criterion_Hand(val id : String,
                             val bzbh : String,
                             val zzl : String?,
                             val zdl : String?,
                             val Bz01 : String?,
 ){
     constructor(
-        id: Int,
+        id: String,
         bzbh: String,
     ) : this(
         id,

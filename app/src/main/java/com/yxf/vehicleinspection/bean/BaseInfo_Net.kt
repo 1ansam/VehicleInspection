@@ -78,7 +78,7 @@ package com.yxf.vehicleinspection.bean
  *   @param wbzl	尾板质量
 
  */
-data class BaseInfo_Net(val id : Int?,
+data class BaseInfo_Net(val id : String?,
                         val Lsh : String?,
                         val hpzl : String?,
                         val hphm : String?,

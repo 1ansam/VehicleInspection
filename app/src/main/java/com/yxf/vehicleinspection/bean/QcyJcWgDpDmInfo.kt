@@ -12,7 +12,7 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz	备注	varchar(8)
 
  */
-data class QcyJcWgDpDmInfo(val id : Int,
+data class QcyJcWgDpDmInfo(val id : String,
                       val Fl : String,
                       val FlMc : String,
                       val Dm : String,
@@ -21,7 +21,7 @@ data class QcyJcWgDpDmInfo(val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Fl: String,
         FlMc: String,
         Dm : String,

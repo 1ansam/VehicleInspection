@@ -23,7 +23,7 @@ package com.yxf.vehicleinspection.bean
 
  */
 data class T_IPCInfo(
-    val ID: Int,
+    val ID: String,
     val LineNumber: String,
     val WorkplaceCode: String,
     val IPCIP: String?,
@@ -42,7 +42,7 @@ data class T_IPCInfo(
 )
 {
     constructor(
-        ID: Int,
+        ID: String,
         LineNumber: String,
         WorkplaceCode: String
     ) : this(

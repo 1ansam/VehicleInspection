@@ -68,16 +68,16 @@ import java.sql.Timestamp
  *   @param jczt	检验流水状态
 
  */
-data class LY_Flow_Info(val ID : Int,
+data class LY_Flow_Info(val ID : String,
                         val Lsh : String,
                         val ajywlb : String?,
-                        val ajjccs : Int?,
+                        val ajjccs : String?,
                         val zjywlb : String?,
-                        val zjjccs : Int?,
+                        val zjjccs : String?,
                         val hjywlb : String?,
-                        val hjjccs : Int?,
-                        val Jccs : Int,
-                        val AddRq : Date,
+                        val hjjccs : String?,
+                        val Jccs : String,
+                        val AddRq : String,
                         val JcXm : String?,
                         val ajjcxm : String?,
                         val zjjcxm : String?,
@@ -130,10 +130,10 @@ data class LY_Flow_Info(val ID : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
-        Jccs: Int,
-        AddRq: Date
+        Jccs: String,
+        AddRq: String
     ) : this(
         id,
         Lsh,

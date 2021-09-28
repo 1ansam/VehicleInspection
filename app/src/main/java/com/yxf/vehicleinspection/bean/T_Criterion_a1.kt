@@ -9,12 +9,12 @@ package com.yxf.vehicleinspection.bean
  *   @param datamin	最小值	nvarchar(50)
 
  */
-data class T_Criterion_a1(val id : Int,
+data class T_Criterion_a1(val id : String,
                      val datamax : String?,
                      val datamin : String?
 ){
     constructor(
-        id: Int,
+        id: String,
     ) : this(
         id,
         null,

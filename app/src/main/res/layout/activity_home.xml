@@ -7,34 +7,36 @@
     tools:context=".view.HomeActivity">
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/verifySignature"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_selector"
         android:drawableLeft="@mipmap/ic_verify"
         android:drawableRight="@mipmap/ic_next"
         android:text="@string/verifySignature"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="@+id/dispatch"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/dispatch"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/vehicleInfomation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_selector"
         android:drawableLeft="@mipmap/ic_vehicle_info"
-        android:drawableRight="@mipmap/ic_next"
+        android:drawableRight="@drawable/ic_next"
         android:text="@string/vehicleInfomation"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
-        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/verifySignature"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/verifySignature"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -112,15 +114,16 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/notRegisterVehicleInspection"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_selector"
         android:drawableLeft="@mipmap/ic_un_register"
-        android:drawableRight="@mipmap/ic_next"
+        android:drawableRight="@drawable/ic_next"
         android:text="@string/notRegisterVehicleInspection"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,45 +131,48 @@
         app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/charge"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_selector"
         android:drawableLeft="@mipmap/ic_charge"
-        android:drawableRight="@mipmap/ic_next"
+        android:drawableRight="@drawable/ic_next"
         android:text="@string/charge"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/notRegisterVehicleInspection"
+        app:layout_constraintStart_toStartOf="@+id/notRegisterVehicleInspection"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/personInspectionItem"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_selector"
         android:drawableLeft="@mipmap/ic_sercher"
-        android:drawableRight="@mipmap/ic_next"
+        android:drawableRight="@drawable/ic_next"
         android:text="@string/personInspectionItem"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/charge"
+        app:layout_constraintStart_toStartOf="@+id/charge"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/dispatch"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_selector"
         android:drawableLeft="@mipmap/ic_dispatch"
-        android:drawableRight="@mipmap/ic_next"
+        android:drawableRight="@drawable/ic_next"
         android:text="@string/dispatch"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toEndOf="@+id/textView7"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="@+id/personInspectionItem"
+        app:layout_constraintStart_toStartOf="@+id/personInspectionItem"
         app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

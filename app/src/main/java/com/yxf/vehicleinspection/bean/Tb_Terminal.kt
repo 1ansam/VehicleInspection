@@ -13,7 +13,7 @@ Bz02	备注	varchar(32)
 Bz03	备注	varchar(32)
 
  */
-data class Tb_Terminal(val id : Int,
+data class Tb_Terminal(val id : String,
                        val ip : String,
                        val name : String?,
                        val isWork : String?,
@@ -22,7 +22,7 @@ data class Tb_Terminal(val id : Int,
                        val Bz03 : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         ip: String,
     ) : this(
         id,

@@ -12,7 +12,7 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz01	备注	nvarchar(200)
 
  */
-data class T_Criterion_Horn(val id : Int,
+data class T_Criterion_Horn(val id : String,
                             val bzbh : String,
                             val zdjgl : String?,
                             val sjmax : String?,
@@ -20,7 +20,7 @@ data class T_Criterion_Horn(val id : Int,
                             val Bz01 : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         bzbh: String,
     ) : this(
         id,

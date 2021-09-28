@@ -7,7 +7,9 @@ import com.yxf.vehicleinspection.databinding.ActivityHomeBinding
 
 class HomeActivity : BaseBindingActivity<ActivityHomeBinding>() {
     override fun init() {
+        binding.personInspectionItem.setOnClickListener {
 
+        }
     }
 
 }

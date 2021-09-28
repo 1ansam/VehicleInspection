@@ -25,12 +25,12 @@ import java.util.*
  *   @param Bz6	高范围
 
  */
-data class JcDate_M1(val id : Int,
+data class JcDate_M1(val id : String,
                      val Lsh : String,
                      val hpzl : String?,
                      val hphm : String?,
-                     val Jccs : Int,
-                     val JcDate : Date?,
+                     val Jccs : String,
+                     val JcDate : String?,
                      val KsTime : String?,
                      val JsTime : String?,
                      val JcPj : String?,
@@ -46,9 +46,9 @@ data class JcDate_M1(val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
-        Jccs: Int
+        Jccs: String
     ) : this(
         id,
         Lsh,

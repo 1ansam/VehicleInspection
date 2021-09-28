@@ -67,12 +67,12 @@ import java.util.*
  *   @param data_lzd_hand5	五轴左轮驻车制动力
  *   @param data_rzd_hand5	五轴右轮驻车制动力
  */
-data class JcDate_B(val id : Int,
+data class JcDate_B(val id : String,
                     val Lsh : String,
                     val hpzl : String?,
                     val hphm : String?,
-                    val Jccs : Int,
-                    val JcDate : Date?,
+                    val Jccs : String,
+                    val JcDate : String?,
                     val KsTime : String?,
                     val JsTime : String?,
                     val JcPj : String?,
@@ -130,9 +130,9 @@ data class JcDate_B(val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
-        Jccs: Int
+        Jccs: String
     ) : this(
         id,
         Lsh,

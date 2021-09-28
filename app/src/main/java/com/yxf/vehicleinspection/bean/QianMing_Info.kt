@@ -17,7 +17,7 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz_03	备注	varchar(32)
 
  */
-data class QianMing_Info(val id : Int,
+data class QianMing_Info(val id : String,
                          val Lsh : String,
                          val hphm : String?,
                          val Jccs : String,
@@ -31,7 +31,7 @@ data class QianMing_Info(val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
         Jccs: String
     ) : this(

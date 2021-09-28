@@ -27,11 +27,11 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz10	方向盘最大自由转动量
 
  */
-data class JcData_RG(val id : Int?,
+data class JcData_RG(val id : String?,
                      val lsh : String?,
                      val hphm : String?,
                      val hpzl : String?,
-                     val Jccs : Int?,
+                     val Jccs : String?,
                      val jcdate : String?,
                      val kstime : String?,
                      val jstime : String?,

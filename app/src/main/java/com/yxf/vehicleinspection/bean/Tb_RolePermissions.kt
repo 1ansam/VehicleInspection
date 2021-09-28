@@ -10,13 +10,13 @@ package com.yxf.vehicleinspection.bean
  *   @param bz	备注	varchar(50)
 
  */
-data class Tb_RolePermissions(val id : Int,
+data class Tb_RolePermissions(val id : String,
                               val roleDm : String,
                               val authorityDm : String,
                               val bz : String?,
 ){
     constructor(
-        id: Int,
+        id: String,
         roleDm: String,
         authorityDm : String
     ) : this(

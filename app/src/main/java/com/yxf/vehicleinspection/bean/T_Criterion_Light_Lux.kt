@@ -11,14 +11,14 @@ package com.yxf.vehicleinspection.bean
  *   @param fgqd	发光强度	nvarchar(50)
 
  */
-data class T_Criterion_Light_Lux(val id : Int,
+data class T_Criterion_Light_Lux(val id : String,
                                  val zyc : String?,
                                  val jdclx : String?,
                                  val qzdz : String?,
                                  val fgqd : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         zyc: String,
     ) : this(
         id,

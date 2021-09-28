@@ -40,13 +40,13 @@ import java.util.*
  *   @param Bz2	备注	varchar(8)
 
  */
-data class JcData_R (val id : Int,
+data class JcData_R (val id : String,
                      val lsh : String,
                      val hpzl : String?,
                      val hphm : String?,
-                     val jccs : Int?,
+                     val jccs : String?,
                      val dalb : String?,
-                     val jcdate : Date?,
+                     val jcdate : String?,
                      val kstime : String?,
                      val jstime : String?,
                      val jcpj : String?,
@@ -75,7 +75,7 @@ data class JcData_R (val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
         lsh: String,
     ) : this(
         id,

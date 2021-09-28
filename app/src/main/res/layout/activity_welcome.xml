@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:background="@color/dodgerblue"
+        android:background="@drawable/btn_selector"
         android:text="@string/startEnjoy"
         android:textColor="@color/white"
         app:backgroundTint="@color/lightBlue"

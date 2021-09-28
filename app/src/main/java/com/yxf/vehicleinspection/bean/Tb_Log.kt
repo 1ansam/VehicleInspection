@@ -19,7 +19,7 @@ import java.util.*
  *   @param detailinformation	详细信息	varchar(MAX)
 
  */
-data class Tb_Log(val id : Int,
+data class Tb_Log(val id : String,
                   val logname : String?,
                   val source : String?,
                   val recordtime : Date?,
@@ -32,7 +32,7 @@ data class Tb_Log(val id : Int,
                   val detailinformation : String?,
 ){
     constructor(
-        id: Int,
+        id: String,
     ) : this(
         id,
         null,

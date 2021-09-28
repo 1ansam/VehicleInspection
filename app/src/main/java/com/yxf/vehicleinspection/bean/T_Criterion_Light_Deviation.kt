@@ -22,7 +22,7 @@ package com.yxf.vehicleinspection.bean
  *   @param jgsppyRight_R	近光水平右灯右偏移	nvarchar(50)
 
  */
-data class T_Criterion_Light_Deviation(val id : Int,
+data class T_Criterion_Light_Deviation(val id : String,
                                        val jdclx : String,
                                        val ygczpymax : String?,
                                        val ygczpymin : String?,
@@ -40,7 +40,7 @@ data class T_Criterion_Light_Deviation(val id : Int,
                                        val jgsppyRight_R : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         Lsh: String,
     ) : this(
         id,

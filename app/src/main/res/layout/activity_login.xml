@@ -30,7 +30,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.45" />
 
-    <TextView
+    <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-    <TextView
+    <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -95,9 +95,10 @@
 
     <Button
         android:id="@+id/login"
+        style="@style/Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/lightBlue"
+        android:background="@drawable/btn_selector"
         android:includeFontPadding="false"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

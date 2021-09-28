@@ -81,7 +81,7 @@ package com.yxf.vehicleinspection.bean
  *   @param dataType	数据采集方式
 
  */
-data class tb_workspaceinformation(val id : Int,
+data class tb_workspaceinformation(val id : String,
                               val jcgw : String?,
                               val jcxh : String?,
                               val ip : String?,
@@ -158,7 +158,7 @@ data class tb_workspaceinformation(val id : Int,
                               val dataType : String?
 ){
     constructor(
-        id: Int,
+        id: String,
     ) : this(
         id,
         null,

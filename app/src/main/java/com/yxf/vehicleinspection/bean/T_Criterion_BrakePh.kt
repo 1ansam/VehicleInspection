@@ -13,7 +13,7 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz01	备注	nvarchar(200)
 
  */
-data class T_Criterion_BrakePh(val id : Int,
+data class T_Criterion_BrakePh(val id : String,
                                val bzbh : String,
                                val zyc : String?,
                                val qzzdlph : String?,
@@ -22,7 +22,7 @@ data class T_Criterion_BrakePh(val id : Int,
                                val Bz01 : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         bzbh: String,
     ) : this(
         id,

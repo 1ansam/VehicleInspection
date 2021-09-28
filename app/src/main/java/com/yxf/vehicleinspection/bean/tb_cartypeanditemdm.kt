@@ -13,7 +13,7 @@ package com.yxf.vehicleinspection.bean
  *   @param changetime	修改时间	smalldatetime
 
  */
-data class tb_cartypeanditemdm(val id : Int,
+data class tb_cartypeanditemdm(val id : String,
                           val pkey : String,
                           val cartype : String?,
                           val fldm : String?,
@@ -22,7 +22,7 @@ data class tb_cartypeanditemdm(val id : Int,
                           val changetime : String?
 ){
     constructor(
-        id: Int,
+        id: String,
         pkey: String,
     ) : this(
         id,

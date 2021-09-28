@@ -29,12 +29,12 @@ import java.util.*
  *   @param Bz3	备注	varchar(24)
 
  */
-data class Jcdate_A1(val ID : Int,
+data class Jcdate_A1(val ID : String,
                      val Lsh : String?,
                      val hpzl : String?,
                      val hphm : String?,
-                     val jccs : Int?,
-                     val jcdate : Date?,
+                     val jccs : String?,
+                     val jcdate : String?,
                      val kstime : String?,
                      val jstime : String?,
                      val jcpj : String?,
@@ -53,7 +53,7 @@ data class Jcdate_A1(val ID : Int,
 )
 {
     constructor(
-        id : Int
+        id : String
     ) : this(
         id,
         null,

@@ -59,8 +59,8 @@ package com.yxf.vehicleinspection.bean
  *   @param appointmentURL	预约接口地址
 
  */
-data class SystermCs_All(val id : Int,
-                         val jcsjyxq : Int?,
+data class SystermCs_All(val id : String,
+                         val jcsjyxq : String?,
                          val jcsjbcnx : String?,
                          val dysjfs : String?,
                          val dycffs : String?,
@@ -118,7 +118,7 @@ data class SystermCs_All(val id : Int,
 )
 {
     constructor(
-        id: Int,
+        id: String,
     ) : this(
         id,
         null,

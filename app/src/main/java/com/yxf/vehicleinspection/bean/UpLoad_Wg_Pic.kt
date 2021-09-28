@@ -26,7 +26,7 @@ package com.yxf.vehicleinspection.bean
 data class UpLoad_Wg_Pic(val Jylsh : String,
                          val Jyjgbh : String,
                          val Jcxdh : String,
-                         val Jycs : Int?,
+                         val Jycs : String?,
                          val Hphm : String?,
                          val Hpzl : String?,
                          val Clsbdh : String?,
@@ -39,7 +39,7 @@ data class UpLoad_Wg_Pic(val Jylsh : String,
                          val BzO2 : String?,
                          val BzO3 : String?,
                          val ImageName : String?,
-                         val ImageIndex : Int?,
+                         val ImageIndex : String?,
 ){
     constructor(
         Jylsh: String,
