@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.WelcomeActivity">
+    tools:context=".view.Activity.WelcomeActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -35,7 +35,7 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/startEnjoy"
+        android:id="@+id/btnStartEnjoy"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"

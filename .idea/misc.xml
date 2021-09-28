@@ -18,13 +18,16 @@
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/drawable/ic_sercher.xml" value="0.125" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/drawable/ic_sign_24.xml" value="0.26979166666666665" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/drawable/ic_xinxi.xml" value="0.12135416666666667" />
-        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/drawable/sercher.xml" value="0.26979166666666665" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_inspection_info.xml" value="0.21739130434782608" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_main.xml" value="0.1296875" />
-        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_person_insection.xml" value="0.264" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_person_insection.xml" value="0.176" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_person_inspection.xml" value="0.264" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_welcome.xml" value="0.176" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/material_button.xml" value="0.1585144927536232" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/person_inspection_item.xml" value="0.4" />
       </map>
     </option>
   </component>

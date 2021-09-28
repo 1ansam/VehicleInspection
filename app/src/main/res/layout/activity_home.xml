@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.HomeActivity">
+    tools:context=".view.Activity.HomeActivity">
 
     <TextView
-        android:id="@+id/verifySignature"
+        android:id="@+id/btnVerifySignature"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -16,14 +16,14 @@
         android:drawableRight="@drawable/ic_next"
         android:text="@string/verifySignature"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toEndOf="@+id/dispatch"
+        app:layout_constraintEnd_toEndOf="@+id/btnDispatch"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/dispatch"
+        app:layout_constraintStart_toStartOf="@+id/btnDispatch"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/vehicleInfomation"
+        android:id="@+id/btnVehicleInfomation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -32,9 +32,9 @@
         android:drawableRight="@drawable/ic_next"
         android:text="@string/vehicleInfomation"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
-        app:layout_constraintEnd_toEndOf="@+id/verifySignature"
+        app:layout_constraintEnd_toEndOf="@+id/btnVerifySignature"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/verifySignature"
+        app:layout_constraintStart_toStartOf="@+id/btnVerifySignature"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -112,7 +112,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/notRegisterVehicleInspection"
+        android:id="@+id/btnNotRegisterVehicleInspection"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="30dp"
@@ -128,7 +128,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
     <TextView
-        android:id="@+id/charge"
+        android:id="@+id/btnCharge"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -137,12 +137,12 @@
         android:drawableRight="@drawable/ic_next"
         android:text="@string/charge"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toEndOf="@+id/notRegisterVehicleInspection"
-        app:layout_constraintStart_toStartOf="@+id/notRegisterVehicleInspection"
+        app:layout_constraintEnd_toEndOf="@+id/btnNotRegisterVehicleInspection"
+        app:layout_constraintStart_toStartOf="@+id/btnNotRegisterVehicleInspection"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <TextView
-        android:id="@+id/personInspectionItem"
+        android:id="@+id/btnPersonInspectionItem"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -151,12 +151,12 @@
         android:drawableRight="@drawable/ic_next"
         android:text="@string/personInspectionItem"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintEnd_toEndOf="@+id/charge"
-        app:layout_constraintStart_toStartOf="@+id/charge"
+        app:layout_constraintEnd_toEndOf="@+id/btnCharge"
+        app:layout_constraintStart_toStartOf="@+id/btnCharge"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <TextView
-        android:id="@+id/dispatch"
+        android:id="@+id/btnDispatch"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -165,8 +165,8 @@
         android:drawableRight="@drawable/ic_next"
         android:text="@string/dispatch"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toEndOf="@+id/personInspectionItem"
-        app:layout_constraintStart_toStartOf="@+id/personInspectionItem"
+        app:layout_constraintEnd_toEndOf="@+id/btnPersonInspectionItem"
+        app:layout_constraintStart_toStartOf="@+id/btnPersonInspectionItem"
         app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

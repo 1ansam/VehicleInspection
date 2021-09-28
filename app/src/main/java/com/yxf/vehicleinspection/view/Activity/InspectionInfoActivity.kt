@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.view
+package com.yxf.vehicleinspection.view.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

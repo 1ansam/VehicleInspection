@@ -13,19 +13,19 @@
         android:theme="@style/Theme.VehicleInspection"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.PersonInsectionActivity"
+            android:name=".view.Activity.PersonInspectionActivity"
             android:exported="true" />
         <activity
-            android:name=".view.InspectionInfoActivity"
+            android:name=".view.Activity.InspectionInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".view.HomeActivity"
+            android:name=".view.Activity.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.Activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".view.WelcomeActivity"
+            android:name=".view.Activity.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
