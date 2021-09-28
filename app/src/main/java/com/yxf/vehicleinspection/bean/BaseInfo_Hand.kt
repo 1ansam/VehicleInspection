@@ -1,5 +1,7 @@
 package com.yxf.vehicleinspection.bean
 
+import java.io.Serializable
+
 /**
  *   author:yxf
  *   time:2021/9/27
@@ -158,8 +160,7 @@ data class BaseInfo_Hand(val id : String,
                     val sjr: String?,
                     val sjrsfzh: String?,
                     val sjrdh: String?
-)
-{
+) : Serializable {
     constructor(
         id: String,
         Lsh: String,

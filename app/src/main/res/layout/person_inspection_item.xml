@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/itemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -13,6 +16,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
             android:text="@string/hphm" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -20,12 +25,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
             android:text="@string/hpzl" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@color/lightBlue"
             android:text="@string/Registered" />
     </LinearLayout>
     <LinearLayout
@@ -38,6 +46,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
             android:text="@string/AJ" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -45,13 +55,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
             android:text="@string/HB" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/grey"
-        android:layout_height="2dp"/>
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -60,13 +69,25 @@
             android:id="@+id/tvLsh"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/lsh" />
+            android:paddingLeft="10dp"
+            android:text="@string/lsh"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="0dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/inspectionDate" />
-    </LinearLayout>
+            android:paddingLeft="10dp"
+            android:text="@string/inspectionDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvLsh" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/grey"
+        android:layout_height="2dp"/>
 
 </LinearLayout>
