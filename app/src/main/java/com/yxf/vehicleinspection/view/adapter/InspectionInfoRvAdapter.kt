@@ -1,23 +1,26 @@
-package com.yxf.vehicleinspection.view.Adapter
+package com.yxf.vehicleinspection.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.material.contentColorFor
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.InspectionInfoBean
 import com.yxf.vehicleinspection.databinding.InspectionInfoItemBinding
+import com.yxf.vehicleinspection.viewModel.InspectionInfoViewModel
 
 /**
  *   author:yxf
  *   time:2021/9/29
  */
-class InspectionInfoRvAdapter(private val context : Context, private val modelList : ArrayList<InspectionInfoBean>) : RecyclerView.Adapter<InspectionInfoViewHolder>(){
+class InspectionInfoRvAdapter(private val context : Context,  private val modelList : ArrayList<InspectionInfoBean>) : RecyclerView.Adapter<InspectionInfoViewHolder>(){
     lateinit var binding : InspectionInfoItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InspectionInfoViewHolder {
         binding = InspectionInfoItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return InspectionInfoViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: InspectionInfoViewHolder, position: Int) {
@@ -40,6 +43,5 @@ class InspectionInfoViewHolder(val binding: InspectionInfoItemBinding): Recycler
 
     fun setTitle(model : InspectionInfoBean){
         binding.tvInspectionInfoTitle.text = model.title
-
     }
 }

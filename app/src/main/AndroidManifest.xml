@@ -14,34 +14,34 @@
         android:theme="@style/Theme.VehicleInspection"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.Activity.VehicleInfoDetail"
+            android:name=".view.activity.VehicleInfoDetail"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.VerifySignatureActivity"
+            android:name=".view.activity.VerifySignatureActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.Dispatch"
+            android:name=".view.activity.Dispatch"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.ChargeActivity"
+            android:name=".view.activity.ChargeActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.NotRegisterActivity"
+            android:name=".view.activity.NotRegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.PersonInspectionActivity"
+            android:name=".view.activity.PersonInspectionActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.InspectionInfoActivity"
+            android:name=".view.activity.InspectionInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.HomeActivity"
+            android:name=".view.activity.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".view.Activity.WelcomeActivity"
+            android:name=".view.activity.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

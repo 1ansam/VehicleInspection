@@ -1,11 +1,13 @@
 package com.yxf.vehicleinspection
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
 class MyApp : Application(){
     companion object{
-        lateinit var context: Context;
+        @SuppressLint("StaticFieldLeak")
+        lateinit var context: Context
     }
 
     override fun onCreate() {

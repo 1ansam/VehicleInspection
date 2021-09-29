@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.view.Adapter
+package com.yxf.vehicleinspection.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.view.Activity
+package com.yxf.vehicleinspection.view.activity
 
 import android.content.Intent
 import com.yxf.vehicleinspection.base.BaseBindingActivity

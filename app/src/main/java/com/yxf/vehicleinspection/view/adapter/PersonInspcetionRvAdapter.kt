@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.view.Adapter
+package com.yxf.vehicleinspection.view.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.BaseInfo_Hand
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
-import com.yxf.vehicleinspection.view.Activity.InspectionInfoActivity
+import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
 
 /**
  *   author:yxf
@@ -16,7 +16,7 @@ import com.yxf.vehicleinspection.view.Activity.InspectionInfoActivity
  */
 class PersonInspcetionRvAdapter(
     private val context: Context,
-    protected val modelList: ArrayList<BaseInfo_Hand>,
+    private val modelList: ArrayList<BaseInfo_Hand>,
 ) : RecyclerView.Adapter<PersonInspectionViewHolder>() {
     lateinit var binding: PersonInspectionItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonInspectionViewHolder {

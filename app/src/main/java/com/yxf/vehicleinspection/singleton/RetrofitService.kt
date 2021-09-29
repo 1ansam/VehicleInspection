@@ -8,8 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  *   time:2021/9/29
  */
 object RetrofitService {
-    lateinit var  mRetrofit :Retrofit
-    fun getRetrofit():Retrofit{
+    private fun getRetrofit():Retrofit{
         return Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(
             "http://192.168.2.201:8084/").build()
     }

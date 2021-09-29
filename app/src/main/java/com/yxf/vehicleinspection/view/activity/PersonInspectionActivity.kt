@@ -1,16 +1,11 @@
-package com.yxf.vehicleinspection.view.Activity
+package com.yxf.vehicleinspection.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.Gravity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.base.BaseBindingActivity
-import com.yxf.vehicleinspection.bean.BaseInfo_Hand
 import com.yxf.vehicleinspection.databinding.ActivityPersonInspectionBinding
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
-import com.yxf.vehicleinspection.view.Adapter.PersonInspcetionRvAdapter
+import com.yxf.vehicleinspection.view.adapter.PersonInspcetionRvAdapter
 import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModel
 import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModelFactory
 

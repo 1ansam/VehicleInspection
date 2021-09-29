@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Activity.PersonInspectionActivity">
+    tools:context=".view.activity.PersonInspectionActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20"
