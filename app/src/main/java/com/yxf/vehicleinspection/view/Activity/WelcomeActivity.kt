@@ -11,6 +11,7 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
         binding.btnStartEnjoy.setOnClickListener{
             intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

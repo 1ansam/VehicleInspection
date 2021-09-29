@@ -14,6 +14,21 @@
         android:theme="@style/Theme.VehicleInspection"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.Activity.VehicleInfoDetail"
+            android:exported="true" />
+        <activity
+            android:name=".view.Activity.VerifySignatureActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.Activity.Dispatch"
+            android:exported="true" />
+        <activity
+            android:name=".view.Activity.ChargeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.Activity.NotRegisterActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.Activity.PersonInspectionActivity"
             android:exported="true" />
         <activity

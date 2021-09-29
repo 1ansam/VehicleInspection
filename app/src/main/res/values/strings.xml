@@ -27,6 +27,7 @@
     <string name="regularInspection">在用车定期检验</string>
     <string name="annualInspection">年检</string>
     <!--检验详情界面-->
+    <string name="inspectionInfomation">检验详情</string>
     <string name="vehicleBaseInfo">车辆基本信息</string>
     <string name="lsh">流水号</string>
     <string name="hphm">号牌号码</string>

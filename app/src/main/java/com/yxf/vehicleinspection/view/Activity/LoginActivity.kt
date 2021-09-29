@@ -10,7 +10,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         binding.btnLogin.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-
+            finish()
         }
     }
 }

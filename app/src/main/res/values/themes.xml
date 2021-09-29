@@ -15,14 +15,14 @@
 <!--        <item name="android:background">@color/white</item>-->
         <item name="android:background"></item>
         <item name="android:textColor">@color/grey</item>
-        <item name="buttonStyle">@style/Button</item>
+        <item name="buttonStyle">@style/MainButton</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>
     </style>
     <!--Material样式-->
     <style name="MaterialStyle" parent="Theme.MaterialComponents.Light.DarkActionBar" />
     <!--Button-->
-    <style name="Button">
+    <style name="MainButton">
         <item name="background">@drawable/btn_selector</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
