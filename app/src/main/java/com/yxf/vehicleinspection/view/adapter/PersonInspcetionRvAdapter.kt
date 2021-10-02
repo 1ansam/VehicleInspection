@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.BaseInfo_Hand
+import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
 
@@ -16,8 +17,9 @@ import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
  */
 class PersonInspcetionRvAdapter(
     private val context: Context,
-    private val modelList: ArrayList<BaseInfo_Hand>,
+    private var modelList: ArrayList<Data>?,
 ) : RecyclerView.Adapter<PersonInspectionViewHolder>() {
+
     lateinit var binding: PersonInspectionItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonInspectionViewHolder {
         binding =
@@ -26,28 +28,40 @@ class PersonInspcetionRvAdapter(
     }
 
     override fun onBindViewHolder(holder: PersonInspectionViewHolder, position: Int) {
-        val vehicle: BaseInfo_Hand = modelList[position]
-        holder.setData(vehicle)
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, InspectionInfoActivity::class.java)
-            val bundle = Bundle()
-            bundle.putSerializable("key", modelList[position])
-            intent.putExtra("bundle", bundle)
-            context.startActivity(intent)
+        if (modelList != null){
+            val vehicle: Data = modelList!![position]
+            holder.setData(vehicle)
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, InspectionInfoActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable("key", modelList!![position])
+                intent.putExtra("bundle", bundle)
+                context.startActivity(intent)
+            }
         }
+
+
+
     }
     override fun getItemCount(): Int {
-        return modelList.size
+
+        return modelList?.size ?:0
     }
+    fun setModel(modelList : ArrayList<Data>){
+        this.modelList = modelList
+        notifyDataSetChanged()
+    }
+
 }
 
 class PersonInspectionViewHolder(private val binding: PersonInspectionItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setData(model: BaseInfo_Hand) {
+    fun setData(model: Data) {
         binding.tvHphm.text = model.hphm
         binding.tvHpzl.text = model.hpzl
         binding.tvAjywlb.text = "安检:${model.ajywlb}"
         binding.tvHjjwlb.text = "环保：${model.hjywlb}"
-        binding.tvLsh.text = model.Lsh
+        binding.tvLsh.text = model.lsh
+        binding.tvTime.text = model.time
     }
 }

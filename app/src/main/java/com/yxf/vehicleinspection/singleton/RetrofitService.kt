@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  *   time:2021/9/29
  */
 object RetrofitService {
-    private fun getRetrofit():Retrofit{
+    fun getRetrofit():Retrofit{
         return Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(
-            "http://192.168.2.201:8084/").build()
+            "http://192.168.31.70:8066/").build()
     }
 
 

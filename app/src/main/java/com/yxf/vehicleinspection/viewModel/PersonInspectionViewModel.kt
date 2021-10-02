@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.bean.BaseInfo_Hand
+import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
 import java.lang.IllegalArgumentException
 
@@ -12,8 +13,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/9/29
  */
 class PersonInspectionViewModel(private val repository: PersonInspectionRepository) : ViewModel() {
-    val personInspectionData: MutableLiveData<ArrayList<BaseInfo_Hand>> =
-        repository.personInspectionData
+    fun getData() : MutableLiveData<ArrayList<Data>> = repository.getData()
 }
 
 class PersonInspectionViewModelFactory(private val repository: PersonInspectionRepository) :
