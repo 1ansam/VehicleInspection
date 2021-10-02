@@ -13,7 +13,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/9/29
  */
 class PersonInspectionViewModel(private val repository: PersonInspectionRepository) : ViewModel() {
-    fun getData() : MutableLiveData<ArrayList<Data>> = repository.getData()
+    fun getData(hphm : String) : MutableLiveData<ArrayList<Data>> = repository.getData(hphm)
 }
 
 class PersonInspectionViewModelFactory(private val repository: PersonInspectionRepository) :

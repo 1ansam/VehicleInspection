@@ -15,7 +15,6 @@ import retrofit2.Response
  *   time:2021/9/29
  */
 class PersonInspectionRepository {
-    val personInspectionData = getData()
     private fun getData2(): MutableLiveData<ArrayList<BaseInfo_Hand>> {
         val liveData = MutableLiveData<ArrayList<BaseInfo_Hand>>()
         val cars = ArrayList<BaseInfo_Hand>()
@@ -25,7 +24,7 @@ class PersonInspectionRepository {
         liveData.value = cars
         return liveData
     }
-    fun getData() : MutableLiveData<ArrayList<Data>>{
+    fun getData(hphm : String) : MutableLiveData<ArrayList<Data>>{
         val liveData = MutableLiveData<ArrayList<Data>>()
 
         val dataService = RetrofitService.getRetrofit().create(DataService::class.java)
@@ -33,8 +32,16 @@ class PersonInspectionRepository {
         call.enqueue(object  : Callback<DataJson>{
             override fun onResponse(call: Call<DataJson>, response: Response<DataJson>) {
                 if (response.body()?.code.equals("1")){
-                    val modelList = ArrayList<Data>(response.body()!!.data)
+                    val modelList = ArrayList<Data>()
+                    for (index in 0 until response.body()!!.data.size){
+                        if (response.body()!!.data[index].hphm.contains(hphm)){
+                            modelList.add(response.body()!!.data[index])
+                        }
+
+                    }
                     liveData.value = modelList
+
+
                 }
             }
 

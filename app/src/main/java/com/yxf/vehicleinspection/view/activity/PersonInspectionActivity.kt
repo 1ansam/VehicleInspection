@@ -26,13 +26,13 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
         adapter = PersonInspcetionRvAdapter(this,null)
         binding.rvPersonInspection.adapter = adapter
         binding.rvPersonInspection.setHasFixedSize(true)
-        getData()
+        getData("")
         binding.btnSercher.setOnClickListener {
-            getData()
+            getData(binding.tvSercher.text.toString())
         }
     }
-    private fun getData(){
-        viewModel.getData().observe(this, Observer {
+    private fun getData(hphm : String){
+        viewModel.getData(hphm).observe(this, Observer {
             adapter.setModel(it)
         })
     }
