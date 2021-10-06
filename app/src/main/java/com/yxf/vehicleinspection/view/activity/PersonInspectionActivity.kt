@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingActivity
+import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.databinding.ActivityPersonInspectionBinding
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
@@ -26,8 +27,10 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
         adapter = PersonInspcetionRvAdapter(this,null)
         binding.rvPersonInspection.adapter = adapter
         binding.rvPersonInspection.setHasFixedSize(true)
+        BaseUrlHelper.instance.setHostField("192.168.1.1")
         getData("")
         binding.btnSercher.setOnClickListener {
+            BaseUrlHelper.instance.setHostField("192.168.31.70")
             getData(binding.tvSercher.text.toString())
         }
     }
