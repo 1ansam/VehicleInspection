@@ -27,10 +27,10 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
         adapter = PersonInspcetionRvAdapter(this,null)
         binding.rvPersonInspection.adapter = adapter
         binding.rvPersonInspection.setHasFixedSize(true)
-        BaseUrlHelper.instance.setHostField("192.168.1.1")
         getData("")
         binding.btnSercher.setOnClickListener {
-            BaseUrlHelper.instance.setHostField("192.168.31.70")
+//            修改使用BaseUrlHelper类反射方法
+//            BaseUrlHelper.instance.setHostField("192.168.31.70")
             getData(binding.tvSercher.text.toString())
         }
     }
