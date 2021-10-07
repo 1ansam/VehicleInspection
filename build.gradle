@@ -6,6 +6,7 @@ buildscript {
             url 'http://localhost:8081/artifactory/android_group/'
             allowInsecureProtocol = true
         }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.2'
@@ -20,6 +21,7 @@ allprojects {
     repositories {
         maven{
             url 'http://localhost:8081/artifactory/android_group/'
+            mavenCentral()
             allowInsecureProtocol = true
         }
     }
