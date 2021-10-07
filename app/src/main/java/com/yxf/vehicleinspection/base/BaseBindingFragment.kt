@@ -11,6 +11,7 @@ import java.lang.reflect.ParameterizedType
 /**
  *   author:yxf
  *   time:2021/9/3
+ *   ViewBinding 在Fragment中的封装
  */
 abstract class BaseBindingFragment<VB : ViewBinding> : Fragment() {
     private var _binding : VB? = null

@@ -4,7 +4,11 @@ import okhttp3.HttpUrl
 import com.yxf.vehicleinspection.base.BaseUrlHelper
 import java.lang.reflect.Field
 
-
+/**
+ *   author:yxf
+ *   time:2021/10/6
+ *   运行时修改Retrofit(Okhttp) baseUrl
+ */
 class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
 
     companion object {

@@ -45,7 +45,7 @@ class PersonInspectionRepository {
                 }
             }
             override fun onFailure(call: Call<DataJson>, t: Throwable) {
-                Toast.makeText(MyApp.context,"$t",Toast.LENGTH_LONG).show()
+                Toast.makeText(MyApp.context,"${t.message}",Toast.LENGTH_LONG).show()
             }
         })
         return liveData

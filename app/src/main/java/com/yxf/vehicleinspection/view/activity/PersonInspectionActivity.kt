@@ -1,5 +1,8 @@
 package com.yxf.vehicleinspection.view.activity
 
+import androidx.compose.ui.text.toUpperCase
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -16,6 +19,7 @@ import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModelFactory
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBinding>() {
     lateinit var adapter: PersonInspcetionRvAdapter
@@ -33,9 +37,12 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
 //            BaseUrlHelper.instance.setHostField("192.168.31.70")
             getData(binding.tvSercher.text.toString())
         }
+        binding.tvSercher.doAfterTextChanged {
+            getData(binding.tvSercher.text.toString())
+        }
     }
     private fun getData(hphm : String){
-        viewModel.getData(hphm).observe(this, Observer {
+        viewModel.getData(hphm.uppercase(Locale.getDefault())).observe(this, Observer {
             adapter.setModel(it)
         })
     }

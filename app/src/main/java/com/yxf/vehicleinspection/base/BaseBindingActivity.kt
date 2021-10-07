@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType
 /**
  *   author:yxf
  *   time:2021/9/3
- *
+ *   ViewBinding 在Activity中的封装
  */
 abstract class BaseBindingActivity<VB : ViewBinding> : AppCompatActivity() {
     lateinit var binding: VB
