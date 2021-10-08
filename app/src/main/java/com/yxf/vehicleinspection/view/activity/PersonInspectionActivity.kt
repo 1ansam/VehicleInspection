@@ -37,6 +37,7 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
 //            BaseUrlHelper.instance.setHostField("192.168.31.70")
             getData(binding.tvSercher.text.toString())
         }
+//        在Edittext文字改变后自动获取数据
         binding.tvSercher.doAfterTextChanged {
             getData(binding.tvSercher.text.toString())
         }

@@ -1,5 +1,8 @@
 package com.yxf.vehicleinspection.bean
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 /**
  *   author:yxf
  *   time:2021/9/27
@@ -12,23 +15,27 @@ package com.yxf.vehicleinspection.bean
  *   @param Bz2	性质备注2	varchar(128)
 
  */
+@Entity(tableName = "JsCsCode")
 data class JsCsCode(val Fl : String,
                     val FlMc : String,
                     val Dm : String?,
                     val Mc : String?,
                     val Bz1 : String?,
-                    val Bz2 : String?
+                    val Bz2 : String?,
+                    @PrimaryKey val InfoID : String
 )
 {
     constructor(
         Fl: String,
         FlMc: String,
+        InfoID: String
     ) : this(
         Fl,
         FlMc,
         null,
         null,
         null,
-        null
+        null,
+        InfoID
     )
 }
