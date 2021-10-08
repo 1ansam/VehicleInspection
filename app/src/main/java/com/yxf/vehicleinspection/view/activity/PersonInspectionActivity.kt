@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.activity
 
+import androidx.activity.viewModels
 import androidx.compose.ui.text.toUpperCase
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
@@ -8,12 +9,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.databinding.ActivityPersonInspectionBinding
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
+import com.yxf.vehicleinspection.room.JsCsCodeDatabase
 import com.yxf.vehicleinspection.view.adapter.PersonInspcetionRvAdapter
+import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModel
+import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModelFactory
 import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModel
 import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModelFactory
 import kotlinx.coroutines.GlobalScope
@@ -26,7 +31,8 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
     lateinit var viewModel : PersonInspectionViewModel
     override fun init() {
         viewModel = ViewModelProvider(this, PersonInspectionViewModelFactory(
-            PersonInspectionRepository())).get(PersonInspectionViewModel::class.java)
+            PersonInspectionRepository(JsCsCodeDatabase.getDatabase(this.applicationContext).jsCsCodeDao())))
+            .get(PersonInspectionViewModel::class.java)
         binding.rvPersonInspection.layoutManager = LinearLayoutManager(this)
         adapter = PersonInspcetionRvAdapter(this,null)
         binding.rvPersonInspection.adapter = adapter

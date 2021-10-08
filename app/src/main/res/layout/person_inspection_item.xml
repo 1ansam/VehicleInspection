@@ -54,23 +54,23 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvAjywlb"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:maxLines="1"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="10dp"
                     android:text="@string/AJ" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvHjjwlb"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:maxLines="1"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="10dp"
                     android:text="@string/HB" />

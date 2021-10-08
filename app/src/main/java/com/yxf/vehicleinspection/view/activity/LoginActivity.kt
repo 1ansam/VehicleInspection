@@ -18,7 +18,7 @@ import kotlin.concurrent.thread
 
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     private val TAG = "LoginActivity"
-    val viewModel : JsCsCodeViewModel by viewModels { JsCsCodeViewModelFactory(MyApp.repository) }
+    val viewModel : JsCsCodeViewModel by viewModels { JsCsCodeViewModelFactory(MyApp.jsCsCodeRepository) }
 
     override fun init() {
 

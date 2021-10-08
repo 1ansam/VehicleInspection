@@ -7,8 +7,12 @@ import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.BaseInfo_Hand
 import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.bean.DataJson
+import com.yxf.vehicleinspection.bean.JsCsCode
+import com.yxf.vehicleinspection.room.JsCsCodeDao
 import com.yxf.vehicleinspection.service.DataService
 import com.yxf.vehicleinspection.singleton.RetrofitService
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +21,7 @@ import retrofit2.Response
  *   author:yxf
  *   time:2021/9/29
  */
-class PersonInspectionRepository {
+class PersonInspectionRepository(private val jsCsCodeDao: JsCsCodeDao) {
     private fun getData2(): MutableLiveData<ArrayList<BaseInfo_Hand>> {
         val liveData   = MutableLiveData<ArrayList<BaseInfo_Hand>>()
         val cars = ArrayList<BaseInfo_Hand>()
@@ -36,9 +40,20 @@ class PersonInspectionRepository {
             override fun onResponse(call: Call<DataJson>, response: Response<DataJson>) {
                 if (response.body()?.code.equals("1")){
                     val modelList = ArrayList<Data>()
-                    for (index in 0 until response.body()!!.data.size){
+                    val dataList = response.body()!!.data
+                    for (index in 0 until dataList.size){
                         if (response.body()!!.data[index].hphm.contains(hphm)){
-                            modelList.add(response.body()!!.data[index])
+                            GlobalScope.launch {
+                                val data = Data(jsCsCodeDao.getMc("08",dataList[index].ajywlb),
+                                    jsCsCodeDao.getMc("31",dataList[index].hjywlb),
+                                    dataList[index].hphm,
+                                    jsCsCodeDao.getMc("09",dataList[index].hpzl),
+                                    dataList[index].lsh,
+                                    dataList[index].time
+                                )
+                                modelList.add(data)
+                            }
+
                         }
                     }
                     liveData.value = modelList

@@ -10,9 +10,9 @@ import java.io.Serializable
  * "data": [
  *              {
  *                   "hphm": "晋K02661",
- *                   "hpzl": "小型汽车",
- *                   "ajywlb": "在用车定检",
- *                   "hjywlb": "年检",
+ *                   "hpzl": "02",
+ *                   "ajywlb": "01",
+ *                   "hjywlb": "3",
  *                   "lsh": "D20211001193001",
  *                   "time": "2021-10-01 19:30:01"
  *              }

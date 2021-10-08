@@ -14,6 +14,12 @@ interface JsCsCodeDao {
     @Insert
     fun insertJsCsCode(jsCsCode: JsCsCode)
 
-    @Query("delete from JsCsCode")
+    @Query("DELETE FROM JsCsCode")
     fun deleteAll()
+
+    @Query("SELECT Mc FROM JsCsCode WHERE Fl LIKE :fl AND Dm LIKE :dm LIMIT 1")
+    fun getMc(fl : String, dm : String) : String
+
+    @Query("SELECT Dm FROM JsCsCode WHERE Fl LIKE :fl AND FlMc LIKE :flmc LIMIT 1")
+    fun getDM(fl : String, flmc : String) : String
 }

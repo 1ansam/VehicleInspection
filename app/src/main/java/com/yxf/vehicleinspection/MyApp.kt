@@ -14,7 +14,7 @@ class MyApp : Application(){
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         val database by lazy { JsCsCodeDatabase.getDatabase(context) }
-        val repository by lazy { JsCsCodeRepository(database.jsCsCodeDao()) }
+        val jsCsCodeRepository by lazy { JsCsCodeRepository(database.jsCsCodeDao()) }
     }
 
     override fun onCreate() {
