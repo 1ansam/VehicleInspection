@@ -68,7 +68,7 @@ class PersonInspectionViewHolder(private val binding: PersonInspectionItemBindin
     fun setData(model: Data) {
         binding.tvHphm.text = model.hphm
         binding.tvHpzl.text = model.hpzl
-        binding.tvAjywlb.text = "安检:${model.ajywlb}"
+        binding.tvAjywlb.text = "安检：${model.ajywlb}"
         binding.tvHjjwlb.text = "环保：${model.hjywlb}"
         binding.tvLsh.text = model.lsh
         binding.tvTime.text = model.time

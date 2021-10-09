@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.LayoutInflater
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
@@ -17,6 +18,7 @@ abstract class BaseBindingActivity<VB : ViewBinding> : AppCompatActivity() {
     lateinit var binding: VB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType){
             val clazz = type.actualTypeArguments[0] as Class<VB>

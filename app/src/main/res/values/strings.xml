@@ -43,4 +43,8 @@
     <string name="inspectionCondition">检验情况</string>
     <string name="inspectionDate">检验时间</string>
     <string name="inspectionPersonnel">检验时间</string>
+    <!--签字板-->
+    <string name="back">返回</string>
+    <string name="clear">清除</string>
+    <string name="commit">提交</string>
 </resources>
