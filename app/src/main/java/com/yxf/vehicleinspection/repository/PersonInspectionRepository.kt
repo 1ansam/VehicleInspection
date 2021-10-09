@@ -43,7 +43,7 @@ class PersonInspectionRepository(private val jsCsCodeDao: JsCsCodeDao) {
                     val dataList = response.body()!!.data
                     for (index in 0 until dataList.size){
                         if (response.body()!!.data[index].hphm.contains(hphm)){
-                            modelList = response.body()!!.data
+                            modelList.add(response.body()!!.data[index])
                         }
                     }
                     liveData.value = modelList
