@@ -9,6 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper
  *   time:2021/10/8
  */
 class JsCsCodeDbHelper(val context : Context) : SQLiteOpenHelper(context,"MyDatabase",null,3) {
+    companion object{
+        var DB_VERSION = 3
+        val DB_NAME = "MyDatabase"
+        val TABLE_NAME = "JsCsCode"
+    }
+
     override fun onCreate(p0: SQLiteDatabase?) {
         val sql ="create table if not exists MyDatabase (Fl text, FlMc text, Dm text, Mc text, Bz1 text, Bz2 text)"
         p0?.execSQL(sql)

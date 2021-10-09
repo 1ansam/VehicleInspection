@@ -39,21 +39,11 @@ class PersonInspectionRepository(private val jsCsCodeDao: JsCsCodeDao) {
         call.enqueue(object  : Callback<DataJson>{
             override fun onResponse(call: Call<DataJson>, response: Response<DataJson>) {
                 if (response.body()?.code.equals("1")){
-                    val modelList = ArrayList<Data>()
+                    var modelList = ArrayList<Data>()
                     val dataList = response.body()!!.data
                     for (index in 0 until dataList.size){
                         if (response.body()!!.data[index].hphm.contains(hphm)){
-                            GlobalScope.launch {
-                                val data = Data(jsCsCodeDao.getMc("08",dataList[index].ajywlb),
-                                    jsCsCodeDao.getMc("31",dataList[index].hjywlb),
-                                    dataList[index].hphm,
-                                    jsCsCodeDao.getMc("09",dataList[index].hpzl),
-                                    dataList[index].lsh,
-                                    dataList[index].time
-                                )
-                                modelList.add(data)
-                            }
-
+                            modelList = response.body()!!.data
                         }
                     }
                     liveData.value = modelList

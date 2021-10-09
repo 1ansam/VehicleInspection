@@ -4,6 +4,7 @@ import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.bean.DataJson
 import com.yxf.vehicleinspection.service.DataService
 import com.yxf.vehicleinspection.singleton.RetrofitService
+import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper
 import okhttp3.HttpUrl
 import org.junit.Test
 import retrofit2.Callback
