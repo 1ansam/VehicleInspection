@@ -1,14 +1,18 @@
 package com.yxf.vehicleinspection.view.activity
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Window
 import android.view.WindowInsets
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivitySignatureBinding
+import java.io.ByteArrayOutputStream
 
 class SignatureActivity : BaseBindingActivity<ActivitySignatureBinding>() {
     private val context : Context = this
@@ -26,7 +30,9 @@ class SignatureActivity : BaseBindingActivity<ActivitySignatureBinding>() {
             mPaintView.clear()
         }
         binding.commit.setOnClickListener {
-
+            val base64 = mPaintView.base64
+            val header = "data:image/png;base64"
+            Log.e("Base64", "{$header,$base64}", )
         }
 
     }
@@ -53,5 +59,6 @@ class SignatureActivity : BaseBindingActivity<ActivitySignatureBinding>() {
             return mDisplayMetrics.heightPixels
         }
     }
+
 
 }

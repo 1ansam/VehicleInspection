@@ -2,9 +2,11 @@ package com.yxf.vehicleinspection.view.activity
 
 import android.content.Context
 import android.graphics.*
+import android.util.Base64
 import android.view.MotionEvent
 import com.yxf.vehicleinspection.view.activity.PaintView
 import android.view.View
+import java.io.ByteArrayOutputStream
 
 /**
  * author:yxf
@@ -22,9 +24,9 @@ class PaintView(context: Context, private val screenWidth: Int, private val scre
     init {
         mPaint = Paint()
         mPaint.isAntiAlias = true // 去除锯齿
-        mPaint.strokeWidth = 5f
-        mPaint.style = Paint.Style.STROKE
-        mPaint.color = Color.BLACK
+        mPaint.strokeWidth = 10f //画笔宽度
+        mPaint.style = Paint.Style.STROKE //style = 签字笔
+        mPaint.color = Color.BLACK //画笔颜色
         path = Path()
         mBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888)
         mCanvas = Canvas(mBitmap)
@@ -57,7 +59,31 @@ class PaintView(context: Context, private val screenWidth: Int, private val scre
     }
 
     val paintBitmap: Bitmap
-        get() = resizeImage(mBitmap, 320, 480)
+        get() = resizeImage(mBitmap, 480, 320)
+
+    val base64 : String
+        get() = bitmap2Base64(paintBitmap)
+    fun bitmap2Base64(bitmap: Bitmap) : String{
+
+        var baos : ByteArrayOutputStream? = null
+        try {
+            if (bitmap != null){
+                baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+                baos.flush()
+                baos.close()
+                val bitmapBytes = baos.toByteArray()
+                return Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
+            }
+        }catch (e : Exception){
+            e.message
+        }
+        finally {
+            baos?.flush()
+            baos?.close()
+        }
+        return ""
+    }
 
     //清除画板
     fun clear() {
