@@ -2,8 +2,12 @@ package com.yxf.vehicleinspection.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.activity.viewModels
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityHomeBinding
+import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModel
+import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModelFactory
 
 class HomeActivity : BaseBindingActivity<ActivityHomeBinding>() {
     @SuppressLint("ResourceAsColor")
@@ -16,6 +20,10 @@ class HomeActivity : BaseBindingActivity<ActivityHomeBinding>() {
         binding.btnVerifySignature.setOnClickListener {
             val intent = Intent(this,SignatureActivity::class.java)
             startActivity(intent)
+        }
+        binding.btnNotRegisterVehicleInspection.setOnClickListener {
+            val viewModel : JsCsCodeViewModel by viewModels { JsCsCodeViewModelFactory(MyApp.jsCsCodeRepository) }
+            viewModel.downloadJsCsCode()
         }
     }
 

@@ -18,8 +18,8 @@ import retrofit2.Response
  *   time:2021/10/8
  */
 class JsCsCodeRepository(private val dao: JsCsCodeDao) {
-    suspend fun insertJsCsCode(jsCsCode: JsCsCode){
-        dao.insertJsCsCode(jsCsCode)
+    suspend fun insertJsCsCode(jsCsCodeList: List<JsCsCode>){
+        dao.insertJsCsCode(jsCsCodeList)
     }
     suspend fun deleteAll(){
         dao.deleteAll()
@@ -32,17 +32,26 @@ class JsCsCodeRepository(private val dao: JsCsCodeDao) {
                 call: Call<List<JsCsCode>>,
                 response: Response<List<JsCsCode>>
             ) {
-                GlobalScope.launch{
-                    coroutineScope {
-                        deleteAll()
-                    }
-                    val list = response.body()
-                    if (list != null){
-                        for (index in 0 until list.size){
-                            insertJsCsCode(list[index])
+                val list = response.body()
+                if (list != null){
+
+                    GlobalScope.launch{
+                        coroutineScope {
+                            launch {
+                                deleteAll()
+                            }
+                            launch {
+                                insertJsCsCode(list)
+                            }
+
                         }
+
                     }
+
+
+
                 }
+
 
 
             }

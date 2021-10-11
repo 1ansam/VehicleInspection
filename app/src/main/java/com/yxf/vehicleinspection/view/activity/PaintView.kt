@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.Base64
 import android.view.MotionEvent
-import com.yxf.vehicleinspection.view.activity.PaintView
 import android.view.View
 import java.io.ByteArrayOutputStream
 
@@ -12,17 +11,16 @@ import java.io.ByteArrayOutputStream
  * author:yxf
  * time:2021/10/9
  */
-class PaintView(context: Context, private val screenWidth: Int, private val screenHeight: Int) :
+class PaintView(context: Context, screenWidth: Int, screenHeight: Int) :
     View(context) {
-    private lateinit var mPaint: Paint
-    lateinit var path: Path
+    private var mPaint: Paint = Paint()
+    var path: Path
         private set
-    private lateinit var mBitmap: Bitmap
-    private lateinit var mCanvas: Canvas
+    private var mBitmap: Bitmap
+    private var mCanvas: Canvas
     private var currentX = 0f
     private var currentY = 0f
     init {
-        mPaint = Paint()
         mPaint.isAntiAlias = true // 去除锯齿
         mPaint.strokeWidth = 10f //画笔宽度
         mPaint.style = Paint.Style.STROKE //style = 签字笔
@@ -67,14 +65,12 @@ class PaintView(context: Context, private val screenWidth: Int, private val scre
 
         var baos : ByteArrayOutputStream? = null
         try {
-            if (bitmap != null){
-                baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-                baos.flush()
-                baos.close()
-                val bitmapBytes = baos.toByteArray()
-                return Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
-            }
+            baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            baos.flush()
+            baos.close()
+            val bitmapBytes = baos.toByteArray()
+            return Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
         }catch (e : Exception){
             e.message
         }

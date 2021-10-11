@@ -3,7 +3,6 @@ package com.yxf.vehicleinspection.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.BaseInfo_Hand
 import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
 import java.lang.IllegalArgumentException

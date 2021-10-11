@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.bean.InspectionInfoBean
 import com.yxf.vehicleinspection.bean.InspectionInfoItemBean
 
+
 /**
  *   author:yxf
  *   time:2021/9/29

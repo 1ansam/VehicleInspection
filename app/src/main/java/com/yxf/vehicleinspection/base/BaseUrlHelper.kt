@@ -90,6 +90,7 @@ class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
         //此处BaseApi的生成，可以参考上一小节的内容
         private val baseApi: String
 //            private get() = "http://192.168.31.70:8066"
-            private get() = "http://192.168.2.156:8066"
+//            private get() = "http://192.168.2.156:8066"
+            private get() = "http://192.168.2.157:10000"
     }
 }

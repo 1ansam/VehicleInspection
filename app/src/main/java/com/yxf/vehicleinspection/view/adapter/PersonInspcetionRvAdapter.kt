@@ -3,11 +3,9 @@ package com.yxf.vehicleinspection.view.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yxf.vehicleinspection.bean.BaseInfo_Hand
 import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper

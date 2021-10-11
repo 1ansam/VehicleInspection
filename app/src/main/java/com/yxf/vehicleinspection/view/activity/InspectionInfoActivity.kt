@@ -1,10 +1,8 @@
 package com.yxf.vehicleinspection.view.activity
 
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingActivity
-import com.yxf.vehicleinspection.bean.BaseInfo_Hand
 import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.databinding.ActivityInspectionInfoBinding
 import com.yxf.vehicleinspection.repository.InspectionInfoRepository

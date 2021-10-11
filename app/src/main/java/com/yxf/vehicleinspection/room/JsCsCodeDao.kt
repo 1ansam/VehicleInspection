@@ -12,7 +12,7 @@ import com.yxf.vehicleinspection.bean.JsCsCode
 @Dao
 interface JsCsCodeDao {
     @Insert
-    fun insertJsCsCode(jsCsCode: JsCsCode)
+    fun insertJsCsCode(jsCsCode: List<JsCsCode>)
 
     @Query("DELETE FROM JsCsCode")
     fun deleteAll()
