@@ -81,6 +81,6 @@ dependencies {
     // Integration with observables
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0-rc02")
     implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-rc02")
-    implementation "se.warting.signature:signature-view:0.0.8"
     implementation 'com.guolindev.permissionx:permissionx:1.5.1'
+    implementation 'com.google.code.gson:gson:2.8.8'
 }

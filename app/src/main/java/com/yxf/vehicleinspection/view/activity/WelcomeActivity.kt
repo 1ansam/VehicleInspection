@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.permissionx.guolindev.PermissionX
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
+import com.yxf.vehicleinspection.utils.IpHelper
 
 class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 
@@ -18,18 +19,17 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .request { allGranted, grantedList, deniedList ->
                 if (allGranted) {
-                    Toast.makeText(this, "已获取所需权限", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "已获取所需权限", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this,
                         "未获取到: $deniedList",
                         Toast.LENGTH_LONG).show()
                 }
-
-                binding.btnStartEnjoy.setOnClickListener {
-                    intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
             }
+        binding.btnStartEnjoy.setOnClickListener {
+            intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.Data
+import com.yxf.vehicleinspection.bean.VehicleQueue
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper
 import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
@@ -18,7 +19,7 @@ import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
 class PersonInspcetionRvAdapter(
 
     private val context: Context,
-    private var modelList: ArrayList<Data>?,
+    private var modelList: ArrayList<VehicleQueue>?,
 ) : RecyclerView.Adapter<PersonInspectionViewHolder>() {
 
     lateinit var binding: PersonInspectionItemBinding
@@ -31,12 +32,8 @@ class PersonInspcetionRvAdapter(
 
     override fun onBindViewHolder(holder: PersonInspectionViewHolder, position: Int) {
         if (modelList != null){
-            val vehicle = Data(tableJsCsCodeHelper.getMc("08",modelList!![position].ajywlb),
-                tableJsCsCodeHelper.getMc("31",modelList!![position].hjywlb),
-                modelList!![position].hphm,
-                tableJsCsCodeHelper.getMc("09",modelList!![position].hpzl),
-                modelList!![position].lsh,
-                modelList!![position].time)
+            val vehicle = modelList!![position]
+
             holder.setData(vehicle)
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, InspectionInfoActivity::class.java)
@@ -54,7 +51,7 @@ class PersonInspcetionRvAdapter(
 
         return modelList?.size ?:0
     }
-    fun setModel(modelList : ArrayList<Data>){
+    fun setModel(modelList : ArrayList<VehicleQueue>){
         this.modelList = modelList
         notifyDataSetChanged()
     }
@@ -63,12 +60,12 @@ class PersonInspcetionRvAdapter(
 
 class PersonInspectionViewHolder(private val binding: PersonInspectionItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setData(model: Data) {
-        binding.tvHphm.text = model.hphm
-        binding.tvHpzl.text = model.hpzl
-        binding.tvAjywlb.text = "安检：${model.ajywlb}"
-        binding.tvHjjwlb.text = "环保：${model.hjywlb}"
-        binding.tvLsh.text = model.lsh
-        binding.tvTime.text = model.time
+    fun setData(model: VehicleQueue) {
+        binding.tvHphm.text = model.Hphm
+        binding.tvHpzl.text = model.Hpzl
+        binding.tvAjywlb.text = "安检：${model.Ajywlb}"
+        binding.tvHjjwlb.text = "环保：${model.Hjywlb}"
+        binding.tvLsh.text = model.Lsh
+        binding.tvTime.text = model.HpzlCc
     }
 }
