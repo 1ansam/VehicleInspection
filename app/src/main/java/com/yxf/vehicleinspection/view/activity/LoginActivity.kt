@@ -5,8 +5,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
-import com.yxf.vehicleinspection.bean.QueryResponse
-import com.yxf.vehicleinspection.bean.UserInfoJsonData
+import com.yxf.vehicleinspection.bean.CommonResponse
+import com.yxf.vehicleinspection.bean.request.UserInfoRequest
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -29,13 +29,13 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 Toast.makeText(this, "用户名或密码为空", Toast.LENGTH_SHORT).show()
             } else {
                 val service = RetrofitService.create(WriteService::class.java)
-                val userInfoJsonData = GsonSingleton.getGson().toJson(
-                    UserInfoJsonData(
+                val userInfoRequest = GsonSingleton.getGson().toJson(
+                    UserInfoRequest(
                         binding.tvUsername.text.toString(),
                         binding.tvPassword.text.toString(),
                         IpHelper.getIpAddress())
                 )
-                val call = service.query("LYYDJKW001", IpHelper.getIpAddress(), userInfoJsonData)
+                val call = service.query("LYYDJKW001", IpHelper.getIpAddress(), userInfoRequest)
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
                         call: Call<ResponseBody>,
@@ -45,7 +45,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                             //.string只允许调用一次
                             val stringResponse = response.body()?.string()
                             val queryResponse = GsonSingleton.getGson()
-                                .fromJson(stringResponse, QueryResponse::class.java)
+                                .fromJson(stringResponse, CommonResponse::class.java)
                             if (queryResponse.Code.equals("1")) {
 //                                val userInfoList = ArrayList<UserInfo>()
 //                                for (index in 0 until queryResponse.Body?.size!!) {

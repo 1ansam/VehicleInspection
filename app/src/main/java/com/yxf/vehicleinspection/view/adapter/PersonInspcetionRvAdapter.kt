@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yxf.vehicleinspection.bean.Data
-import com.yxf.vehicleinspection.bean.VehicleQueue
+import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper
 import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
@@ -19,7 +18,7 @@ import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
 class PersonInspcetionRvAdapter(
 
     private val context: Context,
-    private var modelList: ArrayList<VehicleQueue>?,
+    private var modelList: ArrayList<VehicleQueueResponse>?,
 ) : RecyclerView.Adapter<PersonInspectionViewHolder>() {
 
     lateinit var binding: PersonInspectionItemBinding
@@ -51,7 +50,7 @@ class PersonInspcetionRvAdapter(
 
         return modelList?.size ?:0
     }
-    fun setModel(modelList : ArrayList<VehicleQueue>){
+    fun setModel(modelList : ArrayList<VehicleQueueResponse>){
         this.modelList = modelList
         notifyDataSetChanged()
     }
@@ -60,7 +59,7 @@ class PersonInspcetionRvAdapter(
 
 class PersonInspectionViewHolder(private val binding: PersonInspectionItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setData(model: VehicleQueue) {
+    fun setData(model: VehicleQueueResponse) {
         binding.tvHphm.text = model.Hphm
         binding.tvHpzl.text = model.Hpzl
         binding.tvAjywlb.text = "安检：${model.Ajywlb}"

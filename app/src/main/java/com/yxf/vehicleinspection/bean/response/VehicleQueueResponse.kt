@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.bean
+package com.yxf.vehicleinspection.bean.response
 
 import java.io.Serializable
 
@@ -20,7 +20,7 @@ import java.io.Serializable
  *   @param HjywlbCc 环检业务类别汉字
 
  */
-data class VehicleQueue (
+data class VehicleQueueResponse (
     val Lsh : String?,
     val Hphm : String?,
     val Hpzl : String?,

@@ -5,7 +5,7 @@ package com.yxf.vehicleinspection.bean
  *   time:2021/10/11
  *   查询接口返回数据类型
  */
-data class  QueryResponse<T>(
+data class  CommonResponse<T>(
 
     val Body: List<T>?,
     val Code: String?,

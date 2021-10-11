@@ -1,18 +1,16 @@
 package com.yxf.vehicleinspection.repository
 
-import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.Data
-import com.yxf.vehicleinspection.bean.QueryResponse
-import com.yxf.vehicleinspection.bean.VehicleQueue
+import com.yxf.vehicleinspection.bean.CommonResponse
+import com.yxf.vehicleinspection.bean.request.VehicleQueueRequset
+import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.room.JsCsCodeDao
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.IpHelper
-import com.yxf.vehicleinspection.view.activity.HomeActivity
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,25 +21,26 @@ import retrofit2.Response
  *   time:2021/9/29
  */
 class PersonInspectionRepository(private val jsCsCodeDao: JsCsCodeDao) {
-    fun getData(hphm : String) : MutableLiveData<ArrayList<VehicleQueue>>{
-        val liveData = MutableLiveData<ArrayList<VehicleQueue>>()
+    fun getData(hphm : String) : MutableLiveData<ArrayList<VehicleQueueResponse>>{
+        val liveData = MutableLiveData<ArrayList<VehicleQueueResponse>>()
 
         val dataService = RetrofitService.create(QueryService::class.java)
-        val call = dataService.query("LYYDJKR002",IpHelper.getIpAddress(),"{}")
+        val vehicleQueueResquset = GsonSingleton.getGson().toJson(VehicleQueueRequset(hphm))
+        val call = dataService.query("LYYDJKR002",IpHelper.getIpAddress(),vehicleQueueResquset)
         call.enqueue(object  : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     //.string只允许调用一次
                     val stringResponse = response.body()?.string()
                     val queryResponse = GsonSingleton.getGson()
-                        .fromJson(stringResponse, QueryResponse::class.java)
+                        .fromJson(stringResponse, CommonResponse::class.java)
                     if (queryResponse.Code.equals("1")) {
-                                val userInfoList = ArrayList<VehicleQueue>()
+                                val userInfoList = ArrayList<VehicleQueueResponse>()
                                 for (index in 0 until queryResponse.Body?.size!!) {
                                     val bodyJson =
                                         GsonSingleton.getGson().toJson(queryResponse.Body[index])
                                     userInfoList.add(GsonSingleton.getGson()
-                                        .fromJson(bodyJson, VehicleQueue::class.java))
+                                        .fromJson(bodyJson, VehicleQueueResponse::class.java))
                                 }
                         liveData.value = userInfoList
 
