@@ -16,6 +16,7 @@ import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
+import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.IpHelper
 import com.yxf.vehicleinspection.utils.JsonDataHelper
 import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModel
@@ -33,6 +34,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
 
     override fun init() {
+        binding.tvUsername.setText(SharedP.getInstance().getString("username",null))
         val viewModel = ViewModelProvider(this,
             LoginViewModelFactory(UserInfoRepository())).get(LoginViewModel::class.java)
         binding.btnLogin.setOnClickListener {
@@ -43,15 +45,23 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                     binding.tvUsername.text.toString(),
                     binding.tvPassword.text.toString()).observe(this, Observer {
                     if (it) {
+                        if (binding.cbRememberUsername.isChecked){
+                            SharedP.getInstance().edit().apply{
+                                putString("username",binding.tvUsername.text.toString())
+                                apply()
+                            }
+                        }
+
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
                 })
-
             }
 
         }
+
     }
+
 
 }

@@ -14,7 +14,7 @@
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPersonInspection"
+        android:id="@+id/rvVehicleQueue"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline20" >
 
     </androidx.recyclerview.widget.RecyclerView>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -41,17 +42,18 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <TextView
-            android:id="@+id/tvPersonInspctionTitle"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:drawableLeft="@drawable/ic_car"
             android:gravity="center|left"
-            android:text="@string/InspectionVehicleTitle"
             android:textSize="24sp"
+            android:text="@string/vehicleQueueTitle"
             app:layout_constraintBottom_toTopOf="@+id/guideline18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <EditText
             android:id="@+id/tvSercher"
@@ -71,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnSercher"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPersonInspctionTitle">
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
         </EditText>
 

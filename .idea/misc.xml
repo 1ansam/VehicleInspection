@@ -26,11 +26,19 @@
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_main.xml" value="0.1296875" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_person_insection.xml" value="0.176" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_person_inspection.xml" value="0.264" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_verify_signature.xml" value="0.2" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_welcome.xml" value="0.176" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/image_item.xml" value="0.4" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/inspection_info_item.xml" value="0.264" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/material_button.xml" value="0.1585144927536232" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/person_inspection_item.xml" value="0.4" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/queue_title.xml" value="0.10885416666666667" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vehicle_image_item.xml" value="0.16799999999999998" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vehicle_info_item.xml" value="0.1390625" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vehicle_queue.xml" value="0.1296875" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vehicle_queue_rv.xml" value="0.1296875" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vehicle_verify.xml" value="0.1296875" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vehicle_video_item.xml" value="0.10885416666666667" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/vihicle_info_item.xml" value="0.264" />
         <entry key="..\:/Users/yxf/AndroidStudioProjects/VehicleInspection/app/src/main/res/layout/activity_data_binding.xml" value="0.1" />
         <entry key="..\:/Users/yxf/AndroidStudioProjects/VehicleInspection/app/src/main/res/layout/activity_person_inspection.xml" value="0.1636271529888551" />

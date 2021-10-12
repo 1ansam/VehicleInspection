@@ -26,10 +26,6 @@ import retrofit2.Response
  *   time:2021/10/12
  */
 class UserInfoRepository {
-    private var isLoginSuccess = false
-    fun getLoginState(): Boolean {
-        return isLoginSuccess
-    }
 
     fun getUserInfo(): LiveData<List<UserInfoResponse>> {
         val liveData = MutableLiveData<List<UserInfoResponse>>()

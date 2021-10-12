@@ -3,6 +3,7 @@ package com.yxf.vehicleinspection.view.activity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityPersonInspectionBinding
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
@@ -19,10 +20,10 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
         viewModel = ViewModelProvider(this, PersonInspectionViewModelFactory(
             PersonInspectionRepository()))
             .get(PersonInspectionViewModel::class.java)
-        binding.rvPersonInspection.layoutManager = LinearLayoutManager(this)
+        binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this)
         adapter = PersonInspcetionRvAdapter(this,null)
-        binding.rvPersonInspection.adapter = adapter
-        binding.rvPersonInspection.setHasFixedSize(true)
+        binding.rvVehicleQueue.adapter = adapter
+        binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")
         binding.btnSercher.setOnClickListener {
 //            修改使用BaseUrlHelper类反射方法

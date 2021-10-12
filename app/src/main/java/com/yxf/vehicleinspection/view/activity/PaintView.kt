@@ -5,6 +5,7 @@ import android.graphics.*
 import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
+import com.yxf.vehicleinspection.utils.ImageChange.bitmap2Base64
 import java.io.ByteArrayOutputStream
 
 /**
@@ -61,25 +62,7 @@ class PaintView(context: Context, screenWidth: Int, screenHeight: Int) :
 
     val base64 : String
         get() = bitmap2Base64(paintBitmap)
-    fun bitmap2Base64(bitmap: Bitmap) : String{
 
-        var baos : ByteArrayOutputStream? = null
-        try {
-            baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-            baos.flush()
-            baos.close()
-            val bitmapBytes = baos.toByteArray()
-            return Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
-        }catch (e : Exception){
-            e.message
-        }
-        finally {
-            baos?.flush()
-            baos?.close()
-        }
-        return ""
-    }
 
     //清除画板
     fun clear() {

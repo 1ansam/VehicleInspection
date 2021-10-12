@@ -1,4 +1,5 @@
 <resources>
+    <string name="vehicleQueueTitle">查询车辆</string>
     <!--欢迎界面-->
     <string name="app_name">车辆检验</string>
     <string name="corporationName">良源科技</string>
@@ -19,7 +20,7 @@
     <string name="verifySignature">审核签字</string>
     <string name="vehicleInfomation">车辆信息明细</string>
     <!--人工查验界面-->
-    <string name="InspectionVehicleTitle">人工检验-查询车辆</string>
+
     <string name="WaitInspection">待检</string>
     <string name="Inspection">检验</string>
     <string name="notRegistered">未登记</string>
@@ -44,7 +45,10 @@
     <string name="inspectionCondition">检验情况</string>
     <string name="inspectionDate">检验时间</string>
     <string name="inspectionPersonnel">检验时间</string>
-    <!--签字板-->
+    <!--签字审核-->
+    <string name="pass">通过</string>
+    <string name="reject">驳回</string>
+    <string name="exit">退出</string>
     <string name="back">返回</string>
     <string name="clear">清除</string>
     <string name="commit">提交</string>

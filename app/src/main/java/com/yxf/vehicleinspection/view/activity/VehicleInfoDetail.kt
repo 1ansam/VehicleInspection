@@ -5,7 +5,6 @@ import com.yxf.vehicleinspection.databinding.ActivityVehicleInfoDetailBinding
 
 class VehicleInfoDetail : BaseBindingActivity<ActivityVehicleInfoDetailBinding>() {
     override fun init() {
-        TODO("Not yet implemented")
     }
 
 }

@@ -18,7 +18,7 @@ class HomeActivity : BaseBindingActivity<ActivityHomeBinding>() {
             startActivity(intent)
         }
         binding.btnVerifySignature.setOnClickListener {
-            val intent = Intent(this,SignatureActivity::class.java)
+            val intent = Intent(this,VerifySignatureActivity::class.java)
             startActivity(intent)
         }
         binding.btnNotRegisterVehicleInspection.setOnClickListener {

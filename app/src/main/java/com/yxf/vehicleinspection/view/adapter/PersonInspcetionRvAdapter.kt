@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper
 import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
+import com.yxf.vehicleinspection.view.activity.SignatureActivity
 
 /**
  *   author:yxf
@@ -31,11 +32,11 @@ class PersonInspcetionRvAdapter(
 
     override fun onBindViewHolder(holder: PersonInspectionViewHolder, position: Int) {
         if (modelList != null){
-            val vehicle = modelList!![position]
+            val model = modelList!![position]
 
-            holder.setData(vehicle)
+            holder.setData(model)
             holder.itemView.setOnClickListener {
-                val intent = Intent(context, InspectionInfoActivity::class.java)
+                val intent = Intent(context, SignatureActivity::class.java)
                 val bundle = Bundle()
                 bundle.putSerializable("key", modelList!![position])
                 intent.putExtra("bundle", bundle)
