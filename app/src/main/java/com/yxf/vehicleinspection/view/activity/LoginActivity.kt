@@ -5,7 +5,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
-import com.yxf.vehicleinspection.bean.CommonResponse
+import com.yxf.vehicleinspection.bean.request.CommonRequest
+import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.request.UserInfoRequest
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.service.WriteService
@@ -15,6 +16,7 @@ import com.yxf.vehicleinspection.utils.IpHelper
 import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModel
 import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModelFactory
 import okhttp3.ResponseBody
+import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,13 +31,14 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 Toast.makeText(this, "用户名或密码为空", Toast.LENGTH_SHORT).show()
             } else {
                 val service = RetrofitService.create(WriteService::class.java)
-                val userInfoRequest = GsonSingleton.getGson().toJson(
-                    UserInfoRequest(
-                        binding.tvUsername.text.toString(),
-                        binding.tvPassword.text.toString(),
-                        IpHelper.getIpAddress())
-                )
-                val call = service.query("LYYDJKW001", IpHelper.getIpAddress(), userInfoRequest)
+                val requestArray = ArrayList<UserInfoRequest>()
+                requestArray.add(UserInfoRequest(
+                    binding.tvUsername.text.toString(),
+                    binding.tvPassword.text.toString(),
+                    IpHelper.getIpAddress()))
+
+                val commonRequestString = GsonSingleton.getGson().toJson(CommonRequest(requestArray))
+                val call = service.write("LYYDJKW001", IpHelper.getIpAddress(), commonRequestString)
                 call.enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
                         call: Call<ResponseBody>,

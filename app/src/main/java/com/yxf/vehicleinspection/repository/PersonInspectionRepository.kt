@@ -3,7 +3,8 @@ package com.yxf.vehicleinspection.repository
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.CommonResponse
+import com.yxf.vehicleinspection.bean.request.CommonRequest
+import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.request.VehicleQueueRequset
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.room.JsCsCodeDao
@@ -25,8 +26,10 @@ class PersonInspectionRepository(private val jsCsCodeDao: JsCsCodeDao) {
         val liveData = MutableLiveData<ArrayList<VehicleQueueResponse>>()
 
         val dataService = RetrofitService.create(QueryService::class.java)
-        val vehicleQueueResquset = GsonSingleton.getGson().toJson(VehicleQueueRequset(hphm))
-        val call = dataService.query("LYYDJKR002",IpHelper.getIpAddress(),vehicleQueueResquset)
+        val vehicleQueueArray = ArrayList<VehicleQueueRequset>()
+        vehicleQueueArray.add(VehicleQueueRequset(hphm))
+        val commonRequestString = GsonSingleton.getGson().toJson(CommonRequest(vehicleQueueArray))
+        val call = dataService.query("LYYDJKR002",IpHelper.getIpAddress(),commonRequestString)
         call.enqueue(object  : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {

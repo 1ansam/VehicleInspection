@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.BaseUrlHelper
-import com.yxf.vehicleinspection.bean.Data
 import com.yxf.vehicleinspection.databinding.ActivityPersonInspectionBinding
 import com.yxf.vehicleinspection.repository.PersonInspectionRepository
 import com.yxf.vehicleinspection.room.JsCsCodeDatabase
@@ -44,9 +43,9 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
             getData(binding.tvSercher.text.toString())
         }
 //        在Edittext文字改变后自动获取数据
-        binding.tvSercher.doAfterTextChanged {
-            getData(binding.tvSercher.text.toString())
-        }
+//        binding.tvSercher.doAfterTextChanged {
+//            getData(binding.tvSercher.text.toString())
+//        }
     }
     private fun getData(hphm : String){
         viewModel.getData(hphm.uppercase(Locale.getDefault())).observe(this, Observer {

@@ -61,10 +61,11 @@ class PersonInspectionViewHolder(private val binding: PersonInspectionItemBindin
     RecyclerView.ViewHolder(binding.root) {
     fun setData(model: VehicleQueueResponse) {
         binding.tvHphm.text = model.Hphm
-        binding.tvHpzl.text = model.Hpzl
-        binding.tvAjywlb.text = "安检：${model.Ajywlb}"
-        binding.tvHjjwlb.text = "环保：${model.Hjywlb}"
+        binding.tvHpzl.text = model.HpzlCc
+        binding.tvAjywlb.text = "安检：${model.AjywlbCc}"
+        binding.tvHjjwlb.text = "环保：${model.HjywlbCc}"
         binding.tvLsh.text = model.Lsh
-        binding.tvTime.text = model.HpzlCc
+        binding.tvTime.text = model.Djrq?.substring(0,16)
+        binding.tvInspectionState.text = model.Jyzt
     }
 }

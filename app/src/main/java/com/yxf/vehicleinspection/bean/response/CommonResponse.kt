@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.bean
+package com.yxf.vehicleinspection.bean.response
 
 /**
  *   author:yxf

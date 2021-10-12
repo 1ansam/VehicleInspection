@@ -20,7 +20,8 @@
     <string name="vehicleInfomation">车辆信息明细</string>
     <!--人工查验界面-->
     <string name="InspectionVehicleTitle">人工检验-查询车辆</string>
-    <string name="Registered">已登记</string>
+    <string name="WaitInspection">待检</string>
+    <string name="Inspection">检验</string>
     <string name="notRegistered">未登记</string>
     <string name="AJ">安检</string>
     <string name="HB">环保</string>

@@ -3,7 +3,7 @@ package com.yxf.vehicleinspection.view.activity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingActivity
-import com.yxf.vehicleinspection.bean.Data
+import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.ActivityInspectionInfoBinding
 import com.yxf.vehicleinspection.repository.InspectionInfoRepository
 import com.yxf.vehicleinspection.view.adapter.InspectionInfoRvAdapter
@@ -14,7 +14,7 @@ class InspectionInfoActivity : BaseBindingActivity<ActivityInspectionInfoBinding
     private val TAG = "InspectionInfoActivity"
     override fun init() {
         val bundle = intent.getBundleExtra("bundle")
-        val data: Data = bundle?.getSerializable("key") as Data
+        val data: VehicleQueueResponse = bundle?.getSerializable("key") as VehicleQueueResponse
         val viewModel = ViewModelProvider(this, InspectionInfoViewModelFactory(
             InspectionInfoRepository())).get(InspectionInfoViewModel::class.java)
         if (viewModel.inspectionInfoData.value != null) {

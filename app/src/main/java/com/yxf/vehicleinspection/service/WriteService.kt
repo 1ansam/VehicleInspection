@@ -11,7 +11,7 @@ import retrofit2.http.Query
  */
 interface WriteService {
     @POST("VehicleInspection/Write")
-    fun  query(
+    fun  write(
         @Query("jkId") jkId: String,
         @Query("zdbs") zdbs: String,
         @Query("jsonData") jsonData: String,

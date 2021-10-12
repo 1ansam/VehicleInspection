@@ -45,11 +45,11 @@
                     android:text="@string/hpzl" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvRegister"
+                    android:id="@+id/tvInspectionState"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/lightBlue"
-                    android:text="@string/Registered" />
+                    android:text="@string/WaitInspection" />
             </LinearLayout>
 
             <LinearLayout
