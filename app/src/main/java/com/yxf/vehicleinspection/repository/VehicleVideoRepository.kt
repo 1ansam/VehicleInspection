@@ -4,9 +4,10 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.bean.request.VehicleVideoRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.request.VehicleQueueRequset
-import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
+import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
+import com.yxf.vehicleinspection.bean.response.VehicleVideoResponse
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -20,16 +21,15 @@ import retrofit2.Response
 
 /**
  *   author:yxf
- *   time:2021/9/29
+ *   time:2021/10/12
  */
-class PersonInspectionRepository {
-    fun getDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
-        val liveData = MutableLiveData<List<VehicleQueueResponse>>()
-        val dataService = RetrofitService.create(QueryService::class.java)
-        val call = dataService.query(
-            ApiStatic.QUERY_VEHICLE_QUEUE,
+class VehicleVideoRepository {
+    fun getVehicleVideo(Lsh : String, Jccs : String?) : LiveData<List<VehicleVideoResponse>> {
+        val liveData = MutableLiveData<List<VehicleVideoResponse>>()
+        val call = RetrofitService.create(QueryService::class.java).query(
+            ApiStatic.QUERY_VEHICLE_VIDEO,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(VehicleQueueRequset(hphm))
+            JsonDataHelper.getJsonData(VehicleVideoRequest(Lsh, Jccs))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -39,15 +39,14 @@ class PersonInspectionRepository {
                     val commonResponse = GsonSingleton.getGson()
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
-                        val userInfoList = ArrayList<VehicleQueueResponse>()
+                        val vehicleVideoList = ArrayList<VehicleVideoResponse>()
                         for (index in 0 until commonResponse.Body.size) {
                             val bodyJson =
                                 GsonSingleton.getGson().toJson(commonResponse.Body[index])
-                            userInfoList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleQueueResponse::class.java))
+                            vehicleVideoList.add(GsonSingleton.getGson()
+                                .fromJson(bodyJson, VehicleVideoResponse::class.java))
                         }
-                        liveData.value = userInfoList
-
+                        liveData.value = vehicleVideoList
 
                     } else {
                         Toast.makeText(MyApp.context,
@@ -62,7 +61,9 @@ class PersonInspectionRepository {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(MyApp.context, "${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(MyApp.context,
+                    t.message,
+                    Toast.LENGTH_LONG).show()
             }
         })
         return liveData

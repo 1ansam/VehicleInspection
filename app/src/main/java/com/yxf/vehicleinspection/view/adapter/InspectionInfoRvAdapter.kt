@@ -15,7 +15,7 @@ import com.yxf.vehicleinspection.viewModel.InspectionInfoViewModel
  *   author:yxf
  *   time:2021/9/29
  */
-class InspectionInfoRvAdapter(private val context : Context,  private val modelList : ArrayList<InspectionInfoBean>) : RecyclerView.Adapter<InspectionInfoViewHolder>(){
+class InspectionInfoRvAdapter(private val context : Context,  private val modelList : List<InspectionInfoBean>) : RecyclerView.Adapter<InspectionInfoViewHolder>(){
     lateinit var binding : InspectionInfoItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InspectionInfoViewHolder {
         binding = InspectionInfoItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)

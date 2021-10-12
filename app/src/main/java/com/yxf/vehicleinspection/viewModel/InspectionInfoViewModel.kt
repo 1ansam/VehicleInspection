@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +13,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/9/29
  */
 class InspectionInfoViewModel(private val repository: InspectionInfoRepository) : ViewModel() {
-    var inspectionInfoData: MutableLiveData<ArrayList<InspectionInfoBean>> =
+    var inspectionInfoData: LiveData<List<InspectionInfoBean>> =
         repository.inspectionInfoData
 }
 

@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +13,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/9/29
  */
 class PersonInspectionViewModel(private val repository: PersonInspectionRepository) : ViewModel() {
-    fun getData(hphm : String) : MutableLiveData<ArrayList<VehicleQueueResponse>> = repository.getData(hphm)
+    fun getDataQueue(hphm : String) : LiveData<List<VehicleQueueResponse>> = repository.getDataQueue(hphm)
 }
 
 class PersonInspectionViewModelFactory(private val repository: PersonInspectionRepository) :

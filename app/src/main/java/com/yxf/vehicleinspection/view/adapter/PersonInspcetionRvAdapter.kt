@@ -18,7 +18,7 @@ import com.yxf.vehicleinspection.view.activity.InspectionInfoActivity
 class PersonInspcetionRvAdapter(
 
     private val context: Context,
-    private var modelList: ArrayList<VehicleQueueResponse>?,
+    private var modelList: List<VehicleQueueResponse>?,
 ) : RecyclerView.Adapter<PersonInspectionViewHolder>() {
 
     lateinit var binding: PersonInspectionItemBinding
@@ -50,7 +50,7 @@ class PersonInspcetionRvAdapter(
 
         return modelList?.size ?:0
     }
-    fun setModel(modelList : ArrayList<VehicleQueueResponse>){
+    fun setModel(modelList : List<VehicleQueueResponse>){
         this.modelList = modelList
         notifyDataSetChanged()
     }
