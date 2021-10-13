@@ -30,9 +30,13 @@
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_vehicle_image_video.xml" value="0.19202898550724637" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_verify_signature.xml" value="0.2" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/activity_welcome.xml" value="0.176" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_charge.xml" value="0.1421875" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_dispatch.xml" value="0.1296875" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_nav_host.xml" value="0.19202898550724637" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_register.xml" value="0.1421875" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_signature.xml" value="0.17980072463768115" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_vehicle_image_video.xml" value="0.1852355072463768" />
+        <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_vehicle_info.xml" value="0.1421875" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_vehicle_queue.xml" value="0.10729166666666666" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/fragment_verify.xml" value="0.1852355072463768" />
         <entry key="..\:/LyTechnology/VehicleInspection/app/src/main/res/layout/image_item.xml" value="0.4" />

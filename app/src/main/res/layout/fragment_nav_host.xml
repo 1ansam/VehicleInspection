@@ -107,7 +107,7 @@ tools:context=".view.fragment.NavHostFragment">
     app:layout_constraintTop_toTopOf="parent" />
 
 <TextView
-    android:id="@+id/btnNotRegisterVehicleInspection"
+    android:id="@+id/btnRegister"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginLeft="30dp"
@@ -132,8 +132,8 @@ tools:context=".view.fragment.NavHostFragment">
     android:drawableRight="@drawable/ic_next"
     android:text="@string/charge"
     app:layout_constraintBottom_toTopOf="@+id/guideline13"
-    app:layout_constraintEnd_toEndOf="@+id/btnNotRegisterVehicleInspection"
-    app:layout_constraintStart_toStartOf="@+id/btnNotRegisterVehicleInspection"
+    app:layout_constraintEnd_toEndOf="@+id/btnRegister"
+    app:layout_constraintStart_toStartOf="@+id/btnRegister"
     app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
 <TextView

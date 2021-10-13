@@ -52,5 +52,7 @@
     <string name="back">返回</string>
     <string name="clear">清除</string>
     <string name="commit">提交</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
