@@ -1,25 +1,32 @@
-package com.yxf.vehicleinspection.view.activity
+package com.yxf.vehicleinspection.view.fragment
 
-import androidx.lifecycle.Observer
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yxf.vehicleinspection.base.BaseBindingActivity
-import com.yxf.vehicleinspection.databinding.ActivityPersonInspectionBinding
+import com.yxf.vehicleinspection.R
+import com.yxf.vehicleinspection.base.BaseBindingFragment
+import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
 import com.yxf.vehicleinspection.repository.VehicleQueueRepository
 import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModelFactory
 import java.util.*
 
-class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBinding>() {
+
+class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     lateinit var adapter: VehicleQueueRvAdapter
     lateinit var viewModel : VehicleQueueViewModel
     override fun init() {
+        this.requireActivity().onBackPressedDispatcher.addCallback(this){
+            this@VehicleQueueFragment.findNavController().navigate(R.id.navHostFragment)
+        }
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)
-        binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this)
-        adapter = VehicleQueueRvAdapter(this,null)
+        binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
+        adapter = VehicleQueueRvAdapter(this.requireContext(), null)
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")
@@ -42,4 +49,5 @@ class PersonInspectionActivity : BaseBindingActivity<ActivityPersonInspectionBin
         super.onResume()
         getQueueData(binding.tvSercher.text.toString())
     }
+
 }

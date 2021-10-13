@@ -3,10 +3,7 @@ package com.yxf.vehicleinspection.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yxf.vehicleinspection.bean.JsCsCode
 import com.yxf.vehicleinspection.repository.JsCsCodeRepository
-import com.yxf.vehicleinspection.repository.PersonInspectionRepository
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 

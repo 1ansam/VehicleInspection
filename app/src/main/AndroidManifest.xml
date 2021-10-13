@@ -3,11 +3,11 @@
     package="com.yxf.vehicleinspection">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApp"
@@ -19,9 +19,15 @@
         android:theme="@style/Theme.VehicleInspection"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.DisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.VehicleImageVideoActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.SignatureActivity"
             android:exported="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".view.activity.VehicleInfoDetail"
             android:exported="true" />

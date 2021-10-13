@@ -1,25 +1,26 @@
 package com.yxf.vehicleinspection.view.activity
 
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityVerifySignatureBinding
-import com.yxf.vehicleinspection.repository.PersonInspectionRepository
-import com.yxf.vehicleinspection.view.adapter.PersonInspcetionRvAdapter
-import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModel
-import com.yxf.vehicleinspection.viewModel.PersonInspectionViewModelFactory
+import com.yxf.vehicleinspection.repository.VehicleQueueRepository
+import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
+import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
+import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModelFactory
 import java.util.*
 
 class VerifySignatureActivity : BaseBindingActivity<ActivityVerifySignatureBinding>() {
-    lateinit var viewModel : PersonInspectionViewModel
-    lateinit var adapter : PersonInspcetionRvAdapter
+    lateinit var viewModel : VehicleQueueViewModel
+    lateinit var adapter : VehicleQueueRvAdapter
     override fun init() {
-        viewModel = ViewModelProvider(this, PersonInspectionViewModelFactory(
-            PersonInspectionRepository()))
-            .get(PersonInspectionViewModel::class.java)
+        viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
+            VehicleQueueRepository()))
+            .get(VehicleQueueViewModel::class.java)
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this)
-        adapter = PersonInspcetionRvAdapter(this,null)
+        adapter = VehicleQueueRvAdapter(this,null)
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")
@@ -37,6 +38,12 @@ class VerifySignatureActivity : BaseBindingActivity<ActivityVerifySignatureBindi
         viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, Observer {
             adapter.setModel(it)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("VerifySignatureActivity", "onResume: ", )
+        getQueueData(binding.tvSercher.text.toString())
     }
 
 

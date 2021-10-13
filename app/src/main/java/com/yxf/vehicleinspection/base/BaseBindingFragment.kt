@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.base
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ abstract class BaseBindingFragment<VB : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR
         init()
     }
 

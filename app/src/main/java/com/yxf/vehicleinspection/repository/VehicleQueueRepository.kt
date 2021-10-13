@@ -22,7 +22,7 @@ import retrofit2.Response
  *   author:yxf
  *   time:2021/9/29
  */
-class PersonInspectionRepository {
+class VehicleQueueRepository {
     fun getDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
         val liveData = MutableLiveData<List<VehicleQueueResponse>>()
         val dataService = RetrofitService.create(QueryService::class.java)

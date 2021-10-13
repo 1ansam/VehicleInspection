@@ -52,7 +52,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                             }
                         }
 
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        val intent = Intent(this@LoginActivity, DisplayActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

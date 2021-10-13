@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navHostFragment">
+    <fragment
+        android:id="@+id/vehicleQueueFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.VehicleQueueFragment"
+        android:label="fragment_vehicle_queue"
+        tools:layout="@layout/fragment_vehicle_queue" >
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_vehicleImageVideoFragment"
+            app:destination="@id/vehicleImageVideoFragment" />
+        <argument
+            android:name="Lsh"
+            app:argType="string" />
+        <argument
+            android:name="Jccs"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/navHostFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.NavHostFragment"
+        android:label="fragment_nav_host"
+        tools:layout="@layout/fragment_nav_host" >
+        <action
+            android:id="@+id/action_navHostFragment_to_vehicleQueueFragment"
+            app:destination="@id/vehicleQueueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleImageVideoFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.VehicleImageVideoFragment"
+        android:label="fragment_vehicle_image_video"
+        tools:layout="@layout/fragment_vehicle_image_video" >
+        <action
+            android:id="@+id/action_vehicleImageVideoFragment_to_vehicleQueueFragment"
+            app:destination="@id/vehicleQueueFragment" />
+        <action
+            android:id="@+id/action_vehicleImageVideoFragment_to_signatureFragment"
+            app:destination="@id/signatureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signatureFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.SignatureFragment"
+        android:label="fragment_signature"
+        tools:layout="@layout/fragment_signature" >
+        <action
+            android:id="@+id/action_signatureFragment_to_vehicleQueueFragment"
+            app:destination="@id/vehicleQueueFragment" />
+    </fragment>
+</navigation>

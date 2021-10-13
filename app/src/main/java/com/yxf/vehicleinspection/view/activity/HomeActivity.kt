@@ -3,7 +3,9 @@ package com.yxf.vehicleinspection.view.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.activity.viewModels
+import androidx.navigation.findNavController
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityHomeBinding
 import com.yxf.vehicleinspection.viewModel.JsCsCodeViewModel

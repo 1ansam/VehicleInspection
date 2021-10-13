@@ -94,22 +94,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.75" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/functionTitle"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:background="@color/lightBlue"-->
-<!--        android:gravity="bottom|center_horizontal"-->
-<!--        android:paddingBottom="3dp"-->
-<!--        android:text="@string/selectFunctionTitle"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="24sp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/guideline11"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0" />-->
+
     <include
         android:id="@+id/homeTitle"
         layout="@layout/layout_title"
