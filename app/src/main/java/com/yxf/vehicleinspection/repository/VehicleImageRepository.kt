@@ -7,7 +7,6 @@ import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.VehicleImageRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
-import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -41,9 +40,9 @@ class VehicleImageRepository {
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
                         val vehicleImageList = ArrayList<VehicleImageResponse>()
-                        for (index in 0 until commonResponse.Body.size) {
+                        for (element in commonResponse.Body) {
                             val bodyJson =
-                                GsonSingleton.getGson().toJson(commonResponse.Body[index])
+                                GsonSingleton.getGson().toJson(element)
                             vehicleImageList.add(GsonSingleton.getGson()
                                 .fromJson(bodyJson, VehicleImageResponse::class.java))
                         }

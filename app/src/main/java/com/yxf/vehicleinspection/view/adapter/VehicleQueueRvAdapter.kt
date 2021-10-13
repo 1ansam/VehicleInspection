@@ -1,7 +1,6 @@
 package com.yxf.vehicleinspection.view.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper
-import com.yxf.vehicleinspection.view.activity.VehicleImageVideoActivity
-import com.yxf.vehicleinspection.view.fragment.VehicleImageVideoFragment
 
 /**
  *   author:yxf
@@ -20,7 +17,7 @@ import com.yxf.vehicleinspection.view.fragment.VehicleImageVideoFragment
  */
 class VehicleQueueRvAdapter(
 
-    private val context: Context,
+    val context: Context,
     private var modelList: List<VehicleQueueResponse>?,
 ) : RecyclerView.Adapter<VehicleQueueViewHolder>() {
 

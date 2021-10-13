@@ -1,17 +1,10 @@
 package com.yxf.vehicleinspection.view.fragment
 
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsets
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -48,27 +41,27 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
 
 
     }
-    fun getScreenWidth(): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+    private fun getScreenWidth(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             val windowMetrics = this.requireActivity().window.windowManager.currentWindowMetrics
             val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            return windowMetrics.bounds.width() - insets.left - insets.right
+            windowMetrics.bounds.width() - insets.left - insets.right
         }else{
             val mDisplayMetrics = DisplayMetrics()
             this.requireActivity().window.windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
-            return mDisplayMetrics.widthPixels
+            mDisplayMetrics.widthPixels
         }
     }
 
-    fun getScreenHeight(): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+    private fun getScreenHeight(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             val windowMetrics = this.requireActivity().window.windowManager.currentWindowMetrics
             val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            return windowMetrics.bounds.height() - insets.left - insets.right
+            windowMetrics.bounds.height() - insets.left - insets.right
         }else{
             val mDisplayMetrics = DisplayMetrics()
             this.requireActivity().window.windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
-            return mDisplayMetrics.heightPixels
+            mDisplayMetrics.heightPixels
         }
     }
 

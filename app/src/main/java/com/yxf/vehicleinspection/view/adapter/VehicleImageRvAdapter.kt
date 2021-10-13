@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
-import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
 import com.yxf.vehicleinspection.utils.ImageChange
 

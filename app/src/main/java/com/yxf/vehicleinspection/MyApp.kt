@@ -5,8 +5,6 @@ import android.app.Application
 import android.content.Context
 import com.yxf.vehicleinspection.repository.JsCsCodeRepository
 import com.yxf.vehicleinspection.room.JsCsCodeDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 
 class MyApp : Application(){
 

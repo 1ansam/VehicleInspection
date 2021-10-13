@@ -10,5 +10,4 @@ package com.yxf.vehicleinspection.bean.request
 data class VehicleVideoRequest(
     val Lsh : String,
     val Jccs : String?
-) {
-}
+)

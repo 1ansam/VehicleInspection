@@ -3,13 +3,10 @@ package com.yxf.vehicleinspection.view.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.InspectionInfoBean
 import com.yxf.vehicleinspection.databinding.InspectionInfoItemBinding
-import com.yxf.vehicleinspection.viewModel.InspectionInfoViewModel
 
 /**
  *   author:yxf

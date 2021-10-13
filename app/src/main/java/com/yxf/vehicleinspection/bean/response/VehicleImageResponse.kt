@@ -32,5 +32,4 @@ data class VehicleImageResponse(
     val ImageName : String?,
     val ZpzlMc : String?
 
-) {
-}
+)

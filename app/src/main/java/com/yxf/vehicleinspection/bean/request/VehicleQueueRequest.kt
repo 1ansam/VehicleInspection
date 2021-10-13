@@ -5,5 +5,4 @@ package com.yxf.vehicleinspection.bean.request
  * 条件（hphm）不为空时，模糊查询所有满足条件的车辆信息。
  * @param hphm 号牌号码
  */
-data class VehicleQueueRequset(val hphm : String?) {
-}
+data class VehicleQueueRequest(val hphm : String?)

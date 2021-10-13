@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.VehicleVideoRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
 import com.yxf.vehicleinspection.bean.response.VehicleVideoResponse
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
@@ -40,9 +39,9 @@ class VehicleVideoRepository {
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
                         val vehicleVideoList = ArrayList<VehicleVideoResponse>()
-                        for (index in 0 until commonResponse.Body.size) {
+                        for (element in commonResponse.Body) {
                             val bodyJson =
-                                GsonSingleton.getGson().toJson(commonResponse.Body[index])
+                                GsonSingleton.getGson().toJson(element)
                             vehicleVideoList.add(GsonSingleton.getGson()
                                 .fromJson(bodyJson, VehicleVideoResponse::class.java))
                         }

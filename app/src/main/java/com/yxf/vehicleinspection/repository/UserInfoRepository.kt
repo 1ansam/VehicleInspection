@@ -5,12 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.AllUserInfoRequest
-import com.yxf.vehicleinspection.bean.request.CommonRequest
 import com.yxf.vehicleinspection.bean.request.UserInfoRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.UserInfoResponse
-import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
 import com.yxf.vehicleinspection.service.QueryService
+import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
@@ -44,9 +43,9 @@ class UserInfoRepository {
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
                         val userInfoResponse = ArrayList<UserInfoResponse>()
-                        for (index in 0 until commonResponse.Body.size) {
+                        for (element in commonResponse.Body) {
                             val bodyJson =
-                                GsonSingleton.getGson().toJson(commonResponse.Body[index])
+                                GsonSingleton.getGson().toJson(element)
                             userInfoResponse.add(GsonSingleton.getGson()
                                 .fromJson(bodyJson, UserInfoResponse::class.java))
                         }
@@ -75,10 +74,10 @@ class UserInfoRepository {
     }
 
     fun getUserLogin(username: String, password: String): LiveData<Boolean> {
-        var isLogin = MutableLiveData<Boolean>()
+        val isLogin = MutableLiveData<Boolean>()
         isLogin.value = false
-        val call = RetrofitService.create(QueryService::class.java).query(
-            ApiStatic.QUERY_ALL_USER,
+        val call = RetrofitService.create(WriteService::class.java).write(
+            ApiStatic.WRITE_USER_LOGIN,
             IpHelper.getIpAddress(),
             JsonDataHelper.getJsonData(UserInfoRequest(username, password, IpHelper.getIpAddress()))
         )
@@ -93,9 +92,9 @@ class UserInfoRepository {
                     if (commonResponse.Code.equals("1")) {
 
                         val userInfoResponse = ArrayList<UserInfoResponse>()
-                        for (index in 0 until commonResponse.Body.size) {
+                        for (element in commonResponse.Body) {
                             val bodyJson =
-                                GsonSingleton.getGson().toJson(commonResponse.Body[index])
+                                GsonSingleton.getGson().toJson(element)
                             userInfoResponse.add(GsonSingleton.getGson()
                                 .fromJson(bodyJson, UserInfoResponse::class.java))
                         }

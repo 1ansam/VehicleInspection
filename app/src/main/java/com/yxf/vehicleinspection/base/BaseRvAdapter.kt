@@ -24,6 +24,4 @@ abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<Ba
     abstract fun onBindViewHolder(holder : BaseRvViewHolder<V>, position : Int,binding: V, bean : E)
 
 }
-open class BaseRvViewHolder<V : ViewBinding>(val binding : V) : RecyclerView.ViewHolder(binding.root){
-
-}
+open class BaseRvViewHolder<V : ViewBinding>(val binding : V) : RecyclerView.ViewHolder(binding.root)

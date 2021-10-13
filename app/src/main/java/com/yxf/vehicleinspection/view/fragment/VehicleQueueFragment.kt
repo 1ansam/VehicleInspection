@@ -2,7 +2,6 @@ package com.yxf.vehicleinspection.view.fragment
 
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.R
@@ -41,7 +40,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
 //        }
     }
     private fun getQueueData(hphm : String){
-        viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, Observer {
+        viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
             adapter.setModel(it)
         })
     }

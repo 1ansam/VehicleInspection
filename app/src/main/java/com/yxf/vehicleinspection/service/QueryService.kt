@@ -11,7 +11,7 @@ import retrofit2.http.Query
  */
 interface QueryService {
     /**
-     * @param jkld 接口编码，例“LYYDJKW001”
+     * @param jkId 接口编码，例“LYYDJKW001”
      * @param zdbs 终端标识（ip地址）
      * @param jsonData json数据（见接口文档）
      * @return 返回通用响应体

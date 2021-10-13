@@ -15,5 +15,4 @@ data class DataDictionaryResponse(
     val Dm : String?,
     val Mc : String?,
 
-) {
-}
+)

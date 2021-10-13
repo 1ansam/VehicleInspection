@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.request.VehicleQueueRequset
+import com.yxf.vehicleinspection.bean.request.VehicleQueueRequest
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
@@ -29,7 +29,7 @@ class VehicleQueueRepository {
         val call = dataService.query(
             ApiStatic.QUERY_VEHICLE_QUEUE,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(VehicleQueueRequset(hphm))
+            JsonDataHelper.getJsonData(VehicleQueueRequest(hphm))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -40,9 +40,9 @@ class VehicleQueueRepository {
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
                         val userInfoList = ArrayList<VehicleQueueResponse>()
-                        for (index in 0 until commonResponse.Body.size) {
+                        for (element in commonResponse.Body) {
                             val bodyJson =
-                                GsonSingleton.getGson().toJson(commonResponse.Body[index])
+                                GsonSingleton.getGson().toJson(element)
                             userInfoList.add(GsonSingleton.getGson()
                                 .fromJson(bodyJson, VehicleQueueResponse::class.java))
                         }

@@ -1,7 +1,6 @@
 package com.yxf.vehicleinspection.base
 
 import okhttp3.HttpUrl
-import com.yxf.vehicleinspection.base.BaseUrlHelper
 import java.lang.reflect.Field
 
 /**
@@ -91,6 +90,6 @@ class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
         private val baseApi: String
 //            private get() = "http://192.168.31.70:8066"
 //            private get() = "http://192.168.2.156:8066"
-            private get() = "http://192.168.2.157:10000"
+        get() = "http://192.168.2.157:10000"
     }
 }

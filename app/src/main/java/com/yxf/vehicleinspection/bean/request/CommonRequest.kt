@@ -6,5 +6,4 @@ package com.yxf.vehicleinspection.bean.request
  */
 data class CommonRequest<T>(
     val body : List<T>
-) {
-}
+)

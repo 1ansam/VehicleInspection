@@ -1,12 +1,10 @@
 package com.yxf.vehicleinspection.viewModel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.repository.InspectionInfoRepository
 import com.yxf.vehicleinspection.bean.InspectionInfoBean
-import java.lang.IllegalArgumentException
+import com.yxf.vehicleinspection.repository.InspectionInfoRepository
 
 /**
  *   author:yxf

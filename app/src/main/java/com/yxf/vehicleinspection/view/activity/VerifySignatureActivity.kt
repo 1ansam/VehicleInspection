@@ -1,8 +1,6 @@
 package com.yxf.vehicleinspection.view.activity
 
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityVerifySignatureBinding
@@ -35,14 +33,13 @@ class VerifySignatureActivity : BaseBindingActivity<ActivityVerifySignatureBindi
 //        }
     }
     private fun getQueueData(hphm : String){
-        viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, Observer {
+        viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
             adapter.setModel(it)
         })
     }
 
     override fun onResume() {
         super.onResume()
-        Log.e("VerifySignatureActivity", "onResume: ", )
         getQueueData(binding.tvSercher.text.toString())
     }
 

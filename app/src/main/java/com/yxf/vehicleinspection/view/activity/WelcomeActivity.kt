@@ -6,7 +6,6 @@ import android.widget.Toast
 import com.permissionx.guolindev.PermissionX
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
-import com.yxf.vehicleinspection.utils.IpHelper
 
 class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 

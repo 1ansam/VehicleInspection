@@ -2,7 +2,6 @@ package com.yxf.vehicleinspection.service
 
 import com.yxf.vehicleinspection.bean.JsCsCode
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.GET
 
 /**
