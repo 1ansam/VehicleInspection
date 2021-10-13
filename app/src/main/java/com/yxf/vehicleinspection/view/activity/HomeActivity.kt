@@ -23,7 +23,7 @@ class HomeActivity : BaseBindingActivity<ActivityHomeBinding>() {
             val intent = Intent(this,VerifySignatureActivity::class.java)
             startActivity(intent)
         }
-        binding.btnNotRegisterVehicleInspection.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             val viewModel : JsCsCodeViewModel by viewModels { JsCsCodeViewModelFactory(MyApp.jsCsCodeRepository) }
             viewModel.downloadJsCsCode()
         }

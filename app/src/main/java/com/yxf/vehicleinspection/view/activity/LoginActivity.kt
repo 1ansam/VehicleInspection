@@ -51,7 +51,6 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                                 apply()
                             }
                         }
-
                         val intent = Intent(this@LoginActivity, DisplayActivity::class.java)
                         startActivity(intent)
                         finish()

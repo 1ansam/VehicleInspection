@@ -45,6 +45,7 @@ dependencies {
     def lifecycleVersion = '2.3.1'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
     api 'com.google.android.material:material:1.1.0-alpha06'
     implementation "androidx.room:room-paging:2.4.0-alpha04"
     implementation "androidx.room:room-runtime:$roomVersion"
