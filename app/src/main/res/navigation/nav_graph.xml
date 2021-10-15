@@ -19,6 +19,12 @@
             android:name="Jccs"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_dispatchFragment"
+            app:destination="@id/dispatchFragment" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_chargeFragment"
+            app:destination="@id/chargeFragment" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -29,14 +35,8 @@
             android:id="@+id/action_navHostFragment_to_vehicleQueueFragment"
             app:destination="@id/vehicleQueueFragment" />
         <action
-            android:id="@+id/action_navHostFragment_to_dispatchFragment"
-            app:destination="@id/dispatchFragment" />
-        <action
             android:id="@+id/action_navHostFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_navHostFragment_to_chargeFragment"
-            app:destination="@id/chargeFragment" />
         <action
             android:id="@+id/action_navHostFragment_to_vehicleInfoFragment2"
             app:destination="@id/vehicleInfoFragment" />
