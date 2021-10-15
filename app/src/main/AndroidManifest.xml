@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yxf.vehicleinspection">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
     <application
         android:name=".MyApp"
@@ -22,36 +24,9 @@
             android:name=".view.activity.DisplayActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.VehicleImageVideoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.activity.SignatureActivity"
-            android:exported="true"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".view.activity.VehicleInfoDetail"
-            android:exported="true" />
-        <activity
-            android:name=".view.activity.VerifySignatureActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.activity.Dispatch"
-            android:exported="true" />
-        <activity
-            android:name=".view.activity.ChargeActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.activity.NotRegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.activity.PersonInspectionActivity"
-            android:exported="true" />
-        <activity
             android:name=".view.activity.InspectionInfoActivity"
             android:exported="true" />
-        <activity
-            android:name=".view.activity.HomeActivity"
-            android:exported="true" />
+
         <activity
             android:name=".view.activity.LoginActivity"
             android:exported="true" />

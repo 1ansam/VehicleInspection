@@ -19,7 +19,7 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
-        adapter = VehicleQueueRvAdapter(this.requireContext(), null)
+        adapter = VehicleQueueRvAdapter()
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")
@@ -35,7 +35,7 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     }
     private fun getQueueData(hphm : String){
         viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
-            adapter.setModel(it)
+            adapter.data = it
         })
     }
     override fun onResume() {

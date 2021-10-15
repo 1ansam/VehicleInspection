@@ -13,22 +13,22 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
         this.requireActivity().onBackPressedDispatcher.addCallback(this){
             this@NavHostFragment.requireActivity().finish()
         }
-        binding.btnRegister.setOnClickListener {
+        binding.btnRegisterFunc.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)
         }
-        binding.btnCharge.setOnClickListener {
+        binding.btnChargeFunc.setOnClickListener {
             findNavController().navigate(R.id.chargeFragment)
         }
-        binding.btnPersonInspectionItem.setOnClickListener {
+        binding.btnPersonInspectionItemFunc.setOnClickListener {
             findNavController().navigate(R.id.vehicleQueueFragment)
         }
-        binding.btnDispatch.setOnClickListener {
+        binding.btnDispatchFunc.setOnClickListener {
             findNavController().navigate(R.id.dispatchFragment)
         }
-        binding.btnVerifySignature.setOnClickListener {
+        binding.btnVerifySignatureFunc.setOnClickListener {
             findNavController().navigate(R.id.vehicleQueueFragment)
         }
-        binding.btnVehicleInfomation.setOnClickListener {
+        binding.btnVehicleInformationFunc.setOnClickListener {
             findNavController().navigate(R.id.vehicleInfoFragment)
         }
     }

@@ -83,6 +83,7 @@ class UserInfoRepository {
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
                 if (response.isSuccessful) {
                     //.string只允许调用一次
 
@@ -98,17 +99,20 @@ class UserInfoRepository {
                             userInfoResponse.add(GsonSingleton.getGson()
                                 .fromJson(bodyJson, UserInfoResponse::class.java))
                         }
+
                         isLogin.value = true
                         Toast.makeText(MyApp.context,
                             commonResponse.Message,
                             Toast.LENGTH_LONG).show()
 
                     } else {
+
                         Toast.makeText(MyApp.context,
                             commonResponse.Message,
                             Toast.LENGTH_LONG).show()
                     }
                 } else {
+
                     Toast.makeText(MyApp.context,
                         response.message(),
                         Toast.LENGTH_LONG).show()

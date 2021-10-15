@@ -30,5 +30,6 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
             startActivity(intent)
             finish()
         }
+
     }
 }

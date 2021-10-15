@@ -1,73 +1,48 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.R
+import com.yxf.vehicleinspection.base.BaseRvAdapter
+import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
-import com.yxf.vehicleinspection.utils.TableJsCsCodeHelper
+import com.yxf.vehicleinspection.databinding.VehicleInfoItemBinding
 
 /**
  *   author:yxf
- *   time:2021/9/28
+ *   time:2021/10/15
  */
-class VehicleQueueRvAdapter(
-
-    val context: Context,
-    private var modelList: List<VehicleQueueResponse>?,
-) : RecyclerView.Adapter<VehicleQueueViewHolder>() {
-
-    lateinit var binding: PersonInspectionItemBinding
-    val tableJsCsCodeHelper = TableJsCsCodeHelper(context)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleQueueViewHolder {
-        binding =
-            PersonInspectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return VehicleQueueViewHolder(binding)
+class VehicleQueueRvAdapter() : BaseRvAdapter<VehicleQueueResponse,PersonInspectionItemBinding>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): BaseRvViewHolder<PersonInspectionItemBinding> {
+        return BaseRvViewHolder(PersonInspectionItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
-    override fun onBindViewHolder(holder: VehicleQueueViewHolder, position: Int) {
-        if (modelList != null){
-            val model = modelList!![position]
-
-            holder.setData(model)
-            holder.itemView.setOnClickListener {
-//                val intent = Intent(context, VehicleImageVideoActivity::class.java)
-                val bundle = Bundle()
-                bundle.putSerializable("key", model)
-//                intent.putExtra("bundle", bundle)
-//                context.startActivity(intent)
-
-                it.findNavController().navigate(R.id.vehicleImageVideoFragment,bundle)
-            }
+    override fun onBindViewHolder(
+        holder: BaseRvViewHolder<PersonInspectionItemBinding>,
+        position: Int,
+        binding: PersonInspectionItemBinding,
+        bean: VehicleQueueResponse,
+    ) {
+//        val model = data[position]
+        holder.apply {
+            binding.tvHphm.text = bean.Hphm
+            binding.tvHpzl.text = bean.HpzlCc
+            binding.tvAjywlb.text = "安检：${bean.AjywlbCc}"
+            binding.tvHjjwlb.text = "环保：${bean.HjywlbCc}"
+            binding.tvLsh.text = bean.Lsh
+            binding.tvTime.text = bean.Djrq?.substring(0,16)
+            binding.tvInspectionState.text = bean.Jyzt
         }
-
-
-
-    }
-    override fun getItemCount(): Int {
-
-        return modelList?.size ?:0
-    }
-    fun setModel(modelList : List<VehicleQueueResponse>){
-        this.modelList = modelList
-        notifyDataSetChanged()
-    }
-
-}
-
-class VehicleQueueViewHolder(private val binding: PersonInspectionItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun setData(model: VehicleQueueResponse) {
-        binding.tvHphm.text = model.Hphm
-        binding.tvHpzl.text = model.HpzlCc
-        binding.tvAjywlb.text = "安检：${model.AjywlbCc}"
-        binding.tvHjjwlb.text = "环保：${model.HjywlbCc}"
-        binding.tvLsh.text = model.Lsh
-        binding.tvTime.text = model.Djrq?.substring(0,16)
-        binding.tvInspectionState.text = model.Jyzt
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable("key", bean)
+            it.findNavController().navigate(R.id.vehicleImageVideoFragment,bundle)
+        }
     }
 }

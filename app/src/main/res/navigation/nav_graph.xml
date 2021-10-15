@@ -55,11 +55,9 @@
         android:name="com.yxf.vehicleinspection.view.fragment.SignatureFragment"
         android:label="fragment_signature"
         tools:layout="@layout/fragment_signature" >
+
         <action
             android:id="@+id/action_signatureFragment_to_vehicleQueueFragment"
-            app:destination="@id/vehicleQueueFragment" />
-        <action
-            android:id="@+id/action_signatureFragment_to_vehicleQueueFragment2"
             app:destination="@id/vehicleQueueFragment" />
     </fragment>
     <fragment

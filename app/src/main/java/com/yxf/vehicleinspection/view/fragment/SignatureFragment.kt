@@ -25,13 +25,13 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
         val mPaintView = PaintView(this.requireContext(),screenWidth,screenHeight)
         binding.tablet.addView(mPaintView)
         mPaintView.requestFocus()
-        binding.back.setOnClickListener {
+        binding.backFromSignature.setOnClickListener {
             it.findNavController().navigate(R.id.vehicleQueueFragment)
         }
-        binding.clear.setOnClickListener {
+        binding.btnClear.setOnClickListener {
             mPaintView.clear()
         }
-        binding.commit.setOnClickListener {
+        binding.btnCommit.setOnClickListener {
             val header = "data:image/png;base64"
             val base64 = "$header,${mPaintView.base64}"
             val bundle = Bundle()

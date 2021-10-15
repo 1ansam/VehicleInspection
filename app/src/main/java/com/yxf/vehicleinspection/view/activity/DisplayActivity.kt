@@ -10,7 +10,4 @@ class DisplayActivity : BaseBindingActivity<ActivityDisplayBinding>() {
 
     }
 
-
-
-
 }

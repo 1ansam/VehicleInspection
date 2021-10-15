@@ -9,10 +9,10 @@ import androidx.viewbinding.ViewBinding
  *   time:2021/9/28
  */
 abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<BaseRvViewHolder<V>>() {
-    open var data : MutableList<E> = mutableListOf()
+    open var data : List<E> = ArrayList()
     set(value) {
         field = value
-        notifyItemRangeChanged(0,value.size)
+        notifyDataSetChanged()
     }
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRvViewHolder<V>
     override fun getItemCount(): Int {

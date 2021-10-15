@@ -18,7 +18,10 @@
     <string name="personInspectionItem">人工检验项目</string>
     <string name="dispatch">调度上线</string>
     <string name="verifySignature">审核签字</string>
-    <string name="vehicleInfomation">车辆信息明细</string>
+    <string name="vehicleInformation">车辆信息明细</string>
+    <!--注册登记-->
+    <string name="register">注册登记</string>
+    <string name="getData">获取信息</string>
     <!--人工查验界面-->
 
     <string name="WaitInspection">待检</string>
@@ -45,6 +48,9 @@
     <string name="inspectionCondition">检验情况</string>
     <string name="inspectionDate">检验时间</string>
     <string name="inspectionPersonnel">检验时间</string>
+    <!--调度-->
+    <string name="startInspection">开始上线</string>
+    <string name="dynamicInspection">动态检测</string>
     <!--签字审核-->
     <string name="pass">通过</string>
     <string name="reject">驳回</string>
