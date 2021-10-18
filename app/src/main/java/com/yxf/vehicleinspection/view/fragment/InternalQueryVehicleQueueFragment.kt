@@ -11,29 +11,27 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
 import com.yxf.vehicleinspection.repository.VehicleQueueRepository
+import com.yxf.vehicleinspection.view.adapter.InternalQueryVehicleQueueAdapter
 import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvToVerifyAdapter
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModelFactory
 import java.util.*
 
 
-class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
+class InternalQueryVehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     private val TAG = "VehicleQueueFragment"
-    lateinit var toVerifyAdapter: VehicleQueueRvToVerifyAdapter
+    lateinit var internalQueryAdapter: InternalQueryVehicleQueueAdapter
     lateinit var viewModel : VehicleQueueViewModel
     override fun init() {
 
-        this.requireActivity().onBackPressedDispatcher.addCallback(this){
-            this@VehicleQueueFragment.findNavController().navigate(R.id.navHostFragment)
-        }
 
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
 
-            toVerifyAdapter = VehicleQueueRvToVerifyAdapter()
-            binding.rvVehicleQueue.adapter = toVerifyAdapter
+        internalQueryAdapter = InternalQueryVehicleQueueAdapter()
+            binding.rvVehicleQueue.adapter = internalQueryAdapter
             binding.rvVehicleQueue.setHasFixedSize(true)
             getQueueData("")
 
@@ -51,7 +49,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
     }
     private fun getQueueData(hphm : String){
         viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
-            toVerifyAdapter.data = it
+            internalQueryAdapter.data = it
         })
     }
     override fun onResume() {

@@ -8,28 +8,26 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
-import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
-import com.yxf.vehicleinspection.databinding.VehicleInfoItemBinding
+import com.yxf.vehicleinspection.databinding.VehicleQueueItemBinding
 
 /**
  *   author:yxf
- *   time:2021/10/15
+ *   time:2021/10/18
  */
-class VehicleQueueRvAdapter() : BaseRvAdapter<VehicleQueueResponse,PersonInspectionItemBinding>() {
+class DynamicVehicleQueueAdapter : BaseRvAdapter<VehicleQueueResponse, VehicleQueueItemBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): BaseRvViewHolder<PersonInspectionItemBinding> {
-        return BaseRvViewHolder(PersonInspectionItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    ): BaseRvViewHolder<VehicleQueueItemBinding> {
+        return BaseRvViewHolder(VehicleQueueItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(
-        holder: BaseRvViewHolder<PersonInspectionItemBinding>,
+        holder: BaseRvViewHolder<VehicleQueueItemBinding>,
         position: Int,
-        binding: PersonInspectionItemBinding,
+        binding: VehicleQueueItemBinding,
         bean: VehicleQueueResponse,
     ) {
-//        val model = data[position]
         holder.apply {
             binding.tvHphm.text = bean.Hphm
             binding.tvHpzl.text = bean.HpzlCc
@@ -42,7 +40,7 @@ class VehicleQueueRvAdapter() : BaseRvAdapter<VehicleQueueResponse,PersonInspect
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("key", bean)
-            it.findNavController().navigate(R.id.vehicleImageVideoFragment,bundle)
+            it.findNavController().navigate(R.id.dynamicItemFragment,bundle)
         }
     }
 }

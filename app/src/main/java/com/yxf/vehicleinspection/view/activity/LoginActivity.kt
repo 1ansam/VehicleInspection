@@ -22,6 +22,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         binding.btnLogin.setOnClickListener {
             dialog.showLoadingDialog()
             if (binding.tvUsername.text.toString() == "" || binding.tvPassword.text.toString() == "") {
+                dialog.dismissDialog()
                 Toast.makeText(this, "用户名或密码为空", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.isLogin(
