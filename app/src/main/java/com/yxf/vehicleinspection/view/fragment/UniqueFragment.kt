@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
-import com.yxf.vehicleinspection.databinding.FragmentChassisItemBinding
-import com.yxf.vehicleinspection.databinding.FragmentInternalQueryItemBinding
+import com.yxf.vehicleinspection.databinding.FragmentUniqueBinding
 
-class InternalQueryItemFragment : BaseBindingFragment<FragmentInternalQueryItemBinding>() {
+class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
     override fun init() {
 
     }

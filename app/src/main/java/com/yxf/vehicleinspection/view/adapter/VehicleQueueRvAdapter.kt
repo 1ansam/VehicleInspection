@@ -8,26 +8,28 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
-import com.yxf.vehicleinspection.databinding.VehicleQueueItemBinding
+import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
+import com.yxf.vehicleinspection.databinding.VehicleInfoItemBinding
 
 /**
  *   author:yxf
- *   time:2021/10/18
+ *   time:2021/10/15
  */
-class DynamicVehicleQueueAdapter : BaseRvAdapter<VehicleQueueResponse, VehicleQueueItemBinding>() {
+class VehicleQueueRvAdapter() : BaseRvAdapter<VehicleQueueResponse,PersonInspectionItemBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): BaseRvViewHolder<VehicleQueueItemBinding> {
-        return BaseRvViewHolder(VehicleQueueItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    ): BaseRvViewHolder<PersonInspectionItemBinding> {
+        return BaseRvViewHolder(PersonInspectionItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(
-        holder: BaseRvViewHolder<VehicleQueueItemBinding>,
+        holder: BaseRvViewHolder<PersonInspectionItemBinding>,
         position: Int,
-        binding: VehicleQueueItemBinding,
+        binding: PersonInspectionItemBinding,
         bean: VehicleQueueResponse,
     ) {
+//        val model = data[position]
         holder.apply {
             binding.tvHphm.text = bean.Hphm
             binding.tvHpzl.text = bean.HpzlCc
@@ -35,12 +37,12 @@ class DynamicVehicleQueueAdapter : BaseRvAdapter<VehicleQueueResponse, VehicleQu
             binding.tvHjjwlb.text = "环保：${bean.HjywlbCc}"
             binding.tvLsh.text = bean.Lsh
             binding.tvTime.text = bean.Djrq?.substring(0,16)
-            binding.tvInspectionState.text = bean.Jyzt
+            binding.tvJyzt.text = bean.Jyzt
         }
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("key", bean)
-            it.findNavController().navigate(R.id.dynamicItemFragment,bundle)
+            it.findNavController().navigate(R.id.inspectionItemFragment,bundle)
         }
     }
 }

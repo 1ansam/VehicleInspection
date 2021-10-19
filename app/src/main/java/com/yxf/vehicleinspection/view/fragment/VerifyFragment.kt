@@ -5,22 +5,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
 import com.yxf.vehicleinspection.repository.VehicleQueueRepository
-import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvToVerifyAdapter
+import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModelFactory
 import java.util.*
 
 
 class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
-    lateinit var toVerifyAdapter: VehicleQueueRvToVerifyAdapter
+    lateinit var adapter: VehicleQueueRvAdapter
     lateinit var viewModel : VehicleQueueViewModel
     override fun init() {
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
-        toVerifyAdapter = VehicleQueueRvToVerifyAdapter()
-        binding.rvVehicleQueue.adapter = toVerifyAdapter
+        adapter = VehicleQueueRvAdapter()
+        binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")
         binding.btnSercher.setOnClickListener {
@@ -35,7 +35,7 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     }
     private fun getQueueData(hphm : String){
         viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
-            toVerifyAdapter.data = it
+            adapter.data = it
         })
     }
     override fun onResume() {

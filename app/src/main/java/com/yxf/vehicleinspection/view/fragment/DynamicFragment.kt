@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
-import com.yxf.vehicleinspection.databinding.FragmentChassisItemBinding
-import com.yxf.vehicleinspection.databinding.FragmentDynamicItemBinding
+import com.yxf.vehicleinspection.databinding.FragmentDynamicBinding
 
-class DynamicItemFragment : BaseBindingFragment<FragmentDynamicItemBinding>() {
+class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
     override fun init() {
 
     }

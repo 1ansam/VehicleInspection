@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
-import com.yxf.vehicleinspection.databinding.FragmentExteriorItemBinding
+import com.yxf.vehicleinspection.databinding.FragmentNetworkQueryBinding
 
-class ExteriorItemFragment : BaseBindingFragment<FragmentExteriorItemBinding>() {
+class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() {
     override fun init() {
-        //提交外观查验
-        binding.btnSubmitExterior.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
-    }
 
+    }
 }

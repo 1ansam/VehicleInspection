@@ -149,7 +149,7 @@ tools:context=".view.fragment.NavHostFragment">
     app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
 <TextView
-    android:id="@+id/btnInspectionItemFunc"
+    android:id="@+id/btnPersonInspectionItemFunc"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginTop="5dp"
@@ -172,8 +172,8 @@ tools:context=".view.fragment.NavHostFragment">
     android:drawableRight="@drawable/ic_next"
     android:text="@string/dispatch"
     app:layout_constraintBottom_toTopOf="@+id/guideline15"
-    app:layout_constraintEnd_toEndOf="@+id/btnInspectionItemFunc"
-    app:layout_constraintStart_toStartOf="@+id/btnInspectionItemFunc"
+    app:layout_constraintEnd_toEndOf="@+id/btnPersonInspectionItemFunc"
+    app:layout_constraintStart_toStartOf="@+id/btnPersonInspectionItemFunc"
     app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

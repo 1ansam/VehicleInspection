@@ -22,6 +22,9 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
 
     override fun init() {
 //        Debug.waitForDebugger();
+//        this.requireActivity().onBackPressedDispatcher.addCallback(this){
+//            this@VehicleImageVideoFragment.findNavController().navigate(R.id.vehicleQueueFragment)
+//        }
         val bundle = arguments
         val model = bundle?.getSerializable("key") as VehicleQueueResponse
         val Lsh = model.Lsh

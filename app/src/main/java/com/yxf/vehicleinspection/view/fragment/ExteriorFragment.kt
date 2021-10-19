@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
-import com.yxf.vehicleinspection.databinding.FragmentChassisItemBinding
-import com.yxf.vehicleinspection.databinding.FragmentUniqueCheckItemBinding
+import com.yxf.vehicleinspection.databinding.FragmentExteriorBinding
 
-class UniqueCheckItemFragment : BaseBindingFragment<FragmentUniqueCheckItemBinding>() {
+class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     override fun init() {
 
     }
+
 }
