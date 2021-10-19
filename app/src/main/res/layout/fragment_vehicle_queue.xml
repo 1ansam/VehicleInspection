@@ -86,7 +86,7 @@ tools:context=".view.fragment.VehicleQueueFragment">
             android:background="@drawable/btn_selector"
             android:backgroundTint="@color/white"
             android:text="查询车辆"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

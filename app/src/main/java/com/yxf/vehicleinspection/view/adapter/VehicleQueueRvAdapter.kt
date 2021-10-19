@@ -37,12 +37,12 @@ class VehicleQueueRvAdapter() : BaseRvAdapter<VehicleQueueResponse,PersonInspect
             binding.tvHjjwlb.text = "环保：${bean.HjywlbCc}"
             binding.tvLsh.text = bean.Lsh
             binding.tvTime.text = bean.Djrq?.substring(0,16)
-            binding.tvInspectionState.text = bean.Jyzt
+            binding.tvJyzt.text = bean.Jyzt
         }
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("key", bean)
-            it.findNavController().navigate(R.id.vehicleImageVideoFragment,bundle)
+            it.findNavController().navigate(R.id.inspectionItemFragment,bundle)
         }
     }
 }

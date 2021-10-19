@@ -45,7 +45,7 @@
                     android:text="@string/hpzl" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvInspectionState"
+                    android:id="@+id/tvJyzt"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/lightBlue"
