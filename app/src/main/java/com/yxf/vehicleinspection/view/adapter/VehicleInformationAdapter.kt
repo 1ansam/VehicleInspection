@@ -27,14 +27,14 @@ class VehicleInformationAdapter : BaseRvAdapter<VehicleInformation,RvItemVehicle
     ) {
         holder.apply {
             binding.tvLsh.text = bean.Lsh
-            binding.tvHphm.text = bean.Lsh
-            binding.tvHpzl.text = bean.Lsh
-            binding.tvHpys.text = bean.Lsh
-            binding.tvCllx.text = bean.Lsh
-            binding.tvWkcc.text = bean.Lsh
-            binding.tvZbzl.text = bean.Lsh
-            binding.tvLtgg.text = bean.Lsh
-            binding.tvCcrq.text = bean.Lsh
+            binding.tvHphm.text = bean.Hphm
+            binding.tvHpzl.text = bean.Hpzl
+            binding.tvHpys.text = bean.Hpys
+            binding.tvCllx.text = bean.Cllx
+            binding.tvWkcc.text = bean.Wkcc
+            binding.tvZbzl.text = bean.Zbzl
+            binding.tvLtgg.text = bean.Ltgg
+            binding.tvCcrq.text = bean.Ccrq
         }
     }
 }

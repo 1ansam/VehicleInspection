@@ -29,7 +29,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 
     private fun getData() {
         val vehicleInformationList = ArrayList<VehicleInformation>()
-        vehicleInformationList.add(VehicleInformation("111","222","333","444","555","666","777","888","999"))
+        vehicleInformationList.add(VehicleInformation("2021101915550001","222","333","444","555","666","777","888","999"))
         val inspectionItemList = ArrayList<InspectionItem>()
         inspectionItemList.add(InspectionItem("外观","完成"))
         inspectionItemList.add(InspectionItem("底盘","待检"))
