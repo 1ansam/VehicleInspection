@@ -9,10 +9,7 @@ import com.yxf.vehicleinspection.databinding.FragmentNavHostBinding
 
 class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
 
-
     override fun init() {
-
-
         this.requireActivity().onBackPressedDispatcher.addCallback(this){
             this@NavHostFragment.requireActivity().finish()
         }
@@ -20,19 +17,19 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
             findNavController().navigate(R.id.registerFragment)
         }
         binding.btnChargeFunc.setOnClickListener {
-            findNavController().navigate(R.id.vehicleQueueFragment)
+            findNavController().navigate(R.id.chargeFragment)
         }
-        binding.btnInspectionItemFunc.setOnClickListener {
-            findNavController().navigate(R.id.inspectionViewPagerFragment)
+        binding.btnPersonInspectionItemFunc.setOnClickListener {
+            findNavController().navigate(R.id.vehicleQueueFragment)
         }
         binding.btnDispatchFunc.setOnClickListener {
-            findNavController().navigate(R.id.vehicleQueueFragment)
+            findNavController().navigate(R.id.dispatchFragment)
         }
         binding.btnVerifySignatureFunc.setOnClickListener {
             findNavController().navigate(R.id.vehicleQueueFragment)
         }
         binding.btnVehicleInformationFunc.setOnClickListener {
-            findNavController().navigate(R.id.inspectionViewPagerFragment)
+            findNavController().navigate(R.id.vehicleInfoFragment)
         }
     }
 }

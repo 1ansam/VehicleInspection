@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_vehicleQueueFragment_to_vehicleImageVideoFragment"
             app:destination="@id/vehicleImageVideoFragment" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_inspectionItemFragment"
+            app:destination="@id/inspectionItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -22,14 +25,17 @@
             android:id="@+id/action_navHostFragment_to_vehicleQueueFragment"
             app:destination="@id/vehicleQueueFragment" />
         <action
+            android:id="@+id/action_navHostFragment_to_dispatchFragment"
+            app:destination="@id/dispatchFragment" />
+        <action
             android:id="@+id/action_navHostFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
         <action
+            android:id="@+id/action_navHostFragment_to_chargeFragment"
+            app:destination="@id/chargeFragment" />
+        <action
             android:id="@+id/action_navHostFragment_to_vehicleInfoFragment2"
             app:destination="@id/vehicleInfoFragment" />
-        <action
-            android:id="@+id/action_navHostFragment_to_viewPagerFragment2"
-            app:destination="@id/inspectionViewPagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/vehicleImageVideoFragment"
@@ -51,53 +57,66 @@
             app:destination="@id/vehicleQueueFragment" />
     </fragment>
     <fragment
+        android:id="@+id/dispatchFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.DispatchFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
         android:id="@+id/registerFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.RegisterFragment"
         android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/chargeFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.ChargeFragment"
+        android:label="ChargeFragment" />
     <fragment
         android:id="@+id/vehicleInfoFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.VehicleInfoFragment"
         android:label="VehicleInfoFragment" />
     <fragment
-        android:id="@+id/inspectionViewPagerFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.InspectionViewPagerFragment"
-        android:label="ViewPagerFragment" >
+        android:id="@+id/inspectionItemFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.InspectionItemFragment"
+        android:label="fragment_inspection_item"
+        tools:layout="@layout/fragment_inspection_item" >
         <action
-            android:id="@+id/action_viewPagerFragment_to_exteriorItemFragment"
-            app:destination="@id/exteriorItemFragment" />
+            android:id="@+id/action_inspectionItemFragment_to_exteriorFragment"
+            app:destination="@id/exteriorFragment" />
         <action
-            android:id="@+id/action_viewPagerFragment_to_dynamicItemFragment"
-            app:destination="@id/dynamicItemFragment" />
+            android:id="@+id/action_inspectionItemFragment_to_chassisFragment"
+            app:destination="@id/chassisFragment" />
         <action
-            android:id="@+id/action_viewPagerFragment_to_internalQueryItemFragment"
-            app:destination="@id/internalQueryItemFragment" />
+            android:id="@+id/action_inspectionItemFragment_to_dynamicFragment"
+            app:destination="@id/dynamicFragment" />
         <action
-            android:id="@+id/action_viewPagerFragment_to_uniqueCheckItemFragment"
-            app:destination="@id/uniqueCheckItemFragment" />
+            android:id="@+id/action_inspectionItemFragment_to_networkQueryFragment"
+            app:destination="@id/networkQueryFragment" />
         <action
-            android:id="@+id/action_viewPagerFragment_to_chassisItemFragment"
-            app:destination="@id/chassisItemFragment" />
+            android:id="@+id/action_inspectionItemFragment_to_uniqueFragment"
+            app:destination="@id/uniqueFragment" />
     </fragment>
     <fragment
-        android:id="@+id/exteriorItemFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.ExteriorItemFragment"
-        android:label="fragment_exterior_item"
-        tools:layout="@layout/fragment_exterior_item" />
+        android:id="@+id/exteriorFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.ExteriorFragment"
+        android:label="fragment_exterior"
+        tools:layout="@layout/fragment_exterior" />
     <fragment
-        android:id="@+id/dynamicItemFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.DynamicItemFragment"
-        android:label="DynamicItemFragment" />
+        android:id="@+id/chassisFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.ChassisFragment"
+        android:label="fragment_chassis"
+        tools:layout="@layout/fragment_chassis" />
     <fragment
-        android:id="@+id/internalQueryItemFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.InternalQueryItemFragment"
-        android:label="InternalQueryItemFragment" />
+        android:id="@+id/dynamicFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.DynamicFragment"
+        android:label="fragment_dynamic"
+        tools:layout="@layout/fragment_dynamic" />
     <fragment
-        android:id="@+id/uniqueCheckItemFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.UniqueCheckItemFragment"
-        android:label="UniqueCheckItemFragment" />
+        android:id="@+id/networkQueryFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.NetworkQueryFragment"
+        android:label="fragment_network_query"
+        tools:layout="@layout/fragment_network_query" />
     <fragment
-        android:id="@+id/chassisItemFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.ChassisItemFragment"
-        android:label="fragment_unique_check_item"
-        tools:layout="@layout/fragment_unique_check_item" />
+        android:id="@+id/uniqueFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.UniqueFragment"
+        android:label="fragment_unique"
+        tools:layout="@layout/fragment_unique" />
 </navigation>
