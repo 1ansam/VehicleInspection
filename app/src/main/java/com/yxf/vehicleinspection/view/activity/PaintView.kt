@@ -2,11 +2,9 @@ package com.yxf.vehicleinspection.view.activity
 
 import android.content.Context
 import android.graphics.*
-import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
-import com.yxf.vehicleinspection.utils.ImageChange.bitmap2Base64
-import java.io.ByteArrayOutputStream
+import com.yxf.vehicleinspection.utils.ImageUtil.bitmap2Base64
 
 /**
  * author:yxf

@@ -67,4 +67,5 @@ class VehicleImageRepository {
         })
         return liveData
     }
+
 }

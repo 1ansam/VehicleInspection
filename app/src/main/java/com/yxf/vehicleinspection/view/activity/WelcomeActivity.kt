@@ -2,6 +2,9 @@ package com.yxf.vehicleinspection.view.activity
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Bitmap
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.permissionx.guolindev.PermissionX
@@ -13,10 +16,12 @@ import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
 import com.yxf.vehicleinspection.imagepicker.DefaultImagePicker
 import com.yxf.vehicleinspection.imagepicker.ZhihuImagePicker
+import com.yxf.vehicleinspection.utils.ImageUtil
 import io.reactivex.functions.Consumer
 
 class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
-
+    val REQUEST_IMAGE_CAPTURE = 1
+    val REQUEST_VIDEO_CAPTURE = 2
     override fun init() {
         PermissionX.init(this)
             .permissions(Manifest.permission.CAMERA,
@@ -34,6 +39,14 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                 }
             }
         binding.btnStartEnjoy.setOnClickListener {
+
+//            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+//            val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+//            startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
+
+
+
 
             intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -69,9 +82,19 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 //                        .load(it.uri)
 //                        .into(binding.corporationLogo)
 //                }
-
-
         }
 
+
     }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+//            Log.e("TAG", "onActivityResult: REQUEST_VIDEO_CAPTURE", )
+//        }
+//    }
+
 }
+
+
+
+

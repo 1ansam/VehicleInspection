@@ -8,6 +8,15 @@ import com.yxf.vehicleinspection.databinding.FragmentNavHostBinding
 
 
 class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
+    companion object{
+        const val HOSTNAME_REGISTER = "Register"
+        const val HOSTNAME_CHARGE = "Charge"
+        const val HOSTNAME_VEHICLE_INSPECTION = "VehicleInspection"
+        const val HOSTNAME_DISPATCH = "Dispatch"
+        const val HOSTNAME_VERIFY_SIGNATURE = "VerifySignature"
+        const val HOSTNAME_VEHILE_INFOMATION = "VehicleInformation"
+
+    }
 
     override fun init() {
         this.requireActivity().onBackPressedDispatcher.addCallback(this){
@@ -17,16 +26,20 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
             findNavController().navigate(R.id.registerFragment)
         }
         binding.btnChargeFunc.setOnClickListener {
-            findNavController().navigate(R.id.chargeFragment)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
+                HOSTNAME_CHARGE)
+            findNavController().navigate(action)
         }
-        binding.btnPersonInspectionItemFunc.setOnClickListener {
+        binding.btnVehicleInspectionFunc.setOnClickListener {
             findNavController().navigate(R.id.vehicleQueueFragment)
         }
         binding.btnDispatchFunc.setOnClickListener {
-            findNavController().navigate(R.id.dispatchFragment)
+            findNavController().navigate(R.id.vehicleQueueFragment)
         }
         binding.btnVerifySignatureFunc.setOnClickListener {
-            findNavController().navigate(R.id.vehicleQueueFragment)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
+                HOSTNAME_VERIFY_SIGNATURE)
+            findNavController().navigate(action)
         }
         binding.btnVehicleInformationFunc.setOnClickListener {
             findNavController().navigate(R.id.vehicleInfoFragment)

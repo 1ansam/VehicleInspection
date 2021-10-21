@@ -15,7 +15,7 @@ object RetrofitService {
 
 
 
-    fun getRetrofit():Retrofit{
+    private fun getRetrofit():Retrofit{
         return Retrofit.Builder().client(okHttpClient).addConverterFactory(GsonConverterFactory.create()).baseUrl(
             BaseUrlHelper.instance.httpUrl).build()
     }
@@ -24,7 +24,7 @@ object RetrofitService {
     fun <T> create (clazz: Class<T>): T {
         return getRetrofit().create(clazz)
     }
-    val okHttpClient = OkHttpClient.Builder()
+    private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(5,TimeUnit.SECONDS)
         .readTimeout(10,TimeUnit.SECONDS)
         .writeTimeout(10,TimeUnit.SECONDS)

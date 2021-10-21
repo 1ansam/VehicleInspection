@@ -26,7 +26,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
         binding.tablet.addView(mPaintView)
         mPaintView.requestFocus()
         binding.backFromSignature.setOnClickListener {
-            it.findNavController().navigate(R.id.vehicleQueueFragment)
+
         }
         binding.btnClear.setOnClickListener {
             mPaintView.clear()
@@ -36,7 +36,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
             val base64 = "$header,${mPaintView.base64}"
             val bundle = Bundle()
             bundle.putString("base64",base64)
-            it.findNavController().navigate(R.id.vehicleQueueFragment)
+            it.findNavController().navigate(R.id.action_signatureFragment_to_vehicleQueueFragment)
         }
 
 

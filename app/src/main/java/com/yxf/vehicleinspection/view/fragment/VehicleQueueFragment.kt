@@ -3,6 +3,7 @@ package com.yxf.vehicleinspection.view.fragment
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
@@ -21,12 +22,12 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         this.requireActivity().onBackPressedDispatcher.addCallback(this){
             this@VehicleQueueFragment.findNavController().navigate(R.id.navHostFragment)
         }
+        val args : VehicleQueueFragmentArgs by navArgs()
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
-//        adapter = VehicleQueueRvAdapter(this.requireContext(), null)
-        adapter = VehicleQueueRvAdapter()
+        adapter = VehicleQueueRvAdapter(args.hostName)
 
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
@@ -43,6 +44,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
     }
     private fun getQueueData(hphm : String){
         viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
+
             adapter.data = it
         })
     }

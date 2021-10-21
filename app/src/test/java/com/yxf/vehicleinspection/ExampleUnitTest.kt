@@ -1,11 +1,5 @@
 package com.yxf.vehicleinspection
 
-import android.graphics.BitmapFactory
-import com.yxf.vehicleinspection.bean.request.CommonRequest
-import com.yxf.vehicleinspection.bean.request.VehicleAdmissionRequest
-import com.yxf.vehicleinspection.singleton.GsonSingleton
-import com.yxf.vehicleinspection.utils.ImageChange
-import org.json.JSONArray
 import org.junit.Test
 
 

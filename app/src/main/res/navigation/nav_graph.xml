@@ -10,11 +10,21 @@
         android:label="fragment_vehicle_queue"
         tools:layout="@layout/fragment_vehicle_queue" >
         <action
-            android:id="@+id/action_vehicleQueueFragment_to_vehicleImageVideoFragment"
-            app:destination="@id/vehicleImageVideoFragment" />
-        <action
             android:id="@+id/action_vehicleQueueFragment_to_inspectionItemFragment"
             app:destination="@id/inspectionItemFragment" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_chargeFragment"
+            app:destination="@id/chargeFragment" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_dispatchFragment"
+            app:destination="@id/dispatchFragment" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_vehicleImageVideoFragment"
+            app:destination="@id/vehicleImageVideoFragment" />
+        <argument
+            android:name="hostName"
+            app:argType="string"
+            android:defaultValue="Default" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -25,14 +35,8 @@
             android:id="@+id/action_navHostFragment_to_vehicleQueueFragment"
             app:destination="@id/vehicleQueueFragment" />
         <action
-            android:id="@+id/action_navHostFragment_to_dispatchFragment"
-            app:destination="@id/dispatchFragment" />
-        <action
             android:id="@+id/action_navHostFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_navHostFragment_to_chargeFragment"
-            app:destination="@id/chargeFragment" />
         <action
             android:id="@+id/action_navHostFragment_to_vehicleInfoFragment2"
             app:destination="@id/vehicleInfoFragment" />
@@ -51,10 +55,9 @@
         android:name="com.yxf.vehicleinspection.view.fragment.SignatureFragment"
         android:label="fragment_signature"
         tools:layout="@layout/fragment_signature" >
-
         <action
             android:id="@+id/action_signatureFragment_to_vehicleQueueFragment"
-            app:destination="@id/vehicleQueueFragment" />
+            app:popUpTo="@id/vehicleQueueFragment" />
     </fragment>
     <fragment
         android:id="@+id/dispatchFragment"

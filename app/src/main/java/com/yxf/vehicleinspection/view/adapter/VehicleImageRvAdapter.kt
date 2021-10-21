@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
 import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
-import com.yxf.vehicleinspection.utils.ImageChange
+import com.yxf.vehicleinspection.utils.ImageUtil
 
 /**
  *   author:yxf
@@ -36,6 +36,6 @@ class VehicleImageRvAdapter(val context : Context, var modelList: List<VehicleIm
 class VehicleImageViewHolder(val binding : VehicleImageItemBinding) : RecyclerView.ViewHolder(binding.root){
     fun setData(model : VehicleImageResponse){
         binding.tvItemTitle.text = model.ImageName
-        binding.ivImage.setImageBitmap(ImageChange.base642Bitmap(model.Zp))
+        binding.ivImage.setImageBitmap(ImageUtil.base642Bitmap(model.Zp))
     }
 }

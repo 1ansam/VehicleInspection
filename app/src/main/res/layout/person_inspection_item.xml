@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="10dp"
@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -29,7 +29,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvHphm"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="10dp"
@@ -38,7 +38,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvHpzl"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="10dp"
@@ -47,44 +47,46 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvJyzt"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/lightBlue"
                     android:text="@string/WaitInspection" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvAjywlb"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
+                    android:layout_height="wrap_content"
                     android:gravity="left|center_vertical"
+                    android:maxLines="1"
                     android:paddingLeft="10dp"
                     android:text="@string/AJ" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvHjjwlb"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
+                    android:layout_height="wrap_content"
                     android:gravity="left|center_vertical"
+                    android:maxLines="1"
                     android:paddingLeft="10dp"
                     android:text="@string/HB" />
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvLsh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="left"
                     android:paddingLeft="10dp"
                     android:text="@string/lsh"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -94,13 +96,15 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="left"
                     android:paddingLeft="10dp"
                     android:text="@string/inspectionDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tvLsh" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
