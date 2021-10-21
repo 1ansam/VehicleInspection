@@ -14,7 +14,7 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
         const val HOSTNAME_VEHICLE_INSPECTION = "VehicleInspection"
         const val HOSTNAME_DISPATCH = "Dispatch"
         const val HOSTNAME_VERIFY_SIGNATURE = "VerifySignature"
-        const val HOSTNAME_VEHICLE_INFOMATION = "VehicleInformation"
+        const val HOSTNAME_VEHICLE_INFORMATION = "VehicleInformation"
 
     }
 
