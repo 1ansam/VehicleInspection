@@ -31,10 +31,14 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
             findNavController().navigate(action)
         }
         binding.btnVehicleInspectionFunc.setOnClickListener {
-            findNavController().navigate(R.id.vehicleQueueFragment)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
+                HOSTNAME_VEHICLE_INSPECTION)
+            findNavController().navigate(action)
         }
         binding.btnDispatchFunc.setOnClickListener {
-            findNavController().navigate(R.id.vehicleQueueFragment)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
+                HOSTNAME_DISPATCH)
+            findNavController().navigate(action)
         }
         binding.btnVerifySignatureFunc.setOnClickListener {
             val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(

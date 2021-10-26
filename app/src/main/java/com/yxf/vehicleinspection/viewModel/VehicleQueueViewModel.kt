@@ -1,6 +1,7 @@
 package com.yxf.vehicleinspection.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
@@ -14,13 +15,14 @@ class VehicleQueueViewModel(private val repository: VehicleQueueRepository) : Vi
     lateinit var  queueData : LiveData<List<VehicleQueueResponse>>
     lateinit var verifyQueueData: LiveData<List<VehicleQueueResponse>>
     fun getDataQueue(hphm : String) : LiveData<List<VehicleQueueResponse>> {
-        queueData = repository.getDataQueue(hphm)
+        queueData = repository.getInspectionDataQueue(hphm)
         return queueData
     }
     fun getVerifyDataQueue(hphm: String) : LiveData<List<VehicleQueueResponse>>{
         verifyQueueData = repository.getVerifyDataQueue(hphm)
         return verifyQueueData
     }
+
 }
 
 class VehicleQueueViewModelFactory(private val repository: VehicleQueueRepository) :

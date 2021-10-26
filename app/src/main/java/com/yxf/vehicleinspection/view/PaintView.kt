@@ -1,4 +1,4 @@
-package com.yxf.vehicleinspection.view.activity
+package com.yxf.vehicleinspection.view
 
 import android.content.Context
 import android.graphics.*

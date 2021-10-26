@@ -1,9 +1,14 @@
 package com.yxf.vehicleinspection.view.adapter
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.findNavController
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
@@ -13,8 +18,9 @@ import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.databinding.VehicleInfoItemBinding
 import com.yxf.vehicleinspection.view.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
-
-
+import com.yxf.vehicleinspection.view.fragment.VehicleQueueFragment
+import com.yxf.vehicleinspection.viewModel.SharedViewModel
+import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
 
 
 /**
@@ -63,7 +69,6 @@ class VehicleQueueRvAdapter(val hostName : String) : BaseRvAdapter<VehicleQueueR
         }else{
             holder.itemView.setOnClickListener {
                 bundle.putSerializable("key", bean)
-
                 it.findNavController().navigate(R.id.inspectionItemFragment,bundle)
             }
         }

@@ -22,8 +22,8 @@ import java.io.Serializable
  */
 data class VehicleQueueResponse (
     val Lsh : String,
-    val Hphm : String?,
-    val Hpzl : String?,
+    val Hphm : String,
+    val Hpzl : String,
     val HpzlCc : String?,
     val Djrq : String?,
     val Ywlb : String?,

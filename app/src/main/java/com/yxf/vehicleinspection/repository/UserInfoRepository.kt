@@ -74,8 +74,7 @@ class UserInfoRepository {
     }
 
     fun getUserLogin(username: String, password: String): LiveData<Boolean> {
-        val isLogin = MutableLiveData<Boolean>()
-        isLogin.value = false
+        val isLoading = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
             ApiStatic.WRITE_USER_LOGIN,
             IpHelper.getIpAddress(),
@@ -83,7 +82,7 @@ class UserInfoRepository {
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-
+            isLoading.value = false
                 if (response.isSuccessful) {
                     //.string只允许调用一次
 
@@ -100,19 +99,17 @@ class UserInfoRepository {
                                 .fromJson(bodyJson, UserInfoResponse::class.java))
                         }
 
-                        isLogin.value = true
+                        isLoading.value = true
                         Toast.makeText(MyApp.context,
                             commonResponse.Message,
                             Toast.LENGTH_LONG).show()
 
                     } else {
-
                         Toast.makeText(MyApp.context,
                             commonResponse.Message,
                             Toast.LENGTH_LONG).show()
                     }
                 } else {
-
                     Toast.makeText(MyApp.context,
                         response.message(),
                         Toast.LENGTH_LONG).show()
@@ -120,10 +117,11 @@ class UserInfoRepository {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                isLoading.value = false
                 Toast.makeText(MyApp.context, t.message,
                     Toast.LENGTH_LONG).show()
             }
         })
-        return isLogin
+        return isLoading
     }
 }

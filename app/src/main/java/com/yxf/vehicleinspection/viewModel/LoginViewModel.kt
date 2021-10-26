@@ -12,7 +12,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/10/12
  */
 class LoginViewModel(private val repository: UserInfoRepository) : ViewModel() {
-    fun isLogin(username: String, password: String): LiveData<Boolean> {
+    fun isLoading(username: String, password: String): LiveData<Boolean> {
         return repository.getUserLogin(username,password)
     }
     fun getUserInfo() : LiveData<List<UserInfoResponse>>{

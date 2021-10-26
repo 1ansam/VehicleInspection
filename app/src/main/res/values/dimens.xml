@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titleSize">24sp</dimen>
+    <dimen name="smallDivide">2dp</dimen>
+    <dimen name="midDivide">2dp</dimen>
+
+</resources>

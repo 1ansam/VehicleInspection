@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,13 +18,14 @@ import java.util.*
 
 class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     lateinit var adapter: VehicleQueueRvAdapter
-    lateinit var viewModel : VehicleQueueViewModel
-    lateinit var args : VehicleQueueFragmentArgs
+    lateinit var viewModel: VehicleQueueViewModel
+    lateinit var args: VehicleQueueFragmentArgs
+
     override fun init() {
-        this.requireActivity().onBackPressedDispatcher.addCallback(this){
+        this.requireActivity().onBackPressedDispatcher.addCallback(this) {
             this@VehicleQueueFragment.findNavController().navigate(R.id.navHostFragment)
         }
-        val args : VehicleQueueFragmentArgs by navArgs()
+        val args: VehicleQueueFragmentArgs by navArgs()
         this.args = args
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
@@ -38,7 +40,6 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         binding.btnSercher.setOnClickListener {
 //            修改使用BaseUrlHelper类反射方法
 //            BaseUrlHelper.instance.setHostField("192.168.31.70")
-
             getQueueData(binding.tvSercher.text.toString())
 
 
@@ -48,13 +49,14 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
 //            getData(binding.tvSercher.text.toString())
 //        }
     }
-    private fun getQueueData(hphm : String){
-        if (args.hostName == NavHostFragment.HOSTNAME_VERIFY_SIGNATURE){
+
+    private fun getQueueData(hphm: String) {
+        if (args.hostName == NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) {
             viewModel.getVerifyDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
 
                 adapter.data = it
             })
-        }else{
+        } else {
             viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
 
                 adapter.data = it
@@ -67,5 +69,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         super.onResume()
         getQueueData(binding.tvSercher.text.toString())
     }
+
+
 
 }

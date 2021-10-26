@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
-import com.yxf.vehicleinspection.view.activity.PaintView
+import com.yxf.vehicleinspection.view.PaintView
 
 
 class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
@@ -36,7 +36,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
             val base64 = "$header,${mPaintView.base64}"
             val bundle = Bundle()
             bundle.putString("base64",base64)
-            it.findNavController().navigate(R.id.action_signatureFragment_to_vehicleQueueFragment)
+            it.findNavController().navigate(R.id.action_signatureFragment_pop_including_inspectionItemFragment)
         }
 
 

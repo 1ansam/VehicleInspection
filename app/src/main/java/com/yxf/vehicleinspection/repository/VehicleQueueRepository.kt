@@ -24,7 +24,7 @@ import retrofit2.Response
  *   time:2021/9/29
  */
 class VehicleQueueRepository {
-    fun getDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
+    fun getInspectionDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
         val liveData = MutableLiveData<List<VehicleQueueResponse>>()
         val dataService = RetrofitService.create(QueryService::class.java)
         val call = dataService.query(
@@ -44,8 +44,10 @@ class VehicleQueueRepository {
                         for (element in commonResponse.Body) {
                             val bodyJson =
                                 GsonSingleton.getGson().toJson(element)
-                            userInfoList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleQueueResponse::class.java))
+                            val userInfo = GsonSingleton.getGson().fromJson(bodyJson, VehicleQueueResponse::class.java)
+                            if (!userInfo.Jyzt.equals("过程结束")){
+                                userInfoList.add(userInfo)
+                            }
                         }
                         liveData.value = userInfoList
 
@@ -117,48 +119,5 @@ class VehicleQueueRepository {
         })
         return liveData
     }
-    fun getChargeDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
-        val liveData = MutableLiveData<List<VehicleQueueResponse>>()
-        val dataService = RetrofitService.create(QueryService::class.java)
-        val call = dataService.query(
-            ApiStatic.QUERY_VEHICLE_QUEUE,
-            IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(VehicleQueueRequest(hphm))
-        )
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    //.string只允许调用一次
-                    val stringResponse = response.body()?.string()
-                    val commonResponse = GsonSingleton.getGson()
-                        .fromJson(stringResponse, CommonResponse::class.java)
-                    if (commonResponse.Code.equals("1")) {
-                        val userInfoList = ArrayList<VehicleQueueResponse>()
-                        for (element in commonResponse.Body) {
-                            val bodyJson =
-                                GsonSingleton.getGson().toJson(element)
-                            userInfoList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleQueueResponse::class.java))
-                        }
-                        liveData.value = userInfoList
 
-
-                    } else {
-                        Toast.makeText(MyApp.context,
-                            commonResponse.Message,
-                            Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(MyApp.context,
-                        response.message(),
-                        Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(MyApp.context, "${t.message}", Toast.LENGTH_LONG).show()
-            }
-        })
-        return liveData
-    }
 }

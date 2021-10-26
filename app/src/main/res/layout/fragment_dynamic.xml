@@ -14,6 +14,7 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <include
+        android:id="@+id/includeTitle"
         layout="@layout/layout_title_inspection_item"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -21,4 +22,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.93" />
+
+    <include
+        layout="@layout/layout_inspection_bottom_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline41" />
 </androidx.constraintlayout.widget.ConstraintLayout>
