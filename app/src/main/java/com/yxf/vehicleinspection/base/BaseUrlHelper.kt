@@ -12,70 +12,54 @@ class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
 
     companion object {
         //协议
-        private var schemeField: Field? = null
+        private var schemeField: Field = HttpUrl::class.java.getDeclaredField("scheme")
 
         //主机
-        private var hostField: Field? = null
+        private var hostField: Field = HttpUrl::class.java.getDeclaredField("host")
 
         //端口
-        private var portField: Field? = null
+        private var portField: Field = HttpUrl::class.java.getDeclaredField("port")
 
         //url
-        private var urlField: Field? = null
+        private var urlField: Field = HttpUrl::class.java.getDeclaredField("url")
         val instance: BaseUrlHelper
             get() = Instance.instance
 
-        init {
-            var scheme: Field? = null
-            var host: Field? = null
-            var port: Field? = null
-            var url: Field? = null
-            try {
-                scheme = HttpUrl::class.java.getDeclaredField("scheme")
-                port = HttpUrl::class.java.getDeclaredField("port")
-                host = HttpUrl::class.java.getDeclaredField("host")
-                url = HttpUrl::class.java.getDeclaredField("url")
-            } catch (e: NoSuchFieldException) {
-                e.printStackTrace()
-            }
-            urlField = url
-            hostField = host
-            portField = port
-            schemeField =scheme
-        }
     }
 
-    fun setHostField(host: String?) {
+    fun setHostField(host: String) {
         try {
-            hostField?.isAccessible = true
-            hostField?.set(httpUrl, host)
+            hostField.isAccessible = true
+            hostField.set(httpUrl, host)
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        }
+
+
+    }
+
+    fun setUrlField(url: String) {
+        try {
+            urlField.isAccessible = true
+            urlField.set(httpUrl, url)
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
         }
     }
 
-    fun setUrlField(url: String?) {
+    fun setSchemeField(scheme: String) {
         try {
-            urlField?.isAccessible = true
-            urlField?.set(httpUrl, url)
+            schemeField.isAccessible = true
+            schemeField.set(httpUrl, scheme)
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
         }
     }
-
-    fun setSchemeField(scheme: String?) {
-        try {
-            schemeField?.isAccessible = true
-            schemeField?.set(httpUrl, scheme)
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        }
-    }
-
+    //port != 0
     fun setPortField(port: Int) {
         try {
-            portField?.isAccessible = true
-            portField?.set(httpUrl, port)
+            portField.isAccessible = true
+            portField.set(httpUrl, port)
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
         }
@@ -87,8 +71,8 @@ class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
         )
 
         private val baseApi: String
-//            private get() = "http://192.168.31.70:8066"
+            //            private get() = "http://192.168.31.70:8066"
 //            private get() = "http://192.168.2.156:8066"
-        get() = "http://192.168.2.157:10000"
+            get() = "http://192.168.2.157:10000"
     }
 }

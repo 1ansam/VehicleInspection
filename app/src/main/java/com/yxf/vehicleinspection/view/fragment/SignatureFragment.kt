@@ -5,26 +5,24 @@ import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.WindowInsets
-import androidx.activity.addCallback
-import androidx.navigation.findNavController
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
 import com.yxf.vehicleinspection.view.PaintView
+import com.yxf.vehicleinspection.viewModel.SharedViewModel
 
 
 class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        this.requireActivity().onBackPressedDispatcher.addCallback(this){
-            this@SignatureFragment.findNavController().navigate(R.id.vehicleQueueFragment)
-        }
+
         val screenWidth = getScreenWidth()
         val screenHeight = getScreenHeight()
         val mPaintView = PaintView(this.requireContext(),screenWidth,screenHeight)
         binding.tablet.addView(mPaintView)
         mPaintView.requestFocus()
+        val sharedViewModel : SharedViewModel by activityViewModels()
         binding.backFromSignature.setOnClickListener {
 
         }
@@ -36,7 +34,23 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
             val base64 = "$header,${mPaintView.base64}"
             val bundle = Bundle()
             bundle.putString("base64",base64)
-            it.findNavController().navigate(R.id.action_signatureFragment_pop_including_inspectionItemFragment)
+            sharedViewModel.hostName.observe(this,{
+                when {
+                    it.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) -> {
+                        val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingVehicleQueueFragment()
+                        findNavController().navigate(action)
+                    }
+                    it.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION) -> {
+                        val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingInspectionItemFragment()
+                        findNavController().navigate(action)
+                    }
+                    it.equals(NavHostFragment.HOSTNAME_REGISTER) -> {
+                        val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingRegisterFragment()
+                        findNavController().navigate(action)
+                    }
+                }
+
+            })
         }
 
 

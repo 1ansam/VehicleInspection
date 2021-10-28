@@ -1,33 +1,24 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
-import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
-import com.yxf.vehicleinspection.databinding.VehicleInfoItemBinding
 import com.yxf.vehicleinspection.view.fragment.NavHostFragment
-import androidx.recyclerview.widget.RecyclerView
-import com.yxf.vehicleinspection.view.fragment.VehicleQueueFragment
+import com.yxf.vehicleinspection.view.fragment.VehicleQueueFragmentDirections
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
-import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
 
 
 /**
  *   author:yxf
  *   time:2021/10/15
  */
-class VehicleQueueRvAdapter(val hostName : String) : BaseRvAdapter<VehicleQueueResponse,PersonInspectionItemBinding>() {
+class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val sharedViewModel: SharedViewModel) : BaseRvAdapter<VehicleQueueResponse,PersonInspectionItemBinding>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -41,7 +32,8 @@ class VehicleQueueRvAdapter(val hostName : String) : BaseRvAdapter<VehicleQueueR
         binding: PersonInspectionItemBinding,
         bean: VehicleQueueResponse,
     ) {
-        val bundle = Bundle()
+
+
         holder.apply {
             binding.tvHphm.text = bean.Hphm
             binding.tvHpzl.text = bean.HpzlCc
@@ -49,29 +41,48 @@ class VehicleQueueRvAdapter(val hostName : String) : BaseRvAdapter<VehicleQueueR
             binding.tvHjjwlb.text = "环保：${bean.HjywlbCc}"
             binding.tvLsh.text = bean.Lsh
             binding.tvTime.text = bean.Djrq?.substring(0,16)
-            binding.tvJyzt.text = bean.Jyzt
-        }
-        if(bean.Jyzt.equals("过程结束")){
-            if (hostName == NavHostFragment.HOSTNAME_VERIFY_SIGNATURE){
-
-            }
+            binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
         }
 
+        sharedViewModel.hostName.observe(owner,{ hostName ->
 
-
-
-
-        if (binding.tvJyzt.text.equals("过程结束")){
-            bundle.putSerializable("key", bean)
-            holder.itemView.setOnClickListener {
-                it.findNavController().navigate(R.id.vehicleImageVideoFragment,bundle)
+            when {
+                hostName.equals(NavHostFragment.HOSTNAME_CHARGE) -> {
+                    holder.itemView.setOnClickListener{
+                        sharedViewModel.selectBean(bean)
+                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeFragment()
+                        it.findNavController().navigate(action)
+                    }
+                }
+                hostName.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION) -> {
+                    holder.itemView.setOnClickListener {
+                        sharedViewModel.selectBean(bean)
+                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToInspectionItemFragment()
+                        it.findNavController().navigate(action)
+                    }
+                }
+                hostName.equals(NavHostFragment.HOSTNAME_DISPATCH) -> {
+                    holder.itemView.setOnClickListener{
+                        sharedViewModel.selectBean(bean)
+                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToDispatchFragment()
+                        it.findNavController().navigate(action)
+                    }
+                }
+                hostName.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) -> {
+                    holder.itemView.setOnClickListener {
+                        sharedViewModel.selectBean(bean)
+                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToVehicleImageVideoFragment()
+                        it.findNavController().navigate(action)
+                    }
+                }
             }
-        }else{
-            holder.itemView.setOnClickListener {
-                bundle.putSerializable("key", bean)
-                it.findNavController().navigate(R.id.inspectionItemFragment,bundle)
-            }
-        }
+        })
+
 
     }
+
+
+
+
 }
+

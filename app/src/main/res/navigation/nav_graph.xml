@@ -21,10 +21,6 @@
         <action
             android:id="@+id/action_vehicleQueueFragment_to_vehicleImageVideoFragment"
             app:destination="@id/vehicleImageVideoFragment" />
-        <argument
-            android:name="hostName"
-            app:argType="string"
-            android:defaultValue="Default" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -36,7 +32,11 @@
             app:destination="@id/vehicleQueueFragment" />
         <action
             android:id="@+id/action_navHostFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_navHostFragment_to_vehicleInfoFragment2"
             app:destination="@id/vehicleInfoFragment" />
@@ -59,16 +59,33 @@
             android:id="@+id/action_signatureFragment_pop_including_inspectionItemFragment"
             app:popUpTo="@id/inspectionItemFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_signatureFragment_pop_including_VehicleQueueFragment"
+            app:popUpTo="@id/vehicleQueueFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_signatureFragment_pop_including_registerFragment"
+            app:popUpTo="@id/registerFragment"
+            app:launchSingleTop="true" />
+
     </fragment>
     <fragment
         android:id="@+id/dispatchFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.DispatchFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_dispatchFragment_to_dynamicFragment"
+            app:destination="@id/dynamicFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_signatureFragment"
+            app:destination="@id/signatureFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chargeFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.ChargeFragment"

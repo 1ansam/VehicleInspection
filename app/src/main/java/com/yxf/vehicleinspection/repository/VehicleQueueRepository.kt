@@ -3,10 +3,9 @@ package com.yxf.vehicleinspection.repository
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.request.VehicleQueueRequest
+import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
@@ -25,6 +24,7 @@ import retrofit2.Response
  */
 class VehicleQueueRepository {
     fun getInspectionDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
+
         val liveData = MutableLiveData<List<VehicleQueueResponse>>()
         val dataService = RetrofitService.create(QueryService::class.java)
         val call = dataService.query(

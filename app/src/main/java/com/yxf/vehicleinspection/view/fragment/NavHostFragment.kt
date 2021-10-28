@@ -1,10 +1,11 @@
 package com.yxf.vehicleinspection.view.fragment
 
-import androidx.activity.addCallback
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentNavHostBinding
+import com.yxf.vehicleinspection.viewModel.SharedViewModel
 
 
 class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
@@ -19,34 +20,36 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
     }
 
     override fun init() {
-        this.requireActivity().onBackPressedDispatcher.addCallback(this){
-            this@NavHostFragment.requireActivity().finish()
-        }
+        val sharedViewModel : SharedViewModel by activityViewModels()
+        sharedViewModel.setHostName(HOSTNAME_REGISTER)
         binding.btnRegisterFunc.setOnClickListener {
-            findNavController().navigate(R.id.registerFragment)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToRegisterFragment()
+            findNavController().navigate(action)
         }
         binding.btnChargeFunc.setOnClickListener {
-            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
-                HOSTNAME_CHARGE)
+            sharedViewModel.setHostName(HOSTNAME_CHARGE)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
             findNavController().navigate(action)
         }
         binding.btnVehicleInspectionFunc.setOnClickListener {
-            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
-                HOSTNAME_VEHICLE_INSPECTION)
+            sharedViewModel.setHostName(HOSTNAME_VEHICLE_INSPECTION)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
             findNavController().navigate(action)
         }
         binding.btnDispatchFunc.setOnClickListener {
-            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
-                HOSTNAME_DISPATCH)
+            sharedViewModel.setHostName(HOSTNAME_DISPATCH)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
             findNavController().navigate(action)
         }
         binding.btnVerifySignatureFunc.setOnClickListener {
-            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment(
-                HOSTNAME_VERIFY_SIGNATURE)
+            sharedViewModel.setHostName(HOSTNAME_VERIFY_SIGNATURE)
+            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
             findNavController().navigate(action)
         }
         binding.btnVehicleInformationFunc.setOnClickListener {
-            findNavController().navigate(R.id.vehicleInfoFragment)
+            sharedViewModel.setHostName(HOSTNAME_VEHICLE_INFORMATION)
+
+            findNavController().navigate(R.id.action_navHostFragment_to_vehicleInfoFragment2)
         }
     }
 }

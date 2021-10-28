@@ -2,7 +2,7 @@ package com.yxf.vehicleinspection.utils
 
 import android.content.Context
 import android.net.wifi.WifiManager
-import android.util.Log
+import android.widget.Toast
 import com.yxf.vehicleinspection.MyApp
 
 /**
@@ -12,13 +12,16 @@ import com.yxf.vehicleinspection.MyApp
 object IpHelper {
 
     fun getIpAddress() : String {
-        val wifiManager : WifiManager = MyApp.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         if (wifiManager.isWifiEnabled){
             val wifiInfo = wifiManager.connectionInfo
             val ipAddress = wifiInfo.ipAddress
             return int2Ip(ipAddress)
 
-        }else return ""
+        }else{
+            Toast.makeText(MyApp.context,"WIFI未打开",Toast.LENGTH_SHORT).show()
+            return ""
+        }
 
     }
     private fun int2Ip(ipAddress : Int) : String{

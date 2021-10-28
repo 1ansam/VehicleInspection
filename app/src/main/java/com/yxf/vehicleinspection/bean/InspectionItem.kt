@@ -7,5 +7,4 @@ package com.yxf.vehicleinspection.bean
 data class InspectionItem(
     val Jyxm: String,
     val Jyzt: String
-) {
-}
+)

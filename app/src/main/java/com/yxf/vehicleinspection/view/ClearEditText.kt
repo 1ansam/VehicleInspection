@@ -1,15 +1,14 @@
 package com.yxf.vehicleinspection.view
 
 import android.content.Context
-import androidx.appcompat.widget.AppCompatEditText
-import android.view.View.OnFocusChangeListener
-import android.text.TextWatcher
 import android.graphics.drawable.Drawable
-import kotlin.jvm.JvmOverloads
-import android.view.MotionEvent
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnFocusChangeListener
+import androidx.appcompat.widget.AppCompatEditText
 import com.yxf.vehicleinspection.R
 
 /**
@@ -36,6 +35,7 @@ class ClearEditText : AppCompatEditText, OnFocusChangeListener, TextWatcher {
         mClearDrawable = compoundDrawables[2] // 获取drawableRight
         if (mClearDrawable == null) {
             // 如果为空，即没有设置drawableRight，则使用R.mipmap.close这张图片
+//            mClearDrawable = resources.getDrawable(R.drawable.ic_baseline_clear_24)
             mClearDrawable = resources.getDrawable(R.drawable.ic_baseline_clear_24)
         }
         mClearDrawable!!.setBounds(0,
@@ -83,7 +83,7 @@ class ClearEditText : AppCompatEditText, OnFocusChangeListener, TextWatcher {
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
     override fun afterTextChanged(s: Editable) {}
-    protected fun setDrawableVisible(visible: Boolean) {
+    private fun setDrawableVisible(visible: Boolean) {
         val right = if (visible) mClearDrawable else null
         setCompoundDrawables(compoundDrawables[0],
             compoundDrawables[1],

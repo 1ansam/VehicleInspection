@@ -1,6 +1,5 @@
 package com.yxf.vehicleinspection.view.fragment
 
-import android.os.Debug
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.yxf.vehicleinspection.base.BaseBindingFragment

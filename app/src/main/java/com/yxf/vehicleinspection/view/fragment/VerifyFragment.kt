@@ -1,7 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
@@ -16,12 +15,10 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     lateinit var adapter: VehicleQueueRvAdapter
     lateinit var viewModel : VehicleQueueViewModel
     override fun init() {
-        val args : VehicleQueueFragmentArgs by navArgs()
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
-        adapter = VehicleQueueRvAdapter(args.hostName)
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")

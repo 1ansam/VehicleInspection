@@ -9,7 +9,6 @@ import com.yxf.vehicleinspection.MyApp
  *   time:2021/10/12
  */
 object SharedP {
-    fun getInstance() : SharedPreferences{
-        return MyApp.context.getSharedPreferences("yxfSharedP", Context.MODE_PRIVATE)
-    }
+    var instance : SharedPreferences = MyApp.context.getSharedPreferences("yxfSharedP", Context.MODE_PRIVATE)
+    get() = field
 }

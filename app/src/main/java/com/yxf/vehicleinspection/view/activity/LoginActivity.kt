@@ -1,8 +1,9 @@
 package com.yxf.vehicleinspection.view.activity
 
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
@@ -11,44 +12,60 @@ import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.viewModel.LoginViewModel
 import com.yxf.vehicleinspection.viewModel.LoginViewModelFactory
 
-class LoginActivity : BaseBindingActivity<ActivityLoginBinding>(){
+class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     private val TAG = "LoginActivity"
 
     override fun init() {
-        binding.tvUsername.setText(SharedP.getInstance().getString("username",null))
+        if (SharedP.instance.getString("username","")!=null && SharedP.instance.getString("username","")!= ""){
+            binding.cbRememberUsername.isChecked = true
+        }
+        binding.tvUsername.setText(SharedP.instance.getString("username", ""))
+        binding.btnLogin.isEnabled = false
         val viewModel = ViewModelProvider(this,
             LoginViewModelFactory(UserInfoRepository())).get(LoginViewModel::class.java)
-        binding.btnLogin.setOnClickListener {
+        val watcher: TextWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            if (binding.tvUsername.text.toString() == "" || binding.tvPassword.text.toString() == "") {
-                Toast.makeText(this, "用户名或密码为空", Toast.LENGTH_SHORT).show()
-            } else {
-                binding.pbLogin.visibility = View.VISIBLE
-                viewModel.isLoading(
-                    binding.tvUsername.text.toString(),
-                    binding.tvPassword.text.toString()).observe(this, {
-                        if (it) {
-                            binding.pbLogin.visibility = View.GONE
-                            if (binding.cbRememberUsername.isChecked){
-                                SharedP.getInstance().edit().apply{
-                                    putString("username",binding.tvUsername.text.toString())
-                                    apply()
-                                }
-                            }
-                            val intent = Intent(this@LoginActivity, DisplayActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }else{
-                            binding.pbLogin.visibility = View.GONE
-                        }
-                })
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.btnLogin.isEnabled = binding.tvUsername.text.toString()
+                    .isNotEmpty() && binding.tvPassword.text.toString().isNotEmpty()
             }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        }
+        binding.tvUsername.addTextChangedListener(watcher)
+        binding.tvPassword.addTextChangedListener(watcher)
+        binding.btnLogin.setOnClickListener {
+            if (binding.cbRememberUsername.isChecked) {
+                SharedP.instance.edit().apply {
+                    putString("username", binding.tvUsername.text.toString())
+                    apply()
+                }
+            }else{
+                SharedP.instance.edit().apply{
+                    putString("username","")
+                    apply()
+                }
+            }
+
+            binding.pbLogin.visibility = View.VISIBLE
+            viewModel.isLoading(
+                binding.tvUsername.text.toString(),
+                binding.tvPassword.text.toString()).observe(this, {
+                if (it) {
+//                    binding.pbLogin.visibility = View.GONE
+                    val intent = Intent(this@LoginActivity, DisplayActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    binding.pbLogin.visibility = View.GONE
+                }
+            })
 
 
         }
 
     }
-
 
 
 }

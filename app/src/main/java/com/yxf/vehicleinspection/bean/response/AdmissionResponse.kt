@@ -12,5 +12,4 @@ class AdmissionResponse(
     val Rcsj : String?,
     val Yjzt : String?
 
-) {
-}
+)

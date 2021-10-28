@@ -1,8 +1,7 @@
 package com.yxf.vehicleinspection.singleton
 
-import android.text.TextUtils
 import com.yxf.vehicleinspection.base.BaseUrlHelper
-import okhttp3.*
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit

@@ -6,7 +6,6 @@ import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import android.util.Base64
-import android.widget.ImageView
 import java.io.ByteArrayOutputStream
 
 /**
@@ -19,7 +18,7 @@ object ImageUtil {
         var baos : ByteArrayOutputStream? = null
         try {
             baos = ByteArrayOutputStream()
-            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
             baos.flush()
             baos.close()
             val bitmapBytes = baos.toByteArray()
