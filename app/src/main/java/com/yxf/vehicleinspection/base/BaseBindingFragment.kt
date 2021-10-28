@@ -29,7 +29,6 @@ abstract class BaseBindingFragment<VB : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR
         init()
     }
 

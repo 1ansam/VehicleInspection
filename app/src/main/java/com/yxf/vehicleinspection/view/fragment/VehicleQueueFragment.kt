@@ -1,6 +1,8 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.base.BaseBindingFragment
@@ -19,7 +21,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
     private val sharedViewModel : SharedViewModel by activityViewModels()
 
     override fun init() {
-
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
             VehicleQueueRepository()))
             .get(VehicleQueueViewModel::class.java)

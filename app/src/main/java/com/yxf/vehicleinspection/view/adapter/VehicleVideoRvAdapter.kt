@@ -1,35 +1,34 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import com.yxf.vehicleinspection.base.BaseRvAdapter
+import com.yxf.vehicleinspection.base.BaseRvViewHolder
+import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
 import com.yxf.vehicleinspection.bean.response.VehicleVideoResponse
+import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
 import com.yxf.vehicleinspection.databinding.VehicleVideoItemBinding
+import com.yxf.vehicleinspection.utils.ImageUtil
 
 /**
  *   author:yxf
- *   time:2021/10/12
+ *   time:2021/10/28
  */
-class VehicleVideoRvAdapter(val context: Context, val modelList: List<VehicleVideoResponse>?) : RecyclerView.Adapter<VehicleVideoViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleVideoViewHolder {
+class VehicleVideoRvAdapter : BaseRvAdapter<VehicleVideoResponse, VehicleVideoItemBinding>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): BaseRvViewHolder<VehicleVideoItemBinding> {
         val binding = VehicleVideoItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return VehicleVideoViewHolder(binding)
+        return BaseRvViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: VehicleVideoViewHolder, position: Int) {
-        if (modelList!= null){
-            holder.setModel(modelList[position])
-        }
-
-    }
-
-    override fun getItemCount(): Int {
-        return modelList?.size ?: 0
-    }
-}
-class VehicleVideoViewHolder(binding : VehicleVideoItemBinding) : RecyclerView.ViewHolder(binding.root){
-    fun setModel(model : VehicleVideoResponse){
-
+    override fun onBindViewHolder(
+        holder: BaseRvViewHolder<VehicleVideoItemBinding>,
+        position: Int,
+        binding: VehicleVideoItemBinding,
+        bean: VehicleVideoResponse,
+    ) {
+        holder.binding.tvItemTitle.text = bean.Spmc
     }
 }

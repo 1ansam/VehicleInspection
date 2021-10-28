@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,13 +17,15 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     private lateinit var inspectionItemAdapter : InspectionItemAdapter
     private val sharedViewModel : SharedViewModel by activityViewModels()
     override fun init() {
-
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvInspectionItem.layoutManager = LinearLayoutManager(this.requireContext())
         vehicleInformationAdapter = VehicleInformationAdapter()
         inspectionItemAdapter = InspectionItemAdapter()
         binding.rvVehicleInformation.adapter = vehicleInformationAdapter
         binding.rvInspectionItem.adapter = inspectionItemAdapter
+        binding.rvVehicleInformation.setHasFixedSize(true)
+        binding.rvInspectionItem.setHasFixedSize(true)
         getData()
     }
 

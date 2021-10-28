@@ -8,10 +8,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"/>
-    <ImageView
-        android:id="@+id/iv_Image"
+
+    <VideoView
+        android:id="@+id/vvVideo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

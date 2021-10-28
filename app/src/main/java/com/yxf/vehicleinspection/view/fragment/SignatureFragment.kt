@@ -36,11 +36,13 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
             bundle.putString("base64",base64)
             sharedViewModel.hostName.observe(this,{
                 when {
-                    it.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) -> {
+                    it.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE)
+                            ||it.equals(NavHostFragment.HOSTNAME_DISPATCH)
+                            ||it.equals(NavHostFragment.HOSTNAME_CHARGE)-> {
                         val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingVehicleQueueFragment()
                         findNavController().navigate(action)
                     }
-                    it.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION) -> {
+                    it.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION)-> {
                         val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingInspectionItemFragment()
                         findNavController().navigate(action)
                     }
@@ -48,6 +50,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
                         val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingRegisterFragment()
                         findNavController().navigate(action)
                     }
+
                 }
 
             })

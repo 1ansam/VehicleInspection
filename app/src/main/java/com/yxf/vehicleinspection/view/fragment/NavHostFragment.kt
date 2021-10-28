@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
@@ -20,6 +21,7 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
     }
 
     override fun init() {
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         val sharedViewModel : SharedViewModel by activityViewModels()
         sharedViewModel.setHostName(HOSTNAME_REGISTER)
         binding.btnRegisterFunc.setOnClickListener {

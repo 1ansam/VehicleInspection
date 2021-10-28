@@ -7,6 +7,7 @@ import com.yxf.vehicleinspection.databinding.FragmentChargeBinding
 
 class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
     override fun init() {
+
         val str = "https://baidu.com"
         val encode = BarcodeEncoder()
         val bitmap = encode.encodeBitmap(str, BarcodeFormat.QR_CODE,800,800)
