@@ -11,15 +11,11 @@ import com.yxf.vehicleinspection.repository.VehicleQueueRepository
  *   time:2021/9/29
  */
 class VehicleQueueViewModel(private val repository: VehicleQueueRepository) : ViewModel() {
-    private lateinit var  queueData : LiveData<List<VehicleQueueResponse>>
-    private lateinit var verifyQueueData: LiveData<List<VehicleQueueResponse>>
-    fun getDataQueue(hphm : String) : LiveData<List<VehicleQueueResponse>> {
-        queueData = repository.getInspectionDataQueue(hphm)
-        return queueData
+    fun getDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
+        return repository.getInspectionDataQueue(hphm)
     }
-    fun getVerifyDataQueue(hphm: String) : LiveData<List<VehicleQueueResponse>>{
-        verifyQueueData = repository.getVerifyDataQueue(hphm)
-        return verifyQueueData
+    fun getVerifyDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
+        return repository.getVerifyDataQueue(hphm)
     }
 
 }

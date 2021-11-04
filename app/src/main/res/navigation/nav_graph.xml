@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_vehicleImageVideoFragment_to_signatureFragment"
             app:destination="@id/signatureFragment" />
+        <argument
+            android:name="bean"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
     </fragment>
     <fragment
         android:id="@+id/signatureFragment"
@@ -82,6 +85,9 @@
         <action
             android:id="@+id/action_dispatchFragment_to_dynamicFragment"
             app:destination="@id/dynamicFragment" />
+        <argument
+            android:name="bean"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -98,6 +104,9 @@
         <action
             android:id="@+id/action_chargeFragment_to_signatureFragment"
             app:destination="@id/signatureFragment" />
+        <argument
+            android:name="bean"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
     </fragment>
     <fragment
         android:id="@+id/vehicleInfoFragment"
@@ -123,6 +132,9 @@
         <action
             android:id="@+id/action_inspectionItemFragment_to_uniqueFragment"
             app:destination="@id/uniqueFragment" />
+        <argument
+            android:name="bean"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
     </fragment>
     <fragment
         android:id="@+id/exteriorFragment"
@@ -132,6 +144,10 @@
         <action
             android:id="@+id/action_exteriorFragment_to_signatureFragment"
             app:destination="@id/signatureFragment" />
+        <argument
+            android:name="bean"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse" />
+        <argument android:name="jyxm" />
     </fragment>
     <fragment
         android:id="@+id/chassisFragment"

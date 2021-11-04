@@ -7,13 +7,17 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.InspectionItem
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoResponse
+import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse
 import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
+import com.yxf.vehicleinspection.view.fragment.ExteriorFragmentDirections
+import com.yxf.vehicleinspection.view.fragment.InspectionItemFragmentDirections
 
 /**
  *   author:yxf
  *   time:2021/10/19
  */
-class InspectionItemAdapter : BaseRvAdapter<InspectionItem,RvItemInspectionItemBinding>() {
+class InspectionItemAdapter() : BaseRvAdapter<VehicleInspectionItemResponse,RvItemInspectionItemBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -25,23 +29,25 @@ class InspectionItemAdapter : BaseRvAdapter<InspectionItem,RvItemInspectionItemB
         holder: BaseRvViewHolder<RvItemInspectionItemBinding>,
         position: Int,
         binding: RvItemInspectionItemBinding,
-        bean: InspectionItem,
+        bean: VehicleInspectionItemResponse,
     ) {
         holder.apply {
-            binding.tvJyxm.text = bean.Jyxm
-            binding.tvJyzt.text = bean.Jyzt
+            binding.tvJyxm.text = bean.Xmmc
+            binding.tvJyzt.text = bean.Jczt
         }
-        if (binding.tvJyzt.text.equals("完成"))
-            holder.itemView.isEnabled = false
+//        if (binding.tvJyzt.text.equals("完成"))
+//            holder.itemView.isEnabled = false
         holder.itemView.setOnClickListener {
-            when(binding.tvJyxm.text){
-                "外观" -> it.findNavController().navigate(R.id.exteriorFragment)
-                "底盘" -> it.findNavController().navigate(R.id.chassisFragment)
-                "动态" -> it.findNavController().navigate(R.id.dynamicFragment)
-                "联网" -> it.findNavController().navigate(R.id.networkQueryFragment)
-                "唯一性" -> it.findNavController().navigate(R.id.uniqueFragment)
+            when(bean.Xmbh){
+                "F1" -> it.findNavController().navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToExteriorFragment(bean,bean.Xmbh))
+                "C1" -> it.findNavController().navigate(R.id.chassisFragment)
+                "DC" -> it.findNavController().navigate(R.id.dynamicFragment)
+                "NQ" -> it.findNavController().navigate(R.id.networkQueryFragment)
+                "UC" -> it.findNavController().navigate(R.id.uniqueFragment)
             }
         }
 
     }
+
+
 }

@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.VehicleInformation
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoResponse
 import com.yxf.vehicleinspection.databinding.RvItemVehicleInformationBinding
 
 /**
  *   author:yxf
  *   time:2021/10/19
  */
-class VehicleInformationAdapter : BaseRvAdapter<VehicleInformation,RvItemVehicleInformationBinding>() {
+class VehicleAllInfoAdapter : BaseRvAdapter<VehicleAllInfoResponse,RvItemVehicleInformationBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -23,7 +24,7 @@ class VehicleInformationAdapter : BaseRvAdapter<VehicleInformation,RvItemVehicle
         holder: BaseRvViewHolder<RvItemVehicleInformationBinding>,
         position: Int,
         binding: RvItemVehicleInformationBinding,
-        bean: VehicleInformation,
+        bean: VehicleAllInfoResponse,
     ) {
         holder.apply {
             binding.tvLsh.text = bean.Lsh
@@ -31,7 +32,7 @@ class VehicleInformationAdapter : BaseRvAdapter<VehicleInformation,RvItemVehicle
             binding.tvHpzl.text = bean.Hpzl
             binding.tvHpys.text = bean.Hpys
             binding.tvCllx.text = bean.Cllx
-            binding.tvWkcc.text = bean.Wkcc
+            binding.tvWkcc.text = "${bean.Cwkc}*${bean.Cwkk}*${bean.Cwkg}"
             binding.tvZbzl.text = bean.Zbzl
             binding.tvLtgg.text = bean.Ltgg
             binding.tvCcrq.text = bean.Ccrq

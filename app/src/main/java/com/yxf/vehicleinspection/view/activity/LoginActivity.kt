@@ -51,7 +51,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             binding.pbLogin.visibility = View.VISIBLE
             viewModel.isLoading(
                 binding.tvUsername.text.toString(),
-                binding.tvPassword.text.toString()).observe(this, {
+                binding.tvPassword.text.toString()).observe(this){
                 if (it) {
 //                    binding.pbLogin.visibility = View.GONE
                     val intent = Intent(this@LoginActivity, DisplayActivity::class.java)
@@ -60,7 +60,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 } else {
                     binding.pbLogin.visibility = View.GONE
                 }
-            })
+            }
 
 
         }
