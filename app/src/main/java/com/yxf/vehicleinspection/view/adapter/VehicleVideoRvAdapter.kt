@@ -29,6 +29,6 @@ class VehicleVideoRvAdapter : BaseRvAdapter<VehicleVideoResponse, VehicleVideoIt
         binding: VehicleVideoItemBinding,
         bean: VehicleVideoResponse,
     ) {
-        holder.binding.tvItemTitle.text = bean.Spmc
+        holder.binding.tvZpmc.text = bean.Spmc
     }
 }

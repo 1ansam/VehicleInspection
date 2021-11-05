@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.base
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -14,6 +15,10 @@ abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<Ba
         field = value
         notifyDataSetChanged()
     }
+    open var onItemViewClickListener : OnItemViewClickListener? = null
+    set(value)  {
+        field = value
+    }
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRvViewHolder<V>
     override fun getItemCount(): Int {
         return data.size
@@ -23,5 +28,9 @@ abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<Ba
     }
     abstract fun onBindViewHolder(holder : BaseRvViewHolder<V>, position : Int,binding: V, bean : E)
 
+
+    interface OnItemViewClickListener{
+        fun onItemClick(view : View,position: Int)
+    }
 }
 open class BaseRvViewHolder<V : ViewBinding>(val binding : V) : RecyclerView.ViewHolder(binding.root)

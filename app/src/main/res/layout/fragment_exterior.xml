@@ -25,75 +25,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <ListView
+        android:id="@+id/lvTitle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline38"
+        app:layout_constraintBottom_toTopOf="@+id/includeBottomButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline37">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lightBlue"
-                    android:text="照片拍摄" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="165dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lightBlue"
-                    android:text="车辆检验信息" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSelectQualified"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lightBlue"
-                    android:text="备注" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvRemake"
-                    android:layout_width="match_parent"
-                    android:layout_height="205dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    </ListView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline38"
@@ -110,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline38" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,6 @@ class VehicleImageRvAdapter : BaseRvAdapter<VehicleImageResponse,VehicleImageIte
         bean: VehicleImageResponse,
     ) {
         holder.binding.ivImage.setImageBitmap(ImageUtil.base642Bitmap(bean.Zp))
-        holder.binding.tvItemTitle.text = bean.ZpzlMc
+        holder.binding.tvZpmc.text = bean.ZpzlMc
     }
 }
