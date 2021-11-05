@@ -13,10 +13,10 @@ import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
  **/
 abstract class TempAdapter<T : Any, V : ViewBinding>(t : T) : RecyclerView.Adapter<TempViewHolder<V>>(){
     open var data : T = t
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
 }
