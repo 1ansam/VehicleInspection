@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qingmei2.rximagepicker.core.RxImagePicker
 import com.qingmei2.rximagepicker.ui.gallery.DefaultGalleryMimes
@@ -46,6 +47,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     lateinit var imageAdapter: ExteriorImageAdapter
     private val args: ExteriorFragmentArgs by navArgs()
     private val REQUEST_IMAGE_CAPTURE = 101
+    private var holder : RecyclerView.ViewHolder? = null
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         exteriorViewModel =
@@ -63,6 +65,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
                     }
                 }
+                holder = binding.rvImage.findViewHolderForAdapterPosition(position)
             }
         }
         binding.rvImage.layoutManager = LinearLayoutManager(this.requireContext())
@@ -91,7 +94,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)
             if (data != null) {
-                val imageView = view?.findViewById<ImageView>(R.id.ivImage)
+                val imageView = holder?.itemView?.findViewById<ImageView>(R.id.ivImage)
                 imageView?.setImageBitmap(data.extras?.get("data") as Bitmap)
             }
 
