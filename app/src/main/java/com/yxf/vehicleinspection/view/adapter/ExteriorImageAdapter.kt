@@ -1,30 +1,29 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.ImageItemResponse
 import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
 
 /**
- *   author:yxf
- *   time:2021/11/4
- *   Signature Verify
- */
-class ImageItemRvAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItemBinding>() {
+ * @author : yxf
+ * @Date : 2021/11/7
+ **/
+class ExteriorImageAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItemBinding>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): BaseRvViewHolder<VehicleImageItemBinding> {
-        return BaseRvViewHolder(VehicleImageItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return BaseRvViewHolder(
+            VehicleImageItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(
@@ -37,14 +36,12 @@ class ImageItemRvAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItemBi
             binding.tvZpmc.text = bean.Zpmc
         }
         holder.binding.ivImage.setOnClickListener {
-            onItemViewClickListener?.onItemClick(holder.itemView,
-                position)
+            onItemViewClickListener?.onItemClick(
+                holder.itemView,
+                position
+            )
         }
 
 
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position
     }
 }
