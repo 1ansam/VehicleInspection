@@ -145,9 +145,11 @@
             android:id="@+id/action_exteriorFragment_to_signatureFragment"
             app:destination="@id/signatureFragment" />
         <argument
-            android:name="bean"
+            android:name="bean006"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse" />
-        <argument android:name="jyxm" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
     </fragment>
     <fragment
         android:id="@+id/chassisFragment"

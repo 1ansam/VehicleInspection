@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import android.util.Base64
+import android.view.View
 import java.io.ByteArrayOutputStream
 
 /**
@@ -47,4 +48,5 @@ object ImageUtil {
         drawable.draw(canvas)
         return bitmap
     }
+
 }

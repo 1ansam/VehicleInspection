@@ -2,6 +2,7 @@ package com.yxf.vehicleinspection.service
 
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -20,6 +21,6 @@ interface WriteService {
     fun  write(
         @Query("jkId") jkId: String,
         @Query("zdbs") zdbs: String,
-        @Query("jsonData") jsonData: String,
+        @Body jsonData: String,
     ): Call<ResponseBody>
 }

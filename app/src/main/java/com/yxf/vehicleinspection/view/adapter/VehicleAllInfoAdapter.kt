@@ -4,15 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.VehicleInformation
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfoResponse
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
 import com.yxf.vehicleinspection.databinding.RvItemVehicleInformationBinding
 
 /**
  *   author:yxf
  *   time:2021/10/19
  */
-class VehicleAllInfoAdapter : BaseRvAdapter<VehicleAllInfoResponse,RvItemVehicleInformationBinding>() {
+class VehicleAllInfoAdapter : BaseRvAdapter<VehicleAllInfo005Response,RvItemVehicleInformationBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -24,7 +23,7 @@ class VehicleAllInfoAdapter : BaseRvAdapter<VehicleAllInfoResponse,RvItemVehicle
         holder: BaseRvViewHolder<RvItemVehicleInformationBinding>,
         position: Int,
         binding: RvItemVehicleInformationBinding,
-        bean: VehicleAllInfoResponse,
+        bean: VehicleAllInfo005Response,
     ) {
         holder.apply {
             binding.tvLsh.text = bean.Lsh

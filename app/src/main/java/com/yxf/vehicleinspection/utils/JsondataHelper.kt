@@ -14,4 +14,11 @@ object JsonDataHelper {
         requestArray.add(element)
         return GsonSingleton.getGson().toJson(CommonRequest(requestArray))
     }
+    fun <T> getJsonData(elements : List<T>) : String{
+        val requestArray = ArrayList<T>()
+        for (element in elements){
+            requestArray.add(element)
+        }
+        return GsonSingleton.getGson().toJson(CommonRequest(requestArray))
+    }
 }

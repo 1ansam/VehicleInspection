@@ -126,7 +126,7 @@ import java.io.Serializable
  *   @param Sjrsfzh 送检人身份证号
 
  */
-data class VehicleAllInfoResponse(
+data class VehicleAllInfo005Response(
     val Id : String?,
     val Lsh : String,
     val Hphm : String,

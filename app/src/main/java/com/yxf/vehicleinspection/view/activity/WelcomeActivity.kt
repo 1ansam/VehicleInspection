@@ -39,7 +39,7 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 
 
 
-            intent = Intent(this, LoginActivity::class.java)
+            intent = Intent(this, DisplayActivity::class.java)
             startActivity(intent)
             finish()
 //            RxImagePicker

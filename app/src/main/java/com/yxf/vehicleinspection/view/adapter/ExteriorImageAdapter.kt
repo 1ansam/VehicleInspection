@@ -34,6 +34,8 @@ class ExteriorImageAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItem
     ) {
         holder.apply {
             binding.tvZpmc.text = bean.Zpmc
+            binding.tvZpajdm.text = "安检代码：${bean.Zpajdm}"
+            binding.tvZphjdm.text = "环检代码：${bean.Zphjdm}"
         }
         holder.binding.ivImage.setOnClickListener {
             onItemViewClickListener?.onItemClick(
@@ -43,5 +45,9 @@ class ExteriorImageAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItem
         }
 
 
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }
