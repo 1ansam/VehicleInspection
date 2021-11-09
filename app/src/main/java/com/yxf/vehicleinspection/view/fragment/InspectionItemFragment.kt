@@ -3,9 +3,11 @@ package com.yxf.vehicleinspection.view.fragment
 import android.content.pm.ActivityInfo
 import android.util.Log
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
 import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse
@@ -20,16 +22,18 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     private lateinit var vehicleInformationAdapter: VehicleAllInfoAdapter
     private lateinit var inspectionItemAdapter: InspectionItemAdapter
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var vehicleAllInfoViewModel: VehicleAllInfoViewModel
-    private lateinit var vehicleInspectionItemViewModel : VehicleInspectionItemViewModel
+    private val vehicleAllInfoViewModel by viewModels<VehicleAllInfoViewModel> {
+        VehicleAllInfoViewModelFactory((requireActivity().application as MyApp).vehicleAllInfoRepository)
+    }
+    private val vehicleInspectionItemViewModel by viewModels<VehicleInspectionItemViewModel> {
+        VehicleInspectionItemViewModelFactory((requireActivity().application as MyApp).vehicleInspectionItemRepository)
+    }
     private val args: DispatchFragmentArgs by navArgs()
 
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        vehicleAllInfoViewModel = ViewModelProvider(this, VehicleAllInfoViewModelFactory(
-            VehicleAllInfoRepository())).get(VehicleAllInfoViewModel::class.java)
-        vehicleInspectionItemViewModel = ViewModelProvider(this,VehicleInspectionItemViewModelFactory(
-            VehicleInspectionItemRepository())).get(VehicleInspectionItemViewModel::class.java)
+
+
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvInspectionItem.layoutManager = LinearLayoutManager(this.requireContext())
         vehicleInformationAdapter = VehicleAllInfoAdapter()
@@ -65,13 +69,12 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
                 inspectionItemAdapter.bean005 = it[0]
                 vehicleInformationAdapter.data = vehicleInformationList
             }
-        vehicleInspectionItemViewModel.getVehicleInspectionItem(Lsh).observe(this){
-            for (element in it){
+        vehicleInspectionItemViewModel.getVehicleInspectionItem(Lsh).observe(this) {
+            for (element in it) {
                 inspectionItemList.add(element)
             }
             inspectionItemAdapter.data = inspectionItemList
         }
-
 
 
     }

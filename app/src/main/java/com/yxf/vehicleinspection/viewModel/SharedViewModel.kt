@@ -9,11 +9,7 @@ import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
  *   time:2021/10/26
  */
 class SharedViewModel : ViewModel() {
-    val selectedBean = MutableLiveData<VehicleQueueResponse>()
     val hostName = MutableLiveData<String>()
-    fun selectBean(vehicleQueueResponse: VehicleQueueResponse){
-        selectedBean.value = vehicleQueueResponse
-    }
     fun setHostName(hostName : String){
         this.hostName.value = hostName
     }

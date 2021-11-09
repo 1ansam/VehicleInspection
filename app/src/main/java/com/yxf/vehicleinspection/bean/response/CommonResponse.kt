@@ -8,6 +8,6 @@ package com.yxf.vehicleinspection.bean.response
 data class  CommonResponse<T>(
 
     val Body: List<T>,
-    val Code: String?,
-    val Message: String?
+    val Code: String,
+    val Message: String
 )

@@ -40,7 +40,7 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
             binding.tvAjywlb.text = "安检：${bean.AjywlbCc}"
             binding.tvHjjwlb.text = "环保：${bean.HjywlbCc}"
             binding.tvLsh.text = bean.Lsh
-            binding.tvTime.text = bean.Djrq?.substring(0,16)
+            binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
         }
         sharedViewModel.hostName.observe(owner,{ hostName ->

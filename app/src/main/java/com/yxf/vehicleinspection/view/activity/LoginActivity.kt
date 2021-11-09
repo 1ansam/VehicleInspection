@@ -4,7 +4,9 @@ import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.repository.UserInfoRepository
@@ -14,15 +16,13 @@ import com.yxf.vehicleinspection.viewModel.LoginViewModelFactory
 
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     private val TAG = "LoginActivity"
-
+    private val loginViewModel by viewModels<LoginViewModel> { LoginViewModelFactory((application as MyApp).userInfoRepository) }
     override fun init() {
         if (SharedP.instance.getString("username","")!=null && SharedP.instance.getString("username","")!= ""){
             binding.cbRememberUsername.isChecked = true
         }
         binding.tvUsername.setText(SharedP.instance.getString("username", ""))
         binding.btnLogin.isEnabled = false
-        val viewModel = ViewModelProvider(this,
-            LoginViewModelFactory(UserInfoRepository())).get(LoginViewModel::class.java)
         val watcher: TextWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -49,7 +49,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             }
 
             binding.pbLogin.visibility = View.VISIBLE
-            viewModel.isLoading(
+            loginViewModel.isLoading(
                 binding.tvUsername.text.toString(),
                 binding.tvPassword.text.toString()).observe(this){
                 if (it) {

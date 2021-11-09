@@ -4,7 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.AllUserInfoRequest
+import com.yxf.vehicleinspection.bean.request.AllUserInfoRequest001
 import com.yxf.vehicleinspection.bean.request.UserInfoRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.UserInfoResponse
@@ -31,7 +31,7 @@ class UserInfoRepository {
         val call = RetrofitService.create(QueryService::class.java).query(
             ApiStatic.QUERY_ALL_USER,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(AllUserInfoRequest())
+            JsonDataHelper.getJsonData(AllUserInfoRequest001())
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

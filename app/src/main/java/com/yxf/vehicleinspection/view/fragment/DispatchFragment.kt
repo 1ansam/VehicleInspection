@@ -13,9 +13,7 @@ class DispatchFragment : BaseBindingFragment<FragmentDispatchBinding>() {
 
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        sharedViewModel.selectedBean.observe(this,{
-            binding.tvLsh.text = it.Lsh
-        })
+
         binding.btnDynamicInspection.setOnClickListener {
             val action = DispatchFragmentDirections.actionDispatchFragmentToDynamicFragment()
             findNavController().navigate(action)

@@ -11,8 +11,8 @@ import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
  * @author : yxf
  * @Date : 2021/11/4
  **/
-abstract class TempAdapter<T : Any, V : ViewBinding>(t : T) : RecyclerView.Adapter<TempViewHolder<V>>(){
-    open var data : T = t
+abstract class TempAdapter<T : Any, V : ViewBinding>() : RecyclerView.Adapter<TempViewHolder<V>>(){
+    open var data : T? = null
         set(value) {
             field = value
             notifyDataSetChanged()

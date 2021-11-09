@@ -12,9 +12,11 @@ package com.yxf.vehicleinspection.bean.request
  * @param Dm 代码
  * @param Mc 名称
  **/
-data class DataDictionaryRequest(
-    val Fl : String,
+data class DataDictionaryRequest003(
+    val Fl : String?,
     val Dm : String?,
     val Mc : String?
 
-)
+){
+    constructor() : this(null,null,null)
+}

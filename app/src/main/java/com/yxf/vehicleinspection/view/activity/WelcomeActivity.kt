@@ -3,13 +3,22 @@ package com.yxf.vehicleinspection.view.activity
 import android.Manifest
 import android.content.Intent
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.permissionx.guolindev.PermissionX
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
+import com.yxf.vehicleinspection.viewModel.WelcomeViewModel
+import com.yxf.vehicleinspection.viewModel.WelcomeViewModelFactory
+import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
-    val REQUEST_IMAGE_CAPTURE = 1
-    val REQUEST_VIDEO_CAPTURE = 2
+
+    private val viewModel: WelcomeViewModel by viewModels {
+        WelcomeViewModelFactory((application as MyApp).dataDictionaryRepository)
+    }
     override fun init() {
         PermissionX.init(this)
             .permissions(Manifest.permission.CAMERA,
@@ -27,6 +36,17 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                         Toast.LENGTH_LONG).show()
                 }
             }
+        viewModel.getDataDictionary().observe(this){ list ->
+            viewModel.getDataExist().observe(this){
+                if (it!=null){
+                    viewModel.updateData(list)
+
+                }else{
+                    viewModel.insertData(list)
+                }
+
+            }
+        }
         binding.btnStartEnjoy.setOnClickListener {
 //            val testObject = LCObject("TestObject")
 //            testObject.put("words","Hello World!")

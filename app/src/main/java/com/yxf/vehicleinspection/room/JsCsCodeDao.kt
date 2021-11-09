@@ -1,8 +1,10 @@
 package com.yxf.vehicleinspection.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.yxf.vehicleinspection.bean.JsCsCode
 
 /**
@@ -12,7 +14,7 @@ import com.yxf.vehicleinspection.bean.JsCsCode
 @Dao
 interface JsCsCodeDao {
     @Insert
-    fun insertJsCsCode(jsCsCode: List<JsCsCode>)
+    fun insertJsCsCode(jsCsCodeList : List<JsCsCode>)
 
     @Query("DELETE FROM JsCsCode")
     fun deleteAll()
@@ -22,4 +24,9 @@ interface JsCsCodeDao {
 
     @Query("SELECT Dm FROM JsCsCode WHERE Fl LIKE :fl AND FlMc LIKE :flmc")
     fun getDM(fl : String, flmc : String) : String
+
+    @Query("SELECT * FROM JsCsCode WHERE InfoID = 1")
+    fun getJsCsCodeExist() : LiveData<JsCsCode>
+    @Update
+    fun updateJsCsCode(jsCsCodeList : List<JsCsCode>)
 }

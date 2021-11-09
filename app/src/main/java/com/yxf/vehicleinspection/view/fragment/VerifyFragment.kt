@@ -1,8 +1,10 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
 import com.yxf.vehicleinspection.repository.VehicleQueueRepository
@@ -14,12 +16,10 @@ import java.util.*
 
 class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     lateinit var adapter: VehicleQueueRvAdapter
-    lateinit var viewModel : VehicleQueueViewModel
+    val viewModel by viewModels<VehicleQueueViewModel> { VehicleQueueViewModelFactory((requireActivity().application as MyApp).vehicleQueueRepository) }
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        viewModel = ViewModelProvider(this, VehicleQueueViewModelFactory(
-            VehicleQueueRepository()))
-            .get(VehicleQueueViewModel::class.java)
+
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)

@@ -11,11 +11,15 @@ import android.os.Debug
 import android.os.Environment
 import android.os.StrictMode
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.core.os.EnvironmentCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,15 +28,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qingmei2.rximagepicker.core.ImagePickerController
 import com.qingmei2.rximagepicker.core.RxImagePicker
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.bean.request.InspectionPhotoW007Request
+import com.yxf.vehicleinspection.bean.response.ArtificialProjectR016Response
 import com.yxf.vehicleinspection.databinding.FragmentExteriorBinding
 import com.yxf.vehicleinspection.imagepicker.DefaultImagePicker
 import com.yxf.vehicleinspection.repository.ExteriorRepository
 import com.yxf.vehicleinspection.utils.ImageUtil
 import com.yxf.vehicleinspection.view.adapter.ExteriorImageAdapter
+import com.yxf.vehicleinspection.view.adapter.ExteriorSelectAdapter
 import com.yxf.vehicleinspection.view.adapter.ImageItemRvAdapter
 import com.yxf.vehicleinspection.viewModel.ExteriorViewModel
 import com.yxf.vehicleinspection.viewModel.ExteriorViewModelFactory
@@ -46,17 +53,18 @@ import kotlin.collections.ArrayList
 
 class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     lateinit var currentPhotoPath: String
-    lateinit var exteriorViewModel: ExteriorViewModel
+    private val exteriorViewModel by viewModels<ExteriorViewModel> { ExteriorViewModelFactory((requireActivity().application as MyApp).exteriorRepository) }
     lateinit var exteriorImageAdapter: ExteriorImageAdapter
+    lateinit var exteriorSelectAdapter: ExteriorSelectAdapter
     private val args: ExteriorFragmentArgs by navArgs()
     private val REQUEST_IMAGE_CAPTURE = 101
     private var holder: RecyclerView.ViewHolder? = null
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        exteriorViewModel =
-            ViewModelProvider(this, ExteriorViewModelFactory(ExteriorRepository())).get(
-                ExteriorViewModel::class.java
-            )
+//        exteriorViewModel =
+//            ViewModelProvider(this, ExteriorViewModelFactory(ExteriorRepository())).get(
+//                ExteriorViewModel::class.java
+//            )
 
         exteriorImageAdapter = ExteriorImageAdapter()
         exteriorImageAdapter.onItemViewClickListener =
@@ -90,23 +98,35 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         binding.rvImage.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvImage.adapter = exteriorImageAdapter
         binding.includeTitle.btnSubmit.setOnClickListener {
-
+            binding.pbExteriorSubmit.visibility = View.VISIBLE
             exteriorViewModel.postInspectionPhotoW007(getPostData(exteriorImageAdapter))
                 .observe(this) {
                     if (it) {
+                        binding.pbExteriorSubmit.visibility = View.GONE
                         findNavController().navigate(R.id.action_exteriorFragment_to_signatureFragment)
                     } else {
+                        binding.pbExteriorSubmit.visibility = View.GONE
 //                        Toast.makeText(MyApp.context, "上传失败", Toast.LENGTH_SHORT).show()
                     }
                 }
 
         }
+        binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
+        exteriorSelectAdapter = ExteriorSelectAdapter()
+        binding.rvSelect.adapter = exteriorSelectAdapter
+
     }
 
 
     private fun getImageData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String) {
         exteriorViewModel.getImageItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this) {
             exteriorImageAdapter.data = it
+        }
+    }
+    private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
+        exteriorViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
+            val artificialProjectR016Response = it[0]
+            exteriorSelectAdapter.data = artificialProjectR016Response.Xmlb
         }
     }
 
@@ -120,7 +140,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             val drawable = imageView?.drawable
             if (drawable != null) {
                 val bitmap = ImageUtil.getBitmapFromDrawable(drawable)
-                val base64 = ImageUtil.bitmap2Base64(bitmap!!)
+                val base64 = ImageUtil.bitmap2Base64(bitmap)
                 val model = InspectionPhotoW007Request(
                     index, args.bean006.Lsh,
                     "",
@@ -168,6 +188,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             args.bean006.Lsh, args.bean006.Xmbh,
             args.bean006.Ajywlb, args.bean006.Hjywlb
         )
+        getSelectData(args.bean006.Lsh, args.bean006.Xmbh,
+            args.bean006.Ajywlb, args.bean006.Hjywlb)
         super.onResume()
     }
 
@@ -188,10 +210,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
                 // Determine how much to scale down the image
                 val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
-
-                // Decode the image file into a Bitmap sized to fill the View
                 inJustDecodeBounds = false
-                inSampleSize = scaleFactor
+                inSampleSize = 4
                 inPurgeable = true
             }
             BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
@@ -199,8 +219,6 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             }
 
         }
-
-
 
     }
 
