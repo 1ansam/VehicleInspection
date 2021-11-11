@@ -3,7 +3,7 @@
     <!--欢迎界面-->
     <string name="app_name">车辆检验</string>
     <string name="corporationName">良源科技</string>
-    <string name="corporationInfomation">提供稳定、安全、高效的汽车检测服务</string>
+    <string name="corporationInformation">提供稳定、安全、高效的汽车检测服务</string>
     <string name="startEnjoy">立即体验</string>
     <!--登录界面-->
     <string name="login">登录</string>

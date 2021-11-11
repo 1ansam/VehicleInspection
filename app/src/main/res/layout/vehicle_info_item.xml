@@ -22,8 +22,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="20dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="20dp"
                 android:text="@string/lsh" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -31,8 +31,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:paddingRight="20dp" />
+                android:gravity="end|center_vertical"
+                android:paddingEnd="20dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

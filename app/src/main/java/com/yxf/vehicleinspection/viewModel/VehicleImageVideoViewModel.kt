@@ -3,8 +3,8 @@ package com.yxf.vehicleinspection.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.response.VehicleImageResponse
-import com.yxf.vehicleinspection.bean.response.VehicleVideoResponse
+import com.yxf.vehicleinspection.bean.response.VehicleImageR007Response
+import com.yxf.vehicleinspection.bean.response.VehicleVideoR008Response
 import com.yxf.vehicleinspection.repository.VehicleImageRepository
 import com.yxf.vehicleinspection.repository.VehicleVideoRepository
 
@@ -16,11 +16,11 @@ class VehicleImageVideoViewModel(
     val imageRepository : VehicleImageRepository,
     val videoRepository : VehicleVideoRepository
 ) : ViewModel() {
-    fun getImageData(Lsh : String): LiveData<List<VehicleImageResponse>> {
+    fun getImageData(Lsh : String): LiveData<List<VehicleImageR007Response>> {
         return imageRepository.getImageData(Lsh)
     }
 
-    fun getVideoData(Lsh: String, Jccs : String) : LiveData<List<VehicleVideoResponse>>{
+    fun getVideoData(Lsh: String, Jccs : String) : LiveData<List<VehicleVideoR008Response>>{
         return videoRepository.getVehicleVideo(Lsh, Jccs)
     }
 

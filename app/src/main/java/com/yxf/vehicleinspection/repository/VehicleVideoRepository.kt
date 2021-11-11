@@ -4,9 +4,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.VehicleVideoRequest
+import com.yxf.vehicleinspection.bean.request.VehicleVideoR008Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.VehicleVideoResponse
+import com.yxf.vehicleinspection.bean.response.VehicleVideoR008Response
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -23,12 +23,12 @@ import retrofit2.Response
  *   time:2021/10/12
  */
 class VehicleVideoRepository {
-    fun getVehicleVideo(Lsh : String, Jccs : String?) : LiveData<List<VehicleVideoResponse>> {
-        val liveData = MutableLiveData<List<VehicleVideoResponse>>()
+    fun getVehicleVideo(Lsh : String, Jccs : String?) : LiveData<List<VehicleVideoR008Response>> {
+        val liveData = MutableLiveData<List<VehicleVideoR008Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             ApiStatic.QUERY_VEHICLE_VIDEO,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(VehicleVideoRequest(Lsh, Jccs))
+            JsonDataHelper.getJsonData(VehicleVideoR008Request(Lsh, Jccs))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -38,12 +38,12 @@ class VehicleVideoRepository {
                     val commonResponse = GsonSingleton.getGson()
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
-                        val vehicleVideoList = ArrayList<VehicleVideoResponse>()
+                        val vehicleVideoList = ArrayList<VehicleVideoR008Response>()
                         for (element in commonResponse.Body) {
                             val bodyJson =
                                 GsonSingleton.getGson().toJson(element)
                             vehicleVideoList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleVideoResponse::class.java))
+                                .fromJson(bodyJson, VehicleVideoR008Response::class.java))
                         }
                         liveData.value = vehicleVideoList
 

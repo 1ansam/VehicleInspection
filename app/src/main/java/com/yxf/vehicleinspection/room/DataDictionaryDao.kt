@@ -5,8 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.yxf.vehicleinspection.bean.JsCsCode
-import com.yxf.vehicleinspection.bean.response.DataDictionaryResponse003
+import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 
 /**
  *   author:yxf
@@ -15,7 +14,7 @@ import com.yxf.vehicleinspection.bean.response.DataDictionaryResponse003
 @Dao
 interface DataDictionaryDao {
     @Insert
-    suspend fun insertJsCsCode(dataDictionaryList : List<DataDictionaryResponse003>)
+    suspend fun insertDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>)
 
     @Query("DELETE FROM DataDictionary")
     suspend fun deleteAll()
@@ -23,11 +22,16 @@ interface DataDictionaryDao {
     @Query("SELECT Mc FROM DataDictionary WHERE Fl LIKE :Fl AND Dm LIKE :Dm ")
     fun getMc(Fl : String, Dm : String) : LiveData<String>
 
+    @Query("SELECT Mc FROM DataDictionary WHERE Fl LIKE :Fl Order by Dm")
+    fun getMcList(Fl: String) : LiveData<List<String>>
+
     @Query("SELECT Dm FROM DataDictionary WHERE Fl LIKE :Fl AND FlMc LIKE :FlMc")
     fun getDM(Fl : String, FlMc : String) : LiveData<String>
 
+    @Query("SELECT * FROM DataDictionary WHERE Fl LIKE :Fl")
+    fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>
     @Query("SELECT * FROM DataDictionary WHERE Id = 1")
-    fun getJsCsCodeExist() : LiveData<DataDictionaryResponse003>
+    fun getDataDictionaryExist() : LiveData<DataDictionaryR003Response>
     @Update
-    suspend fun updateJsCsCode(dataDictionaryList : List<DataDictionaryResponse003>)
+    suspend fun updateDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>)
 }

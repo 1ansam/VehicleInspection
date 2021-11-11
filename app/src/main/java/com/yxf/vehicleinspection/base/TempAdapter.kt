@@ -1,11 +1,7 @@
 package com.yxf.vehicleinspection.base
 
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse
-import com.yxf.vehicleinspection.databinding.InspectionInfoItemBinding
-import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
 
 /**
  * @author : yxf

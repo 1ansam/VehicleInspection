@@ -2,7 +2,6 @@ package com.yxf.vehicleinspection.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
 
 /**
  *   author:yxf

@@ -51,7 +51,7 @@
             app:destination="@id/signatureFragment" />
         <argument
             android:name="bean"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
     </fragment>
     <fragment
         android:id="@+id/signatureFragment"
@@ -75,6 +75,20 @@
             android:id="@+id/action_signatureFragment_to_chargeFragment"
             app:popUpTo="@id/chargeFragment"
             app:launchSingleTop="true" />
+        <argument
+            android:name="bean006"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
 
     </fragment>
     <fragment
@@ -87,7 +101,7 @@
             app:destination="@id/dynamicFragment" />
         <argument
             android:name="bean"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -106,7 +120,7 @@
             app:destination="@id/signatureFragment" />
         <argument
             android:name="bean"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
     </fragment>
     <fragment
         android:id="@+id/vehicleInfoFragment"
@@ -134,7 +148,7 @@
             app:destination="@id/uniqueFragment" />
         <argument
             android:name="bean"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueResponse" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
     </fragment>
     <fragment
         android:id="@+id/exteriorFragment"
@@ -146,10 +160,14 @@
             app:destination="@id/signatureFragment" />
         <argument
             android:name="bean006"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
         <argument
             android:name="bean005"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/chassisFragment"
@@ -159,6 +177,16 @@
         <action
             android:id="@+id/action_chassisFragment_to_signatureFragment"
             app:destination="@id/signatureFragment" />
+        <argument
+            android:name="bean006"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/dynamicFragment"
@@ -168,6 +196,16 @@
         <action
             android:id="@+id/action_dynamicFragment_to_signatureFragment"
             app:destination="@id/signatureFragment" />
+        <argument
+            android:name="bean006"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/networkQueryFragment"
@@ -178,6 +216,16 @@
             android:id="@+id/action_networkQueryFragment_to_inspectionItemFragment"
             app:popUpTo="@id/inspectionItemFragment"
             app:launchSingleTop="true" />
+        <argument
+            android:name="bean006"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/uniqueFragment"
@@ -188,5 +236,15 @@
             android:id="@+id/action_uniqueFragment_to_inspectionItemFragment"
             app:popUpTo="@id/inspectionItemFragment"
             app:launchSingleTop="true" />
+        <argument
+            android:name="bean006"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

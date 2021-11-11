@@ -4,20 +4,22 @@ import android.Manifest
 import android.content.Intent
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.permissionx.guolindev.PermissionX
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
-import com.yxf.vehicleinspection.viewModel.WelcomeViewModel
-import com.yxf.vehicleinspection.viewModel.WelcomeViewModelFactory
-import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
+import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
+import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModelFactory
+import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
+import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
 
 class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 
-    private val viewModel: WelcomeViewModel by viewModels {
-        WelcomeViewModelFactory((application as MyApp).dataDictionaryRepository)
+    private val dataDictionaryViewModel: DataDictionaryViewModel by viewModels {
+        DataDictionaryViewModelFactory((application as MyApp).dataDictionaryRepository)
+    }
+    private val systemParamsViewModel : SystemParamsViewModel by viewModels {
+        SystemParamsViewModelFactory((application as MyApp).systemParamsRepository)
     }
     override fun init() {
         PermissionX.init(this)
@@ -36,15 +38,24 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                         Toast.LENGTH_LONG).show()
                 }
             }
-        viewModel.getDataDictionary().observe(this){ list ->
-            viewModel.getDataExist().observe(this){
+        dataDictionaryViewModel.getDataDictionary().observe(this){ list ->
+            dataDictionaryViewModel.getDataDictionaryExist().observe(this){
                 if (it!=null){
-                    viewModel.updateData(list)
+                    dataDictionaryViewModel.updateDataDictionary(list)
 
                 }else{
-                    viewModel.insertData(list)
+                    dataDictionaryViewModel.insertDataDictionary(list)
                 }
 
+            }
+        }
+        systemParamsViewModel.getSystemParamsData().observe(this){ list ->
+            systemParamsViewModel.getSystemParamsDataExist().observe(this){
+                if (it!=null){
+                    systemParamsViewModel.updateSystemParams(list)
+                }else{
+                    systemParamsViewModel.insertSystemParams(list)
+                }
             }
         }
         binding.btnStartEnjoy.setOnClickListener {

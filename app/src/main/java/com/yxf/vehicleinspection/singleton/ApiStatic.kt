@@ -23,5 +23,6 @@ object ApiStatic {
     const val QUERY_IMAGE_ITEM = "LYYDJKR017"
     const val QUERY_ARTIFICIAL_PROJECT = "LYYDJKR020"
     const val WRITE_USER_LOGIN = "LYYDJKW001"
+    const val WRITE_SIGNATURE = "LYYDJKW006"
     const val WRITE_INSPECTION_PHOTO = "LYYDJKW007"
 }

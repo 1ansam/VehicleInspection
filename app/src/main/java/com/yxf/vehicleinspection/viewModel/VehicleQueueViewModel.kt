@@ -3,7 +3,7 @@ package com.yxf.vehicleinspection.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
+import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.repository.VehicleQueueRepository
 
 /**
@@ -11,10 +11,10 @@ import com.yxf.vehicleinspection.repository.VehicleQueueRepository
  *   time:2021/9/29
  */
 class VehicleQueueViewModel(private val repository: VehicleQueueRepository) : ViewModel() {
-    fun getDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
+    fun getDataQueue(hphm: String): LiveData<List<VehicleQueueR002Response>> {
         return repository.getInspectionDataQueue(hphm)
     }
-    fun getVerifyDataQueue(hphm: String): LiveData<List<VehicleQueueResponse>> {
+    fun getVerifyDataQueue(hphm: String): LiveData<List<VehicleQueueR002Response>> {
         return repository.getVerifyDataQueue(hphm)
     }
 

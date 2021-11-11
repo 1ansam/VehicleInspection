@@ -63,10 +63,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/corporationInfomation"
+        android:id="@+id/corporationInformation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/corporationInfomation"
+        android:text="@string/corporationInformation"
         android:textColor="#A1887F"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -84,5 +84,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="TODO" />
 </androidx.constraintlayout.widget.ConstraintLayout>

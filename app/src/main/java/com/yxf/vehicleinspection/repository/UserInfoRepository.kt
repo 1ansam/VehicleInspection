@@ -4,10 +4,10 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.AllUserInfoRequest001
+import com.yxf.vehicleinspection.bean.request.AllUserInfoR001Request
 import com.yxf.vehicleinspection.bean.request.UserInfoRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.UserInfoResponse
+import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.ApiStatic
@@ -26,12 +26,12 @@ import retrofit2.Response
  */
 class UserInfoRepository {
 
-    fun getUserInfo(): LiveData<List<UserInfoResponse>> {
-        val liveData = MutableLiveData<List<UserInfoResponse>>()
+    fun getUserInfo(): LiveData<List<UserInfoR001Response>> {
+        val liveData = MutableLiveData<List<UserInfoR001Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             ApiStatic.QUERY_ALL_USER,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(AllUserInfoRequest001())
+            JsonDataHelper.getJsonData(AllUserInfoR001Request())
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -42,12 +42,12 @@ class UserInfoRepository {
                     val commonResponse = GsonSingleton.getGson()
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
-                        val userInfoResponse = ArrayList<UserInfoResponse>()
+                        val userInfoResponse = ArrayList<UserInfoR001Response>()
                         for (element in commonResponse.Body) {
                             val bodyJson =
                                 GsonSingleton.getGson().toJson(element)
                             userInfoResponse.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, UserInfoResponse::class.java))
+                                .fromJson(bodyJson, UserInfoR001Response::class.java))
                         }
                         liveData.value = userInfoResponse
 
@@ -91,12 +91,12 @@ class UserInfoRepository {
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
 
-                        val userInfoResponse = ArrayList<UserInfoResponse>()
+                        val userInfoResponse = ArrayList<UserInfoR001Response>()
                         for (element in commonResponse.Body) {
                             val bodyJson =
                                 GsonSingleton.getGson().toJson(element)
                             userInfoResponse.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, UserInfoResponse::class.java))
+                                .fromJson(bodyJson, UserInfoR001Response::class.java))
                         }
 
                         isLoading.value = true

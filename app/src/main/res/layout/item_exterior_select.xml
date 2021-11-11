@@ -19,22 +19,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="5dp" />
+            android:gravity="start|center_vertical"
+            android:paddingStart="5dp" />
 
         <TextView
             android:id="@+id/tvXmms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="left|center_vertical"
-            android:paddingRight="5dp" />
+            android:gravity="start|center_vertical"
+            android:paddingEnd="5dp" />
 
         <ImageView
             android:id="@+id/ibSelected"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:srcCompat="@drawable/icon_block" />
+            app:srcCompat="@drawable/icon_block"
+            android:contentDescription="TODO" />
     </LinearLayout>
 
     <com.yxf.vehicleinspection.view.ClearEditText
@@ -42,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="left"
+        android:gravity="start"
         android:hint="请输入不合格项说明"
         android:visibility="gone" />
 

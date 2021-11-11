@@ -42,14 +42,14 @@ tools:context=".view.fragment.VehicleQueueFragment">
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_car"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:text="@string/vehicleQueueTitle"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableLeftCompat="@drawable/ic_car" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,16 +62,16 @@ tools:context=".view.fragment.VehicleQueueFragment">
             app:layout_constraintTop_toTopOf="@+id/guideline18">
 
             <EditText
-                android:id="@+id/tvSercher"
+                android:id="@+id/tvSearcher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="4"
                 android:background="@drawable/sercher"
-                android:drawableLeft="@drawable/ic_sercher_car"
+                android:drawableStart="@drawable/ic_sercher_car"
                 android:drawablePadding="15dp"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:inputType="number"
                 android:maxLines="1"
                 android:textAllCaps="false"

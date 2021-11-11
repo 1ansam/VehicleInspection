@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.res.ResourcesCompat
 import com.yxf.vehicleinspection.R
 
 /**
@@ -36,7 +37,7 @@ class ClearEditText : AppCompatEditText, OnFocusChangeListener, TextWatcher {
         if (mClearDrawable == null) {
             // 如果为空，即没有设置drawableRight，则使用R.mipmap.close这张图片
 //            mClearDrawable = resources.getDrawable(R.drawable.ic_baseline_clear_24)
-            mClearDrawable = resources.getDrawable(R.drawable.ic_baseline_clear_24)
+            mClearDrawable = ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_clear_24,null)
         }
         mClearDrawable!!.setBounds(0,
             0,
@@ -65,6 +66,7 @@ class ClearEditText : AppCompatEditText, OnFocusChangeListener, TextWatcher {
         }
         return super.onTouchEvent(event)
     }
+
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         this.hasFocus = hasFocus

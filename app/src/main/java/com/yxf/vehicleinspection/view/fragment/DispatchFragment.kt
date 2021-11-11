@@ -15,8 +15,8 @@ class DispatchFragment : BaseBindingFragment<FragmentDispatchBinding>() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.btnDynamicInspection.setOnClickListener {
-            val action = DispatchFragmentDirections.actionDispatchFragmentToDynamicFragment()
-            findNavController().navigate(action)
+//            val action = DispatchFragmentDirections.actionDispatchFragmentToDynamicFragment()
+//            findNavController().navigate(action)
         }
     }
 

@@ -1,15 +1,12 @@
 package com.yxf.vehicleinspection.repository
 
 import android.widget.Toast
-import androidx.annotation.WorkerThread
-import androidx.datastore.preferences.protobuf.Api
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.DataDictionaryRequest003
+import com.yxf.vehicleinspection.bean.request.DataDictionaryR003Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.DataDictionaryResponse003
-import com.yxf.vehicleinspection.bean.response.ImageItemResponse
+import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.room.DataDictionaryDao
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
@@ -27,27 +24,34 @@ import retrofit2.Response
  *   time:2021/11/9
  */
 class DataDictionaryRepository(private val dao : DataDictionaryDao) {
-    suspend fun insertData(dataDictionaryList: List<DataDictionaryResponse003>) {
-        dao.insertJsCsCode(dataDictionaryList)
+    suspend fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) {
+        dao.insertDataDictionary(dataDictionaryListResponse)
     }
-    suspend fun updateData(dataDictionaryList: List<DataDictionaryResponse003>){
-        dao.updateJsCsCode(dataDictionaryList)
+    suspend fun updateDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>){
+        dao.updateDataDictionary(dataDictionaryListResponse)
     }
     fun getMc(Fl : String,Dm : String): LiveData<String> {
         return dao.getMc(Fl, Dm)
     }
+
+    fun getMcList(Fl : String) : LiveData<List<String>>{
+        return dao.getMcList(Fl)
+    }
     fun getDM(Fl : String, FlMc : String): LiveData<String> {
         return dao.getDM(Fl, FlMc)
     }
-    fun getDataExist() : LiveData<DataDictionaryResponse003>{
-        return dao.getJsCsCodeExist()
+    fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>{
+        return dao.getListFromFl(Fl)
     }
-    fun getDictionaryData() : LiveData<List<DataDictionaryResponse003>>{
-        val liveData = MutableLiveData<List<DataDictionaryResponse003>>()
+    fun getDataDictionaryExist() : LiveData<DataDictionaryR003Response>{
+        return dao.getDataDictionaryExist()
+    }
+    fun getDictionaryData() : LiveData<List<DataDictionaryR003Response>>{
+        val liveData = MutableLiveData<List<DataDictionaryR003Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             ApiStatic.QUERY_DATA_DICTIONARY,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(DataDictionaryRequest003())
+            JsonDataHelper.getJsonData(DataDictionaryR003Request())
         )
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -56,11 +60,11 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
                     val commonResponse = GsonSingleton.getGson()
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code == "1"){
-                        val dataDictionaryList = ArrayList<DataDictionaryResponse003>()
+                        val dataDictionaryList = ArrayList<DataDictionaryR003Response>()
                         for (element in commonResponse.Body) {
                             val bodyJson = GsonSingleton.getGson().toJson(element)
                             dataDictionaryList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, DataDictionaryResponse003::class.java))
+                                .fromJson(bodyJson, DataDictionaryR003Response::class.java))
                         }
                         liveData.value = dataDictionaryList
                     }else{

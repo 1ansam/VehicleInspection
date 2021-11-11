@@ -32,8 +32,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="10dp"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="10dp"
                     android:text="@string/hphm" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -41,8 +41,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="10dp"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="10dp"
                     android:text="@string/hpzl" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -62,26 +62,26 @@
                     android:id="@+id/tvAjywlb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
+                    android:gravity="start|center_vertical"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:text="@string/AJ" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvHjjwlb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
+                    android:gravity="start|center_vertical"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:text="@string/HB" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvLsh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
+                    android:gravity="start"
+                    android:paddingStart="10dp"
                     android:text="@string/lsh"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -92,8 +92,8 @@
                     android:id="@+id/tvTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="10dp"
+                    android:gravity="start"
+                    android:paddingStart="10dp"
                     android:text="@string/inspectionDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tvLsh" />

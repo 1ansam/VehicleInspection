@@ -3,7 +3,7 @@ package com.yxf.vehicleinspection.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.response.UserInfoResponse
+import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.repository.UserInfoRepository
 import java.lang.IllegalArgumentException
 
@@ -15,7 +15,7 @@ class LoginViewModel(private val repository: UserInfoRepository) : ViewModel() {
     fun isLoading(username: String, password: String): LiveData<Boolean> {
         return repository.getUserLogin(username,password)
     }
-    fun getUserInfo() : LiveData<List<UserInfoResponse>>{
+    fun getUserInfo() : LiveData<List<UserInfoR001Response>>{
         return repository.getUserInfo()
     }
 }

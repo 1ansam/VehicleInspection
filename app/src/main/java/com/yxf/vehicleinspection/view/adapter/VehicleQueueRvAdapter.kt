@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.response.VehicleQueueResponse
+import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.view.fragment.NavHostFragment
 import com.yxf.vehicleinspection.view.fragment.VehicleQueueFragmentDirections
@@ -17,7 +17,7 @@ import com.yxf.vehicleinspection.viewModel.SharedViewModel
  *   author:yxf
  *   time:2021/10/15
  */
-class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val sharedViewModel: SharedViewModel) : BaseRvAdapter<VehicleQueueResponse,PersonInspectionItemBinding>() {
+class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val sharedViewModel: SharedViewModel) : BaseRvAdapter<VehicleQueueR002Response,PersonInspectionItemBinding>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,7 +30,7 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
         holder: BaseRvViewHolder<PersonInspectionItemBinding>,
         position: Int,
         binding: PersonInspectionItemBinding,
-        bean: VehicleQueueResponse,
+        bean: VehicleQueueR002Response,
     ) {
 
 

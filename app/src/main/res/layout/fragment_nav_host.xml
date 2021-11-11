@@ -12,15 +12,15 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_height="0dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:drawableLeft="@drawable/ic_verify_signature"
-    android:drawableRight="@drawable/ic_next"
     android:text="@string/verifySignature"
     app:layout_constraintBottom_toTopOf="@+id/guideline16"
     app:layout_constraintEnd_toEndOf="@+id/btnDispatchFunc"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="@+id/btnDispatchFunc"
     app:layout_constraintTop_toTopOf="@+id/guideline15"
-    app:layout_constraintVertical_bias="0.0" />
+    app:layout_constraintVertical_bias="0.0"
+    app:drawableLeftCompat="@drawable/ic_verify_signature"
+    app:drawableRightCompat="@drawable/ic_next" />
 
 <TextView
     android:id="@+id/btnVehicleInformationFunc"
@@ -28,15 +28,15 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_height="0dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:drawableLeft="@drawable/ic_vehicle_info"
-    android:drawableRight="@drawable/ic_next"
     android:text="@string/vehicleInformation"
     app:layout_constraintBottom_toTopOf="@+id/guideline17"
     app:layout_constraintEnd_toEndOf="@+id/btnVerifySignatureFunc"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="@+id/btnVerifySignatureFunc"
     app:layout_constraintTop_toTopOf="@+id/guideline16"
-    app:layout_constraintVertical_bias="0.0" />
+    app:layout_constraintVertical_bias="0.0"
+    app:drawableLeftCompat="@drawable/ic_vehicle_info"
+    app:drawableRightCompat="@drawable/ic_next" />
 
 <androidx.constraintlayout.widget.Guideline
     android:id="@+id/guideline11"
@@ -109,8 +109,6 @@ tools:context=".view.fragment.NavHostFragment">
             android:id="@+id/tvChoiceFunction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:text="@string/selectFunctionTitle"
             android:textColor="@color/grey"
             android:textSize="24sp"
@@ -126,13 +124,13 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_marginTop="5dp"
     android:layout_marginRight="30dp"
     android:layout_marginBottom="5dp"
-    android:drawableLeft="@drawable/ic_register"
-    android:drawableRight="@drawable/ic_next"
     android:text="@string/notRegisterVehicleInspection"
     app:layout_constraintBottom_toTopOf="@+id/guideline12"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/guideline19" />
+    app:layout_constraintTop_toTopOf="@+id/guideline19"
+    app:drawableLeftCompat="@drawable/ic_register"
+    app:drawableRightCompat="@drawable/ic_next" />
 
 <TextView
     android:id="@+id/btnChargeFunc"
@@ -140,13 +138,13 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_height="0dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:drawableLeft="@drawable/ic_cny"
-    android:drawableRight="@drawable/ic_next"
     android:text="@string/charge"
     app:layout_constraintBottom_toTopOf="@+id/guideline13"
     app:layout_constraintEnd_toEndOf="@+id/btnRegisterFunc"
     app:layout_constraintStart_toStartOf="@+id/btnRegisterFunc"
-    app:layout_constraintTop_toTopOf="@+id/guideline12" />
+    app:layout_constraintTop_toTopOf="@+id/guideline12"
+    app:drawableLeftCompat="@drawable/ic_cny"
+    app:drawableRightCompat="@drawable/ic_next" />
 
 <TextView
     android:id="@+id/btnVehicleInspectionFunc"
@@ -154,13 +152,13 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_height="0dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:drawableLeft="@drawable/ic_sercher"
-    android:drawableRight="@drawable/ic_next"
     android:text="@string/personInspectionItem"
     app:layout_constraintBottom_toTopOf="@+id/guideline14"
     app:layout_constraintEnd_toEndOf="@+id/btnChargeFunc"
     app:layout_constraintStart_toStartOf="@+id/btnChargeFunc"
-    app:layout_constraintTop_toTopOf="@+id/guideline13" />
+    app:layout_constraintTop_toTopOf="@+id/guideline13"
+    app:drawableLeftCompat="@drawable/ic_searcher"
+    app:drawableRightCompat="@drawable/ic_next" />
 
 <TextView
     android:id="@+id/btnDispatchFunc"
@@ -168,12 +166,12 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_height="0dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:drawableLeft="@drawable/ic_dispatch"
-    android:drawableRight="@drawable/ic_next"
     android:text="@string/dispatch"
     app:layout_constraintBottom_toTopOf="@+id/guideline15"
     app:layout_constraintEnd_toEndOf="@+id/btnVehicleInspectionFunc"
     app:layout_constraintStart_toStartOf="@+id/btnVehicleInspectionFunc"
-    app:layout_constraintTop_toTopOf="@+id/guideline14" />
+    app:layout_constraintTop_toTopOf="@+id/guideline14"
+    app:drawableLeftCompat="@drawable/ic_dispatch"
+    app:drawableRightCompat="@drawable/ic_next" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

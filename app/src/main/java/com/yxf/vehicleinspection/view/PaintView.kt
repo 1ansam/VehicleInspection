@@ -21,13 +21,13 @@ class PaintView(context: Context, screenWidth: Int, screenHeight: Int) :
     private var currentY = 0f
     init {
         mPaint.isAntiAlias = true // 去除锯齿
-        mPaint.strokeWidth = 10f //画笔宽度
+        mPaint.strokeWidth = 30f //画笔宽度
         mPaint.style = Paint.Style.STROKE //style = 签字笔
         mPaint.color = Color.BLACK //画笔颜色
         path = Path()
         mBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888)
         mCanvas = Canvas(mBitmap)
-        //   mCanvas.drawColor(Color.WHITE);
+        mCanvas.drawColor(Color.WHITE);
     }
 
     override fun onDraw(canvas: Canvas) {

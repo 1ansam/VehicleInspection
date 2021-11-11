@@ -34,13 +34,13 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         binding.btnSercher.setOnClickListener {
 //            修改使用BaseUrlHelper反射方法
 //            BaseUrlHelper.instance.setUrlField("http://192.168.1.1:8080")
-            getQueueData(binding.tvSercher.text.toString())
+            getQueueData(binding.tvSearcher.text.toString())
 
 
         }
 //        在Edittext文字改变后自动获取数据
-//        binding.tvSercher.doAfterTextChanged {
-//            getData(binding.tvSercher.text.toString())
+//        binding.tvSearcher.doAfterTextChanged {
+//            getData(binding.tvSearcher.text.toString())
 //        }
     }
 
@@ -65,7 +65,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
 
     override fun onResume() {
         super.onResume()
-        getQueueData(binding.tvSercher.text.toString())
+        getQueueData(binding.tvSearcher.text.toString())
     }
 
 

@@ -27,11 +27,11 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
         binding.btnSercher.setOnClickListener {
 //            修改使用BaseUrlHelper类反射方法
 //            BaseUrlHelper.instance.setHostField("192.168.31.70")
-            getQueueData(binding.tvSercher.text.toString())
+            getQueueData(binding.tvSearcher.text.toString())
         }
 //        在Edittext文字改变后自动获取数据
-//        binding.tvSercher.doAfterTextChanged {
-//            getData(binding.tvSercher.text.toString())
+//        binding.tvSearcher.doAfterTextChanged {
+//            getData(binding.tvSearcher.text.toString())
 //        }
     }
     private fun getQueueData(hphm : String){
@@ -41,7 +41,7 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
     }
     override fun onResume() {
         super.onResume()
-        getQueueData(binding.tvSercher.text.toString())
+        getQueueData(binding.tvSearcher.text.toString())
     }
 
 }

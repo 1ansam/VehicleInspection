@@ -4,9 +4,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.VehicleInspectionItemRequest
+import com.yxf.vehicleinspection.bean.request.VehicleInspectionItemR006Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse
+import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -23,12 +23,12 @@ import retrofit2.Response
  *   time:2021/11/4
  */
 class VehicleInspectionItemRepository {
-    fun getVehicleInspectionItem(Lsh : String): LiveData<List<VehicleInspectionItemResponse>> {
-        val liveData = MutableLiveData<List<VehicleInspectionItemResponse>>()
+    fun getVehicleInspectionItem(Lsh : String): LiveData<List<VehicleInspectionItemR006Response>> {
+        val liveData = MutableLiveData<List<VehicleInspectionItemR006Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             ApiStatic.QUERY_VEHICLE_INSPECTION_ITEM,
             IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(VehicleInspectionItemRequest(Lsh))
+            JsonDataHelper.getJsonData(VehicleInspectionItemR006Request(Lsh))
         )
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -37,11 +37,11 @@ class VehicleInspectionItemRepository {
                     val commonResponse = GsonSingleton.getGson()
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code.equals("1")) {
-                        val vehicleInspectionItemList = ArrayList<VehicleInspectionItemResponse>()
+                        val vehicleInspectionItemList = ArrayList<VehicleInspectionItemR006Response>()
                         for (element in commonResponse.Body) {
                             val bodyJson = GsonSingleton.getGson().toJson(element)
                             vehicleInspectionItemList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleInspectionItemResponse::class.java))
+                                .fromJson(bodyJson, VehicleInspectionItemR006Response::class.java))
                         }
                         liveData.value = vehicleInspectionItemList
                     }else{

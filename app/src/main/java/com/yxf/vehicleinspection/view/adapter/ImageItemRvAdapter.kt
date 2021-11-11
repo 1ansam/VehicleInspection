@@ -1,16 +1,10 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.provider.MediaStore
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.response.ImageItemResponse
+import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
 
 /**
@@ -18,7 +12,7 @@ import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
  *   time:2021/11/4
  *   Signature Verify
  */
-class ImageItemRvAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItemBinding>() {
+class ImageItemRvAdapter() : BaseRvAdapter<ImageItemR017Response, VehicleImageItemBinding>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,7 +25,7 @@ class ImageItemRvAdapter() : BaseRvAdapter<ImageItemResponse, VehicleImageItemBi
         holder: BaseRvViewHolder<VehicleImageItemBinding>,
         position: Int,
         binding: VehicleImageItemBinding,
-        bean: ImageItemResponse,
+        bean: ImageItemR017Response,
     ) {
         holder.apply {
             binding.tvZpmc.text = bean.Zpmc

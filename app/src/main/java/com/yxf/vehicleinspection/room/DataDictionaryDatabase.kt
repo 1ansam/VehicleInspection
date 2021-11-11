@@ -4,16 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.yxf.vehicleinspection.bean.response.DataDictionaryResponse003
+import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
+import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 
 /**
  *   author:yxf
  *   time:2021/11/9
  */
-@Database(entities = [DataDictionaryResponse003::class],version = 1,exportSchema = false)
+@Database(entities = [DataDictionaryR003Response::class,SystemParamsR015Response::class],version = 2,exportSchema = false)
 abstract class DataDictionaryDatabase : RoomDatabase() {
     abstract fun dataDictionaryDao(): DataDictionaryDao
-
+    abstract fun systemParamsDao() : SystemParamsDao
     companion object {
         @Volatile
         private var INSTANCE: DataDictionaryDatabase? = null

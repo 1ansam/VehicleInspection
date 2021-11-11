@@ -2,18 +2,14 @@ package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
 import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
-import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemResponse
+import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.databinding.FragmentInspectionItemBinding
-import com.yxf.vehicleinspection.repository.VehicleAllInfoRepository
-import com.yxf.vehicleinspection.repository.VehicleInspectionItemRepository
 import com.yxf.vehicleinspection.view.adapter.InspectionItemAdapter
 import com.yxf.vehicleinspection.view.adapter.VehicleAllInfoAdapter
 import com.yxf.vehicleinspection.viewModel.*
@@ -21,10 +17,11 @@ import com.yxf.vehicleinspection.viewModel.*
 class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding>() {
     private lateinit var vehicleInformationAdapter: VehicleAllInfoAdapter
     private lateinit var inspectionItemAdapter: InspectionItemAdapter
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private val vehicleAllInfoViewModel by viewModels<VehicleAllInfoViewModel> {
         VehicleAllInfoViewModelFactory((requireActivity().application as MyApp).vehicleAllInfoRepository)
     }
+    private val dataDictionaryViewModel by viewModels<DataDictionaryViewModel> { DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository) }
+
     private val vehicleInspectionItemViewModel by viewModels<VehicleInspectionItemViewModel> {
         VehicleInspectionItemViewModelFactory((requireActivity().application as MyApp).vehicleInspectionItemRepository)
     }
@@ -33,12 +30,10 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvInspectionItem.layoutManager = LinearLayoutManager(this.requireContext())
         vehicleInformationAdapter = VehicleAllInfoAdapter()
-
-        inspectionItemAdapter = InspectionItemAdapter()
+        inspectionItemAdapter = InspectionItemAdapter(this,dataDictionaryViewModel)
 
         binding.rvVehicleInformation.adapter = vehicleInformationAdapter
         binding.rvInspectionItem.adapter = inspectionItemAdapter
@@ -58,7 +53,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     private fun getData(Lsh: String, Hphm: String, Hpzl: String, Clsbdh: String, Xszbh: String) {
         val vehicleInformationList =
             ArrayList<VehicleAllInfo005Response>()
-        val inspectionItemList = ArrayList<VehicleInspectionItemResponse>()
+        val inspectionItemList = ArrayList<VehicleInspectionItemR006Response>()
 
         vehicleAllInfoViewModel.getVehicleAllInfo(Lsh, Hphm, Hpzl, Clsbdh, Xszbh)
             .observe(this) {
@@ -66,7 +61,9 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
                     vehicleInformationList.add(element)
 //                    inspectionItemAdapter.vehicleAllInfoResponse = element
                 }
-                inspectionItemAdapter.bean005 = it[0]
+                if (it.isNotEmpty()){
+                    inspectionItemAdapter.bean005 = it[0]
+                }
                 vehicleInformationAdapter.data = vehicleInformationList
             }
         vehicleInspectionItemViewModel.getVehicleInspectionItem(Lsh).observe(this) {
@@ -83,7 +80,6 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     override fun onResume() {
         super.onResume()
         getData(args.bean.Lsh, args.bean.Hphm, args.bean.Hpzl, "", "")
-        Log.e("TAG", "onResume: InspectionItemFragment")
     }
 
 

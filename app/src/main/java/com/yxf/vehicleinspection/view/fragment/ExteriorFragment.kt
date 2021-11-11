@@ -3,83 +3,65 @@ package com.yxf.vehicleinspection.view.fragment
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.os.Debug
 import android.os.Environment
-import android.os.StrictMode
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.FileProvider
-import androidx.core.os.EnvironmentCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.qingmei2.rximagepicker.core.ImagePickerController
-import com.qingmei2.rximagepicker.core.RxImagePicker
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.bean.request.InspectionPhotoW007Request
-import com.yxf.vehicleinspection.bean.response.ArtificialProjectR016Response
 import com.yxf.vehicleinspection.databinding.FragmentExteriorBinding
-import com.yxf.vehicleinspection.imagepicker.DefaultImagePicker
-import com.yxf.vehicleinspection.repository.ExteriorRepository
+import com.yxf.vehicleinspection.utils.DateUtil
 import com.yxf.vehicleinspection.utils.ImageUtil
-import com.yxf.vehicleinspection.view.adapter.ExteriorImageAdapter
-import com.yxf.vehicleinspection.view.adapter.ExteriorSelectAdapter
-import com.yxf.vehicleinspection.view.adapter.ImageItemRvAdapter
-import com.yxf.vehicleinspection.viewModel.ExteriorViewModel
-import com.yxf.vehicleinspection.viewModel.ExteriorViewModelFactory
-import io.reactivex.functions.Consumer
+import com.yxf.vehicleinspection.view.adapter.InspectionItemImageAdapter
+import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
+import com.yxf.vehicleinspection.viewModel.InspectionItemViewModel
+import com.yxf.vehicleinspection.viewModel.InspectionItemViewModelFactory
+import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
+import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
 import java.io.File
-import java.io.FileInputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
+    private var AjJyjghb = ""
+    private var HjJyjghb = ""
+    private var endTime = ""
     lateinit var currentPhotoPath: String
-    private val exteriorViewModel by viewModels<ExteriorViewModel> { ExteriorViewModelFactory((requireActivity().application as MyApp).exteriorRepository) }
-    lateinit var exteriorImageAdapter: ExteriorImageAdapter
-    lateinit var exteriorSelectAdapter: ExteriorSelectAdapter
+    private val inspectionItemViewModel by viewModels<InspectionItemViewModel> { InspectionItemViewModelFactory((requireActivity().application as MyApp).inspectionItemRepository,(requireActivity().application as MyApp).serverTimeRepository) }
+    private val systemParamsViewModel by viewModels<SystemParamsViewModel> { SystemParamsViewModelFactory((requireActivity().application as MyApp).systemParamsRepository) }
+    lateinit var inspectionItemImageAdapter: InspectionItemImageAdapter
+    lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
     private val args: ExteriorFragmentArgs by navArgs()
     private val REQUEST_IMAGE_CAPTURE = 101
     private var holder: RecyclerView.ViewHolder? = null
+    private var beginTime = ""
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//        exteriorViewModel =
-//            ViewModelProvider(this, ExteriorViewModelFactory(ExteriorRepository())).get(
-//                ExteriorViewModel::class.java
-//            )
 
-        exteriorImageAdapter = ExteriorImageAdapter()
-        exteriorImageAdapter.onItemViewClickListener =
+        inspectionItemImageAdapter = InspectionItemImageAdapter()
+        inspectionItemImageAdapter.onItemViewClickListener =
             object : BaseRvAdapter.OnItemViewClickListener {
                 override fun onItemClick(view: View, position: Int) {
                     Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                        // Ensure that there's a camera activity to handle the intent
                         takePictureIntent.resolveActivity(requireActivity().packageManager).also {
-                            // Create the File where the photo should go
                             val photoFile: File? = try {
                                 createImageFile()
                             } catch (ex: IOException) {
                                 null
                             }
-                            // Continue only if the File was successfully created
                             photoFile?.also {
                                 val photoURI: Uri = FileProvider.getUriForFile(requireContext(),
                                     "com.example.android.fileprovider",
@@ -96,76 +78,84 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
             }
         binding.rvImage.layoutManager = LinearLayoutManager(this.requireContext())
-        binding.rvImage.adapter = exteriorImageAdapter
+        binding.rvImage.adapter = inspectionItemImageAdapter
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
-            exteriorViewModel.postInspectionPhotoW007(getPostData(exteriorImageAdapter))
-                .observe(this) {
-                    if (it) {
-                        binding.pbExteriorSubmit.visibility = View.GONE
-                        findNavController().navigate(R.id.action_exteriorFragment_to_signatureFragment)
-                    } else {
-                        binding.pbExteriorSubmit.visibility = View.GONE
+            inspectionItemViewModel.getServerTime().observe(this){
+                endTime = it.Sj
+                inspectionItemViewModel.postInspectionPhotoW007(getPostData(inspectionItemImageAdapter))
+                    .observe(this) {
+                        if (it) {
+                            binding.pbExteriorSubmit.visibility = View.GONE
+                            val action = ExteriorFragmentDirections.actionExteriorFragmentToSignatureFragment(args.bean006,args.bean005,args.jcxh)
+                            findNavController().navigate(action)
+                        } else {
+                            binding.pbExteriorSubmit.visibility = View.GONE
 //                        Toast.makeText(MyApp.context, "上传失败", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+
+            }
 
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        exteriorSelectAdapter = ExteriorSelectAdapter()
-        binding.rvSelect.adapter = exteriorSelectAdapter
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        binding.rvSelect.adapter = inspectionItemSelectAdapter
 
     }
 
 
     private fun getImageData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String) {
-        exteriorViewModel.getImageItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this) {
-            exteriorImageAdapter.data = it
+        inspectionItemViewModel.getImageItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this) {
+            inspectionItemImageAdapter.data = it
         }
     }
     private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
-        exteriorViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
-            val artificialProjectR016Response = it[0]
-            exteriorSelectAdapter.data = artificialProjectR016Response.Xmlb
+        inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
+            val artificialProjectR020Response = it
+            inspectionItemSelectAdapter.data = artificialProjectR020Response.Xmlb
         }
     }
 
-    fun getPostData(adapter: ExteriorImageAdapter): List<InspectionPhotoW007Request> {
+    private fun getPostData(adapter: InspectionItemImageAdapter): List<InspectionPhotoW007Request> {
         val list = ArrayList<InspectionPhotoW007Request>()
-        for (index in 0 until adapter.itemCount) {
-            val holder = binding.rvImage.findViewHolderForAdapterPosition(index)
-            val tvZpajdm = holder?.itemView?.findViewById<TextView>(R.id.tvZpajdm)
-            val tvZphjdm = holder?.itemView?.findViewById<TextView>(R.id.tvZphjdm)
-            val imageView = holder?.itemView?.findViewById<ImageView>(R.id.ivImage)
-            val drawable = imageView?.drawable
-            if (drawable != null) {
-                val bitmap = ImageUtil.getBitmapFromDrawable(drawable)
-                val base64 = ImageUtil.bitmap2Base64(bitmap)
-                val model = InspectionPhotoW007Request(
-                    index, args.bean006.Lsh,
-                    "",
-                    "",
-                    "1",
-                    args.bean006.Jccs,
-                    args.bean005.Hphm,
-                    args.bean005.Hpzl,
-                    args.bean005.Clsbdh,
-                    base64,
-                    "202111081113",
-                    args.bean006.Xmbh,
-                    adapter.data[index].Zpdm,
-                    adapter.data[index].Zpmc,
-                    adapter.data[index].Zpajdm,
-                    adapter.data[index].Zphjdm,
-                    adapter.data[index].Bcaj,
-                    adapter.data[index].BcHj,
-                    "202111081123"
-                )
-                list.add(model)
-            }
+                    for (index in 0 until adapter.itemCount) {
+                        val holder = binding.rvImage.findViewHolderForAdapterPosition(index)
+                        val imageView = holder?.itemView?.findViewById<ImageView>(R.id.ivImage)
+                        val drawable = imageView?.drawable
+                        if (drawable != null) {
+                            val bitmap = ImageUtil.getBitmapFromDrawable(drawable)
+                            val base64 = ImageUtil.bitmap2Base64(bitmap)
+                            val model = InspectionPhotoW007Request(
+                                index, args.bean006.Lsh,
+                                AjJyjghb,
+                                HjJyjghb,
+                                args.jcxh,
+                                args.bean006.Jccs,
+                                args.bean005.Hphm,
+                                args.bean005.Hpzl,
+                                args.bean005.Clsbdh,
+                                base64,
+                                DateUtil.string2String(beginTime,
+                                    "yyyy-MM-dd HH:mm:ss",
+                                    "yyyyMMddHHmmss"),
+                                args.bean006.Xmbh,
+                                adapter.data[index].Zpdm,
+                                adapter.data[index].Zpmc,
+                                adapter.data[index].Zpajdm,
+                                adapter.data[index].Zphjdm,
+                                adapter.data[index].Bcaj,
+                                adapter.data[index].BcHj,
+                                DateUtil.string2String(endTime,
+                                    "yyyy-MM-dd HH:mm:ss",
+                                    "yyyyMMddHHmmss")
+                            )
+                            list.add(model)
+                        }
 
 
         }
+
         return list
 
     }
@@ -184,13 +174,23 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     }
 
     override fun onResume() {
-        getImageData(
-            args.bean006.Lsh, args.bean006.Xmbh,
-            args.bean006.Ajywlb, args.bean006.Hjywlb
-        )
-        getSelectData(args.bean006.Lsh, args.bean006.Xmbh,
-            args.bean006.Ajywlb, args.bean006.Hjywlb)
         super.onResume()
+        systemParamsViewModel.getJyjgbh("AJ").observe(this){
+            AjJyjghb = it
+        }
+        systemParamsViewModel.getJyjgbh("HJ").observe(this){
+            HjJyjghb = it
+        }
+        inspectionItemViewModel.getServerTime().observe(this){
+            beginTime = it.Sj
+            getImageData(
+                args.bean006.Lsh, args.bean006.Xmbh,
+                args.bean006.Ajywlb, args.bean006.Hjywlb
+            )
+            getSelectData(args.bean006.Lsh, args.bean006.Xmbh,
+                args.bean006.Ajywlb, args.bean006.Hjywlb)
+        }
+
     }
 
 
