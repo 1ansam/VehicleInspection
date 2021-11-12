@@ -2,6 +2,7 @@ package com.yxf.vehicleinspection.view.activity
 
 import android.Manifest
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.permissionx.guolindev.PermissionX
@@ -38,69 +39,48 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                         Toast.LENGTH_LONG).show()
                 }
             }
-        dataDictionaryViewModel.getDataDictionary().observe(this){ list ->
-            dataDictionaryViewModel.getDataDictionaryExist().observe(this){
-                if (it!=null){
-                    dataDictionaryViewModel.updateDataDictionary(list)
 
-                }else{
-                    dataDictionaryViewModel.insertDataDictionary(list)
+                dataDictionaryViewModel.getDataDictionary().observe(this) {
+                    dataDictionaryViewModel.insertDataDictionary(it)
                 }
 
-            }
-        }
-        systemParamsViewModel.getSystemParamsData().observe(this){ list ->
-            systemParamsViewModel.getSystemParamsDataExist().observe(this){
-                if (it!=null){
-                    systemParamsViewModel.updateSystemParams(list)
-                }else{
-                    systemParamsViewModel.insertSystemParams(list)
+                systemParamsViewModel.getSystemParamsData().observe(this){
+                    systemParamsViewModel.insertSystemParams(it)
                 }
-            }
-        }
+
         binding.btnStartEnjoy.setOnClickListener {
-//            val testObject = LCObject("TestObject")
-//            testObject.put("words","Hello World!")
-//            testObject.saveInBackground().blockingSubscribe()
-//            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-//            val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-//            startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
-
-
-
 
             intent = Intent(this, DisplayActivity::class.java)
             startActivity(intent)
             finish()
-//            RxImagePicker
-//                .create(DefaultImagePicker::class.java)
-//                .openGallery(this)
-//                .subscribe(Consumer {
-//                    Glide.with(this)
-//                        .load(it.uri)
-//                        .into(binding.corporationLogo)
-//                })
 
-//            RxImagePicker
-//                .create(DefaultImagePicker::class.java)
-//                .openCamera(this)
-//                .subscribe(Consumer {
-//                    Glide.with(this)
-//                        .load(it.uri)
-//                        .into(binding.corporationLogo)
-//                })
+
+        }
+        binding.btnParamsSync.setOnClickListener {
+            dataDictionaryViewModel.getDataDictionary().observe(this){ list ->
+                dataDictionaryViewModel.getDataDictionaryExist().observe(this){
+                    if (it!=null){
+                        dataDictionaryViewModel.deleteDataDictionary()
+                    }else{
+                        dataDictionaryViewModel.insertDataDictionary(list)
+                    }
+
+                }
+            }
+            systemParamsViewModel.getSystemParamsData().observe(this){ list ->
+                systemParamsViewModel.getSystemParamsDataExist().observe(this){
+                    if (it!=null){
+                        systemParamsViewModel.deleteSystemParams()
+                    }else{
+                        systemParamsViewModel.insertSystemParams(list)
+                    }
+                }
+            }
 
         }
 
 
     }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-//            Log.e("TAG", "onActivityResult: REQUEST_VIDEO_CAPTURE", )
-//        }
-//    }
 
 }
 

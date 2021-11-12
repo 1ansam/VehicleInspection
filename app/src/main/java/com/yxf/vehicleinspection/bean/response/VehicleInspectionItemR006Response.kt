@@ -13,8 +13,8 @@ data class VehicleInspectionItemR006Response(
     val Jccs : Int,
     val Ajywlb : String,
     val Hjywlb : String,
-    val Xmbh : String,
-    val Xmmc : String?,
+    val Jcxm : String,
+    val Xmmc : String,
     val Jcry_01 : String?,
     val Jcry_02 : String?,
     val Jckssj : String?,
@@ -22,5 +22,5 @@ data class VehicleInspectionItemR006Response(
     val Jcpj : String?,
     val Jczt : String?,
 
-): Serializable {
+    ): Serializable {
 }

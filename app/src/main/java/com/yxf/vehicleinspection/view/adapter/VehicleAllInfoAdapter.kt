@@ -2,16 +2,18 @@ package com.yxf.vehicleinspection.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
 import com.yxf.vehicleinspection.databinding.RvItemVehicleInformationBinding
+import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 
 /**
  *   author:yxf
  *   time:2021/10/19
  */
-class VehicleAllInfoAdapter : BaseRvAdapter<VehicleAllInfo005Response,RvItemVehicleInformationBinding>() {
+class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryViewModel: DataDictionaryViewModel) : BaseRvAdapter<VehicleAllInfo005Response,RvItemVehicleInformationBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -36,5 +38,15 @@ class VehicleAllInfoAdapter : BaseRvAdapter<VehicleAllInfo005Response,RvItemVehi
             binding.tvLtgg.text = bean.Ltgg
             binding.tvCcrq.text = bean.Ccrq
         }
+        dataDictionaryViewModel.getMc("09",bean.Hpzl).observe(fragment){
+            holder.binding.tvHpzl.text = it
+        }
+        dataDictionaryViewModel.getMc("26",bean.Hpys).observe(fragment){
+            holder.binding.tvHpys.text = it
+        }
+        dataDictionaryViewModel.getMc("07",bean.Cllx).observe(fragment){
+            holder.binding.tvCllx.text = it
+        }
+
     }
 }

@@ -1,10 +1,7 @@
 package com.yxf.vehicleinspection.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 
@@ -14,14 +11,19 @@ import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
  */
 @Dao
 interface SystemParamsDao {
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>)
 
     @Update
     suspend fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>)
 
-    @Query("SELECT * FROM SystemParams WHERE Sjlb = 'AJ' OR Sjlb = 'HJ' ")
+    @Query("DELETE FROM SystemParams")
+    suspend fun deleteSystemParams()
+    @Query("SELECT * FROM SystemParams WHERE Sjlb = 'AJ' OR Sjlb = 'HJ' LIMIT 1")
     fun getSystemParamsExist() : LiveData<SystemParamsR015Response>
     @Query("SELECT Jyjgbh FROM SystemParams WHERE Sjlb LIKE :Sjlb")
     fun getJyjgbh(Sjlb : String) : LiveData<String>
+
+    @Query("SELECT Web_Pass FROM SystemParams WHERE Sjlb LIKE :Sjlb")
+    fun getWebPass(Sjlb: String) : LiveData<String>
 }

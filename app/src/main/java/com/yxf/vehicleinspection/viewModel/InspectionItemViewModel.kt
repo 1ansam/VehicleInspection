@@ -1,9 +1,10 @@
 package com.yxf.vehicleinspection.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.request.InspectionPhotoW007Request
+import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.ArtificialProjectR020Response
 import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.ServerTimeR011Response
@@ -27,6 +28,17 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun getServerTime() : LiveData<ServerTimeR011Response>{
         return serverTimeRepository.getServerTime()
     }
+    fun <T> postArtificialProjectW011(list : List<ArtificialProjectW011Request<T>>): MutableLiveData<Boolean> {
+        return inspectionItemRepository.postArtificialProjectW011(list)
+    }
+    fun postSaveVideoW008(saveVideoW008Request: SaveVideoW008Request): LiveData<Boolean>{
+        return inspectionItemRepository.postSaveVideoW008(saveVideoW008Request)
+    }
+    fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean>{
+        return inspectionItemRepository.postProjectEndW012(projectEndW012Request)
+    }
+
+
 
 
 }

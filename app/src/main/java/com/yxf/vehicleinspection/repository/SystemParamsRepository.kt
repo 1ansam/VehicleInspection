@@ -25,12 +25,14 @@ import retrofit2.Response
  */
 class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
     suspend fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>){
-        return systemParamsDao.insertSystemParams(systemParamsList)
+        systemParamsDao.insertSystemParams(systemParamsList)
     }
     suspend fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>){
-        return systemParamsDao.updateSystemParams(systemParamsList)
+        systemParamsDao.updateSystemParams(systemParamsList)
     }
-
+    suspend fun deleteSystemParams(){
+        systemParamsDao.deleteSystemParams()
+    }
     fun getSystemParamsData() : LiveData<List<SystemParamsR015Response>> {
         val liveData = MutableLiveData<List<SystemParamsR015Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -70,6 +72,9 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
 
     fun getJyjgbh(Sjlb : String) : LiveData<String>{
         return systemParamsDao.getJyjgbh(Sjlb)
+    }
+    fun getWebPass(Sjlb : String): LiveData<String> {
+        return systemParamsDao.getWebPass(Sjlb)
     }
     fun getSystemParamsDataExist() : LiveData<SystemParamsR015Response> {
         return systemParamsDao.getSystemParamsExist()

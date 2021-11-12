@@ -30,6 +30,9 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     suspend fun updateDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>){
         dao.updateDataDictionary(dataDictionaryListResponse)
     }
+    suspend fun deleteDataDictionary(){
+        dao.deleteDataDictionary()
+    }
     fun getMc(Fl : String,Dm : String): LiveData<String> {
         return dao.getMc(Fl, Dm)
     }
@@ -37,8 +40,8 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     fun getMcList(Fl : String) : LiveData<List<String>>{
         return dao.getMcList(Fl)
     }
-    fun getDM(Fl : String, FlMc : String): LiveData<String> {
-        return dao.getDM(Fl, FlMc)
+    fun getDM(Fl : String, Mc : String): LiveData<String> {
+        return dao.getDM(Fl, Mc)
     }
     fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>{
         return dao.getListFromFl(Fl)

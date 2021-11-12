@@ -2,14 +2,11 @@ package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
 import android.os.Build
-import android.os.Bundle
-import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yxf.vehicleinspection.MyApp
@@ -18,12 +15,10 @@ import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
 import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.DateUtil
-import com.yxf.vehicleinspection.view.MyListView
 import com.yxf.vehicleinspection.view.PaintView
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 import com.yxf.vehicleinspection.viewModel.SignatureViewModel
 import com.yxf.vehicleinspection.viewModel.SignatureViewModelFactory
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -48,7 +43,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
         binding.btnCommit.setOnClickListener {
             binding.pbSignature.visibility = View.VISIBLE
             val saveSignatureW006Request = SaveSignatureW006Request(0,args.bean005!!.Lsh,args.bean006!!.Jccs,args.bean005!!.Hphm,mPaintView.base64,
-                DateUtil.date2String(Date(),"yyyy-MM-dd HH:mm:ss"),args.bean006!!.Xmbh,
+                DateUtil.date2String(Date(),"yyyy-MM-dd HH:mm:ss"),args.bean006!!.Jcxm,
                 SharedP.instance.getString("username","")!!,"1","1")
             signatureViewModel.postSignature(saveSignatureW006Request).observe(this){
                 if (it){

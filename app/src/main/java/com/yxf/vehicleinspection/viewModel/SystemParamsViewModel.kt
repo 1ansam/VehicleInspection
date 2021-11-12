@@ -25,12 +25,19 @@ class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepo
     fun getJyjgbh(Sjlb : String) : LiveData<String>{
         return systemParamsRepository.getJyjgbh(Sjlb)
     }
+
+    fun getWebPass(Sjlb : String) : LiveData<String>{
+        return systemParamsRepository.getWebPass(Sjlb)
+    }
     fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>) = viewModelScope.launch {
         systemParamsRepository.insertSystemParams(systemParamsList)
     }
 
     fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>) = viewModelScope.launch {
         systemParamsRepository.updateSystemParams(systemParamsList)
+    }
+    fun deleteSystemParams() = viewModelScope.launch {
+        systemParamsRepository.deleteSystemParams()
     }
 
 }

@@ -1,12 +1,11 @@
 package com.yxf.vehicleinspection.repository
 
 import android.widget.Toast
+import androidx.datastore.preferences.protobuf.Api
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.ArtificialProjectR020Request
-import com.yxf.vehicleinspection.bean.request.ImageItemR017Request
-import com.yxf.vehicleinspection.bean.request.InspectionPhotoW007Request
+import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.*
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.WriteService
@@ -19,6 +18,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
 
 /**
  *   author:yxf
@@ -43,7 +43,7 @@ class InspectionItemRepository {
                     val stringResponse = response.body()?.string()
                     val commonResponse = GsonSingleton.getGson()
                         .fromJson(stringResponse, CommonResponse::class.java)
-                    if (commonResponse.Code.equals("1")) {
+                    if (commonResponse.Code == "1") {
                         val imageItemList = ArrayList<ImageItemR017Response>()
                         for (element in commonResponse.Body) {
                             val bodyJson = GsonSingleton.getGson().toJson(element)
@@ -135,6 +135,114 @@ class InspectionItemRepository {
                         }
                     }
                 } else {
+                    liveData.value = false
+                    Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+    fun <T> postArtificialProjectW011(list : List<ArtificialProjectW011Request<T>>) : MutableLiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            ApiStatic.WRITE_ARTIFICIAL_PROJECT,
+            IpHelper.getIpAddress(),
+            JsonDataHelper.getJsonData(list)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful){
+                    val stringResponse = response.body()?.string()
+                    val commonResponse = GsonSingleton.getGson()
+                        .fromJson(stringResponse, CommonResponse::class.java)
+                    if (commonResponse.Code == "1"){
+                        liveData.value = true
+                    }else{
+                        liveData.value = false
+                        if (commonResponse.Message!=null){
+                            Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else{
+                    liveData.value = false
+                    Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+    fun postSaveVideoW008(saveVideoW008Request: SaveVideoW008Request): LiveData<Boolean>{
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            ApiStatic.WRITE_SAVE_VIDEO,
+            IpHelper.getIpAddress(),
+            JsonDataHelper.getJsonData(saveVideoW008Request)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful){
+                    val stringResponse = response.body()?.string()
+                    val commonResponse = GsonSingleton.getGson()
+                        .fromJson(stringResponse, CommonResponse::class.java)
+                    if (commonResponse.Code == "1") {
+                        liveData.value = true
+                    } else {
+                        liveData.value = false
+                        if (commonResponse.Message != null) {
+                            Toast.makeText(MyApp.context,
+                                commonResponse.Message,
+                                Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }else{
+                    liveData.value = false
+                    Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+    fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean>{
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            ApiStatic.WRITE_PROJECT_END,
+            IpHelper.getIpAddress(),
+            JsonDataHelper.getJsonData(projectEndW012Request)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful){
+                    val stringResponse = response.body()?.string()
+                    val commonResponse = GsonSingleton.getGson()
+                        .fromJson(stringResponse, CommonResponse::class.java)
+                    if (commonResponse.Code == "1") {
+                        liveData.value = true
+                    } else {
+                        liveData.value = false
+                        if (commonResponse.Message != null) {
+                            Toast.makeText(MyApp.context,
+                                commonResponse.Message,
+                                Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }else{
                     liveData.value = false
                     Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
                 }

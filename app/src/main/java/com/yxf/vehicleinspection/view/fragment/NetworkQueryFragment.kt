@@ -12,8 +12,6 @@ import com.yxf.vehicleinspection.databinding.FragmentNetworkQueryBinding
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
 import com.yxf.vehicleinspection.viewModel.InspectionItemViewModel
 import com.yxf.vehicleinspection.viewModel.InspectionItemViewModelFactory
-import java.text.SimpleDateFormat
-import java.util.*
 
 class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() {
     private val inspectionItemViewModel by viewModels<InspectionItemViewModel> { InspectionItemViewModelFactory((requireActivity().application as MyApp).inspectionItemRepository,(requireActivity().application as MyApp).serverTimeRepository) }
@@ -36,7 +34,7 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
     }
 
     override fun onResume() {
-        getSelectData(args.bean006.Lsh, args.bean006.Xmbh,
+        getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
             args.bean006.Ajywlb, args.bean006.Hjywlb)
         super.onResume()
     }

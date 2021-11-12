@@ -25,6 +25,9 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun updateDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) = viewModelScope.launch {
         dataDictionaryRepository.updateDataDictionary(dataDictionaryListResponse)
     }
+    fun deleteDataDictionary() = viewModelScope.launch {
+        dataDictionaryRepository.deleteDataDictionary()
+    }
     fun getDataDictionaryExist(): LiveData<DataDictionaryR003Response> {
         return dataDictionaryRepository.getDataDictionaryExist()
     }
@@ -38,8 +41,8 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
         return dataDictionaryRepository.getListFromFl(Fl)
     }
 
-    fun getDm(Fl : String, FlMc : String) : LiveData<String>{
-        return dataDictionaryRepository.getDM(Fl, FlMc)
+    fun getDm(Fl : String, Mc : String) : LiveData<String>{
+        return dataDictionaryRepository.getDM(Fl, Mc)
     }
 
 

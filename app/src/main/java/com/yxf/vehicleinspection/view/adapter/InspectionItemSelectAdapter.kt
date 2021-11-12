@@ -14,6 +14,7 @@ import com.yxf.vehicleinspection.databinding.ItemExteriorSelectBinding
  *   time:2021/11/9
  */
 class InspectionItemSelectAdapter : BaseRvAdapter<ArtificialProject,ItemExteriorSelectBinding>(){
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -31,40 +32,44 @@ class InspectionItemSelectAdapter : BaseRvAdapter<ArtificialProject,ItemExterior
         holder.binding.tvXmms.text = bean.Xmms
         holder.binding.tvXmdm.text = bean.Xmdm
         var selected : Boolean? = null
+        holder.binding.ivSelected.tag = "0"
         if (bean.Sycx == "1"){
-            holder.binding.ibSelected.setImageResource(R.drawable.icon_yes)
+            holder.binding.ivSelected.setImageResource(R.drawable.icon_yes)
+            holder.binding.ivSelected.tag = "1"
             selected = true
         }
 
-        holder.binding.ibSelected.setOnClickListener {
+        holder.binding.ivSelected.setOnClickListener {
             if (selected != null){
                 selected = !selected!!
                 if (selected!!){
-                    holder.binding.ibSelected.setImageResource(R.drawable.icon_yes)
+                    holder.binding.ivSelected.setImageResource(R.drawable.icon_yes)
+                    holder.binding.ivSelected.tag = "1"
                     holder.binding.etBz.visibility = View.GONE
                 }else{
-                    holder.binding.ibSelected.setImageResource(R.drawable.ic_baseline_clear_24)
+                    holder.binding.ivSelected.setImageResource(R.drawable.ic_baseline_clear_24)
+                    holder.binding.ivSelected.tag = "2"
                     holder.binding.etBz.visibility = View.VISIBLE
                 }
             }
 
         }
-        holder.binding.ibSelected.setOnLongClickListener(object : View.OnLongClickListener{
-            override fun onLongClick(v: View?): Boolean {
-                if (selected!=null){
-                    selected = null
-                    holder.binding.ibSelected.setImageResource(R.drawable.icon_block)
-                    holder.binding.etBz.visibility = View.GONE
-                }else{
-                    selected = true
-                    holder.binding.ibSelected.setImageResource(R.drawable.icon_yes)
-                    holder.binding.etBz.visibility = View.GONE
-                }
-
-
-                return true
+        holder.binding.ivSelected.setOnLongClickListener {
+            if (selected != null) {
+                selected = null
+                holder.binding.ivSelected.setImageResource(R.drawable.icon_block)
+                holder.binding.ivSelected.tag = "0"
+                holder.binding.etBz.visibility = View.GONE
+            } else {
+                selected = true
+                holder.binding.ivSelected.setImageResource(R.drawable.icon_yes)
+                holder.binding.ivSelected.tag = "1"
+                holder.binding.etBz.visibility = View.GONE
             }
-        })
+
+
+            true
+        }
 
 
     }

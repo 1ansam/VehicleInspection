@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.SaveSignatureW006Response
 import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -26,7 +25,7 @@ class SignatureRepository {
     fun postSignature(saveSignatureW006Request: SaveSignatureW006Request) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
-            ApiStatic.WRITE_SIGNATURE,
+            ApiStatic.WRITE_SAVE_SIGNATURE,
             IpHelper.getIpAddress(),
             JsonDataHelper.getJsonData(saveSignatureW006Request)
         )

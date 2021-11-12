@@ -31,7 +31,7 @@
             android:paddingEnd="5dp" />
 
         <ImageView
-            android:id="@+id/ibSelected"
+            android:id="@+id/ivSelected"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:srcCompat="@drawable/icon_block"

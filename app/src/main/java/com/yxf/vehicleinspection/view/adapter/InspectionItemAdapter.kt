@@ -51,7 +51,7 @@ class InspectionItemAdapter(
         holder.itemView.setOnClickListener {
 
         }
-        when (bean.Xmbh) {
+        when (bean.Jcxm) {
             "F1" -> dataDictionaryViewModel.getListFromFl("wx").observe(fragment) {
                 binding.lvLineNumber.adapter =
                     LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)

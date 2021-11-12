@@ -32,7 +32,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvInspectionItem.layoutManager = LinearLayoutManager(this.requireContext())
-        vehicleInformationAdapter = VehicleAllInfoAdapter()
+        vehicleInformationAdapter = VehicleAllInfoAdapter(this,dataDictionaryViewModel)
         inspectionItemAdapter = InspectionItemAdapter(this,dataDictionaryViewModel)
 
         binding.rvVehicleInformation.adapter = vehicleInformationAdapter
