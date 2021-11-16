@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.yxf.vehicleinspection.bean.VehicleFeature
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.ArtificialProjectR020Response
 import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
@@ -19,14 +20,18 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun getImageItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<List<ImageItemR017Response>> {
         return inspectionItemRepository.getImageItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
     }
-    fun postInspectionPhotoW007(list : List<InspectionPhotoW007Request>) : LiveData<Boolean>{
-        return inspectionItemRepository.postInspectionPhotoW007(list)
-    }
+
     fun getSelectItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<ArtificialProjectR020Response> {
         return inspectionItemRepository.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
     }
+    fun getVehicleFeature(): List<VehicleFeature> {
+        return inspectionItemRepository.getVehicleFeature()
+    }
     fun getServerTime() : LiveData<ServerTimeR011Response>{
         return serverTimeRepository.getServerTime()
+    }
+    fun postInspectionPhotoW007(list : List<InspectionPhotoW007Request>) : LiveData<Boolean>{
+        return inspectionItemRepository.postInspectionPhotoW007(list)
     }
     fun <T> postArtificialProjectW011(list : List<ArtificialProjectW011Request<T>>): MutableLiveData<Boolean> {
         return inspectionItemRepository.postArtificialProjectW011(list)

@@ -1,5 +1,7 @@
 package com.yxf.vehicleinspection.bean.response
 
+import java.io.Serializable
+
 /**
  *   author:yxf
  *   time:2021/10/11
@@ -13,11 +15,11 @@ package com.yxf.vehicleinspection.bean.response
 
  */
 data class UserInfoR001Response(
-    val ID : String?,
-    val GongHao : String?,
-    val UserName : String?,
-    val PassWord : String?,
-    val TrueName : String?,
-    val AddDate : String?,
-    val RoleDm : String?
-)
+    val ID : String,
+    val GongHao : String,
+    val UserName : String,
+    val PassWord : String,
+    val TrueName : String,
+    val AddDate : String,
+    val RoleDm : String
+) : Serializable

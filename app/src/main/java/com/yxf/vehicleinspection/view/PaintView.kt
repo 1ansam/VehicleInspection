@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
-import com.yxf.vehicleinspection.utils.ImageUtil.bitmap2Base64
+import com.yxf.vehicleinspection.utils.bitmap2Base64
 
 /**
  * author:yxf

@@ -8,11 +8,9 @@ import com.yxf.vehicleinspection.bean.request.VehicleVideoR008Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.VehicleVideoR008Response
 import com.yxf.vehicleinspection.service.QueryService
-import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
-import com.yxf.vehicleinspection.utils.IpHelper
-import com.yxf.vehicleinspection.utils.JsonDataHelper
+import com.yxf.vehicleinspection.utils.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,37 +24,13 @@ class VehicleVideoRepository {
     fun getVehicleVideo(Lsh : String, Jccs : String?) : LiveData<List<VehicleVideoR008Response>> {
         val liveData = MutableLiveData<List<VehicleVideoR008Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
-            ApiStatic.QUERY_VEHICLE_VIDEO,
-            IpHelper.getIpAddress(),
-            JsonDataHelper.getJsonData(VehicleVideoR008Request(Lsh, Jccs))
+            QUERY_VEHICLE_VIDEO,
+            getIpAddress(),
+            getJsonData(VehicleVideoR008Request(Lsh, Jccs))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    //.string只允许调用一次
-                    val stringResponse = response.body()?.string()
-                    val commonResponse = GsonSingleton.getGson()
-                        .fromJson(stringResponse, CommonResponse::class.java)
-                    if (commonResponse.Code.equals("1")) {
-                        val vehicleVideoList = ArrayList<VehicleVideoR008Response>()
-                        for (element in commonResponse.Body) {
-                            val bodyJson =
-                                GsonSingleton.getGson().toJson(element)
-                            vehicleVideoList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleVideoR008Response::class.java))
-                        }
-                        liveData.value = vehicleVideoList
-
-                    } else {
-                        Toast.makeText(MyApp.context,
-                            commonResponse.Message,
-                            Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(MyApp.context,
-                        response.message(),
-                        Toast.LENGTH_LONG).show()
-                }
+                response2ListBean(response, liveData)
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

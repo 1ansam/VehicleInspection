@@ -9,9 +9,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,24 +21,33 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.bean.request.*
+import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentExteriorBinding
-import com.yxf.vehicleinspection.singleton.StaticParams
-import com.yxf.vehicleinspection.utils.DateUtil
-import com.yxf.vehicleinspection.utils.ImageUtil
+import com.yxf.vehicleinspection.utils.*
+import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemImageAdapter
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
+import com.yxf.vehicleinspection.view.adapter.InspectionItemVehicleFeatureAdapter
 import com.yxf.vehicleinspection.viewModel.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     private var AjJyjghb = ""
     private var HjJyjghb = ""
     private var AjJkxlh = ""
     private var endTime = ""
+    private var dczxllthwsd = false
+    private var dcqtllthwsd = false
+    private var gclthwsd = false
+    private var Sfqssq = false
+    private var Sfdzzc = false
+    private var Sfkqxj = false
+    lateinit var bean001 : UserInfoR001Response
     private var ivImage : ImageView? = null
     lateinit var currentPhotoPath: String
     private val inspectionItemViewModel by viewModels<InspectionItemViewModel> {
@@ -53,11 +60,15 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
     lateinit var inspectionItemImageAdapter: InspectionItemImageAdapter
     lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
+    lateinit var inspectionItemVehicleFeatureAdapter: InspectionItemVehicleFeatureAdapter
     private val args: ExteriorFragmentArgs by navArgs()
-    private val REQUEST_IMAGE_CAPTURE = 101
     private var holder: RecyclerView.ViewHolder? = null
     private var beginTime = ""
     override fun init() {
+       bean001 = DisplayActivity.bean001 as UserInfoR001Response
+        Log.e("TAG", "init: $bean001", )
+        Log.e("TAG", "init: ${bean001.ID}", )
+        Log.e("TAG", "init: ${bean001.TrueName}", )
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         inspectionItemImageAdapter = InspectionItemImageAdapter()
         binding.rvImage.layoutManager = LinearLayoutManager(this.requireContext())
@@ -82,8 +93,6 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                             }
                         }
                     }
-
-
                     holder = binding.rvImage.findViewHolderForAdapterPosition(position)
                     ivImage = holder?.itemView?.findViewById(R.id.ivImage)
                 }
@@ -92,6 +101,10 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
         inspectionItemSelectAdapter = InspectionItemSelectAdapter()
         binding.rvSelect.adapter = inspectionItemSelectAdapter
+//        binding.rvVehicleFeature.layoutManager = LinearLayoutManager(this.requireContext())
+        inspectionItemVehicleFeatureAdapter = InspectionItemVehicleFeatureAdapter()
+        inspectionItemVehicleFeatureAdapter.data = inspectionItemViewModel.getVehicleFeature()
+//        binding.rvVehicleFeature.adapter = inspectionItemVehicleFeatureAdapter
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
@@ -109,17 +122,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                         }
 
                     }
-                inspectionItemViewModel.postSaveVideoW008(SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
-                    args.bean005.Hpzl,args.bean006.Jcxm,StaticParams.EXTERIOR_FRONT,StaticParams.EXTERIOR_LEFT_FRONT_HJ,args.bean006.Ajywlb,args.bean006.Hjywlb,
-                    endTime.substring(0,10),endTime.substring(11), DateUtil.string2String(beginTime,
-                        "yyyy-MM-dd HH:mm:ss",
-                        "yyyyMMddHHmmss"), DateUtil.string2String(endTime,
-                        "yyyy-MM-dd HH:mm:ss",
-                        "yyyyMMddHHmmss"),"",args.bean005.Clpp1,args.bean005.Syr,
-                    "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-                    "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-                    args.bean005.Hjdlsj
-                )).observe(this){
+                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(EXTERIOR_FRONT,
+                    EXTERIOR_LEFT_FRONT_HJ)).observe(this){
                     if(it){
                         apiNumber+=1
                     }else{
@@ -127,17 +131,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                         binding.pbExteriorSubmit.visibility = View.GONE
                     }
                 }
-                inspectionItemViewModel.postSaveVideoW008(SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
-                    args.bean005.Hpzl,args.bean006.Jcxm,StaticParams.EXTERIOR_BEHIDE,StaticParams.EXTERIOR_RIGHT_BEHIND_HJ,args.bean006.Ajywlb,args.bean006.Hjywlb,
-                    endTime.substring(0,10),endTime.substring(11), DateUtil.string2String(beginTime,
-                        "yyyy-MM-dd HH:mm:ss",
-                        "yyyyMMddHHmmss"), DateUtil.string2String(endTime,
-                        "yyyy-MM-dd HH:mm:ss",
-                        "yyyyMMddHHmmss"),"",args.bean005.Clpp1,args.bean005.Syr,
-                    "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-                    "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-                    args.bean005.Hjdlsj
-                )).observe(this){
+                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(EXTERIOR_BEHIDE,
+                    EXTERIOR_RIGHT_BEHIND_HJ)).observe(this){
                     if(it){
                         apiNumber+=1
                     }else{
@@ -155,9 +150,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                     }
                 }
                 if (apiNumber == 4){
-                    inspectionItemViewModel.postProjectEndW012(ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
-                    args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
-                    args.bean006.Hjywlb,AjJkxlh)).observe(this){
+                    binding.pbExteriorSubmit.visibility = View.GONE
+                    inspectionItemViewModel.postProjectEndW012(getProjectEndData()).observe(this){
                         if (it){
                             val action =
                                 ExteriorFragmentDirections.actionExteriorFragmentToSignatureFragment(
@@ -174,6 +168,48 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             }
 
 
+        }
+        binding.tvDczxlhwsd.setOnClickListener{
+            dczxllthwsd = !dczxllthwsd
+            if (dczxllthwsd){
+                binding.llDczxlhwsd.visibility = View.VISIBLE
+            }else{
+                binding.llDczxlhwsd.visibility = View.GONE
+            }
+        }
+        binding.tvDcqtlhwsd.setOnClickListener{
+            dcqtllthwsd = !dcqtllthwsd
+            if (dcqtllthwsd){
+                binding.llDcqtlhwsd.visibility = View.VISIBLE
+            }else{
+                binding.llDcqtlhwsd.visibility = View.GONE
+            }
+        }
+        binding.tvGclthwsd.setOnClickListener{
+            gclthwsd = !gclthwsd
+            if (gclthwsd){
+                binding.llGclthwsd.visibility = View.VISIBLE
+            }else{
+                binding.llGclthwsd.visibility = View.GONE
+            }
+        }
+        if (args.bean005.Dzss == "0"){
+            Sfdzzc = false
+        }else if (args.bean005.Dzss == "1"){
+            Sfdzzc = true
+        }
+        binding.cbSfdzzc.isChecked = Sfdzzc
+        if (binding.cbSfdzzc.isChecked){
+            binding.cbSfdzzc.text = "是"
+        }else{
+            binding.cbSfdzzc.text = "否"
+        }
+        binding.cbSfdzzc.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked){
+                binding.cbSfdzzc.text = "是"
+            }else{
+                binding.cbSfdzzc.text = "否"
+            }
         }
 
 
@@ -192,8 +228,25 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             inspectionItemSelectAdapter.data = artificialProjectR020Response.Xmlb
         }
     }
+    private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request{
+        return SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+            args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
+            endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyyMMddHHmmss"),
+            string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+            "",args.bean005.Clpp1,args.bean005.Syr,
+            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
+            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
+            args.bean005.Hjdlsj,"","0"
+        )
+    }
 
-
+    private fun getProjectEndData():ProjectEndW012Request{
+        return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
+            args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
+            args.bean006.Hjywlb,AjJkxlh)
+    }
 
     private fun getPostPhotoData(adapter: InspectionItemImageAdapter): List<InspectionPhotoW007Request> {
         val list = ArrayList<InspectionPhotoW007Request>()
@@ -203,8 +256,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             val drawable = ivImage?.drawable
             val ivTag = ivImage?.tag.toString()
             if (ivTag == "1"&& ivTag != null){
-                val bitmap = ImageUtil.getBitmapFromDrawable(drawable!!)
-                val base64 = ImageUtil.bitmap2Base64(bitmap)
+                val bitmap = getBitmapFromDrawable(drawable!!)
+                val base64 = bitmap2Base64(bitmap)
                 val model = InspectionPhotoW007Request(
                     index, args.bean006.Lsh,
                     AjJyjghb,
@@ -215,7 +268,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                     args.bean005.Hpzl,
                     args.bean005.Clsbdh,
                     base64,
-                    DateUtil.string2String(beginTime,
+                    string2String(beginTime,
                         "yyyy-MM-dd HH:mm:ss",
                         "yyyyMMddHHmmss"),
                     args.bean006.Jcxm,
@@ -250,12 +303,64 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }
         val exteriorArtificialProjectRequest = ExteriorArtificialProjectRequest(
             args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
-            args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,listXmlb,"","","","","","",
-        "","","","","","","","","","","","","","",
-            "","",""
+            args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,listXmlb,
+            string2String(beginTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),binding.etCwkc.text.toString(),binding.etCwkk.text.toString(),binding.etCwkg.text.toString(),"",binding.etCxlbgd.text.toString(),getDczxlhwsd(),
+        "","",binding.etYzzgd.text.toString(),binding.etYzygd.text.toString(),
+            abs((binding.etYzzgd.text.toString().toInt()-binding.etYzygd.text.toString().toInt())).toString(),binding.etZhzzgd.text.toString(),binding.etZhzygd.text.toString(),abs((binding.etZhzzgd.text.toString().toInt()-binding.etZhzygd.text.toString().toInt())).toString(),"1".takeIf { binding.cbSfqssq.isChecked }?:"0","1".takeIf { binding.cbSfdzzc.isChecked }?:"0","1".takeIf { binding.cbSfkqxj.isChecked }?:"0",binding.etKqxjz.text.toString(),binding.etZxzsl.text.toString(),"",
+            bean001.TrueName,bean001.ID,binding.etExteriorBz.text.toString()
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,exteriorArtificialProjectRequest))
         return list
+    }
+
+    private fun getDczxlhwsd():String {
+        val A1 = binding.etTurnA1.text.toString()
+        val A2 = binding.etTurnA2.text.toString()
+        val A3 = binding.etTurnA3.text.toString()
+        val A4 = binding.etTurnA4.text.toString()
+        val B1 = binding.etTurnB1.text.toString()
+        val B2 = binding.etTurnB2.text.toString()
+        val B3 = binding.etTurnB3.text.toString()
+        val B4 = binding.etTurnB4.text.toString()
+        val list1 = listOf(A1,A2)
+        val list2 = listOf(B1,B2)
+        val list3 = listOf(A1,A2,B1,B2)
+        val list4 = listOf(A1,A2,A3,A4)
+        val list5 = listOf(B1,B2,B3,B4)
+        val list6 = listOf(A1,A2,B1,B2,B3,B4)
+        val list7 = listOf(A1,A2,A3,A4,B1,B2)
+        val list8 = listOf(A1,A2,A3,A4,B1,B2,B3,B4)
+        if (isNotBlank(list8)){
+            return "A1:$A1/A2:$A2/A3:$A3/A4:$A4/B1:$B1/B2:$B2/B3:$B3/B4:$B4"
+        }else if (isNotBlank(list7)){
+            return "A1:$A1/A2:$A2/A3:$A3/A4:$A4/B1:$B1/B2:$B2"
+        }else if (isNotBlank(list6)){
+            return "A1:$A1/A2:$A2/B1:$B1/B2:$B2/B3:$B3/B4:$B4"
+        }else if (isNotBlank(list5)){
+            return "B1:$B1/B2:$B2/B3:$B3/B4:$B4"
+        }else if (isNotBlank(list4)){
+            return "A1:$A1/A2:$A2/A3:$A3/A4:$A4"
+        }else if (isNotBlank(list3)){
+            return "A1:$A1/A2:$A2/B1:$B1/B2:$B2"
+        }else if (isNotBlank(list2)){
+            return "B1:$B1/B2:$B2"
+        }else if (isNotBlank(list1)){
+            return "A1:$A1/A2:$A2"
+        }else {
+            return ""
+        }
+    }
+    private fun isNotBlank(stringList: List<String>):Boolean{
+        val booleanList = ArrayList<Boolean>()
+        for (element in stringList){
+            booleanList.add(element.isNotBlank())
+        }
+        for (element in booleanList){
+            if (!element){
+                return false
+            }
+        }
+    return true
     }
 
 
@@ -297,6 +402,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
 
     }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.databinding.RvItemVehicleInformationBinding
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 
@@ -13,7 +13,7 @@ import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
  *   author:yxf
  *   time:2021/10/19
  */
-class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryViewModel: DataDictionaryViewModel) : BaseRvAdapter<VehicleAllInfo005Response,RvItemVehicleInformationBinding>() {
+class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryViewModel: DataDictionaryViewModel) : BaseRvAdapter<VehicleAllInfoR005Response,RvItemVehicleInformationBinding>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -25,7 +25,7 @@ class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryVi
         holder: BaseRvViewHolder<RvItemVehicleInformationBinding>,
         position: Int,
         binding: RvItemVehicleInformationBinding,
-        bean: VehicleAllInfo005Response,
+        bean: VehicleAllInfoR005Response,
     ) {
         holder.apply {
             binding.tvLsh.text = bean.Lsh

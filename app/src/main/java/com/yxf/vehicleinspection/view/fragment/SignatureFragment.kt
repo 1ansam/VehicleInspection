@@ -14,7 +14,7 @@ import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
 import com.yxf.vehicleinspection.singleton.SharedP
-import com.yxf.vehicleinspection.utils.DateUtil
+import com.yxf.vehicleinspection.utils.date2String
 import com.yxf.vehicleinspection.view.PaintView
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 import com.yxf.vehicleinspection.viewModel.SignatureViewModel
@@ -43,7 +43,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
         binding.btnCommit.setOnClickListener {
             binding.pbSignature.visibility = View.VISIBLE
             val saveSignatureW006Request = SaveSignatureW006Request(0,args.bean005!!.Lsh,args.bean006!!.Jccs,args.bean005!!.Hphm,mPaintView.base64,
-                DateUtil.date2String(Date(),"yyyy-MM-dd HH:mm:ss"),args.bean006!!.Jcxm,
+                date2String(Date(),"yyyy-MM-dd HH:mm:ss"),args.bean006!!.Jcxm,
                 SharedP.instance.getString("username","")!!,"1","1")
             signatureViewModel.postSignature(saveSignatureW006Request).observe(this){
                 if (it){

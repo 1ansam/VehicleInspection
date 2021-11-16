@@ -17,6 +17,8 @@ data class UniqueArtificialProjectRequest(
     val Hjywlb : String,
     val AjJkxlh : String,
     val Xmlb : List<Xmlb>,
+    val Jckssj : String,
+    val Jcjssj : String,
     val Bgfdjxh : String,
     val Bgfdjh : String,
     val Jyyjy : String,

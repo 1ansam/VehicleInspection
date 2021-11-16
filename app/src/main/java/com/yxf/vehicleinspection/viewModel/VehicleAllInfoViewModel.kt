@@ -3,7 +3,7 @@ package com.yxf.vehicleinspection.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.repository.VehicleAllInfoRepository
 
 /**
@@ -19,7 +19,7 @@ class VehicleAllInfoViewModel(val repository: VehicleAllInfoRepository) : ViewMo
      *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
      *   @return LiveData<List<VehicleAllInfoResponse>>
      */
-    fun getVehicleAllInfo(Lsh : String, Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String): LiveData<List<VehicleAllInfo005Response>> {
+    fun getVehicleAllInfo(Lsh : String, Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String): LiveData<List<VehicleAllInfoR005Response>> {
         return repository.getVehicleAllInfoRepository(Lsh, Hphm, Hpzl, Clsbdh, Xszbh)
     }
 }

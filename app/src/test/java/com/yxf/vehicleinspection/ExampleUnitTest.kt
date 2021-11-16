@@ -1,19 +1,9 @@
 package com.yxf.vehicleinspection
 
-import android.content.Context
-import android.text.format.DateUtils
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.yxf.vehicleinspection.room.DataDictionaryDao
-import com.yxf.vehicleinspection.room.DataDictionaryDatabase
-import com.yxf.vehicleinspection.utils.DateUtil
-import org.junit.After
-import org.junit.Before
+
+
 import org.junit.Test
-import org.junit.runner.RunWith
-import java.io.IOException
-import java.util.*
+
 
 
 /**
@@ -24,9 +14,22 @@ import java.util.*
 class ExampleUnitTest(){
     @Test
     fun main(){
-        val string = "2021-11-11 14:08:36"
-        val str = DateUtil.string2String(string,"yyyyMMddHHmmss")
-        println(str)
+        val list = listOf<Boolean>(true,true,true,false)
+        val list2 = listOf<Boolean>(true,true,true,true)
+        val list3 = listOf<Boolean>(false,false,false,false)
+        val list4 = listOf<Boolean>(false,true,true,true)
+        println(isAllNotBlank(list))
+        println(isAllNotBlank(list2))
+        println(isAllNotBlank(list3))
+        println(isAllNotBlank(list4))
+    }
+    private fun isAllNotBlank(booleanList: List<Boolean>):Boolean{
+        for (element in booleanList){
+            if (!element){
+                return false
+            }
+        }
+        return true
     }
 }
 

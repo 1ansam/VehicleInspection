@@ -8,11 +8,9 @@ import com.yxf.vehicleinspection.bean.request.VehicleImageR007Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.VehicleImageR007Response
 import com.yxf.vehicleinspection.service.QueryService
-import com.yxf.vehicleinspection.singleton.ApiStatic
 import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
-import com.yxf.vehicleinspection.utils.IpHelper
-import com.yxf.vehicleinspection.utils.JsonDataHelper
+import com.yxf.vehicleinspection.utils.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,35 +27,14 @@ class VehicleImageRepository {
     fun getImageData(Lsh : String) : LiveData<List<VehicleImageR007Response>> {
         val liveData = MutableLiveData<List<VehicleImageR007Response>>()
         val call = RetrofitService.create(QueryService::class.java)
-            .query(ApiStatic.QUERY_VEHICLE_IMAGE,IpHelper.getIpAddress(),
-                JsonDataHelper.getJsonData(VehicleImageR007Request(Lsh)))
+            .query(
+                QUERY_VEHICLE_IMAGE,
+                getIpAddress(),
+                getJsonData(VehicleImageR007Request(Lsh)))
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    //.string只允许调用一次
-                    val stringResponse = response.body()?.string()
-                    val commonResponse = GsonSingleton.getGson()
-                        .fromJson(stringResponse, CommonResponse::class.java)
-                    if (commonResponse.Code.equals("1")) {
-                        val vehicleImageList = ArrayList<VehicleImageR007Response>()
-                        for (element in commonResponse.Body) {
-                            val bodyJson =
-                                GsonSingleton.getGson().toJson(element)
-                            vehicleImageList.add(GsonSingleton.getGson()
-                                .fromJson(bodyJson, VehicleImageR007Response::class.java))
-                        }
-                        liveData.value = vehicleImageList
-
-
-                    } else {
-                        Toast.makeText(MyApp.context,
-                            commonResponse.Message,
-                            Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(MyApp.context,
-                        response.message(),
-                        Toast.LENGTH_LONG).show()
+                    response2ListBean(response, liveData)
                 }
             }
 

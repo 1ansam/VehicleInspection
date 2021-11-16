@@ -7,7 +7,5 @@ import com.google.gson.Gson
  *   time:2021/10/11
  */
 object GsonSingleton {
-    fun getGson() : Gson{
-        return Gson()
-    }
+    val instance = Gson()
 }

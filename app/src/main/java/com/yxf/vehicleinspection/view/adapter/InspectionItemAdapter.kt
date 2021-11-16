@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
 import com.yxf.vehicleinspection.view.fragment.InspectionItemFragmentDirections
@@ -22,7 +22,7 @@ class InspectionItemAdapter(
     val fragment: Fragment,
     private val dataDictionaryViewModel: DataDictionaryViewModel,
 ) : BaseRvAdapter<VehicleInspectionItemR006Response, RvItemInspectionItemBinding>() {
-    var bean005: VehicleAllInfo005Response? = null
+    var beanR005: VehicleAllInfoR005Response? = null
         set(value) {
             field = value
         }
@@ -60,7 +60,7 @@ class InspectionItemAdapter(
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToExteriorFragment(
                                 bean,
-                                bean005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm))
                     }
             }
             "C1" -> dataDictionaryViewModel.getListFromFl("dx").observe(fragment) {
@@ -71,7 +71,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                     .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToChassisFragment(bean,
-                        bean005!!,it[position].Dm))
+                        beanR005!!,it[position].Dm))
                     }
             }
             "DC" -> dataDictionaryViewModel.getListFromFl("tx").observe(fragment) {
@@ -82,7 +82,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToDynamicFragment(bean,
-                                bean005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm))
                     }
             }
             "NQ" -> dataDictionaryViewModel.getListFromFl("nx").observe(fragment) {
@@ -93,7 +93,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToNetworkQueryFragment(bean,
-                                bean005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm))
                     }
             }
             "UC" -> dataDictionaryViewModel.getListFromFl("ux").observe(fragment) {
@@ -104,7 +104,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToUniqueFragment(bean,
-                                bean005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm))
                     }
             }
         }

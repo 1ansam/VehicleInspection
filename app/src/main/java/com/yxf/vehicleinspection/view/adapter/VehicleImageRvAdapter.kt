@@ -6,7 +6,7 @@ import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleImageR007Response
 import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
-import com.yxf.vehicleinspection.utils.ImageUtil
+import com.yxf.vehicleinspection.utils.base642Bitmap
 
 /**
  *   author:yxf
@@ -27,7 +27,7 @@ class VehicleImageRvAdapter : BaseRvAdapter<VehicleImageR007Response,VehicleImag
         binding: VehicleImageItemBinding,
         bean: VehicleImageR007Response,
     ) {
-        holder.binding.ivImage.setImageBitmap(ImageUtil.base642Bitmap(bean.Zp))
+        holder.binding.ivImage.setImageBitmap(base642Bitmap(bean.Zp))
         holder.binding.tvZpmc.text = bean.ZpzlMc
     }
 }

@@ -14,7 +14,7 @@ package com.yxf.vehicleinspection.bean.request
  *   @param Clsbdh 车辆识别代号 用流水号/行驶证编号查询时可空（空字符串）
  *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
  */
-data class VehicleAllInfo005Request(
+data class VehicleAllInfoR005Request(
     val Lsh: String,
     val Hphm: String,
     val Hpzl: String,

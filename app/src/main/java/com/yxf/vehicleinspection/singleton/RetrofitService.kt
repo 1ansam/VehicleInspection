@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit
 object RetrofitService {
 
 
-
     private fun getRetrofit():Retrofit{
         return Retrofit.Builder().client(okHttpClient).addConverterFactory(GsonConverterFactory.create()).baseUrl(
             BaseUrlHelper.instance.httpUrl).build()

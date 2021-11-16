@@ -82,7 +82,7 @@
             android:defaultValue="@null" />
         <argument
             android:name="bean005"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response"
             app:nullable="true"
             android:defaultValue="@null" />
         <argument
@@ -163,7 +163,7 @@
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
         <argument
             android:name="bean005"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
         <argument
             android:name="jcxh"
             app:argType="string"
@@ -182,7 +182,7 @@
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
         <argument
             android:name="bean005"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
         <argument
             android:name="jcxh"
             app:argType="string"
@@ -201,7 +201,7 @@
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
         <argument
             android:name="bean005"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
         <argument
             android:name="jcxh"
             app:argType="string"
@@ -221,7 +221,7 @@
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
         <argument
             android:name="bean005"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
         <argument
             android:name="jcxh"
             app:argType="string"
@@ -241,7 +241,7 @@
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
         <argument
             android:name="bean005"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response" />
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
         <argument
             android:name="jcxh"
             app:argType="string"

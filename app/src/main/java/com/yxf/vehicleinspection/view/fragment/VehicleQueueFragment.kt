@@ -29,7 +29,6 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         adapter = VehicleQueueRvAdapter(this, sharedViewModel)
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
-//        getQueueData("")
 
         binding.btnSercher.setOnClickListener {
 //            修改使用BaseUrlHelper反射方法

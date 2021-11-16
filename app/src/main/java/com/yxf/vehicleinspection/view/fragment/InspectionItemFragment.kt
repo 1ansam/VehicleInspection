@@ -1,13 +1,12 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfo005Response
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.databinding.FragmentInspectionItemBinding
 import com.yxf.vehicleinspection.view.adapter.InspectionItemAdapter
@@ -52,7 +51,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
      */
     private fun getData(Lsh: String, Hphm: String, Hpzl: String, Clsbdh: String, Xszbh: String) {
         val vehicleInformationList =
-            ArrayList<VehicleAllInfo005Response>()
+            ArrayList<VehicleAllInfoR005Response>()
         val inspectionItemList = ArrayList<VehicleInspectionItemR006Response>()
 
         vehicleAllInfoViewModel.getVehicleAllInfo(Lsh, Hphm, Hpzl, Clsbdh, Xszbh)
@@ -62,7 +61,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 //                    inspectionItemAdapter.vehicleAllInfoResponse = element
                 }
                 if (it.isNotEmpty()){
-                    inspectionItemAdapter.bean005 = it[0]
+                    inspectionItemAdapter.beanR005 = it[0]
                 }
                 vehicleInformationAdapter.data = vehicleInformationList
             }

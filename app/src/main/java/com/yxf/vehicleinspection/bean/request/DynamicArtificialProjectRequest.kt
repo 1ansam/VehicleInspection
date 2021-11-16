@@ -17,6 +17,8 @@ data class DynamicArtificialProjectRequest(
     val Hjywlb : String,
     val AjJkxlh : String,
     val Xmlb : List<Xmlb>,
+    val Jckssj : String,
+    val Jcjssj : String,
     val Fxpzdzyzdl : String,
     val Jyyjy : String,
     val Dpdtjyy : String,
