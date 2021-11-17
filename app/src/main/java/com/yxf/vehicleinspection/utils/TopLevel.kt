@@ -169,6 +169,8 @@ const val EXTERIOR_RIGHT_BEHIND_HJ = "100202"
 
 //请求拍照
 const val REQUEST_IMAGE_CAPTURE = 101
+//录制视频
+const val REQUEST_VIDEO_CAPTURE = 102
 //JsonUtil
 /**
  * 将请求实体类包装通用请求jsonString

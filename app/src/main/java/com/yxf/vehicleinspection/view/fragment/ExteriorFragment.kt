@@ -27,7 +27,6 @@ import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemImageAdapter
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
-import com.yxf.vehicleinspection.view.adapter.InspectionItemVehicleFeatureAdapter
 import com.yxf.vehicleinspection.viewModel.*
 import java.io.File
 import java.io.IOException
@@ -40,10 +39,12 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     private var AjJyjghb = ""
     private var HjJyjghb = ""
     private var AjJkxlh = ""
+    private var beginTime = ""
     private var endTime = ""
     private var dczxllthwsd = false
     private var dcqtllthwsd = false
     private var gclthwsd = false
+    private var zj = false
     private var Sfqssq = false
     private var Sfdzzc = false
     private var Sfkqxj = false
@@ -57,13 +58,11 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
     private val systemParamsViewModel by viewModels<SystemParamsViewModel> {
         SystemParamsViewModelFactory((requireActivity().application as MyApp).systemParamsRepository)
     }
-
     lateinit var inspectionItemImageAdapter: InspectionItemImageAdapter
     lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
-    lateinit var inspectionItemVehicleFeatureAdapter: InspectionItemVehicleFeatureAdapter
     private val args: ExteriorFragmentArgs by navArgs()
     private var holder: RecyclerView.ViewHolder? = null
-    private var beginTime = ""
+
     override fun init() {
        bean001 = DisplayActivity.bean001 as UserInfoR001Response
         Log.e("TAG", "init: $bean001", )
@@ -101,10 +100,6 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
         inspectionItemSelectAdapter = InspectionItemSelectAdapter()
         binding.rvSelect.adapter = inspectionItemSelectAdapter
-//        binding.rvVehicleFeature.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemVehicleFeatureAdapter = InspectionItemVehicleFeatureAdapter()
-        inspectionItemVehicleFeatureAdapter.data = inspectionItemViewModel.getVehicleFeature()
-//        binding.rvVehicleFeature.adapter = inspectionItemVehicleFeatureAdapter
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
@@ -151,7 +146,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
                 if (apiNumber == 4){
                     binding.pbExteriorSubmit.visibility = View.GONE
-                    inspectionItemViewModel.postProjectEndW012(getProjectEndData()).observe(this){
+                    inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
                         if (it){
                             val action =
                                 ExteriorFragmentDirections.actionExteriorFragmentToSignatureFragment(
@@ -168,6 +163,14 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             }
 
 
+        }
+        binding.tvZj.setOnClickListener{
+            zj = !zj
+            if (zj){
+                binding.llZj.visibility = View.VISIBLE
+            }else{
+                binding.llZj.visibility = View.GONE
+            }
         }
         binding.tvDczxlhwsd.setOnClickListener{
             dczxllthwsd = !dczxllthwsd
@@ -193,6 +196,21 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 binding.llGclthwsd.visibility = View.GONE
             }
         }
+        //是否全时/适时四驱
+        binding.cbSfqssq.isChecked = Sfqssq
+        if (binding.cbSfqssq.isChecked){
+            binding.cbSfqssq.text = "是"
+        }else{
+            binding.cbSfqssq.text = "否"
+        }
+        binding.cbSfqssq.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                binding.cbSfqssq.text = "是"
+            }else{
+                binding.cbSfqssq.text = "否"
+            }
+        }
+        //是否电子手刹
         if (args.bean005.Dzss == "0"){
             Sfdzzc = false
         }else if (args.bean005.Dzss == "1"){
@@ -204,13 +222,33 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }else{
             binding.cbSfdzzc.text = "否"
         }
-        binding.cbSfdzzc.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.cbSfdzzc.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 binding.cbSfdzzc.text = "是"
             }else{
                 binding.cbSfdzzc.text = "否"
             }
         }
+        //是否空气悬架
+        binding.cbSfkqxj.isChecked = Sfkqxj
+        binding.llKqxjz.visibility = View.GONE.takeIf { !Sfkqxj }?:View.VISIBLE
+        if (binding.cbSfkqxj.isChecked){
+            binding.cbSfkqxj.text = "是"
+            binding.llKqxjz.visibility = View.VISIBLE
+        }else{
+            binding.cbSfkqxj.text = "否"
+            binding.llKqxjz.visibility = View.GONE
+        }
+        binding.cbSfkqxj.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                binding.cbSfkqxj.text = "是"
+                binding.llKqxjz.visibility = View.VISIBLE
+            }else{
+                binding.cbSfkqxj.text = "否"
+                binding.llKqxjz.visibility = View.GONE
+            }
+        }
+
 
 
     }
@@ -242,7 +280,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         )
     }
 
-    private fun getProjectEndData():ProjectEndW012Request{
+    private fun getPostProjectEndData():ProjectEndW012Request{
         return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
             args.bean006.Hjywlb,AjJkxlh)
@@ -302,17 +340,69 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             listXmlb.add(xmlb)
         }
         val exteriorArtificialProjectRequest = ExteriorArtificialProjectRequest(
-            args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
-            args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,listXmlb,
-            string2String(beginTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),binding.etCwkc.text.toString(),binding.etCwkk.text.toString(),binding.etCwkg.text.toString(),"",binding.etCxlbgd.text.toString(),getDczxlhwsd(),
-        "","",binding.etYzzgd.text.toString(),binding.etYzygd.text.toString(),
-            abs((binding.etYzzgd.text.toString().toInt()-binding.etYzygd.text.toString().toInt())).toString(),binding.etZhzzgd.text.toString(),binding.etZhzygd.text.toString(),abs((binding.etZhzzgd.text.toString().toInt()-binding.etZhzygd.text.toString().toInt())).toString(),"1".takeIf { binding.cbSfqssq.isChecked }?:"0","1".takeIf { binding.cbSfdzzc.isChecked }?:"0","1".takeIf { binding.cbSfkqxj.isChecked }?:"0",binding.etKqxjz.text.toString(),binding.etZxzsl.text.toString(),"",
+            args.bean005.Lsh,
+            AjJyjghb,
+            args.jcxh,
+            args.bean006.Jccs,
+            args.bean005.Hphm,
+            args.bean005.Hpzl,
+            args.bean005.Clsbdh,
+            args.bean006.Jcxm,
+            args.bean006.Ajywlb,
+            args.bean006.Hjywlb,
+            AjJkxlh,listXmlb,
+            string2String(beginTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+            string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+            binding.etCwkc.text.toString(),
+            binding.etCwkk.text.toString(),
+            binding.etCwkg.text.toString(),
+            getZj(),
+            binding.etCxlbgd.text.toString(),
+            getDczxlhwsd(),
+            getDcqtlhwsd(),
+            getGchwsd(),
+            binding.etYzzgd.text.toString(),binding.etYzygd.text.toString(),
+            "".takeIf {  binding.etYzzgd.text.toString().isBlank()||binding.etYzygd.text.toString().isBlank() }?:abs((binding.etYzzgd.text.toString().toInt()-binding.etYzygd.text.toString().toInt())).toString(),
+            binding.etZhzzgd.text.toString(),
+            binding.etZhzygd.text.toString(),
+            "".takeIf {  binding.etZhzzgd.text.toString().isBlank()||binding.etZhzygd.text.toString().isBlank() }?:abs((binding.etYzzgd.text.toString().toInt()-binding.etYzygd.text.toString().toInt())).toString(),
+            "1".takeIf { binding.cbSfqssq.isChecked }?:"0",
+            "1".takeIf { binding.cbSfdzzc.isChecked }?:"0",
+            "1".takeIf { binding.cbSfkqxj.isChecked }?:"0",
+            binding.etKqxjz.text.toString(),
+            binding.etZxzsl.text.toString(),
+            "",
             bean001.TrueName,bean001.ID,binding.etExteriorBz.text.toString()
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,exteriorArtificialProjectRequest))
+        Log.e("TAG", "getPostArtificialData: $list", )
         return list
-    }
 
+    }
+    private fun getZj():String{
+        val oneZj = binding.etOneZj.text.toString()
+        val twoZj = binding.etTwoZj.text.toString()
+        val threeZj = binding.etThreeZj.text.toString()
+        val fourZj = binding.etFourZj.text.toString()
+        val fiveZj = binding.etFiveZj.text.toString()
+        var str = ""
+        if (oneZj.isNotBlank()){
+            str += oneZj
+            if (twoZj.isNotBlank()){
+                str += "+$twoZj"
+                if (threeZj.isNotBlank()){
+                    str += "+$threeZj"
+                    if (fourZj.isNotBlank()){
+                        str += "+$fourZj"
+                        if (fiveZj.isNotBlank()){
+                            str += "+$fiveZj"
+                        }
+                    }
+                }
+            }
+        }
+        return str
+    }
     private fun getDczxlhwsd():String {
         val A1 = binding.etTurnA1.text.toString()
         val A2 = binding.etTurnA2.text.toString()
@@ -322,45 +412,257 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         val B2 = binding.etTurnB2.text.toString()
         val B3 = binding.etTurnB3.text.toString()
         val B4 = binding.etTurnB4.text.toString()
-        val list1 = listOf(A1,A2)
-        val list2 = listOf(B1,B2)
-        val list3 = listOf(A1,A2,B1,B2)
-        val list4 = listOf(A1,A2,A3,A4)
-        val list5 = listOf(B1,B2,B3,B4)
-        val list6 = listOf(A1,A2,B1,B2,B3,B4)
-        val list7 = listOf(A1,A2,A3,A4,B1,B2)
-        val list8 = listOf(A1,A2,A3,A4,B1,B2,B3,B4)
-        if (isNotBlank(list8)){
-            return "A1:$A1/A2:$A2/A3:$A3/A4:$A4/B1:$B1/B2:$B2/B3:$B3/B4:$B4"
-        }else if (isNotBlank(list7)){
-            return "A1:$A1/A2:$A2/A3:$A3/A4:$A4/B1:$B1/B2:$B2"
-        }else if (isNotBlank(list6)){
-            return "A1:$A1/A2:$A2/B1:$B1/B2:$B2/B3:$B3/B4:$B4"
-        }else if (isNotBlank(list5)){
-            return "B1:$B1/B2:$B2/B3:$B3/B4:$B4"
-        }else if (isNotBlank(list4)){
-            return "A1:$A1/A2:$A2/A3:$A3/A4:$A4"
-        }else if (isNotBlank(list3)){
-            return "A1:$A1/A2:$A2/B1:$B1/B2:$B2"
-        }else if (isNotBlank(list2)){
-            return "B1:$B1/B2:$B2"
-        }else if (isNotBlank(list1)){
-            return "A1:$A1/A2:$A2"
-        }else {
-            return ""
-        }
-    }
-    private fun isNotBlank(stringList: List<String>):Boolean{
-        val booleanList = ArrayList<Boolean>()
-        for (element in stringList){
-            booleanList.add(element.isNotBlank())
-        }
-        for (element in booleanList){
-            if (!element){
-                return false
+        val A12 = "A1:$A1/A2:$A2"
+        val A34 = "A3:$A3/A4:$A4"
+        val B12 = "B1:$B1/B2:$B2"
+        val B34 = "B1:$B3/B2:$B4"
+        var str = ""
+        if (A1.isNotBlank()&&A2.isNotBlank()){
+            str+= A12
+            if (A3.isNotBlank()&&A4.isNotBlank()){
+                str+="/$A34"
+                if (B1.isNotBlank()&&B2.isNotBlank()){
+                    str += "/$B12"
+                    if (B3.isNotBlank()&&B4.isNotBlank()) {
+                        str += "/$B34"
+                    }
+                }
+            }else if (B1.isNotBlank()&&B2.isNotBlank()){
+                str+="/$B12"
+                if (B3.isNotBlank()&&B4.isNotBlank()){
+                    str += "/$B34"
+                }
             }
         }
-    return true
+        return str
+    }
+    private fun getDcqtlhwsd() : String{
+        val A1 = binding.etOtherA1.text.toString()
+        val A2 = binding.etOtherA2.text.toString()
+        val A3 = binding.etOtherA3.text.toString()
+        val A4 = binding.etOtherA4.text.toString()
+        val B1 = binding.etOtherB1.text.toString()
+        val B2 = binding.etOtherB2.text.toString()
+        val B3 = binding.etOtherB3.text.toString()
+        val B4 = binding.etOtherB4.text.toString()
+        val C1 = binding.etOtherC1.text.toString()
+        val C2 = binding.etOtherC2.text.toString()
+        val C3 = binding.etOtherC3.text.toString()
+        val C4 = binding.etOtherC4.text.toString()
+        val D1 = binding.etOtherD1.text.toString()
+        val D2 = binding.etOtherD2.text.toString()
+        val D3 = binding.etOtherD3.text.toString()
+        val D4 = binding.etOtherD4.text.toString()
+        val A12 = "A1:$A1/A2:$A2"
+        val A34 = "A3:$A3/A4:$A4"
+        val B12 = "B1:$B1/B2:$B2"
+        val B34 = "B3:$B3/B4:$B4"
+        val C12 = "C1:$C1/C2:$C2"
+        val C34 = "C3:$C3/C4:$C4"
+        val D12 = "D1:$D1/D2:$D2"
+        val D34 = "D3:$D3/D4:$D4"
+        var str = ""
+        if (A1.isNotBlank()&&A2.isNotBlank()){
+            str+= A12
+            if (A3.isNotBlank()&&A4.isNotBlank()){
+                str+="/$A34"
+                if (B1.isNotBlank()&&B2.isNotBlank()){
+                    str += "/$B12"
+                    if (B3.isNotBlank()&&B4.isNotBlank()){
+                        str += "/$B34"
+                        if (C1.isNotBlank()&&C2.isNotBlank()){
+                            str += "/$C12"
+                            if (C3.isNotBlank()&&C4.isNotBlank()){
+                                str += "/$C34"
+                                if (D1.isNotBlank()&&D2.isNotBlank()){
+                                    str += "/$D12"
+                                    if (D3.isNotBlank()&&D4.isNotBlank()){
+                                        str += "/$D34"
+                                    }
+                                }
+                            }else if (D1.isNotBlank()&&D2.isNotBlank()){
+                                str += "/$D12"
+                                if (D3.isNotBlank()&&D4.isNotBlank()){
+                                    str += "/$D34"
+                                }
+                            }
+                        }
+                    }else if(C1.isNotBlank()&&C2.isNotBlank()){
+                        str += "/$C12"
+                        if (C3.isNotBlank()&&C4.isNotBlank()){
+                            str += "/$C34"
+                            if (D1.isNotBlank()&&D2.isNotBlank()){
+                                str += "/$D12"
+                                if (D3.isNotBlank()&&D4.isNotBlank()){
+                                    str += "/$D34"
+                                }
+                            }
+                        }else if (D1.isNotBlank()&&D2.isNotBlank()){
+                            str += "/$D12"
+                            if (D3.isNotBlank()&&D4.isNotBlank()){
+                                str += "/$D34"
+                            }
+                        }
+                    }
+                }
+            }else if (B1.isNotBlank()&&B2.isNotBlank()){
+                str+="/$B12"
+                if (B3.isNotBlank()&&B4.isNotBlank()){
+                    str += "/$B34"
+                    if (C1.isNotBlank()&&C2.isNotBlank()){
+                        str += "/$C12"
+                        if (C3.isNotBlank()&&C4.isNotBlank()){
+                            str += "/$C34"
+                            if (D1.isNotBlank()&&D2.isNotBlank()){
+                                str += "/$D12"
+                                if (D3.isNotBlank()&&D4.isNotBlank()){
+                                    str += "/$D34"
+                                }
+                            }
+                        }
+                        if (D1.isNotBlank()&&D2.isNotBlank()){
+                            str += "/$D12"
+                            if (D3.isNotBlank()&&D4.isNotBlank()){
+                                str += "/$D34"
+                            }
+                        }
+                    }
+                }
+                if(C1.isNotBlank()&&C2.isNotBlank()){
+                    str += "/$C12"
+                    if (C3.isNotBlank()&&C4.isNotBlank()){
+                        str += "/$C34"
+                        if (D1.isNotBlank()&&D2.isNotBlank()){
+                            str += "/$D12"
+                            if (D3.isNotBlank()&&D4.isNotBlank()){
+                                str += "/$D34"
+                            }
+                        }
+                    }
+                    if (D1.isNotBlank()&&D2.isNotBlank()){
+                        str += "/$D12"
+                        if (D3.isNotBlank()&&D4.isNotBlank()){
+                            str += "/$D34"
+                        }
+                    }
+                }
+            }
+        }
+        return str
+    }
+    private fun getGchwsd() : String{
+        val A1 = binding.etGcA1.text.toString()
+        val A2 = binding.etGcA2.text.toString()
+        val A3 = binding.etGcA3.text.toString()
+        val A4 = binding.etGcA4.text.toString()
+        val B1 = binding.etGcB1.text.toString()
+        val B2 = binding.etGcB2.text.toString()
+        val B3 = binding.etGcB3.text.toString()
+        val B4 = binding.etGcB4.text.toString()
+        val C1 = binding.etGcC1.text.toString()
+        val C2 = binding.etGcC2.text.toString()
+        val C3 = binding.etGcC3.text.toString()
+        val C4 = binding.etGcC4.text.toString()
+        val D1 = binding.etGcD1.text.toString()
+        val D2 = binding.etGcD2.text.toString()
+        val D3 = binding.etGcD3.text.toString()
+        val D4 = binding.etGcD4.text.toString()
+        val A12 = "A1:$A1/A2:$A2"
+        val A34 = "A3:$A3/A4:$A4"
+        val B12 = "B1:$B1/B2:$B2"
+        val B34 = "B3:$B3/B4:$B4"
+        val C12 = "C1:$C1/C2:$C2"
+        val C34 = "C3:$C3/C4:$C4"
+        val D12 = "D1:$D1/D2:$D2"
+        val D34 = "D3:$D3/D4:$D4"
+        var str = ""
+        if (A1.isNotBlank()&&A2.isNotBlank()){
+            str+= A12
+            if (A3.isNotBlank()&&A4.isNotBlank()){
+                str+="/$A34"
+                if (B1.isNotBlank()&&B2.isNotBlank()){
+                    str += "/$B12"
+                    if (B3.isNotBlank()&&B4.isNotBlank()){
+                        str += "/$B34"
+                        if (C1.isNotBlank()&&C2.isNotBlank()){
+                            str += "/$C12"
+                            if (C3.isNotBlank()&&C4.isNotBlank()){
+                                str += "/$C34"
+                                if (D1.isNotBlank()&&D2.isNotBlank()){
+                                    str += "/$D12"
+                                    if (D3.isNotBlank()&&D4.isNotBlank()){
+                                        str += "/$D34"
+                                    }
+                                }
+                            }else if (D1.isNotBlank()&&D2.isNotBlank()){
+                                str += "/$D12"
+                                if (D3.isNotBlank()&&D4.isNotBlank()){
+                                    str += "/$D34"
+                                }
+                            }
+                        }
+                    }else if(C1.isNotBlank()&&C2.isNotBlank()){
+                        str += "/$C12"
+                        if (C3.isNotBlank()&&C4.isNotBlank()){
+                            str += "/$C34"
+                            if (D1.isNotBlank()&&D2.isNotBlank()){
+                                str += "/$D12"
+                                if (D3.isNotBlank()&&D4.isNotBlank()){
+                                    str += "/$D34"
+                                }
+                            }
+                        }else if (D1.isNotBlank()&&D2.isNotBlank()){
+                            str += "/$D12"
+                            if (D3.isNotBlank()&&D4.isNotBlank()){
+                                str += "/$D34"
+                            }
+                        }
+                    }
+                }
+            }else if (B1.isNotBlank()&&B2.isNotBlank()){
+                str+="/$B12"
+                if (B3.isNotBlank()&&B4.isNotBlank()){
+                    str += "/$B34"
+                    if (C1.isNotBlank()&&C2.isNotBlank()){
+                        str += "/$C12"
+                        if (C3.isNotBlank()&&C4.isNotBlank()){
+                            str += "/$C34"
+                            if (D1.isNotBlank()&&D2.isNotBlank()){
+                                str += "/$D12"
+                                if (D3.isNotBlank()&&D4.isNotBlank()){
+                                    str += "/$D34"
+                                }
+                            }
+                        }
+                        if (D1.isNotBlank()&&D2.isNotBlank()){
+                            str += "/$D12"
+                            if (D3.isNotBlank()&&D4.isNotBlank()){
+                                str += "/$D34"
+                            }
+                        }
+                    }
+                }
+                if(C1.isNotBlank()&&C2.isNotBlank()){
+                    str += "/$C12"
+                    if (C3.isNotBlank()&&C4.isNotBlank()){
+                        str += "/$C34"
+                        if (D1.isNotBlank()&&D2.isNotBlank()){
+                            str += "/$D12"
+                            if (D3.isNotBlank()&&D4.isNotBlank()){
+                                str += "/$D34"
+                            }
+                        }
+                    }
+                    if (D1.isNotBlank()&&D2.isNotBlank()){
+                        str += "/$D12"
+                        if (D3.isNotBlank()&&D4.isNotBlank()){
+                            str += "/$D34"
+                        }
+                    }
+                }
+            }
+        }
+        return str
     }
 
 

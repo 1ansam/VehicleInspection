@@ -20,6 +20,7 @@ data class ChassisArtificialProjectRequest(
     val Xmlb : List<Xmlb>,
     val Jckssj : String,
     val Jcjssj : String,
+    val Fxpzdzyzdl : String,
     val Jyyjy : String,
     val Dpjyy : String,
     val Dpjyysfzh : String,
