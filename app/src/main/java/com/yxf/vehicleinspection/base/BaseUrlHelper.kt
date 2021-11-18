@@ -74,6 +74,7 @@ class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
             //            private get() = "http://192.168.31.70:8066"
 //            private get() = "http://192.168.2.156:8066"
 //            get() = "http://192.168.2.157:10000"
-            get() = "http://192.168.2.100:9999"
+//            get() = "http://192.168.2.156:8011"
+            get() = "http://192.168.2.156:8011"
     }
 }

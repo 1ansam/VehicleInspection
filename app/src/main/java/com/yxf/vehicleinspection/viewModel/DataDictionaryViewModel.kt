@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
-import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 import com.yxf.vehicleinspection.repository.DataDictionaryRepository
-import com.yxf.vehicleinspection.repository.SystemParamsRepository
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -29,6 +27,9 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) = viewModelScope.launch {
         dataDictionaryRepository.insertDataDictionary(dataDictionaryListResponse)
     }
+    fun insertDataDictionary(dataDictionary : DataDictionaryR003Response) = viewModelScope.launch {
+        dataDictionaryRepository.insertDataDictionary(dataDictionary)
+    }
     /**
      * 更新数据列表
      * 更新操作只可更新当前数据库中存在的数据
@@ -37,6 +38,9 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
      */
     fun updateDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) = viewModelScope.launch {
         dataDictionaryRepository.updateDataDictionary(dataDictionaryListResponse)
+    }
+    fun updateDataDictionary(dataDictionary : DataDictionaryR003Response) = viewModelScope.launch {
+        dataDictionaryRepository.updateDataDictionary(dataDictionary)
     }
     /**
      *  删除数据库中所有数据
@@ -65,8 +69,8 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
      *  根据Id = 1 查询数据库中是否存在数据
      *  @return Id = 1 的对象
      */
-    fun getDataDictionaryExist(): LiveData<DataDictionaryR003Response> {
-        return dataDictionaryRepository.getDataDictionaryExist()
+    fun getDataDictionaryExist(Id : Int): LiveData<DataDictionaryR003Response> {
+        return dataDictionaryRepository.getDataDictionaryExist(Id)
     }
 
 

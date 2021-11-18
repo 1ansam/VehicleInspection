@@ -16,9 +16,13 @@ import com.yxf.vehicleinspection.bean.request.CommonRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.singleton.GsonSingleton
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -75,6 +79,7 @@ const val WRITE_USER_LOGIN = "LYYDJKW001"
 const val WRITE_SAVE_SIGNATURE = "LYYDJKW006"
 const val WRITE_INSPECTION_PHOTO = "LYYDJKW007"
 const val WRITE_SAVE_VIDEO = "LYYDJKW008"
+const val WRITE_PROJECT_START = "LYYDJKW010"
 const val WRITE_ARTIFICIAL_PROJECT = "LYYDJKW011"
 const val WRITE_PROJECT_END = "LYYDJKW012"
 //视频代码常量
@@ -405,4 +410,26 @@ inline fun <reified E> response2Bean(response : Response<ResponseBody>, liveData
         Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
     }
     return liveData
+}
+fun uploadFile(fileName : String,file : File,requestBody : RequestBody) : MultipartBody.Part{
+    val part = MultipartBody.Part.createFormData(fileName,file.name,requestBody)
+    return part
+}
+fun uploadFile2(fileName : String,file : File,requestBody : RequestBody) : List<MultipartBody.Part>{
+    val list = ArrayList<MultipartBody.Part>()
+    val part1 = MultipartBody.Part.createFormData(fileName,file.name,requestBody)
+    val part2 = MultipartBody.Part.createFormData("ContentType","${requestBody.contentType()}")
+    val part3 = MultipartBody.Part.createFormData("ContentDisposition","mp4")
+    val part4 = MultipartBody.Part.createFormData("Headers","")
+    val part5 = MultipartBody.Part.createFormData("Length","${requestBody.contentLength()}")
+    val part6 = MultipartBody.Part.createFormData("Name","$fileName")
+    val part7 = MultipartBody.Part.createFormData("FileName","$fileName")
+    list.add(MultipartBody.Part.createFormData("ContentType","${requestBody.contentType()}"))
+    list.add(MultipartBody.Part.createFormData("ContentDisposition","mp4"))
+    list.add(MultipartBody.Part.createFormData("Headers",""))
+    list.add(MultipartBody.Part.createFormData("Length","${requestBody.contentLength()}"))
+    list.add(MultipartBody.Part.createFormData("Name","$fileName"))
+    list.add(MultipartBody.Part.createFormData("FileName","$fileName"))
+    list.add(MultipartBody.Part.createFormData(fileName,file.name,requestBody))
+    return list
 }

@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.DataDictionaryR003Request
-import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.room.DataDictionaryDao
 import com.yxf.vehicleinspection.service.QueryService
-import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.*
 import okhttp3.ResponseBody
@@ -50,8 +48,11 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
      * 插入数据列表
      * @param dataDictionaryListResponse 数据对象列表
      */
-    suspend fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) {
-        dao.insertDataDictionary(dataDictionaryListResponse)
+    suspend fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) : List<Long>{
+        return dao.insertDataDictionary(dataDictionaryListResponse)
+    }
+    suspend fun insertDataDictionary(dataDictionary: DataDictionaryR003Response): Long {
+        return dao.insertDataDictionary(dataDictionary)
     }
     /**
      * 更新数据列表
@@ -61,6 +62,9 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
      */
     suspend fun updateDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>){
         dao.updateDataDictionary(dataDictionaryListResponse)
+    }
+    suspend fun updateDataDictionary(dataDictionary: DataDictionaryR003Response) {
+        dao.insertDataDictionary(dataDictionary)
     }
     /**
      *  删除数据库中所有数据
@@ -89,8 +93,8 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
      *  根据Id = 1 查询数据库中是否存在数据
      *  @return Id = 1 的对象
      */
-    fun getDataDictionaryExist() : LiveData<DataDictionaryR003Response>{
-        return dao.getDataDictionaryExist()
+    fun getDataDictionaryExist(Id : Int) : LiveData<DataDictionaryR003Response>{
+        return dao.getDataDictionaryExist(Id)
     }
 
 

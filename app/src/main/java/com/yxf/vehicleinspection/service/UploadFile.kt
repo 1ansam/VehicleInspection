@@ -14,6 +14,13 @@ import retrofit2.http.Part
  */
 interface UploadFile{
     @Multipart
-    @POST("/VehicleInspection/UploadFile")
-    fun upload(@Part file : MultipartBody.Part) : Call<ResponseBody>
+    @POST("/File/UploadFile")
+    fun upload(@Part part: MultipartBody.Part) : Call<ResponseBody>
+    @Multipart
+    @POST("/File/UploadFile2")
+    fun upload2(@Part partList : List<MultipartBody.Part>) : Call<ResponseBody>
+    @Multipart
+    @POST("/File/PostFile")
+    fun postFile(@Part part: MultipartBody.Part) : Call<ResponseBody>
+
 }

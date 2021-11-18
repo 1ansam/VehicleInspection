@@ -176,20 +176,6 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
     }
     override fun onResume() {
         super.onResume()
-        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-            AjJyjghb = it
-        }
-        systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-            HjJyjghb = it
-        }
-        systemParamsViewModel.getWebPass("AJ").observe(this){
-            AjJkxlh = it
-        }
-        inspectionItemViewModel.getServerTime().observe(this) {
-            beginTime = it.Sj
-            getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
-                args.bean006.Ajywlb, args.bean006.Hjywlb)
-        }
         dataDictionaryViewModel.getMc("84","F2").observe(this){
             binding.tvF2.text = it
         }
@@ -199,6 +185,31 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
         dataDictionaryViewModel.getMc("84","F4").observe(this){
             binding.tvF4.text = it
         }
+        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
+            AjJyjghb = it
+            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
+                HjJyjghb = it
+                systemParamsViewModel.getWebPass("AJ").observe(this){
+                    AjJkxlh = it
+                    inspectionItemViewModel.getServerTime().observe(this) {
+                        beginTime = it.Sj
+                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
+                            args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh
+                        )).observe(this){
+                            if (it){
+                                getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb)
+                            }else{
+                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -14,6 +14,8 @@ import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
 import com.yxf.vehicleinspection.service.UploadFile
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.REQUEST_VIDEO_CAPTURE
+import com.yxf.vehicleinspection.utils.uploadFile
+import com.yxf.vehicleinspection.utils.uploadFile2
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModelFactory
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
@@ -49,39 +51,14 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                         Toast.LENGTH_LONG).show()
                 }
             }
-//
-//                dataDictionaryViewModel.getDataDictionary().observe(this) {
-//                    dataDictionaryViewModel.deleteDataDictionary()
-//                    dataDictionaryViewModel.insertDataDictionary(it)
-//                }
-//
-//                systemParamsViewModel.getSystemParamsData().observe(this){
-//                    systemParamsViewModel.deleteSystemParams()
-//                    systemParamsViewModel.insertSystemParams(it)
-//                }
-        dataDictionaryViewModel.getDataDictionary().observe(this){ list ->
-            dataDictionaryViewModel.getDataDictionaryExist().observe(this){
-                if (it!=null){
-                    dataDictionaryViewModel.updateDataDictionary(list)
-                }else{
-                    dataDictionaryViewModel.insertDataDictionary(list)
-                }
-
-
-
-            }
+        dataDictionaryViewModel.deleteDataDictionary()
+        systemParamsViewModel.deleteSystemParams()
+        dataDictionaryViewModel.getDataDictionary().observe(this) { list ->
+            dataDictionaryViewModel.insertDataDictionary(list)
         }
         systemParamsViewModel.getSystemParamsData().observe(this){ list ->
-            systemParamsViewModel.getSystemParamsDataExist().observe(this){
-                if (it!=null){
-                    systemParamsViewModel.updateSystemParams(list)
-                }else{
-                    systemParamsViewModel.insertSystemParams(list)
-                }
-
-            }
+            systemParamsViewModel.insertSystemParams(list)
         }
-
         binding.btnStartEnjoy.setOnClickListener {
 
             intent = Intent(this, LoginActivity::class.java)
@@ -98,15 +75,18 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 //            val filePath = "${Environment.getExternalStorageDirectory().absoluteFile}/DCIM/Screenshots/Record_2021-11-09-16-08-21.mp4"
 //            val file = File(filePath)
 //            val mediaType : MediaType? = MediaType.parse("multipart/form-data")
+//            val mediaType : MediaType? = MediaType.parse("text/x-markdown; charset=utf-8")
 //            val requestBody = RequestBody.create(mediaType,file)
-//            val multipartBody = MultipartBody.Builder()
-//                .addPart(requestBody)
-//                .build()
-//            Log.e("TAG", "init: ${multipartBody.part(0)}", )
-//            val call = RetrofitService.create(UploadFile::class.java).upload(
-//                multipartBody.part(0)
+//            val call1 = RetrofitService.create(UploadFile::class.java).upload(
+//                uploadFile("file",file,requestBody)
 //            )
-//            call.enqueue(object : Callback<ResponseBody>{
+//            val call2 = RetrofitService.create(UploadFile::class.java).upload2(
+//                uploadFile2("file",file,requestBody)
+//            )
+//            val call3 = RetrofitService.create(UploadFile::class.java).upload2(
+//                uploadFile2("file",file,requestBody)
+//            )
+//            call3.enqueue(object : Callback<ResponseBody>{
 //                override fun onResponse(
 //                    call: Call<ResponseBody>,
 //                    response: Response<ResponseBody>
@@ -123,27 +103,16 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 
         }
         binding.btnParamsSync.setOnClickListener {
-            dataDictionaryViewModel.getDataDictionary().observe(this){ list ->
-                dataDictionaryViewModel.getDataDictionaryExist().observe(this){
-                    if (it!=null){
-                        dataDictionaryViewModel.updateDataDictionary(list)
-                    }else{
-                        dataDictionaryViewModel.insertDataDictionary(list)
-                    }
-
-
-
-                }
+            dataDictionaryViewModel.deleteDataDictionary()
+            systemParamsViewModel.deleteSystemParams()
+            dataDictionaryViewModel.getDataDictionary().observe(this) { list ->
+                Log.e("TAG", "init: insertDataDictionaryStart", )
+                dataDictionaryViewModel.insertDataDictionary(list)
             }
             systemParamsViewModel.getSystemParamsData().observe(this){ list ->
-                systemParamsViewModel.getSystemParamsDataExist().observe(this){
-                    if (it!=null){
-                        systemParamsViewModel.updateSystemParams(list)
-                    }else{
-                        systemParamsViewModel.insertSystemParams(list)
-                    }
-
-                }
+                Log.e("TAG", "init: insertSystemParamsStart", )
+                systemParamsViewModel.insertSystemParams(list)
+                Log.e("TAG", "init: insertSystemParamsEnd", )
             }
 
         }

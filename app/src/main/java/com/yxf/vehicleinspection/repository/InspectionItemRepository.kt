@@ -154,6 +154,25 @@ class InspectionItemRepository {
         })
         return liveData
     }
+    fun postProjectStartW010(projectStartW010Request: ProjectStartW010Request):LiveData<Boolean>{
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            WRITE_PROJECT_START,
+            getIpAddress(),
+            getJsonData(projectStartW010Request)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Boolean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
     fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(

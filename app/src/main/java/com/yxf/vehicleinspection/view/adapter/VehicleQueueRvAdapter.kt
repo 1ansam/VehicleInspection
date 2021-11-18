@@ -43,38 +43,46 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
             binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
         }
-        sharedViewModel.hostName.observe(owner,{ hostName ->
+        sharedViewModel.hostName.observe(owner) { hostName ->
 
             when {
                 hostName.equals(NavHostFragment.HOSTNAME_CHARGE) -> {
-                    holder.itemView.setOnClickListener{
+                    holder.itemView.setOnClickListener {
 
-                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeFragment(bean)
+                        val action =
+                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeFragment(
+                                bean)
                         it.findNavController().navigate(action)
                     }
                 }
                 hostName.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION) -> {
                     holder.itemView.setOnClickListener {
 
-                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToInspectionItemFragment(bean)
+                        val action =
+                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToInspectionItemFragment(
+                                bean)
                         it.findNavController().navigate(action)
                     }
                 }
                 hostName.equals(NavHostFragment.HOSTNAME_DISPATCH) -> {
-                    holder.itemView.setOnClickListener{
+                    holder.itemView.setOnClickListener {
 
-                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToDispatchFragment(bean)
+                        val action =
+                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToDispatchFragment(
+                                bean)
                         it.findNavController().navigate(action)
                     }
                 }
                 hostName.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) -> {
                     holder.itemView.setOnClickListener {
-                        val action = VehicleQueueFragmentDirections.actionVehicleQueueFragmentToVehicleImageVideoFragment(bean)
+                        val action =
+                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToVehicleImageVideoFragment(
+                                bean)
                         it.findNavController().navigate(action)
                     }
                 }
             }
-        })
+        }
 
 
     }

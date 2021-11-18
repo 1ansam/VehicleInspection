@@ -24,7 +24,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     private val vehicleInspectionItemViewModel by viewModels<VehicleInspectionItemViewModel> {
         VehicleInspectionItemViewModelFactory((requireActivity().application as MyApp).vehicleInspectionItemRepository)
     }
-    private val args: DispatchFragmentArgs by navArgs()
+    private val args: InspectionItemFragmentArgs by navArgs()
 
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -78,7 +78,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 
     override fun onResume() {
         super.onResume()
-        getData(args.bean.Lsh, args.bean.Hphm, args.bean.Hpzl, "", "")
+        getData(args.bean002.Lsh, args.bean002.Hphm, args.bean002.Hpzl, "", "")
     }
 
 

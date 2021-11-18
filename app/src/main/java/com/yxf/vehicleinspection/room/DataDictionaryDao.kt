@@ -17,7 +17,9 @@ interface DataDictionaryDao {
      * @param dataDictionaryListResponse 数据对象列表
      */
     @Insert (onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>)
+    suspend fun insertDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>) : List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDataDictionary(dataDictionary : DataDictionaryR003Response) : Long
     /**
      * 更新数据列表
      * 更新操作只可更新当前数据库中存在的数据
@@ -26,6 +28,8 @@ interface DataDictionaryDao {
      */
     @Update
     suspend fun updateDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>)
+    @Update
+    suspend fun updateDateDictionary(dataDictionary : DataDictionaryR003Response)
     /**
      *  删除数据库中所有数据
      */
@@ -50,7 +54,7 @@ interface DataDictionaryDao {
      *  根据Id = 1 查询数据库中是否存在数据
      *  @return Id = 1 的对象
      */
-    @Query("SELECT * FROM DataDictionary WHERE Id = 1 LIMIT 1")
-    fun getDataDictionaryExist() : LiveData<DataDictionaryR003Response>
+    @Query("SELECT * FROM DataDictionary WHERE Id = :Id LIMIT 1")
+    fun getDataDictionaryExist(Id : Int) : LiveData<DataDictionaryR003Response>
 
 }

@@ -39,6 +39,9 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun postSaveVideoW008(saveVideoW008Request: SaveVideoW008Request): LiveData<Boolean>{
         return inspectionItemRepository.postSaveVideoW008(saveVideoW008Request)
     }
+    fun postProjectStartW010(projectStartW010Request: ProjectStartW010Request):LiveData<Boolean>{
+        return inspectionItemRepository.postProjectStartW010(projectStartW010Request)
+    }
     fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean>{
         return inspectionItemRepository.postProjectEndW012(projectEndW012Request)
     }
