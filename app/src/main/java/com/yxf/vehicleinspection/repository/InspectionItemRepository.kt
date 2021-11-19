@@ -8,14 +8,17 @@ import com.yxf.vehicleinspection.bean.VehicleFeature
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.*
 import com.yxf.vehicleinspection.service.QueryService
+import com.yxf.vehicleinspection.service.UploadFile
 import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.*
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 /**
  *   author:yxf
@@ -69,33 +72,7 @@ class InspectionItemRepository {
         })
         return liveData
     }
-    fun getVehicleFeature():List<VehicleFeature>{
-        val vehicleFeatureList = ArrayList<VehicleFeature>()
-        val featureNameList = listOf<String>(
-            "车外廓长",
-            "车外廓宽",
-            "车外廓高",
-            "轴距",
-            "车厢栏板高度",
-            "单车转向轮轮胎花纹深度",
-            "单车其他轮轮胎花纹深度",
-            "挂车轮胎花纹深度",
-            "第一轴左高度",
-            "第一轴右高度",
-            "第一轴左右高度差",
-            "最后轴左高度",
-            "最后轴右高度",
-            "最后轴左右高度差",
-            "是否全时/适时四驱",
-            "驻车制动是否使用电子控制装置",
-            "是否配备空气悬架",
-            "空气悬架轴",
-            "转向轴数量")
-        for (element in featureNameList){
-            vehicleFeatureList.add(VehicleFeature(element))
-        }
-        return vehicleFeatureList
-    }
+
 
     fun postInspectionPhotoW007(list: List<InspectionPhotoW007Request>): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
@@ -191,5 +168,24 @@ class InspectionItemRepository {
             }
         })
         return liveData
+    }
+
+    fun postUploadFile(file : File, requestBody: RequestBody):LiveData<String>{
+        val liveData = MutableLiveData<String>()
+        val call = RetrofitService.create(UploadFile::class.java).upload(
+            uploadFile("objFile",file,requestBody)
+        )
+        call.enqueue(object :Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful){
+                    liveData.value = response.body()?.string()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+    return liveData
     }
 }

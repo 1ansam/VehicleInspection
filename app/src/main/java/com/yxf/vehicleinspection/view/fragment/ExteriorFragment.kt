@@ -104,62 +104,81 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj
-                var apiNumber = 0
                 inspectionItemViewModel.postInspectionPhotoW007(getPostPhotoData(
                     inspectionItemImageAdapter))
                     .observe(this) {
                         if (it) {
-                           apiNumber+=1
+                            inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
+                                args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                                args.bean005.Hpzl,args.bean006.Jcxm,
+                                EXTERIOR_FRONT, EXTERIOR_LEFT_FRONT_HJ,args.bean006.Ajywlb,args.bean006.Hjywlb,
+                                endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
+                                    "yyyy-MM-dd HH:mm:ss",
+                                    "yyyyMMddHHmmss"),
+                                string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+                                "",args.bean005.Clpp1,args.bean005.Syr,
+                                "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
+                                "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
+                                args.bean005.Hjdlsj,"","0"
+                            )).observe(this){
+                                if(it){
+                                    inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
+                                        args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                                        args.bean005.Hpzl,args.bean006.Jcxm,
+                                        EXTERIOR_FRONT, EXTERIOR_LEFT_FRONT_HJ,args.bean006.Ajywlb,args.bean006.Hjywlb,
+                                        endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
+                                            "yyyy-MM-dd HH:mm:ss",
+                                            "yyyyMMddHHmmss"),
+                                        string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+                                        "",args.bean005.Clpp1,args.bean005.Syr,
+                                        "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
+                                        "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
+                                        args.bean005.Hjdlsj,"","0")).observe(this){
+                                        if(it){
+                                            inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
+                                                if (it){
+                                                    inspectionItemViewModel.postProjectEndW012(inspectionItemViewModel.getPostProjectEndData(
+                                                        args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
+                                                        args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
+                                                        args.bean006.Hjywlb,AjJkxlh
+                                                    )).observe(this){
+                                                        if (it){
+                                                            Toast.makeText(this.context, "外观项目结束", Toast.LENGTH_SHORT).show()
+                                                            val action =
+                                                                ExteriorFragmentDirections.actionExteriorFragmentToSignatureFragment(
+                                                                    args.bean006,
+                                                                    args.bean005,
+                                                                    args.jcxh)
+                                                            findNavController().navigate(action)
+                                                        }else{
+                                                            Toast.makeText(this.context, "外观项目结束失败", Toast.LENGTH_SHORT).show()
+                                                        }
+                                                    }
+                                                }else{
+                                                    binding.pbExteriorSubmit.visibility = View.GONE
+                                                    Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
+                                                }
+                                            }
 
+                                        }else{
+                                            Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
+                                            binding.pbExteriorSubmit.visibility = View.GONE
+                                        }
+                                    }
+                                }else{
+                                    Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
+                                    binding.pbExteriorSubmit.visibility = View.GONE
+                                }
+                            }
                         } else {
                             binding.pbExteriorSubmit.visibility = View.GONE
                         Toast.makeText(MyApp.context, "上传照片失败" , Toast.LENGTH_SHORT).show()
                         }
 
                     }
-                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(EXTERIOR_FRONT,
-                    EXTERIOR_LEFT_FRONT_HJ)).observe(this){
-                    if(it){
-                        apiNumber+=1
-                    }else{
-                        Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
-                        binding.pbExteriorSubmit.visibility = View.GONE
-                    }
-                }
-                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(EXTERIOR_BEHIDE,
-                    EXTERIOR_RIGHT_BEHIND_HJ)).observe(this){
-                    if(it){
-                        apiNumber+=1
-                    }else{
-                        Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
-                        binding.pbExteriorSubmit.visibility = View.GONE
-                    }
-                }
-                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
-                    if (it){
-                        apiNumber+=1
 
-                    }else{
-                        binding.pbExteriorSubmit.visibility = View.GONE
-                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                if (apiNumber == 4){
-                    binding.pbExteriorSubmit.visibility = View.GONE
-                    inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
-                        if (it){
-                            val action =
-                                ExteriorFragmentDirections.actionExteriorFragmentToSignatureFragment(
-                                    args.bean006,
-                                    args.bean005,
-                                    args.jcxh)
-                            findNavController().navigate(action)
-                        }else{
-                            Toast.makeText(this.context, "项目结束失败", Toast.LENGTH_SHORT).show()
-                        }
-                    }
 
-                }
+
             }
 
 
@@ -266,25 +285,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             inspectionItemSelectAdapter.data = artificialProjectR020Response.Xmlb
         }
     }
-    private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request{
-        return SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
-            args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
-            endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyyMMddHHmmss"),
-            string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
-            "",args.bean005.Clpp1,args.bean005.Syr,
-            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-            args.bean005.Hjdlsj,"","0"
-        )
-    }
 
-    private fun getPostProjectEndData():ProjectEndW012Request{
-        return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
-            args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
-            args.bean006.Hjywlb,AjJkxlh)
-    }
 
     private fun getPostPhotoData(adapter: InspectionItemImageAdapter): List<InspectionPhotoW007Request> {
         val list = ArrayList<InspectionPhotoW007Request>()

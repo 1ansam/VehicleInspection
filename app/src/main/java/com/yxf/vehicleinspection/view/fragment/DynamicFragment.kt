@@ -47,37 +47,35 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             binding.pbDynamicSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj
-                var apiNumber = 0
                 inspectionItemViewModel.postSaveVideoW008(getPostVideoData(DYNAMIC,
                     "")).observe(this){
                     if(it){
-                        apiNumber+=1
+                        inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
+
+                            if (it){
+                                inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
+                                    binding.pbDynamicSubmit.visibility = View.GONE
+                                    if (it){
+                                        Toast.makeText(this.context, "底盘动态项目结束", Toast.LENGTH_SHORT).show()
+                                        val action = DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(args.bean006,args.bean005,args.jcxh)
+                                        findNavController().navigate(action)
+                                    }else{
+                                        Toast.makeText(this.context, "底盘动态项目结束失败", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }else{
+                                binding.pbDynamicSubmit.visibility = View.GONE
+                                Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }else{
                         Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
                         binding.pbDynamicSubmit.visibility = View.GONE
                     }
                 }
-                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
-                    if (it){
-                        apiNumber+=1
 
-                    }else{
-                        binding.pbDynamicSubmit.visibility = View.GONE
-                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                if (apiNumber == 2){
-                    binding.pbDynamicSubmit.visibility = View.GONE
-                    inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
-                        if (it){
-                            val action = DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(args.bean006,args.bean005,args.jcxh)
-                            findNavController().navigate(action)
-                        }else{
-                            Toast.makeText(this.context, "项目结束失败", Toast.LENGTH_SHORT).show()
-                        }
-                    }
 
-                }
+
             }
 
         }

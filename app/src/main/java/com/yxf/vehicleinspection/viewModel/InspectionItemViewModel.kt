@@ -11,6 +11,9 @@ import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.ServerTimeR011Response
 import com.yxf.vehicleinspection.repository.InspectionItemRepository
 import com.yxf.vehicleinspection.repository.ServerTimeRepository
+import com.yxf.vehicleinspection.utils.uploadFile
+import okhttp3.RequestBody
+import java.io.File
 
 /**
  *   author:yxf
@@ -23,9 +26,6 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
 
     fun getSelectItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<ArtificialProjectR020Response> {
         return inspectionItemRepository.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
-    }
-    fun getVehicleFeature(): List<VehicleFeature> {
-        return inspectionItemRepository.getVehicleFeature()
     }
     fun getServerTime() : LiveData<ServerTimeR011Response>{
         return serverTimeRepository.getServerTime()
@@ -45,12 +45,22 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean>{
         return inspectionItemRepository.postProjectEndW012(projectEndW012Request)
     }
+    fun postUploadFile(file : File,requestBody: RequestBody): LiveData<String>{
+        return inspectionItemRepository.postUploadFile(file,requestBody)
+    }
+    fun getPostProjectEndData(Lsh: String, Jyjgbh : String, Jcxh : String, Jccs : Int, Hphm : String, Hpzl : String, Clsbdh : String, Jyxm : String, Gwjysbbh : String, Jssj : String, Ajywlb : String, Hjywlb : String, AjJkxlh :String):ProjectEndW012Request{
+        return ProjectEndW012Request(Lsh,Jyjgbh,Jcxh, Jccs, Hphm, Hpzl, Clsbdh, Jyxm, Gwjysbbh, Jssj, Ajywlb, Hjywlb, AjJkxlh)
+    }
+    fun getPostVideoData(Lsh : String, Jcxh : String, Jccs : Int, Hphm : String, Hpzl : String, Jcxm : String, Spbhaj : String, Spbhhj : String, Ajywlb : String, Hjywlb : String, Jcrq : String, Jcsj : String, Jckssj : String, Jcjssj : String, Lxxx : String, Clpp : String, Czdw : String, Bcaj : String, BcHj : String, Hjdlsj : String, Lxdz : String, Lxbz : String,) : SaveVideoW008Request{
+        return SaveVideoW008Request(0,Lsh,Jcxh, Jccs, Hphm, Hpzl, Jcxm, Spbhaj, Spbhhj, Ajywlb, Hjywlb, Jcrq, Jcsj, Jckssj, Jcjssj, Lxxx, Clpp, Czdw, Bcaj, BcHj, Hjdlsj, Lxdz, Lxbz)
+    }
 
 
 
 
 }
-class InspectionItemViewModelFactory(private val inspectionItemRepository: InspectionItemRepository,val serverTimeRepository: ServerTimeRepository) : ViewModelProvider.Factory{
+class InspectionItemViewModelFactory(private val inspectionItemRepository: InspectionItemRepository,
+                                     private val serverTimeRepository: ServerTimeRepository) : ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(InspectionItemViewModel::class.java)){
             return InspectionItemViewModel(inspectionItemRepository,serverTimeRepository) as T

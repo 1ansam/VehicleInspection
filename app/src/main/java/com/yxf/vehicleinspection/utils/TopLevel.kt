@@ -175,7 +175,9 @@ const val EXTERIOR_RIGHT_BEHIND_HJ = "100202"
 //请求拍照
 const val REQUEST_IMAGE_CAPTURE = 101
 //录制视频
-const val REQUEST_VIDEO_CAPTURE = 102
+const val REQUEST_VIDEO_CAPTURE_F2 = 102
+const val REQUEST_VIDEO_CAPTURE_F3 = 103
+const val REQUEST_VIDEO_CAPTURE_F4 = 104
 //JsonUtil
 /**
  * 将请求实体类包装通用请求jsonString
@@ -414,22 +416,4 @@ inline fun <reified E> response2Bean(response : Response<ResponseBody>, liveData
 fun uploadFile(fileName : String,file : File,requestBody : RequestBody) : MultipartBody.Part{
     val part = MultipartBody.Part.createFormData(fileName,file.name,requestBody)
     return part
-}
-fun uploadFile2(fileName : String,file : File,requestBody : RequestBody) : List<MultipartBody.Part>{
-    val list = ArrayList<MultipartBody.Part>()
-    val part1 = MultipartBody.Part.createFormData(fileName,file.name,requestBody)
-    val part2 = MultipartBody.Part.createFormData("ContentType","${requestBody.contentType()}")
-    val part3 = MultipartBody.Part.createFormData("ContentDisposition","mp4")
-    val part4 = MultipartBody.Part.createFormData("Headers","")
-    val part5 = MultipartBody.Part.createFormData("Length","${requestBody.contentLength()}")
-    val part6 = MultipartBody.Part.createFormData("Name","$fileName")
-    val part7 = MultipartBody.Part.createFormData("FileName","$fileName")
-    list.add(MultipartBody.Part.createFormData("ContentType","${requestBody.contentType()}"))
-    list.add(MultipartBody.Part.createFormData("ContentDisposition","mp4"))
-    list.add(MultipartBody.Part.createFormData("Headers",""))
-    list.add(MultipartBody.Part.createFormData("Length","${requestBody.contentLength()}"))
-    list.add(MultipartBody.Part.createFormData("Name","$fileName"))
-    list.add(MultipartBody.Part.createFormData("FileName","$fileName"))
-    list.add(MultipartBody.Part.createFormData(fileName,file.name,requestBody))
-    return list
 }

@@ -45,40 +45,37 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             binding.pbChassisSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj
-                var apiNumber = 0
                 inspectionItemViewModel.postSaveVideoW008(getPostVideoData(CHASSIS,
                     CHASSIS_HJ)).observe(this){
                     if(it){
-                        apiNumber+=1
+                        inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
+                            if (it){
+                                binding.pbChassisSubmit.visibility = View.GONE
+                                inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
+                                    if (it){
+                                        Toast.makeText(this.context, "底盘项目结束", Toast.LENGTH_SHORT).show()
+                                        val action = ChassisFragmentDirections.actionChassisFragmentToSignatureFragment(
+                                            args.bean006,
+                                            args.bean005,
+                                            args.jcxh)
+                                        findNavController().navigate(action)
+                                    }else{
+                                        Toast.makeText(this.context, "底盘项目结束失败", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }else{
+                                binding.pbChassisSubmit.visibility = View.GONE
+                                Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }else{
                         Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
                         binding.pbChassisSubmit.visibility = View.GONE
                     }
                 }
-                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
-                    if (it){
-                        apiNumber+=1
 
-                    }else{
-                        binding.pbChassisSubmit.visibility = View.GONE
-                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                if (apiNumber == 2){
-                    binding.pbChassisSubmit.visibility = View.GONE
-                    inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
-                        if (it){
-                            val action = ChassisFragmentDirections.actionChassisFragmentToSignatureFragment(
-                                args.bean006,
-                                args.bean005,
-                                args.jcxh)
-                            findNavController().navigate(action)
-                        }else{
-                            Toast.makeText(this.context, "项目结束失败", Toast.LENGTH_SHORT).show()
-                        }
-                    }
 
-                }
+
             }
 
         }

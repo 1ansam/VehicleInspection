@@ -13,9 +13,6 @@ import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
 import com.yxf.vehicleinspection.service.UploadFile
 import com.yxf.vehicleinspection.singleton.RetrofitService
-import com.yxf.vehicleinspection.utils.REQUEST_VIDEO_CAPTURE
-import com.yxf.vehicleinspection.utils.uploadFile
-import com.yxf.vehicleinspection.utils.uploadFile2
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModelFactory
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
@@ -75,18 +72,17 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 //            val filePath = "${Environment.getExternalStorageDirectory().absoluteFile}/DCIM/Screenshots/Record_2021-11-09-16-08-21.mp4"
 //            val file = File(filePath)
 //            val mediaType : MediaType? = MediaType.parse("multipart/form-data")
-//            val mediaType : MediaType? = MediaType.parse("text/x-markdown; charset=utf-8")
 //            val requestBody = RequestBody.create(mediaType,file)
 //            val call1 = RetrofitService.create(UploadFile::class.java).upload(
 //                uploadFile("file",file,requestBody)
 //            )
 //            val call2 = RetrofitService.create(UploadFile::class.java).upload2(
-//                uploadFile2("file",file,requestBody)
+//                uploadFile2("objFile",file,requestBody)
 //            )
 //            val call3 = RetrofitService.create(UploadFile::class.java).upload2(
 //                uploadFile2("file",file,requestBody)
 //            )
-//            call3.enqueue(object : Callback<ResponseBody>{
+//            call2.enqueue(object : Callback<ResponseBody>{
 //                override fun onResponse(
 //                    call: Call<ResponseBody>,
 //                    response: Response<ResponseBody>

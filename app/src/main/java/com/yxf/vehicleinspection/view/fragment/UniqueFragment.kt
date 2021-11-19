@@ -26,13 +26,15 @@ import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
 import com.yxf.vehicleinspection.viewModel.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
+    private var videoPathF2: String = ""
+    private var videoPathF3: String = ""
+    private var videoPathF4: String = ""
     private var AjJyjghb = ""
     private var HjJyjghb = ""
     private var AjJkxlh = ""
@@ -55,45 +57,44 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             binding.pbUniqueSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj
-                var apiNumber = 0
-                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(UNIQUE_FRONT,
-                    "")).observe(this){
+                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(args.bean006.Jcxm,UNIQUE_FRONT,
+                    "",endTime)).observe(this){
                     if(it){
-                        apiNumber+=1
-                    }else{
-                        Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
-                        binding.pbUniqueSubmit.visibility = View.GONE
-                    }
-                }
-                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(UNIQUE_BEHIND,
-                    "")).observe(this){
-                    if(it){
-                        apiNumber+=1
-                    }else{
-                        Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
-                        binding.pbUniqueSubmit.visibility = View.GONE
-                    }
-                }
-                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
-                    if (it){
-                        apiNumber+=1
+                        inspectionItemViewModel.postSaveVideoW008(getPostVideoData(args.bean006.Jcxm,UNIQUE_BEHIND,
+                            "",endTime)).observe(this){
+                            if(it){
+                                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
+                                    if (it){
 
-                    }else{
-                        binding.pbUniqueSubmit.visibility = View.GONE
-                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                if (apiNumber == 3){
-                    binding.pbUniqueSubmit.visibility = View.GONE
-                    inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
-                        if (it){
-                            findNavController().navigate(R.id.action_uniqueFragment_to_inspectionItemFragment)
-                        }else{
-                            Toast.makeText(this.context, "项目结束失败", Toast.LENGTH_SHORT).show()
+                                        inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
+                                            binding.pbUniqueSubmit.visibility = View.GONE
+                                            if (it){
+                                                Toast.makeText(this.context, "唯一性项目结束", Toast.LENGTH_SHORT).show()
+                                                findNavController().navigate(R.id.action_uniqueFragment_to_inspectionItemFragment)
+                                            }else{
+                                                Toast.makeText(this.context, "唯一性项目结束失败", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                    }else{
+                                        binding.pbUniqueSubmit.visibility = View.GONE
+                                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }else{
+                                Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
+                                binding.pbUniqueSubmit.visibility = View.GONE
+                            }
                         }
+                    }else{
+                        Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
+                        binding.pbUniqueSubmit.visibility = View.GONE
                     }
-
                 }
+
+
+
+
+
             }
 
 
@@ -101,16 +102,82 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
         inspectionItemSelectAdapter = InspectionItemSelectAdapter()
         binding.rvSelect.adapter = inspectionItemSelectAdapter
-        binding.vvF2.setOnClickListener {
+        binding.btnRecordF2.setOnClickListener {
             Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(requireActivity().packageManager).also {
-                        takePictureIntent.putExtra("Dm","F2")
-                        startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE)
+                    val videoFile: File? = try {
+                        createVideoFile(args.bean005.Lsh,args.bean006.Jccs,"F2")
+                    } catch (ex: IOException) {
+                        null
+                    }
+                    videoFile?.also {
+                        val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
+                            "com.example.android.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
+                        startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE_F2)
+                    }
+
+                }
+            }
+        }
+        binding.btnRecordF3.setOnClickListener {
+            Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(requireActivity().packageManager).also {
+                    val videoFile: File? = try {
+                        createVideoFile(args.bean005.Lsh,args.bean006.Jccs,"F3")
+                    } catch (ex: IOException) {
+                        null
+                    }
+                    videoFile?.also {
+                        val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
+                            "com.example.android.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
+                        startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE_F3)
+                    }
+
+                }
+            }
+        }
+        binding.btnRecordF4.setOnClickListener {
+            Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(requireActivity().packageManager).also {
+                    val videoFile: File? = try {
+                        createVideoFile(args.bean005.Lsh,args.bean006.Jccs,"F4")
+                    } catch (ex: IOException) {
+                        null
+                    }
+                    videoFile?.also {
+                        val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
+                            "com.example.android.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
+                        startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE_F4)
+                    }
 
                 }
             }
         }
     }
+
+    private fun createVideoFile(Lsh: String, Jccs : Int, Jyxm: String): File {
+        val storageDir: File? =
+            this.requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "${Lsh}_${Jccs}_${Jyxm}-",
+            ".mp4",
+            storageDir
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            videoPathF2 = absolutePath
+        }
+    }
+
+
 
     private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
         inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
@@ -118,17 +185,30 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             inspectionItemSelectAdapter.data = artificialProjectR016Response.Xmlb
         }
     }
-    private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request {
-        return SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
-            args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
-            endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyyMMddHHmmss"),
-            string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
-            "",args.bean005.Clpp1,args.bean005.Syr,
+    private fun getPostVideoData(Jyxm: String,Spbhaj: String,Spbhhj: String,endTime : String) : SaveVideoW008Request {
+        return SaveVideoW008Request(0,
+            args.bean005.Lsh,
+            args.jcxh,
+            args.bean006.Jccs,
+            args.bean005.Hphm,
+            args.bean005.Hpzl,
+            Jyxm,
+            Spbhaj,
+            Spbhhj,
+            args.bean006.Ajywlb,
+            args.bean006.Hjywlb,
+            endTime.substring(0,10),
+            endTime.substring(11),
+            string2String(beginTime, "yyyy-MM-dd HH:mm:ss", "yyyyMMddHHmmss"),
+            string2String(endTime,"yyyy-MM-dd HH:mm:ss", "yyyyMMddHHmmss"),
+            "",
+            args.bean005.Clpp1,
+            args.bean005.Syr,
             "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
             "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-            args.bean005.Hjdlsj,"","0"
+            args.bean005.Hjdlsj,
+            "",
+            "0"
         )
     }
     private fun getPostProjectEndData(): ProjectEndW012Request {
@@ -170,7 +250,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             binding.etUniqueBz.text.toString()
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
-        Log.e("TAG", "getPostArtificialData: $list", )
+        Log.e("TAG", "getPostArtificialData: $list")
         return list
 
     }
@@ -214,6 +294,107 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.e("22222", "onActivityResult: ${data?.getStringExtra("Dm")}", )
+        if (requestCode == REQUEST_VIDEO_CAPTURE_F2 && resultCode == RESULT_OK){
+            val file = File(videoPathF2)
+            val mediaType = MediaType.parse("multipart/form-data")
+            val requestBody = RequestBody.create(mediaType,file)
+            inspectionItemViewModel.postUploadFile(file,requestBody).observe(this){ path ->
+                if (path!=null&&path.isNotBlank()){
+                    inspectionItemViewModel.getServerTime().observe(this){
+                        inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
+                            args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.bean005.Hpzl,"F2",
+                            VIN_FAR_TO_CLOSED, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
+                            it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
+                                "yyyy-MM-dd HH:mm:ss",
+                                "yyyyMMddHHmmss"),
+                            string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+                            "",args.bean005.Clpp1,args.bean005.Syr,
+                            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
+                            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
+                            args.bean005.Hjdlsj,path,"1")
+                        ).observe(this){
+                            if (it){
+                                Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(MyApp.context, "视频数据上传失败", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+                    }
+
+                }else{
+                    Toast.makeText(MyApp.context, "上传失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        if (requestCode == REQUEST_VIDEO_CAPTURE_F3 && resultCode == RESULT_OK){
+            val file = File(videoPathF2)
+            val mediaType = MediaType.parse("multipart/form-data")
+            val requestBody = RequestBody.create(mediaType,file)
+            inspectionItemViewModel.postUploadFile(file,requestBody).observe(this){ path ->
+                if (path!=null&&path.isNotBlank()){
+                    inspectionItemViewModel.getServerTime().observe(this){
+                        inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
+                            args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.bean005.Hpzl,"F3",
+                            AROUND_VEHICLE, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
+                            it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
+                                "yyyy-MM-dd HH:mm:ss",
+                                "yyyyMMddHHmmss"),
+                            string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+                            "",args.bean005.Clpp1,args.bean005.Syr,
+                            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
+                            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
+                            args.bean005.Hjdlsj,path,"1")
+                        ).observe(this){
+                            if (it){
+                                Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(MyApp.context, "视频数据上传失败", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+                    }
+
+                }else{
+                    Toast.makeText(MyApp.context, "上传失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        if (requestCode == REQUEST_VIDEO_CAPTURE_F4 && resultCode == RESULT_OK){
+            val file = File(videoPathF2)
+            val mediaType = MediaType.parse("multipart/form-data")
+            val requestBody = RequestBody.create(mediaType,file)
+            inspectionItemViewModel.postUploadFile(file,requestBody).observe(this){ path ->
+                if (path!=null&&path.isNotBlank()){
+                    inspectionItemViewModel.getServerTime().observe(this){
+                        inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
+                            args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.bean005.Hpzl,"F4",
+                            TIRE_TREAD_DEPTH, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
+                            it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
+                                "yyyy-MM-dd HH:mm:ss",
+                                "yyyyMMddHHmmss"),
+                            string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+                            "",args.bean005.Clpp1,args.bean005.Syr,
+                            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
+                            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
+                            args.bean005.Hjdlsj,path,"1")
+                        ).observe(this){
+                            if (it){
+                                Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(MyApp.context, "视频数据上传失败", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+                    }
+
+                }else{
+                    Toast.makeText(MyApp.context, "上传失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

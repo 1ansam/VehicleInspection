@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "DataDictionary")
 data class DataDictionaryR003Response(
-    @PrimaryKey val Id : Int,
+    @PrimaryKey val Id : Long,
     val Fl : String,
     val FlMc : String,
     val Dm : String,

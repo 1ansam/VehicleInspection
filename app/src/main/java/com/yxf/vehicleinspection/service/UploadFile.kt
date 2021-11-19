@@ -16,11 +16,6 @@ interface UploadFile{
     @Multipart
     @POST("/File/UploadFile")
     fun upload(@Part part: MultipartBody.Part) : Call<ResponseBody>
-    @Multipart
-    @POST("/File/UploadFile2")
-    fun upload2(@Part partList : List<MultipartBody.Part>) : Call<ResponseBody>
-    @Multipart
-    @POST("/File/PostFile")
-    fun postFile(@Part part: MultipartBody.Part) : Call<ResponseBody>
+
 
 }

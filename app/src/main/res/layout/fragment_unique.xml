@@ -132,12 +132,13 @@
                     android:layout_weight="3"
                     android:gravity="start" />
 
-                <ImageView
-                    android:id="@+id/vvF2"
+                <Button
+                    android:id="@+id/btnRecordF2"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_video_call_24" />
+                    android:background="@color/lightBlue"
+                    android:text="录制" />
             </LinearLayout>
 
             <LinearLayout
@@ -153,12 +154,13 @@
                     android:layout_weight="3"
                     android:gravity="start" />
 
-                <VideoView
-                    android:id="@+id/vvF3"
+                <Button
+                    android:id="@+id/btnRecordF3"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_video_call_24" />
+                    android:background="@color/lightBlue"
+                    android:text="录制" />
             </LinearLayout>
 
             <LinearLayout
@@ -174,12 +176,13 @@
                     android:layout_weight="3"
                     android:gravity="start" />
 
-                <ImageView
-                    android:id="@+id/vvF4"
+                <Button
+                    android:id="@+id/btnRecordF4"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_video_call_24" />
+                    android:background="@color/lightBlue"
+                    android:text="录制" />
             </LinearLayout>
 
         </LinearLayout>
