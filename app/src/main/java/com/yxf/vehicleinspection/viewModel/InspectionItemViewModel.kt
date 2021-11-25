@@ -4,14 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yxf.vehicleinspection.bean.VehicleFeature
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.ArtificialProjectR020Response
 import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.ServerTimeR011Response
+import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.repository.InspectionItemRepository
 import com.yxf.vehicleinspection.repository.ServerTimeRepository
-import com.yxf.vehicleinspection.utils.uploadFile
 import okhttp3.RequestBody
 import java.io.File
 
@@ -20,15 +19,21 @@ import java.io.File
  *   time:2021/11/4
  */
 class InspectionItemViewModel(private val inspectionItemRepository: InspectionItemRepository,private val serverTimeRepository: ServerTimeRepository) : ViewModel(){
+    fun getUserInfo() : LiveData<List<UserInfoR001Response>> {
+        return inspectionItemRepository.getUserInfo()
+    }
     fun getImageItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<List<ImageItemR017Response>> {
         return inspectionItemRepository.getImageItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
     }
 
-    fun getSelectItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<ArtificialProjectR020Response> {
+    fun getSelectItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<List<ArtificialProjectR020Response>> {
         return inspectionItemRepository.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
     }
     fun getServerTime() : LiveData<ServerTimeR011Response>{
         return serverTimeRepository.getServerTime()
+    }
+    fun getNetworkQueryInfoName(): List<String>{
+        return inspectionItemRepository.getNetworkQueryInfoName()
     }
     fun postInspectionPhotoW007(list : List<InspectionPhotoW007Request>) : LiveData<Boolean>{
         return inspectionItemRepository.postInspectionPhotoW007(list)
@@ -48,12 +53,16 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun postUploadFile(file : File,requestBody: RequestBody): LiveData<String>{
         return inspectionItemRepository.postUploadFile(file,requestBody)
     }
+    fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request): LiveData<Boolean>{
+        return inspectionItemRepository.postTakePhoto(takePhotoW009Request)
+    }
     fun getPostProjectEndData(Lsh: String, Jyjgbh : String, Jcxh : String, Jccs : Int, Hphm : String, Hpzl : String, Clsbdh : String, Jyxm : String, Gwjysbbh : String, Jssj : String, Ajywlb : String, Hjywlb : String, AjJkxlh :String):ProjectEndW012Request{
         return ProjectEndW012Request(Lsh,Jyjgbh,Jcxh, Jccs, Hphm, Hpzl, Clsbdh, Jyxm, Gwjysbbh, Jssj, Ajywlb, Hjywlb, AjJkxlh)
     }
     fun getPostVideoData(Lsh : String, Jcxh : String, Jccs : Int, Hphm : String, Hpzl : String, Jcxm : String, Spbhaj : String, Spbhhj : String, Ajywlb : String, Hjywlb : String, Jcrq : String, Jcsj : String, Jckssj : String, Jcjssj : String, Lxxx : String, Clpp : String, Czdw : String, Bcaj : String, BcHj : String, Hjdlsj : String, Lxdz : String, Lxbz : String,) : SaveVideoW008Request{
         return SaveVideoW008Request(0,Lsh,Jcxh, Jccs, Hphm, Hpzl, Jcxm, Spbhaj, Spbhhj, Ajywlb, Hjywlb, Jcrq, Jcsj, Jckssj, Jcjssj, Lxxx, Clpp, Czdw, Bcaj, BcHj, Hjdlsj, Lxdz, Lxbz)
     }
+
 
 
 

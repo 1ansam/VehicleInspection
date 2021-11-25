@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="false"
-        app:layout_constraintBottom_toTopOf="@+id/include4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +53,18 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightBlue"
+                android:text="检验信息" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNetworkQueryInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -62,16 +74,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.93" />
-
-    <include
-        android:id="@+id/include4"
-        layout="@layout/layout_inspection_bottom_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
     <ProgressBar
         android:id="@+id/pbNetworkQuerySubmit"

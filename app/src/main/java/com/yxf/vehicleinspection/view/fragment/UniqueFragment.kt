@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Xml
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -32,9 +33,7 @@ import java.io.File
 import java.io.IOException
 
 class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
-    private var videoPathF2: String = ""
-    private var videoPathF3: String = ""
-    private var videoPathF4: String = ""
+    private var videoPath: String = ""
     private var AjJyjghb = ""
     private var HjJyjghb = ""
     private var AjJkxlh = ""
@@ -173,7 +172,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             storageDir
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            videoPathF2 = absolutePath
+            videoPath = absolutePath
         }
     }
 
@@ -181,8 +180,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
 
     private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
         inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
-            val artificialProjectR016Response = it
-            inspectionItemSelectAdapter.data = artificialProjectR016Response.Xmlb
+            inspectionItemSelectAdapter.data = it[0].Xmlb
         }
     }
     private fun getPostVideoData(Jyxm: String,Spbhaj: String,Spbhhj: String,endTime : String) : SaveVideoW008Request {
@@ -216,15 +214,15 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
             args.bean006.Hjywlb,AjJkxlh)
     }
-    private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<UniqueArtificialProjectRequest>> {
+    private fun getPostArtificialData(Ajadapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<UniqueArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<UniqueArtificialProjectRequest>>()
         val listXmlb = ArrayList<Xmlb>()
-        for (index in 0 until adapter.itemCount){
+        for (index in 0 until Ajadapter.itemCount){
             val holder = binding.rvSelect.findViewHolderForAdapterPosition(index)
             val ivSelected = holder?.itemView?.findViewById<ImageView>(R.id.ivSelected)
             val etBz = holder?.itemView?.findViewById<EditText>(R.id.etBz)
             val ivTag = ivSelected?.tag as String
-            val xmlb = Xmlb(adapter.data[index].Xmdm,adapter.data[index].Xmms,ivTag, etBz?.text.toString())
+            val xmlb = Xmlb(Ajadapter.data[index].Xmdm,Ajadapter.data[index].Xmms,ivTag, etBz?.text.toString())
             listXmlb.add(xmlb)
         }
         val chassisArtificialProjectRequest = UniqueArtificialProjectRequest(
@@ -295,7 +293,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_VIDEO_CAPTURE_F2 && resultCode == RESULT_OK){
-            val file = File(videoPathF2)
+            val file = File(videoPath)
             val mediaType = MediaType.parse("multipart/form-data")
             val requestBody = RequestBody.create(mediaType,file)
             inspectionItemViewModel.postUploadFile(file,requestBody).observe(this){ path ->
@@ -329,7 +327,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             }
         }
         if (requestCode == REQUEST_VIDEO_CAPTURE_F3 && resultCode == RESULT_OK){
-            val file = File(videoPathF2)
+            val file = File(videoPath)
             val mediaType = MediaType.parse("multipart/form-data")
             val requestBody = RequestBody.create(mediaType,file)
             inspectionItemViewModel.postUploadFile(file,requestBody).observe(this){ path ->
@@ -363,7 +361,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             }
         }
         if (requestCode == REQUEST_VIDEO_CAPTURE_F4 && resultCode == RESULT_OK){
-            val file = File(videoPathF2)
+            val file = File(videoPath)
             val mediaType = MediaType.parse("multipart/form-data")
             val requestBody = RequestBody.create(mediaType,file)
             inspectionItemViewModel.postUploadFile(file,requestBody).observe(this){ path ->

@@ -879,24 +879,34 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
-                    android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/lightBlue"
-                    android:text="人工检验项目信息" />
+                    android:text="安检人工检验项目信息" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSelect"
+                    android:id="@+id/rvAjSelect"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lightBlue"
+                    android:text="环检人工检验项目信息" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHjSelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false" />
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/lightBlue"
                     android:text="检验人员建议" />
+
 
                 <com.yxf.vehicleinspection.view.ClearEditText
                     android:id="@+id/etExteriorBz"

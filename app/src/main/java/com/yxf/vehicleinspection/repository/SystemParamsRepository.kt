@@ -22,8 +22,9 @@ import retrofit2.Response
  *   time:2021/11/11
  */
 class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
-    suspend fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>){
-        systemParamsDao.insertSystemParams(systemParamsList)
+    var rowNum = 0
+    suspend fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>) : List<Long>{
+        return systemParamsDao.insertSystemParams(systemParamsList)
     }
     suspend fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>){
         systemParamsDao.updateSystemParams(systemParamsList)
@@ -40,7 +41,30 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-               response2ListBean(response, liveData)
+                if (response.isSuccessful){
+                    val stringResponse = response.body()?.string()
+                    val commonResponse = GsonSingleton.instance
+                        .fromJson(stringResponse, CommonResponse::class.java)
+                    rowNum = 0.takeIf{commonResponse.RowNum == null}?:commonResponse.RowNum
+                    if (commonResponse.Code == "1"){
+                        val beanList = ArrayList<SystemParamsR015Response>()
+                        for (element in commonResponse.Body) {
+                            val bodyJson =
+                                GsonSingleton.instance.toJson(element)
+                            beanList.add(GsonSingleton.instance
+                                .fromJson(bodyJson, SystemParamsR015Response::class.java))
+                        }
+                        liveData.value = beanList
+                    }else{
+                        if (commonResponse.Code == null){
+                            Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else{
+                    Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

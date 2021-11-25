@@ -9,5 +9,6 @@ data class  CommonResponse<T>(
 
     val Body: List<T>,
     val Code: String,
+    val RowNum : Int,
     val Message: String
 )

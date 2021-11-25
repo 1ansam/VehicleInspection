@@ -25,26 +25,7 @@ import retrofit2.Response
  */
 class UserInfoRepository {
     val isLogin = MutableLiveData<Boolean>()
-    fun getUserInfo(): LiveData<List<UserInfoR001Response>> {
-        val liveData = MutableLiveData<List<UserInfoR001Response>>()
-        val call = RetrofitService.create(QueryService::class.java).query(
-            QUERY_ALL_USER,
-            getIpAddress(),
-            getJsonData(AllUserInfoR001Request())
-        )
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                response2ListBean(response, liveData)
-            }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(MyApp.context,
-                    t.message,
-                    Toast.LENGTH_LONG).show()
-            }
-        })
-        return liveData
-    }
 
     fun getUserLogin(username: String, password: String): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()

@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.DataDictionaryR003Request
+import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.room.DataDictionaryDao
 import com.yxf.vehicleinspection.service.QueryService
+import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.*
 import okhttp3.ResponseBody
@@ -25,6 +27,7 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     /**
      * 从远程服务器获取数据字典
      */
+    var rowNum = 0
     fun getDictionaryData() : LiveData<List<DataDictionaryR003Response>>{
         val liveData = MutableLiveData<List<DataDictionaryR003Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -34,7 +37,30 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
         )
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                response2ListBean(response,liveData)
+                if (response.isSuccessful){
+                    val stringResponse = response.body()?.string()
+                    val commonResponse = GsonSingleton.instance
+                        .fromJson(stringResponse, CommonResponse::class.java)
+                    rowNum = commonResponse.RowNum
+                    if (commonResponse.Code == "1"){
+                        val beanList = ArrayList<DataDictionaryR003Response>()
+                        for (element in commonResponse.Body) {
+                            val bodyJson =
+                                GsonSingleton.instance.toJson(element)
+                            beanList.add(GsonSingleton.instance
+                                .fromJson(bodyJson, DataDictionaryR003Response::class.java))
+                        }
+                        liveData.value = beanList
+                    }else{
+                        if (commonResponse.Code == null){
+                            Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else{
+                    Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                }
 
             }
 

@@ -1,9 +1,7 @@
 package com.yxf.vehicleinspection.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.repository.DataDictionaryRepository
 import kotlinx.coroutines.launch
@@ -14,6 +12,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/10/8
  */
 class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictionaryRepository) : ViewModel() {
+    var insertEnd = MutableLiveData<Boolean>()
     /**
      * 从远程服务器获取数据字典
      */
@@ -26,6 +25,9 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
      */
     fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) = viewModelScope.launch {
         dataDictionaryRepository.insertDataDictionary(dataDictionaryListResponse)
+        if (dataDictionaryRepository.insertDataDictionary(dataDictionaryListResponse).size == dataDictionaryRepository.rowNum){
+            insertEnd.value = true
+        }
     }
     fun insertDataDictionary(dataDictionary : DataDictionaryR003Response) = viewModelScope.launch {
         dataDictionaryRepository.insertDataDictionary(dataDictionary)

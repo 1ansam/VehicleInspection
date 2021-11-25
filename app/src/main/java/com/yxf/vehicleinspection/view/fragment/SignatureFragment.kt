@@ -2,6 +2,7 @@ package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
 import android.os.Build
+import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
@@ -48,26 +50,30 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
             signatureViewModel.postSignature(saveSignatureW006Request).observe(this){
                 if (it){
                     binding.pbSignature.visibility = View.GONE
-                    sharedViewModel.hostName.observe(this,{ hostName ->
+                    sharedViewModel.hostName.observe(this) { hostName ->
                         when {
                             hostName.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE)
-                                    ||hostName.equals(NavHostFragment.HOSTNAME_DISPATCH)
-                                    ||hostName.equals(NavHostFragment.HOSTNAME_CHARGE)-> {
-                                val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingVehicleQueueFragment()
+                                    || hostName.equals(NavHostFragment.HOSTNAME_DISPATCH)
+                                    || hostName.equals(NavHostFragment.HOSTNAME_CHARGE) -> {
+                                val action =
+                                    SignatureFragmentDirections.actionSignatureFragmentPopIncludingVehicleQueueFragment()
+
                                 findNavController().navigate(action)
                             }
-                            hostName.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION)-> {
-                                val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingInspectionItemFragment()
+                            hostName.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION) -> {
+                                val action =
+                                    SignatureFragmentDirections.actionSignatureFragmentPopIncludingInspectionItemFragment()
                                 findNavController().navigate(action)
                             }
                             hostName.equals(NavHostFragment.HOSTNAME_REGISTER) -> {
-                                val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingRegisterFragment()
+                                val action =
+                                    SignatureFragmentDirections.actionSignatureFragmentPopIncludingRegisterFragment()
                                 findNavController().navigate(action)
                             }
 
                         }
 
-                    })
+                    }
                 }else{
                     binding.pbSignature.visibility = View.GONE
                 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.permissionx.guolindev.PermissionX
@@ -48,14 +49,27 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                         Toast.LENGTH_LONG).show()
                 }
             }
-        dataDictionaryViewModel.deleteDataDictionary()
-        systemParamsViewModel.deleteSystemParams()
-        dataDictionaryViewModel.getDataDictionary().observe(this) { list ->
-            dataDictionaryViewModel.insertDataDictionary(list)
-        }
-        systemParamsViewModel.getSystemParamsData().observe(this){ list ->
-            systemParamsViewModel.insertSystemParams(list)
-        }
+//        dataDictionaryViewModel.deleteDataDictionary()
+//        systemParamsViewModel.deleteSystemParams()
+//        dataDictionaryViewModel.getDataDictionary().observe(this) { listDataDictionary ->
+//            dataDictionaryViewModel.insertDataDictionary(listDataDictionary)
+//            systemParamsViewModel.getSystemParamsData().observe(this){ listSystemParams ->
+//                systemParamsViewModel.insertSystemParams(listSystemParams)
+//                dataDictionaryViewModel.insertEnd.observe(this){
+//                    if (it){
+//                        systemParamsViewModel.insertEnd.observe(this){
+//                            if (it){
+//                                binding.pbSync.visibility = View.GONE
+//                                Toast.makeText(this, "参数同步成功", Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//
+//                    }
+//                }
+//            }
+//
+//
+//        }
         binding.btnStartEnjoy.setOnClickListener {
 
             intent = Intent(this, LoginActivity::class.java)
@@ -98,18 +112,34 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 
 
         }
-        binding.btnParamsSync.setOnClickListener {
-            dataDictionaryViewModel.deleteDataDictionary()
-            systemParamsViewModel.deleteSystemParams()
-            dataDictionaryViewModel.getDataDictionary().observe(this) { list ->
-                Log.e("TAG", "init: insertDataDictionaryStart", )
-                dataDictionaryViewModel.insertDataDictionary(list)
-            }
-            systemParamsViewModel.getSystemParamsData().observe(this){ list ->
-                Log.e("TAG", "init: insertSystemParamsStart", )
-                systemParamsViewModel.insertSystemParams(list)
-                Log.e("TAG", "init: insertSystemParamsEnd", )
-            }
+        binding.btnSetting.setOnClickListener {
+            intent = Intent(this,SettingActivity::class.java)
+            startActivity(intent)
+            finish()
+//            binding.pbSync.visibility = View.VISIBLE
+//            dataDictionaryViewModel.deleteDataDictionary()
+//            systemParamsViewModel.deleteSystemParams()
+//            dataDictionaryViewModel.getDataDictionary().observe(this) { listDataDictionary ->
+//                Log.e("TAG", "init: insertDataDictionaryStart", )
+//                dataDictionaryViewModel.insertDataDictionary(listDataDictionary)
+//                systemParamsViewModel.getSystemParamsData().observe(this){ listSystemParams ->
+//                    systemParamsViewModel.insertSystemParams(listSystemParams)
+//                    dataDictionaryViewModel.insertEnd.observe(this){
+//                        if (it){
+//                            systemParamsViewModel.insertEnd.observe(this){
+//                                if (it){
+//                                    binding.pbSync.visibility = View.GONE
+//                                    Toast.makeText(this, "参数同步成功", Toast.LENGTH_SHORT).show()
+//                                }
+//                            }
+//
+//                        }
+//                    }
+//                }
+//
+//
+//            }
+
 
         }
 

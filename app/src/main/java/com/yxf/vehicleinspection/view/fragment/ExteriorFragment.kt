@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Xml
 import android.view.View
 import android.widget.*
 import androidx.core.content.FileProvider
@@ -27,6 +28,7 @@ import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemImageAdapter
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
+import com.yxf.vehicleinspection.view.adapter.YcySpinnerAdapter
 import com.yxf.vehicleinspection.viewModel.*
 import java.io.File
 import java.io.IOException
@@ -59,7 +61,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         SystemParamsViewModelFactory((requireActivity().application as MyApp).systemParamsRepository)
     }
     lateinit var inspectionItemImageAdapter: InspectionItemImageAdapter
-    lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
+    lateinit var inspectionItemAjSelectAdapter: InspectionItemSelectAdapter
+    lateinit var inspectionItemHjSelectAdapter: InspectionItemSelectAdapter
     private val args: ExteriorFragmentArgs by navArgs()
     private var holder: RecyclerView.ViewHolder? = null
 
@@ -97,9 +100,12 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
             }
 
-        binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
-        binding.rvSelect.adapter = inspectionItemSelectAdapter
+        binding.rvAjSelect.layoutManager = LinearLayoutManager(this.requireContext())
+        binding.rvHjSelect.layoutManager = LinearLayoutManager(this.requireContext())
+        inspectionItemAjSelectAdapter = InspectionItemSelectAdapter()
+        inspectionItemHjSelectAdapter = InspectionItemSelectAdapter()
+        binding.rvAjSelect.adapter = inspectionItemAjSelectAdapter
+        binding.rvHjSelect.adapter = inspectionItemHjSelectAdapter
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
@@ -135,7 +141,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                                         "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
                                         args.bean005.Hjdlsj,"","0")).observe(this){
                                         if(it){
-                                            inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
+                                            inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemAjSelectAdapter,inspectionItemHjSelectAdapter)).observe(this){
                                                 if (it){
                                                     inspectionItemViewModel.postProjectEndW012(inspectionItemViewModel.getPostProjectEndData(
                                                         args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
@@ -176,9 +182,6 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                         }
 
                     }
-
-
-
             }
 
 
@@ -267,6 +270,35 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 binding.llKqxjz.visibility = View.GONE
             }
         }
+        binding.includeBottomButton.btnLeftPhoto.setOnClickListener{
+            binding.pbExteriorSubmit.visibility = View.VISIBLE
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
+            args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+            args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"110")).observe(this){
+                if (it){
+                    binding.pbExteriorSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "前上方拍照成功", Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.pbExteriorSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "前上方拍照失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        binding.includeBottomButton.btnRightPhoto.setOnClickListener{
+            binding.pbExteriorSubmit.visibility = View.VISIBLE
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
+                args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"111")).observe(this){
+                if (it){
+                    binding.pbExteriorSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "后上方拍照成功", Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.pbExteriorSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "后上方拍照失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
 
 
 
@@ -281,8 +313,16 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
     private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String) {
         inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this) {
-            val artificialProjectR020Response = it
-            inspectionItemSelectAdapter.data = artificialProjectR020Response.Xmlb
+            val artificialProjectR020ResponseList = it
+            if (artificialProjectR020ResponseList.size == 1){
+                inspectionItemAjSelectAdapter.data = artificialProjectR020ResponseList[0].Xmlb
+            }
+            if (artificialProjectR020ResponseList.size == 2){
+                inspectionItemAjSelectAdapter.data = artificialProjectR020ResponseList[0].Xmlb
+                inspectionItemHjSelectAdapter.data = artificialProjectR020ResponseList[1].Xmlb
+            }
+
+
         }
     }
 
@@ -329,16 +369,25 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
     }
 
-    private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<ExteriorArtificialProjectRequest>> {
+    private fun getPostArtificialData(ajAdapter: InspectionItemSelectAdapter,hjAdapter : InspectionItemSelectAdapter): List<ArtificialProjectW011Request<ExteriorArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<ExteriorArtificialProjectRequest>>()
-        val listXmlb = ArrayList<Xmlb>()
-        for (index in 0 until adapter.itemCount){
-            val holder = binding.rvSelect.findViewHolderForAdapterPosition(index)
+        val ajListXmlb = ArrayList<Xmlb>()
+        val hjListXmlb = ArrayList<Xmlb>()
+        for (index in 0 until ajAdapter.itemCount){
+            val holder = binding.rvAjSelect.findViewHolderForAdapterPosition(index)
             val ivSelected = holder?.itemView?.findViewById<ImageView>(R.id.ivSelected)
             val etBz = holder?.itemView?.findViewById<EditText>(R.id.etBz)
             val ivTag = ivSelected?.tag as String
-            val xmlb = Xmlb(adapter.data[index].Xmdm,adapter.data[index].Xmms,ivTag, etBz?.text.toString())
-            listXmlb.add(xmlb)
+            val xmlb = Xmlb(ajAdapter.data[index].Xmdm,ajAdapter.data[index].Xmms,ivTag, etBz?.text.toString())
+            ajListXmlb.add(xmlb)
+        }
+        for (index in 0 until hjAdapter.itemCount){
+            val holder = binding.rvHjSelect.findViewHolderForAdapterPosition(index)
+            val ivSelected = holder?.itemView?.findViewById<ImageView>(R.id.ivSelected)
+            val etBz = holder?.itemView?.findViewById<EditText>(R.id.etBz)
+            val ivTag = ivSelected?.tag as String
+            val xmlb = Xmlb(hjAdapter.data[index].Xmdm,hjAdapter.data[index].Xmms,ivTag, etBz?.text.toString())
+            hjListXmlb.add(xmlb)
         }
         val exteriorArtificialProjectRequest = ExteriorArtificialProjectRequest(
             args.bean005.Lsh,
@@ -351,7 +400,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             args.bean006.Jcxm,
             args.bean006.Ajywlb,
             args.bean006.Hjywlb,
-            AjJkxlh,listXmlb,
+            AjJkxlh,ajListXmlb,hjListXmlb,
             string2String(beginTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             binding.etCwkc.text.toString(),
@@ -684,6 +733,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
     override fun onResume() {
         super.onResume()
+
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
             AjJyjghb = it
             systemParamsViewModel.getJyjgbh("HJ").observe(this) {

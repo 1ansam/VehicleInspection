@@ -1,9 +1,6 @@
 package com.yxf.vehicleinspection.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 import com.yxf.vehicleinspection.repository.SystemParamsRepository
 import kotlinx.coroutines.launch
@@ -14,6 +11,7 @@ import java.lang.IllegalArgumentException
  *   time:2021/11/11
  */
 class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepository) : ViewModel() {
+    val insertEnd = MutableLiveData<Boolean>()
     fun getSystemParamsData() : LiveData<List<SystemParamsR015Response>> {
         return systemParamsRepository.getSystemParamsData()
     }
@@ -31,6 +29,9 @@ class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepo
     }
     fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>) = viewModelScope.launch {
         systemParamsRepository.insertSystemParams(systemParamsList)
+        if (systemParamsRepository.rowNum == systemParamsRepository.insertSystemParams(systemParamsList).size){
+            insertEnd.value = true
+        }
     }
 
     fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>) = viewModelScope.launch {

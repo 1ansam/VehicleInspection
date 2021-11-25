@@ -3,6 +3,7 @@ package com.yxf.vehicleinspection.view.fragment
 import android.content.pm.ActivityInfo
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -74,19 +75,57 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                     }
                 }
 
-
-
             }
+
 
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
         inspectionItemSelectAdapter = InspectionItemSelectAdapter()
         binding.rvSelect.adapter = inspectionItemSelectAdapter
+        inspectionItemViewModel.getUserInfo().observe(this){
+            val nameList = ArrayList<String>()
+            for (element in it){
+                nameList.add("${element.TrueName}+${element.ID}")
+            }
+            val ycyAdapter = ArrayAdapter(this.requireActivity(),R.layout.ycy_item_layout,nameList)
+            binding.spYcy.adapter = ycyAdapter
+
+        }
+        binding.include2.btnLeftPhoto.text = "底盘动态检验开始"
+        binding.include2.btnLeftPhoto.setOnClickListener{
+            binding.pbDynamicSubmit.visibility = View.VISIBLE
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
+                args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"52")).observe(this){
+                if (it){
+                    binding.pbDynamicSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "底盘动态检验开始拍照成功", Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.pbDynamicSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "底盘动态检验开始拍照失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        binding.include2.btnRightPhoto.text = "底盘动态检验结束"
+        binding.include2.btnRightPhoto.setOnClickListener{
+            binding.pbDynamicSubmit.visibility = View.VISIBLE
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
+                args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"53")).observe(this){
+                if (it){
+                    binding.pbDynamicSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "底盘动态检验结束拍照成功", Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.pbDynamicSubmit.visibility = View.GONE
+                    Toast.makeText(this.context, "底盘动态检验结束拍照失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
     private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
         inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
-            val artificialProjectR016Response = it
-            inspectionItemSelectAdapter.data = artificialProjectR016Response.Xmlb
+
+            inspectionItemSelectAdapter.data = it[0].Xmlb
         }
     }
     private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request {
@@ -110,6 +149,7 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
     private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<DynamicArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<DynamicArtificialProjectRequest>>()
         val listXmlb = ArrayList<Xmlb>()
+        val ycy = binding.spYcy.selectedItem.toString().split("+")
         for (index in 0 until adapter.itemCount){
             val holder = binding.rvSelect.findViewHolderForAdapterPosition(index)
             val ivSelected = holder?.itemView?.findViewById<ImageView>(R.id.ivSelected)
@@ -133,9 +173,9 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             listXmlb,
             string2String(beginTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
+            "".takeIf { binding.etFxpzdzyzdl.text.toString().isBlank() }?:binding.etFxpzdzyzdl.text.toString(),
             "",
-            "",
-            bean001.TrueName,bean001.ID,"","","",binding.etDynamicBz.text.toString()
+            bean001.TrueName,bean001.ID,ycy[0],ycy[1],"",binding.etDynamicBz.text.toString()
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
         Log.e("TAG", "getPostArtificialData: $list", )

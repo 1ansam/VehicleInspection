@@ -12,7 +12,7 @@ import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 @Dao
 interface SystemParamsDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>)
+    suspend fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>) : List<Long>
 
     @Update
     suspend fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>)

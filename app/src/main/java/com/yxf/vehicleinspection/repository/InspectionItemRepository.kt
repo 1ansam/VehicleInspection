@@ -4,13 +4,11 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.VehicleFeature
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.*
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.UploadFile
 import com.yxf.vehicleinspection.service.WriteService
-import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.*
 import okhttp3.RequestBody
@@ -25,6 +23,26 @@ import java.io.File
  *   time:2021/11/4
  */
 class InspectionItemRepository {
+    fun getUserInfo(): LiveData<List<UserInfoR001Response>> {
+        val liveData = MutableLiveData<List<UserInfoR001Response>>()
+        val call = RetrofitService.create(QueryService::class.java).query(
+            QUERY_ALL_USER,
+            getIpAddress(),
+            getJsonData(AllUserInfoR001Request())
+        )
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2ListBean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(MyApp.context,
+                    t.message,
+                    Toast.LENGTH_LONG).show()
+            }
+        })
+        return liveData
+    }
     fun getImageItemData(
         Lsh: String,
         Jyxm: String,
@@ -54,8 +72,8 @@ class InspectionItemRepository {
         Jyxm: String,
         Ajywlb: String,
         Hjywlb: String,
-    ): LiveData<ArtificialProjectR020Response> {
-        val liveData = MutableLiveData<ArtificialProjectR020Response>()
+    ): LiveData<List<ArtificialProjectR020Response>> {
+        val liveData = MutableLiveData<List<ArtificialProjectR020Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_ARTIFICIAL_PROJECT,
             getIpAddress(),
@@ -63,7 +81,7 @@ class InspectionItemRepository {
         )
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-               response2Bean(response, liveData)
+               response2ListBean(response, liveData)
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -71,6 +89,9 @@ class InspectionItemRepository {
             }
         })
         return liveData
+    }
+    fun getNetworkQueryInfoName(): List<String>{
+        return listOf("联网查询结果描述","机动车所有人","手机号码","联系地址","邮政编码")
     }
 
 
@@ -187,5 +208,43 @@ class InspectionItemRepository {
             }
         })
     return liveData
+    }
+    fun postSignature(saveSignatureW006Request: SaveSignatureW006Request) : LiveData<Boolean>{
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            WRITE_SAVE_SIGNATURE,
+            getIpAddress(),
+            getJsonData(saveSignatureW006Request)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Boolean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+    fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request) : LiveData<Boolean>{
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            WRITE_TAKE_PHOTO,
+            getIpAddress(),
+            getJsonData(takePhotoW009Request)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>){
+                response2Boolean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
     }
 }
