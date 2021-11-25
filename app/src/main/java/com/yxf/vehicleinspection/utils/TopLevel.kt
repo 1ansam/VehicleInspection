@@ -207,16 +207,17 @@ fun <T> getJsonData(elements : List<T>) : String{
  * 获取本机IP地址 格式为xxx.xxx.xxx.xxx
  */
 fun getIpAddress() : String {
-    val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-    if (wifiManager.isWifiEnabled){
-        val wifiInfo = wifiManager.connectionInfo
-        val ipAddress = wifiInfo.ipAddress
-        return int2Ip(ipAddress)
-
-    }else{
-        Toast.makeText(MyApp.context,"WIFI未打开", Toast.LENGTH_SHORT).show()
-        return ""
-    }
+//    val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+//    if (wifiManager.isWifiEnabled){
+//        val wifiInfo = wifiManager.connectionInfo
+//        val ipAddress = wifiInfo.ipAddress
+//        return int2Ip(ipAddress)
+//
+//    }else{
+//        Toast.makeText(MyApp.context,"WIFI未打开", Toast.LENGTH_SHORT).show()
+//        return ""
+//    }
+    return "192.168.2.132"
 
 }
 

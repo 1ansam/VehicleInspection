@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.base
 
+import com.yxf.vehicleinspection.singleton.SharedP
 import okhttp3.HttpUrl
 import java.lang.reflect.Field
 
@@ -66,15 +67,20 @@ class BaseUrlHelper private constructor(val httpUrl: HttpUrl) {
     }
 
     private object Instance {
+        val string = "http://${SharedP.instance.getString("ipAddress","192.168.2.132")!!}:${SharedP.instance.getString("ipPort","80")!!}"
         val instance = BaseUrlHelper(
             HttpUrl.get(baseApi)
         )
+
 
         private val baseApi: String
             //            private get() = "http://192.168.31.70:8066"
 //            private get() = "http://192.168.2.156:8066"
 //            get() = "http://192.168.2.157:10000"
 //            get() = "http://192.168.2.156:8011"
-            get() = "http://192.168.2.157:10000"
+
+//            get() = "http://192.168.2.157:10000"
+
+            get() = string
     }
 }
