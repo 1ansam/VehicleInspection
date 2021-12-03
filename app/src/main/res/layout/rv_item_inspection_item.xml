@@ -25,34 +25,101 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="start">-->
 
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:gravity="center"
-                        android:text="检验项目："
-                        android:textSize="18sp" />
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="检验项目："-->
+<!--                        android:textSize="18sp" />-->
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:gravity="center"
-                        android:text="检验状态："
-                        android:textSize="18sp" />
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="检验状态："-->
+<!--                        android:textSize="18sp" />-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="安检业务类别："-->
+<!--                        android:textSize="18sp" />-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="环检业务类别："-->
+<!--                        android:textSize="18sp" />-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="检测人员 1："-->
+<!--                        android:textSize="18sp" />-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="检测人员 2："-->
+<!--                        android:textSize="18sp" />-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="检测开始时间："-->
+<!--                        android:textSize="18sp" />-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="10dp" />-->
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="检测结束时间："-->
+<!--                        android:textSize="18sp" />-->
 
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,8 +131,8 @@
                         android:id="@+id/tvJyxm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="end"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
                         android:text="检验项目"
                         android:textSize="18sp" />
 
@@ -77,11 +144,82 @@
                         android:id="@+id/tvJyzt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="end"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
                         android:text="检验状态"
                         android:textSize="18sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvAjywlb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
+                        android:text="安检业务类别"
+                        android:textSize="18sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvHjywlb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
+                        android:text="环检业务类别"
+                        android:textSize="18sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvJcry1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
+                        android:text="检测人员1"
+                        android:textSize="18sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvJcry2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
+                        android:text="检测人员2"
+                        android:textSize="18sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvJckssj"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
+                        android:text="检测开始时间"
+                        android:textSize="18sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvJcjssj"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="fill_horizontal"
+                        android:text="检测结束时间"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

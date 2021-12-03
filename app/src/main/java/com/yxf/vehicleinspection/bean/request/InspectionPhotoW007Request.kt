@@ -6,11 +6,9 @@ package com.yxf.vehicleinspection.bean.request
  */
 data class InspectionPhotoW007Request(
     val ID: Int,
-    val Lsh: String,
     val JyjgbhAj: String,
     val JyjgbhHj: String,
     val Jcxh: String,
-    val Jccs: Int,
     val Hphm: String,
     val Hpzl: String,
     val Clsbdh: String,
@@ -24,6 +22,11 @@ data class InspectionPhotoW007Request(
     val Bcaj: String,
     val BcHj: String,
     val Hjdlsj: String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
 
-    ) {
+
+) {
 }

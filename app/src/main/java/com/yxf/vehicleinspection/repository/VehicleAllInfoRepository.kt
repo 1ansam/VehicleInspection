@@ -26,13 +26,14 @@ class VehicleAllInfoRepository {
      *   @param Clsbdh 车辆识别代号 用流水号/行驶证编号查询时可空（空字符串）
      *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
      */
-    fun getVehicleAllInfoRepository(Lsh : String, Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String) : LiveData<List<VehicleAllInfoR005Response>>{
+    fun getVehicleAllInfoRepository(Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String, Ajlsh : String,
+                                    Hjlsh : String,) : LiveData<List<VehicleAllInfoR005Response>>{
         val liveData = MutableLiveData<List<VehicleAllInfoR005Response>>()
         val call = RetrofitService.create(QueryService::class.java)
             .query(
                 QUERY_VEHICLE_ALL_INFO,
                 getIpAddress(),
-                getJsonData(VehicleAllInfoR005Request(Lsh, Hphm, Hpzl, Clsbdh, Xszbh)))
+                getJsonData(VehicleAllInfoR005Request(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh,Hjlsh)))
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2ListBean(response,liveData)

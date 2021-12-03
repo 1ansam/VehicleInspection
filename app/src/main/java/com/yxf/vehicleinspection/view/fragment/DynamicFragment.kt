@@ -17,10 +17,7 @@ import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentDynamicBinding
-import com.yxf.vehicleinspection.utils.CHASSIS
-import com.yxf.vehicleinspection.utils.CHASSIS_HJ
-import com.yxf.vehicleinspection.utils.DYNAMIC
-import com.yxf.vehicleinspection.utils.string2String
+import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
 import com.yxf.vehicleinspection.viewModel.InspectionItemViewModel
@@ -48,27 +45,33 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             binding.pbDynamicSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj
-                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(DYNAMIC,
+                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(DYNAMIC_BEHIND,
                     "")).observe(this){
-                    if(it){
-                        inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
 
+                    if(it){
+                        inspectionItemViewModel.postSaveVideoW008(getPostVideoData(DYNAMIC_FRONT,"")).observe(this){
                             if (it){
-                                inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
-                                    binding.pbDynamicSubmit.visibility = View.GONE
+                                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
+
                                     if (it){
-                                        Toast.makeText(this.context, "底盘动态项目结束", Toast.LENGTH_SHORT).show()
-                                        val action = DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(args.bean006,args.bean005,args.jcxh)
-                                        findNavController().navigate(action)
+                                        inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
+                                            binding.pbDynamicSubmit.visibility = View.GONE
+                                            if (it){
+                                                Toast.makeText(this.context, "底盘动态项目结束", Toast.LENGTH_SHORT).show()
+                                                val action = DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(args.bean006,args.bean005,args.jcxh,args.bean002)
+                                                findNavController().navigate(action)
+                                            }else{
+                                                Toast.makeText(this.context, "底盘动态项目结束失败", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
                                     }else{
-                                        Toast.makeText(this.context, "底盘动态项目结束失败", Toast.LENGTH_SHORT).show()
+                                        binding.pbDynamicSubmit.visibility = View.GONE
+                                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
                                     }
                                 }
-                            }else{
-                                binding.pbDynamicSubmit.visibility = View.GONE
-                                Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
                             }
                         }
+
                     }else{
                         Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
                         binding.pbDynamicSubmit.visibility = View.GONE
@@ -94,9 +97,10 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
         binding.include2.btnLeftPhoto.text = "底盘动态检验开始"
         binding.include2.btnLeftPhoto.setOnClickListener{
             binding.pbDynamicSubmit.visibility = View.VISIBLE
-            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
-                args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
-                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"52")).observe(this){
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,
+                args.jcxh,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"52",args.bean002.Ajlsh,args.bean002.Hjlsh,
+                args.bean002.Ajjccs,args.bean002.Hjjccs)).observe(this){
                 if (it){
                     binding.pbDynamicSubmit.visibility = View.GONE
                     Toast.makeText(this.context, "底盘动态检验开始拍照成功", Toast.LENGTH_SHORT).show()
@@ -109,9 +113,10 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
         binding.include2.btnRightPhoto.text = "底盘动态检验结束"
         binding.include2.btnRightPhoto.setOnClickListener{
             binding.pbDynamicSubmit.visibility = View.VISIBLE
-            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
-                args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
-                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"53")).observe(this){
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,
+                args.jcxh,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"53",args.bean002.Ajlsh,args.bean002.Hjlsh,
+                args.bean002.Ajjccs,args.bean002.Hjjccs)).observe(this){
                 if (it){
                     binding.pbDynamicSubmit.visibility = View.GONE
                     Toast.makeText(this.context, "底盘动态检验结束拍照成功", Toast.LENGTH_SHORT).show()
@@ -122,29 +127,30 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             }
         }
     }
-    private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
-        inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
+    private fun getSelectData( Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh : String, Hjlsh : String){
+        inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh).observe(this){
 
             inspectionItemSelectAdapter.data = it[0].Xmlb
         }
     }
     private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request {
-        return SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+        return SaveVideoW008Request(0,args.jcxh,args.bean005.Hphm,
             args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
             endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
                 "yyyy-MM-dd HH:mm:ss",
                 "yyyyMMddHHmmss"),
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             "",args.bean005.Clpp1,args.bean005.Syr,
-            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-            args.bean005.Hjdlsj,"","0"
+            args.bean005.Hjdlsj,"","0",
+            args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs
         )
     }
     private fun getPostProjectEndData(): ProjectEndW012Request {
-        return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
+        return ProjectEndW012Request(AjJyjghb,args.jcxh,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
-            args.bean006.Hjywlb,AjJkxlh)
+            args.bean006.Hjywlb,AjJkxlh,args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs)
     }
     private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<DynamicArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<DynamicArtificialProjectRequest>>()
@@ -159,10 +165,8 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             listXmlb.add(xmlb)
         }
         val chassisArtificialProjectRequest = DynamicArtificialProjectRequest(
-            args.bean005.Lsh,
             AjJyjghb,
             args.jcxh,
-            args.bean006.Jccs,
             args.bean005.Hphm,
             args.bean005.Hpzl,
             args.bean005.Clsbdh,
@@ -175,7 +179,9 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             "".takeIf { binding.etFxpzdzyzdl.text.toString().isBlank() }?:binding.etFxpzdzyzdl.text.toString(),
             "",
-            bean001.TrueName,bean001.ID,ycy[0],ycy[1],"",binding.etDynamicBz.text.toString()
+            bean001.TrueName,bean001.ID,ycy[0],ycy[1],"",binding.etDynamicBz.text.toString(),
+            args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
         Log.e("TAG", "getPostArtificialData: $list", )
@@ -194,13 +200,17 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                     inspectionItemViewModel.getServerTime().observe(this) {
                         beginTime = it.Sj
                         inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs
                         )).observe(this){
                             if (it){
-                                getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb)
+                                getSelectData(args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
+                                    args.bean002.Ajlsh,args.bean002.Hjlsh,
+                                )
                             }else{
                                 Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
                             }

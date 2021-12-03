@@ -11,10 +11,12 @@ package com.yxf.vehicleinspection.bean.request
  *   @param Hjywlb 环检业务类别 不检测时填“-”
  */
 data class ArtificialProjectR020Request(
-    val Lsh : String,
     val Jyxm : String,
     val Ajywlb : String,
     val Hjywlb : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+
 
 ) {
 }

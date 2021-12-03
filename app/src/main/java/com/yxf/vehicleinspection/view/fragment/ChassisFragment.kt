@@ -58,7 +58,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                                         val action = ChassisFragmentDirections.actionChassisFragmentToSignatureFragment(
                                             args.bean006,
                                             args.bean005,
-                                            args.jcxh)
+                                            args.jcxh,args.bean002)
                                         findNavController().navigate(action)
                                     }else{
                                         Toast.makeText(this.context, "底盘项目结束失败", Toast.LENGTH_SHORT).show()
@@ -96,9 +96,10 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
         binding.include.btnLeftPhoto.text = "底盘检验拍照"
         binding.include.btnLeftPhoto.setOnClickListener{
             binding.pbChassisSubmit.visibility = View.VISIBLE
-            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,args.bean005.Lsh,
-                args.jcxh,args.bean006.Jccs,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
-                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"54")).observe(this){
+            inspectionItemViewModel.postTakePhoto(TakePhotoW009Request(0,
+                args.jcxh,args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,
+                args.bean006.Jcxm,args.bean006.Ajywlb,args.bean006.Jcxm,"54",args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs)).observe(this){
                 if (it){
                     binding.pbChassisSubmit.visibility = View.GONE
                     Toast.makeText(this.context, "底盘检验拍照成功", Toast.LENGTH_SHORT).show()
@@ -111,28 +112,30 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
 
     }
 
-    private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
-        inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
-            inspectionItemSelectAdapter.data = it[0].Xmlb
+    private fun getSelectData(Jyxm: String, Ajywlb: String, Hjywlb: String,Ajlsh : String,
+                              Hjlsh : String,){
+        inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh).observe(this){
+            if (it.isNotEmpty()){
+                inspectionItemSelectAdapter.data = it[0].Xmlb
+            }
+
         }
     }
     private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request {
-        return SaveVideoW008Request(0,args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+        return SaveVideoW008Request(0,args.jcxh,args.bean005.Hphm,
             args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
             endTime.substring(0,10),endTime.substring(11), string2String(beginTime,
                 "yyyy-MM-dd HH:mm:ss",
                 "yyyyMMddHHmmss"),
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             "",args.bean005.Clpp1,args.bean005.Syr,
-            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-            args.bean005.Hjdlsj,"","0"
+            args.bean005.Hjdlsj,"","0",args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs
         )
     }
     private fun getPostProjectEndData(): ProjectEndW012Request {
-        return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
+        return ProjectEndW012Request(AjJyjghb,args.jcxh,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
-            args.bean006.Hjywlb,AjJkxlh)
+            args.bean006.Hjywlb,AjJkxlh,args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs)
     }
     private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<ChassisArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<ChassisArtificialProjectRequest>>()
@@ -147,10 +150,8 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             listXmlb.add(xmlb)
         }
         val chassisArtificialProjectRequest = ChassisArtificialProjectRequest(
-            args.bean005.Lsh,
             AjJyjghb,
             args.jcxh,
-            args.bean006.Jccs,
             args.bean005.Hphm,
             args.bean005.Hpzl,
             args.bean005.Clsbdh,
@@ -162,7 +163,11 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             string2String(beginTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             "",
-            bean001.TrueName,bean001.ID,ycy[0],ycy[1],"",binding.etChassisBz.text.toString()
+            bean001.TrueName,bean001.ID,ycy[0],ycy[1],"",binding.etChassisBz.text.toString(),
+            args.bean002.Ajlsh,
+            args.bean002.Hjlsh,
+            args.bean002.Ajjccs,
+            args.bean002.Hjjccs
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
         Log.e("TAG", "getPostArtificialData: $list", )
@@ -181,13 +186,14 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                     inspectionItemViewModel.getServerTime().observe(this) {
                         beginTime = it.Sj
                         inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs
                         )).observe(this){
                             if (it){
-                                getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb)
+                                getSelectData( args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,args.bean002.Ajlsh,args.bean002.Hjlsh)
                             }else{
                                 Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
                             }

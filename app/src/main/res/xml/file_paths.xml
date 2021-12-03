@@ -4,4 +4,7 @@
     <external-media-path
         name="dcim"
         path="DCIM"/>
+    <external-path
+        name="download"
+        path="./Download"/>
 </paths>

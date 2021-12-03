@@ -44,16 +44,17 @@ class InspectionItemRepository {
         return liveData
     }
     fun getImageItemData(
-        Lsh: String,
         Jyxm: String,
         Ajywlb: String,
         Hjywlb: String,
+        Ajlsh : String,
+        Hjlsh : String,
     ): LiveData<List<ImageItemR017Response>> {
         val liveData = MutableLiveData<List<ImageItemR017Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_IMAGE_ITEM,
             getIpAddress(),
-            getJsonData(ImageItemR017Request(Lsh, Jyxm, Ajywlb, Hjywlb))
+            getJsonData(ImageItemR017Request(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -68,16 +69,17 @@ class InspectionItemRepository {
     }
 
     fun getSelectItemData(
-        Lsh: String,
         Jyxm: String,
         Ajywlb: String,
         Hjywlb: String,
+        Ajlsh : String,
+        Hjlsh : String,
     ): LiveData<List<ArtificialProjectR020Response>> {
         val liveData = MutableLiveData<List<ArtificialProjectR020Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_ARTIFICIAL_PROJECT,
             getIpAddress(),
-            getJsonData(ArtificialProjectR020Request(Lsh, Jyxm, Ajywlb, Hjywlb))
+            getJsonData(ArtificialProjectR020Request(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh))
         )
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

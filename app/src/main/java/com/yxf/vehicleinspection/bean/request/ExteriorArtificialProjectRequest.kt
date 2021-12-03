@@ -41,14 +41,12 @@ package com.yxf.vehicleinspection.bean.request
  *   @param Bz 备注
  */
 data class ExteriorArtificialProjectRequest(
-    val Lsh : String,
     val Jyjgbh : String,
     val Jcxh : String,
-    val Jccs : Int,
     val Hphm : String,
     val Hpzl : String,
     val Clsbdh : String,
-    val Jyxm : String = "F1",
+    val Jyxm : String ,
     val Ajywlb : String,
     val Hjywlb : String,
     val AjJkxlh : String,
@@ -79,6 +77,10 @@ data class ExteriorArtificialProjectRequest(
     val Wgjcjyy : String,
     val Wgjcjyysfzh : String,
     val Bz : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
 
 ) {
 }

@@ -22,12 +22,14 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun getUserInfo() : LiveData<List<UserInfoR001Response>> {
         return inspectionItemRepository.getUserInfo()
     }
-    fun getImageItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<List<ImageItemR017Response>> {
-        return inspectionItemRepository.getImageItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
+    fun getImageItemData(Jyxm : String, Ajywlb : String, Hjywlb : String,Ajlsh : String,
+                         Hjlsh : String,): LiveData<List<ImageItemR017Response>> {
+        return inspectionItemRepository.getImageItemData(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh)
     }
 
-    fun getSelectItemData(Lsh : String, Jyxm : String, Ajywlb : String, Hjywlb : String): LiveData<List<ArtificialProjectR020Response>> {
-        return inspectionItemRepository.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb)
+    fun getSelectItemData(Jyxm : String, Ajywlb : String, Hjywlb : String,Ajlsh : String,
+                          Hjlsh : String,): LiveData<List<ArtificialProjectR020Response>> {
+        return inspectionItemRepository.getSelectItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh)
     }
     fun getServerTime() : LiveData<ServerTimeR011Response>{
         return serverTimeRepository.getServerTime()
@@ -56,11 +58,11 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request): LiveData<Boolean>{
         return inspectionItemRepository.postTakePhoto(takePhotoW009Request)
     }
-    fun getPostProjectEndData(Lsh: String, Jyjgbh : String, Jcxh : String, Jccs : Int, Hphm : String, Hpzl : String, Clsbdh : String, Jyxm : String, Gwjysbbh : String, Jssj : String, Ajywlb : String, Hjywlb : String, AjJkxlh :String):ProjectEndW012Request{
-        return ProjectEndW012Request(Lsh,Jyjgbh,Jcxh, Jccs, Hphm, Hpzl, Clsbdh, Jyxm, Gwjysbbh, Jssj, Ajywlb, Hjywlb, AjJkxlh)
+    fun getPostProjectEndData(Jyjgbh : String, Jcxh : String, Hphm : String, Hpzl : String, Clsbdh : String, Jyxm : String, Gwjysbbh : String, Jssj : String, Ajywlb : String, Hjywlb : String, AjJkxlh :String, Ajlsh: String, Hjlsh: String, Ajjccs: Int, Hjjccs: Int):ProjectEndW012Request{
+        return ProjectEndW012Request(Jyjgbh,Jcxh,  Hphm, Hpzl, Clsbdh, Jyxm, Gwjysbbh, Jssj, Ajywlb, Hjywlb, AjJkxlh,Ajlsh, Hjlsh, Ajjccs, Hjjccs)
     }
-    fun getPostVideoData(Lsh : String, Jcxh : String, Jccs : Int, Hphm : String, Hpzl : String, Jcxm : String, Spbhaj : String, Spbhhj : String, Ajywlb : String, Hjywlb : String, Jcrq : String, Jcsj : String, Jckssj : String, Jcjssj : String, Lxxx : String, Clpp : String, Czdw : String, Bcaj : String, BcHj : String, Hjdlsj : String, Lxdz : String, Lxbz : String,) : SaveVideoW008Request{
-        return SaveVideoW008Request(0,Lsh,Jcxh, Jccs, Hphm, Hpzl, Jcxm, Spbhaj, Spbhhj, Ajywlb, Hjywlb, Jcrq, Jcsj, Jckssj, Jcjssj, Lxxx, Clpp, Czdw, Bcaj, BcHj, Hjdlsj, Lxdz, Lxbz)
+    fun getPostVideoData( Jcxh : String, Hphm : String, Hpzl : String, Jcxm : String, Spbhaj : String, Spbhhj : String, Ajywlb : String, Hjywlb : String, Jcrq : String, Jcsj : String, Jckssj : String, Jcjssj : String, Lxxx : String, Clpp : String, Czdw : String, Hjdlsj : String, Lxdz : String, Lxbz : String,Ajlsh : String,Hjlsh : String, Ajjccs: Int, Hjjccs: Int ) : SaveVideoW008Request{
+        return SaveVideoW008Request(0,Jcxh,  Hphm, Hpzl, Jcxm, Spbhaj, Spbhhj, Ajywlb, Hjywlb, Jcrq, Jcsj, Jckssj, Jcjssj, Lxxx, Clpp, Czdw, Hjdlsj, Lxdz, Lxbz,Ajlsh, Hjlsh, Ajjccs, Hjjccs)
     }
 
 

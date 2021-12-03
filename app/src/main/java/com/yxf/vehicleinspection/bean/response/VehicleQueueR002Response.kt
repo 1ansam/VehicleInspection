@@ -5,7 +5,6 @@ import java.io.Serializable
 /**
  *   author:yxf
  *   time:2021/10/11
- *   @param Lsh 流水号
  *   @param Hphm 号牌号码
  *   @param Hpzl 号牌种类
  *   @param HpzlCc 号牌种类汉字标识
@@ -18,10 +17,14 @@ import java.io.Serializable
  *   @param AjywlbCc 安检业务类别汉字
  *   @param Hjywlb 环检业务类别
  *   @param HjywlbCc 环检业务类别汉字
+ *   @param Jccs 检测次数
+ *   @param Ajlsh  安检流水号
+ *   @param Hjlsh  环检流水号
+ *   @param Ajjccs  安检检测次数
+ *   @param Hjjccs  环检检测次数
 
  */
 data class VehicleQueueR002Response (
-    val Lsh : String,
     val Hphm : String,
     val Hpzl : String,
     val HpzlCc : String,
@@ -30,8 +33,14 @@ data class VehicleQueueR002Response (
     val Jyzt : String?,
     val Hpys : String?,
     val HpysCc : String,
-    val Ajywlb : String?,
+    val Ajywlb : String,
     val AjywlbCc : String?,
-    val Hjywlb : String?,
+    val Hjywlb : String,
     val HjywlbCc : String?,
-        ): Serializable
+    val Jccs : Int,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
+
+): Serializable

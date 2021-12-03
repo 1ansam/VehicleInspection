@@ -6,9 +6,7 @@ package com.yxf.vehicleinspection.bean.request
  */
 data class TakePhotoW009Request(
     val ID : Int,
-    val Lsh : String,
     val Jcxh : String,
-    val Jccs : Int,
     val Hphm : String,
     val Hpzl : String,
     val Clsbdh : String,
@@ -16,6 +14,10 @@ data class TakePhotoW009Request(
     val Ajywlb : String,
     val Zpgw : String,
     val Zpdm : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
 
 ) {
 }

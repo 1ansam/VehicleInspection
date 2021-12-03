@@ -128,7 +128,6 @@ import java.io.Serializable
  */
 data class VehicleAllInfoR005Response(
     val Id : String?,
-    val Lsh : String,
     val Hphm : String,
     val Hpzl : String,
     val Clsbdh : String,
@@ -216,8 +215,6 @@ data class VehicleAllInfoR005Response(
     val Zdly : String,
     val Qgs : String,
     val Rygg : String,
-    val Wxdw : String,
-    val Jgrq : String,
     val Lxdh : String,
     val Lxdz : String,
     val Hpys : String,
@@ -226,16 +223,9 @@ data class VehicleAllInfoR005Response(
     val Jdcsslb : String,
     val Jcxlb : String,
     val Qzs : String,
-    val Ednj : String,
-    val Ednjzs : String,
-    val Glbzfs : String,
-    val Kcdj : String,
-    val Hccsxs : String,
     val Zxzs : String,
-    val Qdzzl : String,
     val Zjjylb : String,
     val Yyzh : String,
-    val Zjlsh : String,
     val Dzss : String,
     val Kqxjzw : String,
     val Pfjd : String,
@@ -246,6 +236,8 @@ data class VehicleAllInfoR005Response(
     val Sjr : String,
     val Sjrdh : String,
     val Sjrsfzh : String,
-    val Hjdlsj : String
+    val Hjdlsj : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
 ) : Serializable{
 }

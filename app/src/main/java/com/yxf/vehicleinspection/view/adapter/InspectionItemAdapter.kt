@@ -1,7 +1,6 @@
 package com.yxf.vehicleinspection.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
@@ -11,6 +10,7 @@ import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
+import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
 import com.yxf.vehicleinspection.view.fragment.InspectionItemFragmentDirections
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
@@ -22,6 +22,7 @@ import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 class InspectionItemAdapter(
     val fragment: Fragment,
     private val dataDictionaryViewModel: DataDictionaryViewModel,
+    val bean002 : VehicleQueueR002Response
 ) : BaseRvAdapter<VehicleInspectionItemR006Response, RvItemInspectionItemBinding>() {
     var beanR005: VehicleAllInfoR005Response? = null
         set(value) {
@@ -43,15 +44,27 @@ class InspectionItemAdapter(
         binding: RvItemInspectionItemBinding,
         bean: VehicleInspectionItemR006Response,
     ) {
+
         holder.apply {
-            binding.tvJyxm.text = bean.Xmmc
-            binding.tvJyzt.text = bean.Jczt
-        }
+            binding.tvJyxm.text =   "检测项目：${bean.Xmmc}"
+            binding.tvJyzt.text =   "检测状态：${bean.Jczt}"
+            binding.tvJcry1.text =  "检测人员 1：${bean.Jcry_01}"
+            binding.tvJcry2.text =  "检测人员 2：${bean.Jcry_02}"
+            binding.tvJckssj.text = "检测开始时间：${bean.Jckssj}"
+            binding.tvJcjssj.text = "检测开始时间：${bean.Jcjssj}"
+            dataDictionaryViewModel.getMc("08",bean.Ajywlb).observe(fragment){
+                binding.tvAjywlb.text = "安检业务类别：$it"
+            }
+            dataDictionaryViewModel.getMc("31",bean.Hjywlb).observe(fragment){
+                binding.tvHjywlb.text = "环检业务类别：$it"
+            }
 //        if (binding.tvJyzt.text.equals("完成"))
 //            holder.binding.lvLineNumber.visibility = View.GONE
-        holder.itemView.setOnClickListener {
+            holder.itemView.setOnClickListener {
 
+            }
         }
+
         when (bean.Jcxm) {
             "F1" -> dataDictionaryViewModel.getListFromFl("wx").observe(fragment) {
                 binding.lvLineNumber.adapter =
@@ -61,7 +74,7 @@ class InspectionItemAdapter(
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToExteriorFragment(
                                 bean,
-                                beanR005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm,bean002))
                     }
             }
             "C1" -> dataDictionaryViewModel.getListFromFl("dx").observe(fragment) {
@@ -72,7 +85,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                     .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToChassisFragment(bean,
-                        beanR005!!,it[position].Dm))
+                        beanR005!!,it[position].Dm,bean002))
                     }
             }
             "DC" -> dataDictionaryViewModel.getListFromFl("tx").observe(fragment) {
@@ -83,7 +96,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToDynamicFragment(bean,
-                                beanR005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm,bean002))
                     }
             }
             "NQ" -> dataDictionaryViewModel.getListFromFl("nx").observe(fragment) {
@@ -94,7 +107,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToNetworkQueryFragment(bean,
-                                beanR005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm,bean002))
                     }
             }
             "UC" -> dataDictionaryViewModel.getListFromFl("ux").observe(fragment) {
@@ -105,7 +118,7 @@ class InspectionItemAdapter(
                             _, _, position, _ ->
                         fragment.findNavController()
                             .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToUniqueFragment(bean,
-                                beanR005!!,it[position].Dm))
+                                beanR005!!,it[position].Dm,bean002))
                     }
             }
         }

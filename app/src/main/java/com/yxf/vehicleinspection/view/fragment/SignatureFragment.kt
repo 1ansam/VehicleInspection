@@ -44,9 +44,11 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
         }
         binding.btnCommit.setOnClickListener {
             binding.pbSignature.visibility = View.VISIBLE
-            val saveSignatureW006Request = SaveSignatureW006Request(0,args.bean005!!.Lsh,args.bean006!!.Jccs,args.bean005!!.Hphm,mPaintView.base64,
-                date2String(Date(),"yyyy-MM-dd HH:mm:ss"),args.bean006!!.Jcxm,
-                SharedP.instance.getString("username","")!!,"1","1")
+            val saveSignatureW006Request = SaveSignatureW006Request(0,args.bean005.Hphm,mPaintView.base64,
+                date2String(Date(),"yyyy-MM-dd HH:mm:ss"),args.bean006.Jcxm,
+                SharedP.instance.getString("username","")!!,args.bean006.Ajywlb,args.bean006.Hjywlb,
+                args.bean002.Ajlsh,args.bean002.Hjlsh,
+                args.bean002.Ajjccs,args.bean002.Hjjccs)
             signatureViewModel.postSignature(saveSignatureW006Request).observe(this){
                 if (it){
                     binding.pbSignature.visibility = View.GONE

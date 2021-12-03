@@ -28,7 +28,8 @@ class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryVi
         bean: VehicleAllInfoR005Response,
     ) {
         holder.apply {
-            binding.tvLsh.text = bean.Lsh
+            binding.tvAjlsh.text = bean.Ajlsh
+            binding.tvHjlsh.text = bean.Hjlsh
             binding.tvHphm.text = bean.Hphm
             binding.tvHpzl.text = bean.Hpzl
             binding.tvHpys.text = bean.Hpys

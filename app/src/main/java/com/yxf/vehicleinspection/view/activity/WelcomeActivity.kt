@@ -39,7 +39,7 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
                 Manifest.permission.ACCESS_NETWORK_STATE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE)
+                Manifest.permission.READ_PHONE_STATE,)
             .request { allGranted, _, deniedList ->
                 if (allGranted) {
                     Toast.makeText(this, "已获取所需权限", Toast.LENGTH_SHORT).show()

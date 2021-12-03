@@ -21,12 +21,12 @@ import retrofit2.Response
  *   time:2021/11/4
  */
 class VehicleInspectionItemRepository {
-    fun getVehicleInspectionItem(Lsh : String): LiveData<List<VehicleInspectionItemR006Response>> {
+    fun getVehicleInspectionItem(Ajlsh : String, Hjlsh : String, Ajywlb : String, Hjywlb : String): LiveData<List<VehicleInspectionItemR006Response>> {
         val liveData = MutableLiveData<List<VehicleInspectionItemR006Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_VEHICLE_INSPECTION_ITEM,
             getIpAddress(),
-            getJsonData(VehicleInspectionItemR006Request(Lsh))
+            getJsonData(VehicleInspectionItemR006Request(Ajlsh, Hjlsh, Ajywlb, Hjywlb))
         )
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

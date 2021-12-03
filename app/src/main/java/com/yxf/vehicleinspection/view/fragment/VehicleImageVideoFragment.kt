@@ -33,16 +33,16 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
 
 
         binding.btnPass.setOnClickListener {
-            val action = VehicleImageVideoFragmentDirections.actionVehicleImageVideoFragmentToSignatureFragment()
-            it.findNavController().navigate(action)
+//            val action = VehicleImageVideoFragmentDirections.actionVehicleImageVideoFragmentToSignatureFragment()
+//            it.findNavController().navigate(action)
 
         }
         binding.btnExit.setOnClickListener {
             requireActivity().onBackPressed()
         }
         binding.btnReject.setOnClickListener {
-            val action = VehicleImageVideoFragmentDirections.actionVehicleImageVideoFragmentToSignatureFragment()
-            it.findNavController().navigate(action)
+//            val action = VehicleImageVideoFragmentDirections.actionVehicleImageVideoFragmentToSignatureFragment()
+//            it.findNavController().navigate(action)
         }
     }
     private fun getImageData(Lsh : String, Jccs : String) {

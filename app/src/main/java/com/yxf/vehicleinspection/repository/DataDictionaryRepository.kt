@@ -115,6 +115,11 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>{
         return dao.getListFromFl(Fl)
     }
+
+    fun getMcListFromFl(Fl : String) : LiveData<List<String>>{
+        return dao.getListMcFromFl(Fl)
+    }
+
     /**
      *  根据Id = 1 查询数据库中是否存在数据
      *  @return Id = 1 的对象

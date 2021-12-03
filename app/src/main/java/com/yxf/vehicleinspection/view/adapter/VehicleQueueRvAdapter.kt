@@ -38,8 +38,9 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
             binding.tvHphm.text = bean.Hphm
             binding.tvHpzl.text = bean.HpzlCc
             binding.tvAjywlb.text = "安检：${bean.AjywlbCc}"
-            binding.tvHjjwlb.text = "环保：${bean.HjywlbCc}"
-            binding.tvLsh.text = bean.Lsh
+            binding.tvHjywlb.text = "环保：${bean.HjywlbCc}"
+            binding.tvAjlsh.text = "安检流水号：${bean.Ajlsh}"
+            binding.tvHjlsh.text = "环检流水号：${bean.Hjlsh}"
             binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
         }

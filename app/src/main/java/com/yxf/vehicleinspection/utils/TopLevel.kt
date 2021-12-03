@@ -75,6 +75,7 @@ const val QUERY_CHARGE_RESULT = "LYYDJKR014"
 const val QUERY_SYSTEM_PARAMS = "LYYDJKR015"
 const val QUERY_IMAGE_ITEM = "LYYDJKR017"
 const val QUERY_ARTIFICIAL_PROJECT = "LYYDJKR020"
+const val QUERY_VERSION = "LYYDJKR021"
 const val WRITE_USER_LOGIN = "LYYDJKW001"
 const val WRITE_SAVE_SIGNATURE = "LYYDJKW006"
 const val WRITE_INSPECTION_PHOTO = "LYYDJKW007"
@@ -138,7 +139,8 @@ const val FOUR_AXIS_BREAK = "B4"
 const val FIVE_AXIS_BREAK = "B5"
 const val CHASSIS = "C1"
 const val POWER = "CG"
-const val DYNAMIC = "DC"
+const val DYNAMIC_BEHIND = "DC"
+const val DYNAMIC_FRONT = "DC0"
 const val EXTERIOR_FRONT = "F1"
 const val EXTERIOR_BEHIDE = "F0"
 const val LEFT_LIGHT = "H1"
@@ -207,17 +209,17 @@ fun <T> getJsonData(elements : List<T>) : String{
  * 获取本机IP地址 格式为xxx.xxx.xxx.xxx
  */
 fun getIpAddress() : String {
-//    val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-//    if (wifiManager.isWifiEnabled){
-//        val wifiInfo = wifiManager.connectionInfo
-//        val ipAddress = wifiInfo.ipAddress
-//        return int2Ip(ipAddress)
-//
-//    }else{
-//        Toast.makeText(MyApp.context,"WIFI未打开", Toast.LENGTH_SHORT).show()
-//        return ""
-//    }
-    return "192.168.2.132"
+    val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    if (wifiManager.isWifiEnabled){
+        val wifiInfo = wifiManager.connectionInfo
+        val ipAddress = wifiInfo.ipAddress
+        return int2Ip(ipAddress)
+
+    }else{
+        Toast.makeText(MyApp.context,"WIFI未打开", Toast.LENGTH_SHORT).show()
+        return ""
+    }
+//    return "192.168.2.132"
 
 }
 

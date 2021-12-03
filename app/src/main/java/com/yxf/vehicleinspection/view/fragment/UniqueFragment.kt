@@ -105,7 +105,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(requireActivity().packageManager).also {
                     val videoFile: File? = try {
-                        createVideoFile(args.bean005.Lsh,args.bean006.Jccs,"F2")
+                        createVideoFile(args.bean002.Ajlsh,args.bean002.Ajjccs,"F2")
                     } catch (ex: IOException) {
                         null
                     }
@@ -125,7 +125,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(requireActivity().packageManager).also {
                     val videoFile: File? = try {
-                        createVideoFile(args.bean005.Lsh,args.bean006.Jccs,"F3")
+                        createVideoFile(args.bean002.Ajlsh,args.bean002.Ajjccs,"F3")
                     } catch (ex: IOException) {
                         null
                     }
@@ -145,7 +145,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(requireActivity().packageManager).also {
                     val videoFile: File? = try {
-                        createVideoFile(args.bean005.Lsh,args.bean006.Jccs,"F4")
+                        createVideoFile(args.bean002.Ajlsh,args.bean002.Ajjccs,"F4")
                     } catch (ex: IOException) {
                         null
                     }
@@ -163,11 +163,11 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
         }
     }
 
-    private fun createVideoFile(Lsh: String, Jccs : Int, Jyxm: String): File {
+    private fun createVideoFile(Ajlsh: String, Ajjccs : Int, Jyxm: String): File {
         val storageDir: File? =
             this.requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-            "${Lsh}_${Jccs}_${Jyxm}-",
+            "${Ajlsh}_${Ajjccs}_${Jyxm}-",
             ".mp4",
             storageDir
         ).apply {
@@ -178,16 +178,14 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
 
 
 
-    private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
-        inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
+    private fun getSelectData(Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh: String, Hjlsh : String){
+        inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh,Hjlsh).observe(this){
             inspectionItemSelectAdapter.data = it[0].Xmlb
         }
     }
     private fun getPostVideoData(Jyxm: String,Spbhaj: String,Spbhhj: String,endTime : String) : SaveVideoW008Request {
         return SaveVideoW008Request(0,
-            args.bean005.Lsh,
             args.jcxh,
-            args.bean006.Jccs,
             args.bean005.Hphm,
             args.bean005.Hpzl,
             Jyxm,
@@ -202,17 +200,18 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             "",
             args.bean005.Clpp1,
             args.bean005.Syr,
-            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
             args.bean005.Hjdlsj,
             "",
-            "0"
+            "0",
+            args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs
         )
     }
     private fun getPostProjectEndData(): ProjectEndW012Request {
-        return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
+        return ProjectEndW012Request(AjJyjghb,args.jcxh,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
-            args.bean006.Hjywlb,AjJkxlh)
+            args.bean006.Hjywlb,AjJkxlh,args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs)
     }
     private fun getPostArtificialData(Ajadapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<UniqueArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<UniqueArtificialProjectRequest>>()
@@ -226,10 +225,8 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             listXmlb.add(xmlb)
         }
         val chassisArtificialProjectRequest = UniqueArtificialProjectRequest(
-            args.bean005.Lsh,
             AjJyjghb,
             args.jcxh,
-            args.bean006.Jccs,
             args.bean005.Hphm,
             args.bean005.Hpzl,
             args.bean005.Clsbdh,
@@ -245,7 +242,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             "",
             bean001.TrueName,
             bean001.ID,
-            binding.etUniqueBz.text.toString()
+            binding.etUniqueBz.text.toString(),
+            args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
         Log.e("TAG", "getPostArtificialData: $list")
@@ -272,13 +271,16 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     inspectionItemViewModel.getServerTime().observe(this) {
                         beginTime = it.Sj
                         inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs
                         )).observe(this){
                             if (it){
-                                getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb)
+                                getSelectData( args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
+                                    args.bean002.Ajlsh,args.bean002.Hjlsh,)
                             }else{
                                 Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
                             }
@@ -300,7 +302,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                 if (path!=null&&path.isNotBlank()){
                     inspectionItemViewModel.getServerTime().observe(this){
                         inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
-                            args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,"F2",
                             VIN_FAR_TO_CLOSED, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
                             it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
@@ -308,9 +310,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                                 "yyyyMMddHHmmss"),
                             string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
                             "",args.bean005.Clpp1,args.bean005.Syr,
-                            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-                            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-                            args.bean005.Hjdlsj,path,"1")
+                            args.bean005.Hjdlsj,path,"1",
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs)
                         ).observe(this){
                             if (it){
                                 Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
@@ -334,7 +336,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                 if (path!=null&&path.isNotBlank()){
                     inspectionItemViewModel.getServerTime().observe(this){
                         inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
-                            args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,"F3",
                             AROUND_VEHICLE, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
                             it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
@@ -342,9 +344,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                                 "yyyyMMddHHmmss"),
                             string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
                             "",args.bean005.Clpp1,args.bean005.Syr,
-                            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-                            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-                            args.bean005.Hjdlsj,path,"1")
+                            args.bean005.Hjdlsj,path,"1",
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs)
                         ).observe(this){
                             if (it){
                                 Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
@@ -368,7 +370,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                 if (path!=null&&path.isNotBlank()){
                     inspectionItemViewModel.getServerTime().observe(this){
                         inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
-                            args.bean005.Lsh,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,"F4",
                             TIRE_TREAD_DEPTH, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
                             it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
@@ -376,9 +378,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                                 "yyyyMMddHHmmss"),
                             string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
                             "",args.bean005.Clpp1,args.bean005.Syr,
-                            "0".takeIf { args.bean006.Ajywlb == "-" }?: "1",
-                            "0".takeIf { args.bean006.Hjywlb == "-" }?: "1",
-                            args.bean005.Hjdlsj,path,"1")
+                            args.bean005.Hjdlsj,path,"1",
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs)
                         ).observe(this){
                             if (it){
                                 Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()

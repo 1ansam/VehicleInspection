@@ -11,8 +11,8 @@ import com.yxf.vehicleinspection.repository.VehicleInspectionItemRepository
  *   time:2021/11/4
  */
 class VehicleInspectionItemViewModel(val repository: VehicleInspectionItemRepository) : ViewModel(){
-    fun getVehicleInspectionItem(Lsh : String): LiveData<List<VehicleInspectionItemR006Response>> {
-        return repository.getVehicleInspectionItem(Lsh)
+    fun getVehicleInspectionItem(Ajlsh : String, Hjlsh : String, Ajywlb : String, Hjywlb : String): LiveData<List<VehicleInspectionItemR006Response>> {
+        return repository.getVehicleInspectionItem(Ajlsh, Hjlsh, Ajywlb, Hjywlb)
     }
 }
 class VehicleInspectionItemViewModelFactory(val repository: VehicleInspectionItemRepository): ViewModelProvider.Factory{

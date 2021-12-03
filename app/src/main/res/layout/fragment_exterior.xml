@@ -59,12 +59,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/lightBlue"
-                android:text="车辆特征参数" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,442 +68,175 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/llVehicleFeatures"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="外廓尺寸" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etCwkc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="长(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etCwkk"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="宽(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etCwkg"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="高(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                        android:background="@color/lightBlue"
+                        android:text="车辆特征参数" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tvZj"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:gravity="start"
-                            android:text="轴距(多轴可点击展开)" />
+                            android:text="外廓尺寸" />
 
                         <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOneZj"
+                            android:id="@+id/etCwkc"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="一轴(mm)"
-                            android:inputType="number" />
+                            android:hint="长(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
 
                         <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etTwoZj"
+                            android:id="@+id/etCwkk"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="二轴(mm)"
-                            android:inputType="number" />
+                            android:hint="宽(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etCwkg"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="高(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/llZj"
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etThreeZj"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="三轴(mm)"
-                            android:inputType="number" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etFourZj"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="四轴(mm)"
-                            android:inputType="number" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etFiveZj"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="五轴(mm)"
-                            android:inputType="number" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="车厢栏板高度" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etCxlbgd"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <TextView
-                    android:id="@+id/tvDczxlhwsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="单车转向轮轮胎花纹深度(点击展开或收敛)" />
-
-                <LinearLayout
-                    android:id="@+id/llDczxlhwsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etTurnA1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A1(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etTurnA2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A2(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etTurnA3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A3(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etTurnA4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A4(mm)"
-                            android:inputType="numberDecimal" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
-                            <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etTurnB1"
+                            <TextView
+                                android:id="@+id/tvZj"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="B1(mm)"
-                                android:inputType="numberDecimal" />
+                                android:layout_weight="2"
+                                android:gravity="start"
+                                android:text="轴距(多轴可点击展开)" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etTurnB2"
+                                android:id="@+id/etOneZj"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="B2(mm)"
-                                android:inputType="numberDecimal" />
+                                android:hint="一轴(mm)"
+                                android:inputType="number" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etTurnB3"
+                                android:id="@+id/etTwoZj"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="B3(mm)"
-                                android:inputType="numberDecimal" />
-
-                            <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etTurnB4"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="B4(mm)"
-                                android:inputType="numberDecimal" />
+                                android:hint="二轴(mm)"
+                                android:inputType="number" />
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/llZj"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etThreeZj"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="三轴(mm)"
+                                android:inputType="number" />
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etFourZj"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="四轴(mm)"
+                                android:inputType="number" />
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etFiveZj"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="五轴(mm)"
+                                android:inputType="number" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <TextView
-                    android:id="@+id/tvDcqtlhwsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="单车其他轮轮胎花纹深度(点击展开或收敛)" />
-
-                <LinearLayout
-                    android:id="@+id/llDcqtlhwsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="车厢栏板高度" />
 
                         <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherA1"
+                            android:id="@+id/etCxlbgd"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="A1(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherA2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A2(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherA3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A3(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherA4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="A4(mm)"
-                            android:inputType="numberDecimal" />
+                            android:hint="(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <TextView
+                        android:id="@+id/tvDczxlhwsd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherB1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="B1(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherB2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="B2(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherB3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="B3(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherB4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="B4(mm)"
-                            android:inputType="numberDecimal" />
-                    </LinearLayout>
+                        android:gravity="start"
+                        android:text="单车转向轮轮胎花纹深度(点击展开或收敛)" />
 
                     <LinearLayout
+                        android:id="@+id/llDczxlhwsd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherC1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="C1(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherC2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="C2(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherC3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="C3(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherC4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="C4(mm)"
-                            android:inputType="numberDecimal" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherD1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="D1(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherD2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="D2(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherD3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="D3(mm)"
-                            android:inputType="numberDecimal" />
-
-                        <com.yxf.vehicleinspection.view.ClearEditText
-                            android:id="@+id/etOtherD4"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="D4(mm)"
-                            android:inputType="numberDecimal" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <TextView
-                    android:id="@+id/tvGclthwsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="挂车轮胎花纹深度(点击展开或收敛)" />
-
-                <LinearLayout
-                    android:id="@+id/llGclthwsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -517,7 +244,7 @@
                             android:orientation="horizontal">
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcA1"
+                                android:id="@+id/etTurnA1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -525,7 +252,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcA2"
+                                android:id="@+id/etTurnA2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -533,7 +260,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcA3"
+                                android:id="@+id/etTurnA3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -541,7 +268,110 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcA4"
+                                android:id="@+id/etTurnA4"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="A4(mm)"
+                                android:inputType="numberDecimal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etTurnB1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B1(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etTurnB2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B2(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etTurnB3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B3(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etTurnB4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B4(mm)"
+                                    android:inputType="numberDecimal" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <TextView
+                        android:id="@+id/tvDcqtlhwsd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="单车其他轮轮胎花纹深度(点击展开或收敛)" />
+
+                    <LinearLayout
+                        android:id="@+id/llDcqtlhwsd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etOtherA1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="A1(mm)"
+                                android:inputType="numberDecimal" />
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etOtherA2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="A2(mm)"
+                                android:inputType="numberDecimal" />
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etOtherA3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="A3(mm)"
+                                android:inputType="numberDecimal" />
+
+                            <com.yxf.vehicleinspection.view.ClearEditText
+                                android:id="@+id/etOtherA4"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -555,7 +385,7 @@
                             android:orientation="horizontal">
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcB1"
+                                android:id="@+id/etOtherB1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -563,7 +393,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcB2"
+                                android:id="@+id/etOtherB2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -571,7 +401,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcB3"
+                                android:id="@+id/etOtherB3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -579,7 +409,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcB4"
+                                android:id="@+id/etOtherB4"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -593,7 +423,7 @@
                             android:orientation="horizontal">
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcC1"
+                                android:id="@+id/etOtherC1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -601,7 +431,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcC2"
+                                android:id="@+id/etOtherC2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -609,7 +439,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcC3"
+                                android:id="@+id/etOtherC3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -617,7 +447,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcC4"
+                                android:id="@+id/etOtherC4"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -631,7 +461,7 @@
                             android:orientation="horizontal">
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcD1"
+                                android:id="@+id/etOtherD1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -639,7 +469,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcD2"
+                                android:id="@+id/etOtherD2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -647,7 +477,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcD3"
+                                android:id="@+id/etOtherD3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -655,7 +485,7 @@
                                 android:inputType="numberDecimal" />
 
                             <com.yxf.vehicleinspection.view.ClearEditText
-                                android:id="@+id/etGcD4"
+                                android:id="@+id/etOtherD4"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -663,205 +493,383 @@
                                 android:inputType="numberDecimal" />
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/tvGclthwsd"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
                         android:gravity="start"
-                        android:text="第一轴高度" />
+                        android:text="挂车轮胎花纹深度(点击展开或收敛)" />
 
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etYzzgd"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:id="@+id/llGclthwsd"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="左(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etYzygd"
-                        android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcA1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="A1(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcA2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="A2(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcA3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="A3(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcA4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="A4(mm)"
+                                    android:inputType="numberDecimal" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcB1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B1(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcB2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B2(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcB3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B3(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcB4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="B4(mm)"
+                                    android:inputType="numberDecimal" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcC1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="C1(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcC2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="C2(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcC3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="C3(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcC4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="C4(mm)"
+                                    android:inputType="numberDecimal" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcD1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="D1(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcD2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="D2(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcD3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="D3(mm)"
+                                    android:inputType="numberDecimal" />
+
+                                <com.yxf.vehicleinspection.view.ClearEditText
+                                    android:id="@+id/etGcD4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="D4(mm)"
+                                    android:inputType="numberDecimal" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="右(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:gravity="start"
+                            android:text="第一轴高度" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etYzzgd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="左(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etYzygd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="右(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:gravity="start"
+                            android:text="最后轴高度" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etZhzzgd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="左(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etZhzygd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="右(mm)"
+                            android:inputType="number"
+                            android:maxLength="4" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="是否全时/适时四驱" />
+
+                        <CheckBox
+                            android:id="@+id/cbSfqssq"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="否" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="是否电子驻车" />
+
+                        <CheckBox
+                            android:id="@+id/cbSfdzzc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="否" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="是否配备空气悬架" />
+
+                        <CheckBox
+                            android:id="@+id/cbSfkqxj"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="否" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:id="@+id/llKqxjz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="空气悬架轴" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etKqxjz"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="转向轴数量" />
+
+                        <com.yxf.vehicleinspection.view.ClearEditText
+                            android:id="@+id/etZxzsl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:maxLength="1" />
+
+                    </LinearLayout>
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:gravity="start"
-                        android:text="最后轴高度" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etZhzzgd"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="左(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etZhzygd"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="右(mm)"
-                        android:maxLength="4"
-                        android:inputType="number" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="是否全时/适时四驱" />
-
-                    <CheckBox
-                        android:id="@+id/cbSfqssq"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="否" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="是否电子驻车" />
-
-                    <CheckBox
-                        android:id="@+id/cbSfdzzc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="否" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="是否配备空气悬架" />
-
-                    <CheckBox
-                        android:id="@+id/cbSfkqxj"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="否" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:id="@+id/llKqxjz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="空气悬架轴" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etKqxjz"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="number" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gainsboro" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="转向轴数量" />
-
-                    <com.yxf.vehicleinspection.view.ClearEditText
-                        android:id="@+id/etZxzsl"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        android:maxLength="1" />
-                </LinearLayout>
-
 
                 <TextView
                     android:id="@+id/textView4"
@@ -889,6 +897,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -900,6 +909,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false" />
+
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"

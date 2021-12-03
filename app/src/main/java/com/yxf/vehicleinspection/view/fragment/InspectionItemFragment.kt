@@ -32,7 +32,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvInspectionItem.layoutManager = LinearLayoutManager(this.requireContext())
         vehicleInformationAdapter = VehicleAllInfoAdapter(this,dataDictionaryViewModel)
-        inspectionItemAdapter = InspectionItemAdapter(this,dataDictionaryViewModel)
+        inspectionItemAdapter = InspectionItemAdapter(this,dataDictionaryViewModel,args.bean002)
 
         binding.rvVehicleInformation.adapter = vehicleInformationAdapter
         binding.rvInspectionItem.adapter = inspectionItemAdapter
@@ -49,12 +49,12 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
      *   @param Clsbdh 车辆识别代号 用流水号/行驶证编号查询时可空（空字符串）
      *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
      */
-    private fun getData(Lsh: String, Hphm: String, Hpzl: String, Clsbdh: String, Xszbh: String) {
+    private fun getData(Hphm: String, Hpzl: String, Clsbdh: String, Xszbh: String, Ajlsh : String, Hjlsh : String) {
         val vehicleInformationList =
             ArrayList<VehicleAllInfoR005Response>()
         val inspectionItemList = ArrayList<VehicleInspectionItemR006Response>()
 
-        vehicleAllInfoViewModel.getVehicleAllInfo(Lsh, Hphm, Hpzl, Clsbdh, Xszbh)
+        vehicleAllInfoViewModel.getVehicleAllInfo(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh,Hjlsh)
             .observe(this) {
                 for (element in it) {
                     vehicleInformationList.add(element)
@@ -65,7 +65,8 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
                 }
                 vehicleInformationAdapter.data = vehicleInformationList
             }
-        vehicleInspectionItemViewModel.getVehicleInspectionItem(Lsh).observe(this) {
+        vehicleInspectionItemViewModel.getVehicleInspectionItem(args.bean002.Ajlsh,
+        args.bean002.Hjlsh,args.bean002.Ajywlb,args.bean002.Hjywlb).observe(this) {
             for (element in it) {
                 inspectionItemList.add(element)
             }
@@ -78,7 +79,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 
     override fun onResume() {
         super.onResume()
-        getData(args.bean002.Lsh, args.bean002.Hphm, args.bean002.Hpzl, "", "")
+        getData(args.bean002.Hphm, args.bean002.Hpzl, "", "",args.bean002.Ajlsh,args.bean002.Hjlsh)
     }
 
 

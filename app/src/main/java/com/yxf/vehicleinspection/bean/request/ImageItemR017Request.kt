@@ -5,10 +5,12 @@ package com.yxf.vehicleinspection.bean.request
  *   time:2021/11/4
  */
 data class ImageItemR017Request(
-    val Lsh : String,
     val Jyxm : String,
     val Ajywlb : String,
     val Hjywlb : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+
 
 ) {
 }

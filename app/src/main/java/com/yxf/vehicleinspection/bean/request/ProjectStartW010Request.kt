@@ -18,10 +18,8 @@ package com.yxf.vehicleinspection.bean.request
  *   @param AjJkxlh 安检接口序列号
  */
 data class ProjectStartW010Request(
-    val Lsh : String,
     val Jyjgbh : String,
     val Jcxh : String,
-    val Jccs : Int,
     val Hphm : String,
     val Hpzl : String,
     val Clsbdh : String,
@@ -31,6 +29,11 @@ data class ProjectStartW010Request(
     val Ajywlb : String,
     val Hjywlb : String,
     val AjJkxlh : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
+
 
 ) {
 }

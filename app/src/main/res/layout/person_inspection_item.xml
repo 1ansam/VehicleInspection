@@ -68,7 +68,7 @@
                     android:text="@string/AJ" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvHjjwlb"
+                    android:id="@+id/tvHjywlb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
@@ -77,7 +77,18 @@
                     android:text="@string/HB" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvLsh"
+                    android:id="@+id/tvAjlsh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:paddingStart="10dp"
+                    android:text="@string/lsh"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="0dp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvHjlsh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"

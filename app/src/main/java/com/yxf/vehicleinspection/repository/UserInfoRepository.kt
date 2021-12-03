@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.AllUserInfoR001Request
 import com.yxf.vehicleinspection.bean.request.UserInfoRequest
+import com.yxf.vehicleinspection.bean.request.VersionCodeRequestR021
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
+import com.yxf.vehicleinspection.bean.response.VersionCodeResponseR021
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.WriteService
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -89,6 +91,24 @@ class UserInfoRepository {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 isLogin.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+    fun getVersion():LiveData<VersionCodeResponseR021>{
+        val liveData = MutableLiveData<VersionCodeResponseR021>()
+        val call = RetrofitService.create(QueryService::class.java).query(
+            QUERY_VERSION,
+            getIpAddress(),
+            getJsonData(VersionCodeRequestR021())
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Bean(response,liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
             }
         })

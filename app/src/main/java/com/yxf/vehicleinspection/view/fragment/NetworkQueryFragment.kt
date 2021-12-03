@@ -80,15 +80,16 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
         networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[4],args.bean005.Zzxzqh))
         networkQueryInfoAdapter.data = networkQueryInfoList
     }
-    private fun getSelectData(Lsh: String, Jyxm: String, Ajywlb: String, Hjywlb: String){
-        inspectionItemViewModel.getSelectItemData(Lsh, Jyxm, Ajywlb, Hjywlb).observe(this){
+    private fun getSelectData(Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh : String, Hjlsh : String){
+        inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh).observe(this){
             inspectionItemSelectAdapter.data = it[0].Xmlb
         }
     }
     private fun getPostProjectEndData(): ProjectEndW012Request {
-        return ProjectEndW012Request(args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,
+        return ProjectEndW012Request(AjJyjghb,args.jcxh,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
-            args.bean006.Hjywlb,AjJkxlh)
+            args.bean006.Hjywlb,AjJkxlh,args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs)
     }
     private fun getPostArtificialData(inspectionItemSelectAdapter: InspectionItemSelectAdapter,networkQueryInfoAdapter: NetworkQueryInfoAdapter): List<ArtificialProjectW011Request<NetworkQueryArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<NetworkQueryArtificialProjectRequest>>()
@@ -108,10 +109,8 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
             listInfo.add(editValue?.text.toString())
         }
         val chassisArtificialProjectRequest = NetworkQueryArtificialProjectRequest(
-            args.bean005.Lsh,
             AjJyjghb,
             args.jcxh,
-            args.bean006.Jccs,
             args.bean005.Hphm,
             args.bean005.Hpzl,
             args.bean005.Clsbdh,
@@ -124,7 +123,9 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
             string2String(endTime,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
             bean001.TrueName,
             listInfo[0],
-            listInfo[1],listInfo[2],listInfo[3],listInfo[4]
+            listInfo[1],listInfo[2],listInfo[3],listInfo[4],
+            args.bean002.Ajlsh,args.bean002.Hjlsh,
+            args.bean002.Ajjccs,args.bean002.Hjjccs
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
         Log.e("TAG", "getPostArtificialData: $list", )
@@ -142,13 +143,16 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
                     inspectionItemViewModel.getServerTime().observe(this) {
                         beginTime = it.Sj
                         inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            args.bean005.Lsh,AjJyjghb,args.jcxh,args.bean006.Jccs,args.bean005.Hphm,
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs
                         )).observe(this){
                             if (it){
-                                getSelectData(args.bean006.Lsh, args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb)
+                                getSelectData(args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
+                                    args.bean002.Ajlsh,args.bean002.Hjlsh,)
                             }else{
                                 Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
                             }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
+import com.yxf.vehicleinspection.bean.response.VersionCodeResponseR021
 import com.yxf.vehicleinspection.repository.UserInfoRepository
 import java.lang.IllegalArgumentException
 
@@ -18,6 +19,9 @@ class LoginViewModel(private val repository: UserInfoRepository) : ViewModel() {
     }
     fun getUser(username: String, password: String):LiveData<UserInfoR001Response>{
         return repository.getUser(username, password)
+    }
+    fun getVersion(): LiveData<VersionCodeResponseR021> {
+        return repository.getVersion()
     }
 }
 class LoginViewModelFactory(val repository: UserInfoRepository): ViewModelProvider.Factory{

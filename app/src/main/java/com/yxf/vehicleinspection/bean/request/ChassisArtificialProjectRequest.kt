@@ -6,10 +6,8 @@ package com.yxf.vehicleinspection.bean.request
  *
  */
 data class ChassisArtificialProjectRequest(
-    val Lsh : String,
     val Jyjgbh : String,
     val Jcxh : String,
-    val Jccs : Int,
     val Hphm : String,
     val Hpzl : String,
     val Clsbdh : String,
@@ -27,6 +25,10 @@ data class ChassisArtificialProjectRequest(
     val Ycysfzh : String,
     val Ycyjy : String,
     val Bz : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
 
 ) {
 }

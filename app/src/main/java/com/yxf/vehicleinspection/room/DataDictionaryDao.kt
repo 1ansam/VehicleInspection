@@ -50,6 +50,13 @@ interface DataDictionaryDao {
      */
     @Query("SELECT * FROM DataDictionary WHERE Fl LIKE :Fl")
     fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>
+
+    @Query("SELECT * FROM DataDictionary WHERE Fl IN (:Fllist)")
+    fun getListFromFl(Fllist : List<String>) : LiveData<List<DataDictionaryR003Response>>
+
+
+    @Query("SELECT Mc FROM DataDictionary WHERE Fl LIKE :Fl")
+    fun getListMcFromFl(Fl : String) : LiveData<List<String>>
     /**
      *  根据Id = 1 查询数据库中是否存在数据
      *  @return Id = 1 的对象

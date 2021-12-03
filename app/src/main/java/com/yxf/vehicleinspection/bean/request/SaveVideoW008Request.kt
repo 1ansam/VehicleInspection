@@ -29,9 +29,7 @@ package com.yxf.vehicleinspection.bean.request
  */
 data class SaveVideoW008Request(
     val ID : Int,
-    val Lsh : String,
     val Jcxh : String,
-    val Jccs : Int,
     val Hphm : String,
     val Hpzl : String,
     val Jcxm : String,
@@ -46,10 +44,13 @@ data class SaveVideoW008Request(
     val Lxxx : String,
     val Clpp : String,
     val Czdw : String,
-    val Bcaj : String,
-    val BcHj : String,
     val Hjdlsj : String,
     val Lxdz : String,
     val Lxbz : String,
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Ajjccs : Int,
+    val Hjjccs : Int,
+
 ) {
 }

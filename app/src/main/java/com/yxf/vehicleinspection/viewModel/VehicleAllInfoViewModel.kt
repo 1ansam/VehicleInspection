@@ -19,8 +19,8 @@ class VehicleAllInfoViewModel(val repository: VehicleAllInfoRepository) : ViewMo
      *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
      *   @return LiveData<List<VehicleAllInfoResponse>>
      */
-    fun getVehicleAllInfo(Lsh : String, Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String): LiveData<List<VehicleAllInfoR005Response>> {
-        return repository.getVehicleAllInfoRepository(Lsh, Hphm, Hpzl, Clsbdh, Xszbh)
+    fun getVehicleAllInfo(Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String, Ajlsh : String, Hjlsh : String): LiveData<List<VehicleAllInfoR005Response>> {
+        return repository.getVehicleAllInfoRepository(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh, Hjlsh)
     }
 }
 class VehicleAllInfoViewModelFactory(private val repositoryAll: VehicleAllInfoRepository) :

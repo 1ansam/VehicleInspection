@@ -8,7 +8,6 @@ import java.io.Serializable
  */
 data class VehicleInspectionItemR006Response(
     val ID : Int?,
-    val Lsh : String,
     val Jcxh : String?,
     val Jccs : Int,
     val Ajywlb : String,
@@ -21,6 +20,11 @@ data class VehicleInspectionItemR006Response(
     val Jcjssj : String?,
     val Jcpj : String?,
     val Jczt : String?,
+    val Ajlsh : String,
+    val Ajjccs : String,
+    val Hjlsh : String,
+    val Hjjccs : String,
 
-    ): Serializable {
+
+): Serializable {
 }
