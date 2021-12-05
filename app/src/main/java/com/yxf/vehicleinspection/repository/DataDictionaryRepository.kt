@@ -70,6 +70,10 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
         })
         return liveData
     }
+
+    fun getDataDictionaryFromDb() : LiveData<List<DataDictionaryR003Response>>{
+        return dao.getDataDictionaryFromDb()
+    }
     /**
      * 插入数据列表
      * @param dataDictionaryListResponse 数据对象列表
@@ -107,6 +111,10 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     fun getMc(Fl : String,Dm : String): LiveData<String> {
         return dao.getMc(Fl, Dm)
     }
+
+    fun getDm(Fl : String,Mc : String) : LiveData<String>{
+        return dao.getDm(Fl, Mc)
+    }
     /**
      *  约束Fl得到该Fl所对应的对象列表
      *  @param Fl 分类代码
@@ -118,6 +126,10 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
 
     fun getMcListFromFl(Fl : String) : LiveData<List<String>>{
         return dao.getListMcFromFl(Fl)
+    }
+
+    fun getListFromFl(FlList : List<String>) : LiveData<List<DataDictionaryR003Response>>{
+        return dao.getListFromFl(FlList)
     }
 
     /**

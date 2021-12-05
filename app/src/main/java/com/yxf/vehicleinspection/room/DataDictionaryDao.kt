@@ -43,6 +43,12 @@ interface DataDictionaryDao {
      */
     @Query("SELECT Mc FROM DataDictionary WHERE Fl LIKE :Fl AND Dm LIKE :Dm ")
     fun getMc(Fl : String, Dm : String) : LiveData<String>
+
+    @Query("SELECT Dm FROM DataDictionary WHERE Fl LIKE :Fl AND Mc LIKE :Mc")
+    fun getDm(Fl: String, Mc : String) : LiveData<String>
+
+    @Query("SELECT * FROM DataDictionary")
+    fun getDataDictionaryFromDb() : LiveData<List<DataDictionaryR003Response>>
     /**
      *  约束Fl得到该Fl所对应的对象列表
      *  @param Fl 分类代码
@@ -51,8 +57,8 @@ interface DataDictionaryDao {
     @Query("SELECT * FROM DataDictionary WHERE Fl LIKE :Fl")
     fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>
 
-    @Query("SELECT * FROM DataDictionary WHERE Fl IN (:Fllist)")
-    fun getListFromFl(Fllist : List<String>) : LiveData<List<DataDictionaryR003Response>>
+    @Query("SELECT * FROM DataDictionary WHERE Fl IN (:FlList)")
+    fun getListFromFl(FlList : List<String>) : LiveData<List<DataDictionaryR003Response>>
 
 
     @Query("SELECT Mc FROM DataDictionary WHERE Fl LIKE :Fl")

@@ -26,4 +26,6 @@ interface SystemParamsDao {
 
     @Query("SELECT Web_Pass FROM SystemParams WHERE Sjlb LIKE :Sjlb")
     fun getWebPass(Sjlb: String) : LiveData<String>
+    @Query("SELECT LshSzm FROM SystemParams WHERE Sjlb LIKE 'AJ'")
+    fun getLshSzm() : LiveData<String>
 }

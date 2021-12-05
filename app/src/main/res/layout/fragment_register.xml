@@ -105,6 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="textCapCharacters"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -118,7 +119,7 @@
                     android:id="@+id/spHpzl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1.5" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
@@ -221,7 +222,7 @@
                     android:text="货箱内部尺寸" />
 
                 <com.yxf.vehicleinspection.view.ClearEditText
-                    android:id="@+id/etChxc"
+                    android:id="@+id/etHxnbcd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -230,7 +231,7 @@
                     android:singleLine="true" />
 
                 <com.yxf.vehicleinspection.view.ClearEditText
-                    android:id="@+id/etChxk"
+                    android:id="@+id/etHxnbkd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -239,7 +240,7 @@
                     android:singleLine="true" />
 
                 <com.yxf.vehicleinspection.view.ClearEditText
-                    android:id="@+id/etChxg"
+                    android:id="@+id/etHxnbgd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -291,33 +292,40 @@
                 android:background="@drawable/bord_shape">
 
                 <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cbAjywlb"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/AJ" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spAjywlb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cbHjywlb"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="环检" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spHjywlb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
                 <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cbZjywlb"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="综检" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spZjywlb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -368,7 +376,7 @@
                     android:text="流水号" />
 
                 <com.yxf.vehicleinspection.view.ClearEditText
-                    android:id="@+id/etLshInitialAlpha"
+                    android:id="@+id/etLshSzm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"

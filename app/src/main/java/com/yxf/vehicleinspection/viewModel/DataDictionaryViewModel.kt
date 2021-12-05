@@ -19,6 +19,10 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun getDataDictionary(): LiveData<List<DataDictionaryR003Response>>{
         return dataDictionaryRepository.getDictionaryData()
     }
+
+    fun getDataDictionaryFromDb() : LiveData<List<DataDictionaryR003Response>>{
+        return dataDictionaryRepository.getDataDictionaryFromDb()
+    }
     /**
      * 插入数据列表
      * @param dataDictionaryListResponse 数据对象列表
@@ -59,6 +63,14 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun getMc(Fl : String, Dm : String) : LiveData<String>{
         return dataDictionaryRepository.getMc(Fl, Dm)
     }
+
+    fun getDm(Fl : String,Mc : String) : LiveData<String>{
+        return dataDictionaryRepository.getDm(Fl, Mc)
+    }
+
+    fun getMcListFromFl(Fl: String) : LiveData<List<String>>{
+        return dataDictionaryRepository.getMcListFromFl(Fl)
+    }
     /**
      *  约束Fl得到该Fl所对应的对象列表
      *  @param Fl 分类代码
@@ -67,6 +79,10 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun getListFromFl(Fl: String): LiveData<List<DataDictionaryR003Response>> {
         return dataDictionaryRepository.getListFromFl(Fl)
     }
+
+    fun getListFromFl(FlList : List<String>): LiveData<List<DataDictionaryR003Response>> {
+        return dataDictionaryRepository.getListFromFl(FlList)
+    }
     /**
      *  根据Id = 1 查询数据库中是否存在数据
      *  @return Id = 1 的对象
@@ -74,6 +90,7 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun getDataDictionaryExist(Id : Int): LiveData<DataDictionaryR003Response> {
         return dataDictionaryRepository.getDataDictionaryExist(Id)
     }
+
 
 
 

@@ -27,6 +27,9 @@ class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepo
     fun getWebPass(Sjlb : String) : LiveData<String>{
         return systemParamsRepository.getWebPass(Sjlb)
     }
+    fun getLshSzm() : LiveData<String>{
+        return systemParamsRepository.getLshSzm()
+    }
     fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>) = viewModelScope.launch {
         systemParamsRepository.insertSystemParams(systemParamsList)
         if (systemParamsRepository.rowNum == systemParamsRepository.insertSystemParams(systemParamsList).size){

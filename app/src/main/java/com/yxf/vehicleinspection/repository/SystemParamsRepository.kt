@@ -80,6 +80,9 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
     fun getWebPass(Sjlb : String): LiveData<String> {
         return systemParamsDao.getWebPass(Sjlb)
     }
+    fun getLshSzm() : LiveData<String>{
+        return systemParamsDao.getLshSzm()
+    }
     fun getSystemParamsDataExist() : LiveData<SystemParamsR015Response> {
         return systemParamsDao.getSystemParamsExist()
     }
