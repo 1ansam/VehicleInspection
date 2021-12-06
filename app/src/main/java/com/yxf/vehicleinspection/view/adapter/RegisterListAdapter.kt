@@ -12,6 +12,11 @@ import com.yxf.vehicleinspection.databinding.ItemRegisterBinding
  *   time:2021/12/3
  */
 class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
+    var value = ArrayList<String>()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -26,6 +31,10 @@ class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
         bean: String,
     ) {
         binding.key.text = bean
+        if (!value.isNullOrEmpty()){
+            binding.value.setText(value[position])
+        }
+
     }
 
     override fun getItemCount(): Int {
