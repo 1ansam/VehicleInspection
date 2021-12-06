@@ -16,7 +16,7 @@ import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentRegisterBinding
-import com.yxf.vehicleinspection.utils.date2String
+import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.DatePickerFragment
 import com.yxf.vehicleinspection.view.adapter.RegisterListAdapter
 import com.yxf.vehicleinspection.view.adapter.RegisterSpinnerAdapter
@@ -49,86 +49,13 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         binding.rvLeftList.adapter = textAdapter
         binding.rvLeftList.setHasFixedSize(true)
 
-        binding.rvLeftSpinner.layoutManager = GridLayoutManager(this.requireContext(), 2)
-        val spinnerAdapter = RegisterSpinnerAdapter(this.requireContext())
-        spinnerAdapter.data = registerViewModel.spinnerMap.values.toList()
         binding.tvCcrq.setOnClickListener {
             DatePickerFragment().show(this.childFragmentManager,"ccrq")
         }
         binding.tvDjrq.setOnClickListener {
             DatePickerFragment().show(this.childFragmentManager,"djrq")
         }
-        dataDictionaryViewModel.getDataDictionaryFromDb().observe(this) {
-            val listspinnerData = ArrayList<List<String>>()
-            val listCllx = mutableListOf<String>("")
-            val listClyt = mutableListOf<String>("")
-            val listYtsx = mutableListOf<String>("")
-            val listWgchx = mutableListOf<String>("")
-            val listGcjk = mutableListOf<String>("")
-            val listQdxs = mutableListOf<String>("")
-            val listZdly = mutableListOf<String>("")
-            val listRlzl1 = mutableListOf<String>("")
-            val listRlzl2 = mutableListOf<String>("")
-            val listRygg = mutableListOf<String>("")
-            val listQzdz = mutableListOf<String>("")
-            val listJcxh = mutableListOf<String>("")
-            val listJdcsslb = mutableListOf<String>("")
-            val listGyfs = mutableListOf<String>("")
-            val listJqfs = mutableListOf<String>("")
-            val listBsxs = mutableListOf<String>("")
-            val listDws = mutableListOf<String>("")
-            val listCcs = mutableListOf<String>("")
-            val listHclfs = mutableListOf<String>("")
-            for (element in it) {
-                when (element.Fl) {
-                    "07" -> listCllx.add(element.Mc)
-                    "21" -> listClyt.add(element.Mc)
-                    "22" -> listYtsx.add(element.Mc)
-                    "60" -> listWgchx.add(element.Mc)
-                    "gc" -> listGcjk.add(element.Mc)
-                    "17" -> listQdxs.add(element.Mc)
-                    "23" -> listZdly.add(element.Mc)
-                    "02" -> {
-                        listRlzl1.add(element.Mc)
-                        listRlzl2.add(element.Mc)
-                    }
-                    "27" -> listRygg.add(element.Mc)
-                    "03" -> listQzdz.add(element.Mc)
-                    "hx" -> listJcxh.add(element.Mc)
-                    "50" -> listJdcsslb.add(element.Mc)
-                    "gy" -> listGyfs.add(element.Mc)
-                    "jq" -> listJqfs.add(element.Mc)
-                    "bs" -> listBsxs.add(element.Mc)
-                    "dw" -> listDws.add(element.Mc)
-                    "13" -> listCcs.add(element.Mc)
-                    "25" -> listHclfs.add(element.Mc)
-                }
-            }
 
-            listspinnerData.add(listCllx)
-            listspinnerData.add(listClyt)
-            listspinnerData.add(listYtsx)
-            listspinnerData.add(listWgchx)
-            listspinnerData.add(listGcjk)
-            listspinnerData.add(listQdxs)
-            listspinnerData.add(listZdly)
-            listspinnerData.add(listRlzl1)
-            listspinnerData.add(listRlzl2)
-            listspinnerData.add(listRygg)
-            listspinnerData.add(listQzdz)
-            listspinnerData.add(listJcxh)
-            listspinnerData.add(listJdcsslb)
-            listspinnerData.add(listGyfs)
-            listspinnerData.add(listJqfs)
-            listspinnerData.add(listBsxs)
-            listspinnerData.add(listDws)
-            listspinnerData.add(listCcs)
-            listspinnerData.add(listHclfs)
-            spinnerAdapter.spinnerData = listspinnerData
-        }
-
-        binding.rvLeftSpinner.adapter = spinnerAdapter
-        binding.rvLeftSpinner.setHasFixedSize(true)
         binding.btnGetVehicleInfo.setOnClickListener {
             dataDictionaryViewModel.getDm("09", binding.spHpzl.selectedItem.toString())
                 .observe(this) { hpzl ->
@@ -142,7 +69,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     ).observe(this) {
                         if (it.isNotEmpty()) {
                             val bean005 = it[0]
-                            with(binding) {
+                            binding.apply {
                                 etClsbdh.setText(bean005.Clsbdh)
                                 etCwkc.setText(bean005.Cwkc)
                                 etCwkk.setText(bean005.Cwkk)
@@ -158,21 +85,23 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                 cbHjywlb.isChecked = false.takeIf { bean005.Hjywlb == "-" } ?: true
                                 cbZjywlb.isChecked = false.takeIf { bean005.Zjywlb == "-" } ?: true
                             }
-                            with(dataDictionaryViewModel) {
-                                getMc("26", bean005.Hpys).observe(this@RegisterFragment) {
+
+                            dataDictionaryViewModel.apply {
+                                getMc(FL_HPYS, bean005.Hpys).observe(this@RegisterFragment) {
                                     binding.spHpys.setText(it)
                                 }
-                                getMc("08", bean005.Ajywlb).observe(this@RegisterFragment) {
+                                getMc(FL_AJYWLB, bean005.Ajywlb).observe(this@RegisterFragment) {
                                     binding.spAjywlb.setText(it)
                                 }
-                                getMc("31", bean005.Hjywlb).observe(this@RegisterFragment) {
+                                getMc(FL_HJYWLB, bean005.Hjywlb).observe(this@RegisterFragment) {
                                     binding.spHjywlb.setText(it)
                                 }
-                                getMc("30", bean005.Zjywlb).observe(this@RegisterFragment) {
+                                getMc(FL_ZJYWLB, bean005.Zjywlb).observe(this@RegisterFragment) {
                                     binding.spZjywlb.setText(it)
                                 }
 
                             }
+
                             val textValueList = arrayListOf(
                                 bean005.Xszbh, bean005.Clpp1,
                                 bean005.Clxh, bean005.Fdjh,
@@ -196,241 +125,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                 "", ""
                             )
                             textAdapter.value = textValueList
-                            dataDictionaryViewModel.getMc("07", bean005.Cllx).observe(this) {
-                                val spinnerValueList = ArrayList<String>()
-                                spinnerValueList.add(it)
-                                dataDictionaryViewModel.getMc("21", bean005.Clyt).observe(this) {
-
-                                    spinnerValueList.add(it)
-                                    dataDictionaryViewModel.getMc("22", bean005.Ytsx)
-                                        .observe(this) {
-                                            spinnerValueList.add(it)
-                                            dataDictionaryViewModel.getMc("60", bean005.Wgchx)
-                                                .observe(this) {
-                                                    spinnerValueList.add(it)
-                                                    dataDictionaryViewModel.getMc(
-                                                        "gc",
-                                                        bean005.Gcjk
-                                                    ).observe(this) {
-                                                        spinnerValueList.add(it)
-                                                        dataDictionaryViewModel.getMc(
-                                                            "17",
-                                                            bean005.Qdxs
-                                                        ).observe(this) {
-                                                            spinnerValueList.add(it)
-                                                            dataDictionaryViewModel.getMc(
-                                                                "23",
-                                                                bean005.Zdly
-                                                            ).observe(this) {
-                                                                spinnerValueList.add(it)
-                                                                if (bean005.Rlzl.length == 1) {
-                                                                    dataDictionaryViewModel.getMc(
-                                                                        "02",
-                                                                        bean005.Rlzl
-                                                                    ).observe(this) {
-                                                                        spinnerValueList.add(it)
-                                                                        spinnerValueList.add("")
-                                                                        dataDictionaryViewModel.getMc(
-                                                                            "27",
-                                                                            bean005.Rygg
-                                                                        ).observe(this) {
-                                                                            spinnerValueList.add(it)
-                                                                            dataDictionaryViewModel.getMc(
-                                                                                "03",
-                                                                                bean005.Qzdz
-                                                                            ).observe(this) {
-                                                                                spinnerValueList.add(
-                                                                                    it
-                                                                                )
-                                                                                spinnerValueList.add(
-                                                                                    ""
-                                                                                )
-                                                                                dataDictionaryViewModel.getMc(
-                                                                                    "50",
-                                                                                    bean005.Jdcsslb
-                                                                                ).observe(this) {
-                                                                                    spinnerValueList.add(
-                                                                                        it
-                                                                                    )
-                                                                                    spinnerValueList.add(
-                                                                                        ""
-                                                                                    )
-                                                                                    spinnerValueList.add(
-                                                                                       ""
-                                                                                    )
-
-//                                                                                    dataDictionaryViewModel.getMc(
-//                                                                                        "gy",
-//                                                                                        bean005.Gyfs
-//                                                                                    ).observe(
-//                                                                                        this
-//                                                                                    ) {
-//                                                                                        spinnerValueList.add(
-//                                                                                            it
-//                                                                                        )
-//                                                                                        dataDictionaryViewModel.getMc(
-//                                                                                            "jq",
-//                                                                                            bean005.Jqfs
-//                                                                                        ).observe(
-//                                                                                            this
-//                                                                                        ) {
-//                                                                                            spinnerValueList.add(
-//                                                                                                it
-//                                                                                            )
-                                                                                            dataDictionaryViewModel.getMc(
-                                                                                                "bs",
-                                                                                                bean005.Bsxs
-                                                                                            )
-                                                                                                .observe(
-                                                                                                    this
-                                                                                                ) {
-                                                                                                    spinnerValueList.add(
-                                                                                                        it
-                                                                                                    )
-                                                                                                    spinnerValueList.add("")
-//                                                                                                    dataDictionaryViewModel.getMc(
-//                                                                                                        "dw",
-//                                                                                                        bean005.Dws
-//                                                                                                    )
-//                                                                                                        .observe(
-//                                                                                                            this
-//                                                                                                        ) {
-//                                                                                                            spinnerValueList.add(
-//                                                                                                                it
-//                                                                                                            )
-                                                                                                            spinnerValueList.add(
-                                                                                                                ""
-                                                                                                            )
-                                                                                                            spinnerValueList.add(
-                                                                                                                ""
-                                                                                                            )
-                                                                                                            for (index in 0 until spinnerValueList.size){
-                                                                                                                val viewHolder = binding.rvLeftSpinner.findViewHolderForAdapterPosition(index)
-                                                                                                                val spinner = viewHolder?.itemView?.findViewById<Spinner>(R.id.tvSpinnerValue)
-                                                                                                                spinner?.setText(spinnerValueList[index])
-                                                                                                            }
-
-
-                                                                                                        }
-                                                                                                }
-                                                                                        }
-                                                                                    }
-                                                                                }
-
-
-
-                                                                } else if (bean005.Rlzl.length == 2) {
-                                                                    dataDictionaryViewModel.getMc(
-                                                                        "02",
-                                                                        bean005.Rlzl.substring(0, 1)
-                                                                    ).observe(this) {
-                                                                        spinnerValueList.add(it)
-                                                                        dataDictionaryViewModel.getMc(
-                                                                            "02",
-                                                                            bean005.Rlzl.substring(
-                                                                                1,
-                                                                                2
-                                                                            )
-                                                                        ).observe(this) {
-                                                                            spinnerValueList.add(it)
-                                                                            dataDictionaryViewModel.getMc(
-                                                                                "27",
-                                                                                bean005.Rygg
-                                                                            ).observe(this) {
-                                                                                spinnerValueList.add(
-                                                                                    it
-                                                                                )
-                                                                                dataDictionaryViewModel.getMc(
-                                                                                    "03",
-                                                                                    bean005.Qzdz
-                                                                                ).observe(this) {
-                                                                                    spinnerValueList.add(
-                                                                                        it
-                                                                                    )
-                                                                                    spinnerValueList.add(
-                                                                                        ""
-                                                                                    )
-                                                                                    dataDictionaryViewModel.getMc(
-                                                                                        "50",
-                                                                                        bean005.Jdcsslb
-                                                                                    ).observe(
-                                                                                        this
-                                                                                    ) {
-                                                                                        spinnerValueList.add(
-                                                                                            it
-                                                                                        )
-                                                                                        dataDictionaryViewModel.getMc(
-                                                                                            "gy",
-                                                                                            bean005.Gyfs
-                                                                                        ).observe(
-                                                                                            this
-                                                                                        ) {
-                                                                                            spinnerValueList.add(
-                                                                                                it
-                                                                                            )
-                                                                                            dataDictionaryViewModel.getMc(
-                                                                                                "jq",
-                                                                                                bean005.Jqfs
-                                                                                            )
-                                                                                                .observe(
-                                                                                                    this
-                                                                                                ) {
-                                                                                                    spinnerValueList.add(
-                                                                                                        it
-                                                                                                    )
-                                                                                                    dataDictionaryViewModel.getMc(
-                                                                                                        "bs",
-                                                                                                        bean005.Bsxs
-                                                                                                    )
-                                                                                                        .observe(
-                                                                                                            this
-                                                                                                        ) {
-                                                                                                            spinnerValueList.add(
-                                                                                                                it
-                                                                                                            )
-                                                                                                            dataDictionaryViewModel.getMc(
-                                                                                                                "dw",
-                                                                                                                bean005.Dws
-                                                                                                            )
-                                                                                                                .observe(
-                                                                                                                    this
-                                                                                                                ) {
-                                                                                                                    spinnerValueList.add(
-                                                                                                                        it
-                                                                                                                    )
-                                                                                                                    spinnerValueList.add(
-                                                                                                                        ""
-                                                                                                                    )
-                                                                                                                    spinnerValueList.add(
-                                                                                                                        ""
-                                                                                                                    )
-                                                                                                                    for (index in 0 until spinnerValueList.size){
-                                                                                                                        val viewHolder = binding.rvLeftSpinner.findViewHolderForAdapterPosition(index)
-                                                                                                                        val spinner = viewHolder?.itemView?.findViewById<Spinner>(R.id.tvSpinnerValue)
-                                                                                                                        spinner?.setText(spinnerValueList[index])
-                                                                                                                    }
-
-                                                                                                                }
-                                                                                                        }
-                                                                                                }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-
-                                                                }
-
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                        }
-                                }
-                            }
-
-
                         }
                     }
                 }
@@ -449,38 +143,89 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
         }
 
-//        binding.btnRegister.setOnClickListener {
-//            val action = RegisterFragmentDirections.actionRegisterFragmentToSignatureFragment()
-//            findNavController().navigate(action)
-//        }
-
     }
 
     fun initView() {
-        dataDictionaryViewModel.getMcListFromFl("06").observe(this) {
+        dataDictionaryViewModel.getMcListFromFl(FL_CSJC).observe(this) {
             binding.spHphm.adapter =
                 ArrayAdapter(this.requireContext(), R.layout.textview_spinner, it)
         }
-        dataDictionaryViewModel.getMcListFromFl("09").observe(this) {
+        dataDictionaryViewModel.getMcListFromFl(FL_HPZL).observe(this) {
             binding.spHpzl.adapter =
                 ArrayAdapter(this.requireContext(), R.layout.textview_spinner, it)
         }
-        dataDictionaryViewModel.getMcListFromFl("10").observe(this) {
+        dataDictionaryViewModel.getMcListFromFl(FL_HPYS).observe(this) {
             binding.spHpys.adapter =
                 ArrayAdapter(this.requireContext(), R.layout.textview_spinner, it)
         }
-        dataDictionaryViewModel.getMcListFromFl("08").observe(this) {
+        dataDictionaryViewModel.getMcListFromFl(FL_AJYWLB).observe(this) {
             binding.spAjywlb.adapter =
                 ArrayAdapter(this.requireContext(), R.layout.textview_spinner, it)
         }
-        dataDictionaryViewModel.getMcListFromFl("31").observe(this) {
+        dataDictionaryViewModel.getMcListFromFl(FL_HJYWLB).observe(this) {
             binding.spHjywlb.adapter =
                 ArrayAdapter(this.requireContext(), R.layout.textview_spinner, it)
         }
-        dataDictionaryViewModel.getMcListFromFl("30").observe(this) {
+        dataDictionaryViewModel.getMcListFromFl(FL_ZJYWLB).observe(this) {
             binding.spZjywlb.adapter =
                 ArrayAdapter(this.requireContext(), R.layout.textview_spinner, it)
         }
+        dataDictionaryViewModel.getMcListFromFl(FL_CLLX).observe(this){
+            binding.spCllx.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_CLYT).observe(this){
+            binding.spClyt.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_YTSX).observe(this){
+            binding.spYtsx.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_PZCX).observe(this){
+            binding.spWgcx.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_GCJK).observe(this){
+            binding.spGcjk.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_QDFS).observe(this){
+            binding.spQdxs.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_ZDLY).observe(this){
+            binding.spZdly.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_RYGG).observe(this){
+            binding.spRygg.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_RYLB).observe(this){
+            binding.spRyzl1.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+            binding.spRyzl2.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_QZDZ).observe(this){
+            binding.spQzdz.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_HBXH).observe(this){
+            binding.spJcxh.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_CLSSLB).observe(this){
+            binding.spSslb.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_GYFS).observe(this){
+            binding.spGyfs.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_JQFS).observe(this){
+            binding.spJqfs.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_BSX).observe(this){
+            binding.spBsxs.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_DW).observe(this){
+            binding.spDws.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_CC).observe(this){
+            binding.spCcs.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+        dataDictionaryViewModel.getMcListFromFl(FL_HCLZL).observe(this){
+            binding.spHclfs.adapter = ArrayAdapter(this.requireContext(),R.layout.textview_spinner,it)
+        }
+
         systemParamsViewModel.getLshSzm().observe(this) {
             binding.etLshSzm.setText(it)
         }
@@ -512,17 +257,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         }
         return list
     }
-
-    fun getSpinnerValue(adapter: RegisterSpinnerAdapter): List<String> {
-        val list = ArrayList<String>()
-        for (index in 0 until adapter.itemCount) {
-            val holder = binding.rvLeftSpinner.findViewHolderForAdapterPosition(index)
-            val spinner = holder?.itemView?.findViewById<Spinner>(R.id.tvSpinnerValue)
-            list.add(spinner?.selectedItem.toString())
-        }
-        return list
-    }
-
 
     override fun onResume() {
         super.onResume()
