@@ -67,6 +67,9 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     fun getDm(Fl : String,Mc : String) : LiveData<String>{
         return dataDictionaryRepository.getDm(Fl, Mc)
     }
+    fun getDmList (Fl: String, McList : List<String>) : LiveData<List<String>>{
+        return dataDictionaryRepository.getDmList(Fl, McList)
+    }
 
     fun getMcListFromFl(Fl: String) : LiveData<List<String>>{
         return dataDictionaryRepository.getMcListFromFl(Fl)

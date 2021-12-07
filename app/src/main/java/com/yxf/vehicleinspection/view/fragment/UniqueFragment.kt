@@ -253,13 +253,13 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
     }
     override fun onResume() {
         super.onResume()
-        dataDictionaryViewModel.getMc("84","F2").observe(this){
+        dataDictionaryViewModel.getMc(FL_SPMC,VIN_FAR_TO_CLOSED).observe(this){
             binding.tvF2.text = it
         }
-        dataDictionaryViewModel.getMc("84","F3").observe(this){
+        dataDictionaryViewModel.getMc(FL_SPMC,AROUND_VEHICLE).observe(this){
             binding.tvF3.text = it
         }
-        dataDictionaryViewModel.getMc("84","F4").observe(this){
+        dataDictionaryViewModel.getMc(FL_SPMC,TIRE_TREAD_DEPTH).observe(this){
             binding.tvF4.text = it
         }
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
@@ -303,7 +303,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     inspectionItemViewModel.getServerTime().observe(this){
                         inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
                             args.jcxh,args.bean005.Hphm,
-                            args.bean005.Hpzl,"F2",
+                            args.bean005.Hpzl,VIN_FAR_TO_CLOSED,
                             VIN_FAR_TO_CLOSED, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
                             it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
                                 "yyyy-MM-dd HH:mm:ss",
@@ -337,7 +337,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     inspectionItemViewModel.getServerTime().observe(this){
                         inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
                             args.jcxh,args.bean005.Hphm,
-                            args.bean005.Hpzl,"F3",
+                            args.bean005.Hpzl,AROUND_VEHICLE,
                             AROUND_VEHICLE, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
                             it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
                                 "yyyy-MM-dd HH:mm:ss",
@@ -371,7 +371,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     inspectionItemViewModel.getServerTime().observe(this){
                         inspectionItemViewModel.postSaveVideoW008(inspectionItemViewModel.getPostVideoData(
                             args.jcxh,args.bean005.Hphm,
-                            args.bean005.Hpzl,"F4",
+                            args.bean005.Hpzl,TIRE_TREAD_DEPTH,
                             TIRE_TREAD_DEPTH, "",args.bean006.Ajywlb,args.bean006.Hjywlb,
                             it.Sj.substring(0,10),it.Sj.substring(11), string2String(beginTime,
                                 "yyyy-MM-dd HH:mm:ss",

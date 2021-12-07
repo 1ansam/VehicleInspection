@@ -12,6 +12,8 @@ import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
+import com.yxf.vehicleinspection.utils.FL_AJYWLB
+import com.yxf.vehicleinspection.utils.FL_HJYWLB
 import com.yxf.vehicleinspection.view.fragment.InspectionItemFragmentDirections
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 
@@ -52,10 +54,10 @@ class InspectionItemAdapter(
             binding.tvJcry2.text =  "检测人员 2：${bean.Jcry_02}"
             binding.tvJckssj.text = "检测开始时间：${bean.Jckssj}"
             binding.tvJcjssj.text = "检测开始时间：${bean.Jcjssj}"
-            dataDictionaryViewModel.getMc("08",bean.Ajywlb).observe(fragment){
+            dataDictionaryViewModel.getMc(FL_AJYWLB,bean.Ajywlb).observe(fragment){
                 binding.tvAjywlb.text = "安检业务类别：$it"
             }
-            dataDictionaryViewModel.getMc("31",bean.Hjywlb).observe(fragment){
+            dataDictionaryViewModel.getMc(FL_HJYWLB,bean.Hjywlb).observe(fragment){
                 binding.tvHjywlb.text = "环检业务类别：$it"
             }
 //        if (binding.tvJyzt.text.equals("完成"))

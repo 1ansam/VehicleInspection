@@ -12,7 +12,7 @@ import com.yxf.vehicleinspection.databinding.ItemRegisterBinding
  *   time:2021/12/3
  */
 class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
-    var value = ArrayList<String>()
+    var value : ArrayList<String?> = ArrayList<String?>()
     set(value) {
         field = value
         notifyDataSetChanged()

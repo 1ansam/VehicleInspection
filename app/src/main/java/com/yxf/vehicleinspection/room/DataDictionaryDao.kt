@@ -46,7 +46,8 @@ interface DataDictionaryDao {
 
     @Query("SELECT Dm FROM DataDictionary WHERE Fl LIKE :Fl AND Mc LIKE :Mc")
     fun getDm(Fl: String, Mc : String) : LiveData<String>
-
+    @Query("SELECT Dm FROM DataDictionary WHERE Fl LIKE :Fl AND Mc IN (:McList)")
+    fun getDmList(Fl: String, McList : List<String>) : LiveData<List<String>>
     @Query("SELECT * FROM DataDictionary")
     fun getDataDictionaryFromDb() : LiveData<List<DataDictionaryR003Response>>
     /**

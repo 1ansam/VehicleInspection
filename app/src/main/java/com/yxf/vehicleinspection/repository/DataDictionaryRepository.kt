@@ -115,6 +115,10 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     fun getDm(Fl : String,Mc : String) : LiveData<String>{
         return dao.getDm(Fl, Mc)
     }
+
+    fun getDmList(Fl : String, McList : List<String>): LiveData<List<String>>{
+        return dao.getDmList(Fl,McList)
+    }
     /**
      *  约束Fl得到该Fl所对应的对象列表
      *  @param Fl 分类代码

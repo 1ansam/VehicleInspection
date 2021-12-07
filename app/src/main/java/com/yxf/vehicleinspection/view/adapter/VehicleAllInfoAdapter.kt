@@ -7,6 +7,9 @@ import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.databinding.RvItemVehicleInformationBinding
+import com.yxf.vehicleinspection.utils.FL_CLLX
+import com.yxf.vehicleinspection.utils.FL_HPYS
+import com.yxf.vehicleinspection.utils.FL_HPZL
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 
 /**
@@ -39,13 +42,13 @@ class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryVi
             binding.tvLtgg.text = bean.Ltgg
             binding.tvCcrq.text = bean.Ccrq
         }
-        dataDictionaryViewModel.getMc("09",bean.Hpzl).observe(fragment){
+        dataDictionaryViewModel.getMc(FL_HPZL,bean.Hpzl).observe(fragment){
             holder.binding.tvHpzl.text = it
         }
-        dataDictionaryViewModel.getMc("26",bean.Hpys).observe(fragment){
+        dataDictionaryViewModel.getMc(FL_HPYS,bean.Hpys).observe(fragment){
             holder.binding.tvHpys.text = it
         }
-        dataDictionaryViewModel.getMc("07",bean.Cllx).observe(fragment){
+        dataDictionaryViewModel.getMc(FL_CLLX,bean.Cllx).observe(fragment){
             holder.binding.tvCllx.text = it
         }
 
