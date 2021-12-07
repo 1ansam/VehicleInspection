@@ -24,8 +24,9 @@ class RegisterViewModel(val registerRepository: RegisterRepository) : ViewModel(
     }
 
     val textMap = registerRepository.getTextMap()
-
-
+    val textList = registerRepository.getTextList()
+    val flList = registerRepository.getFlList()
+    val spinnerMap = registerRepository.getSpinnerMap()
 }
 class RegisterViewModelFactory(val registerRepository: RegisterRepository) : ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

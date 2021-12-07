@@ -3,7 +3,6 @@ package com.yxf.vehicleinspection.view.fragment
 import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.*
-import androidx.compose.material.CheckboxColors
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yxf.vehicleinspection.MyApp
@@ -23,7 +22,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
-    lateinit var bean001 : UserInfoR001Response
+    lateinit var bean001: UserInfoR001Response
     private val registerViewModel by viewModels<RegisterViewModel> {
         RegisterViewModelFactory((requireActivity().application as MyApp).registerRepository)
     }
@@ -38,7 +37,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     }
     private val registerJyxmAdapter = RegisterJyxmAdapter()
 
-    private var bean : VehicleAllInfoR022Response? = null
+    private var bean: VehicleAllInfoR022Response? = null
 
     override fun init() {
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
@@ -49,19 +48,19 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         textAdapter.data = registerViewModel.textMap.values.toList()
         binding.rvLeftList.adapter = textAdapter
         binding.rvLeftList.setHasFixedSize(true)
-        binding.rvJyxm.layoutManager = GridLayoutManager(this.requireContext(),4)
+        binding.rvJyxm.layoutManager = GridLayoutManager(this.requireContext(), 4)
         binding.rvJyxm.adapter = registerJyxmAdapter
-        dataDictionaryViewModel.getMcListFromFl(FL_JYXM).observe(this){
+        dataDictionaryViewModel.getMcListFromFl(FL_JYXM).observe(this) {
             registerJyxmAdapter.data = it
         }
-        binding.spHpzl.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.spHpzl.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                when(binding.spHpzl.selectedItem.toString()){
+                when (binding.spHpzl.selectedItem.toString()) {
                     "大型汽车" -> binding.spHpys.setText("黄色")
                     "教练汽车" -> binding.spHpys.setText("黄色")
                     "挂车" -> binding.spHpys.setText("黄色")
@@ -87,24 +86,27 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
             }
         }
         binding.tvCcrq.setOnClickListener {
-            DatePickerFragment().show(this.childFragmentManager,"ccrq")
+            DatePickerFragment().show(this.childFragmentManager, "ccrq")
         }
         binding.tvDjrq.setOnClickListener {
-            DatePickerFragment().show(this.childFragmentManager,"djrq")
+            DatePickerFragment().show(this.childFragmentManager, "djrq")
         }
         binding.tvCcdjrq.setOnClickListener {
-            DatePickerFragment().show(this.childFragmentManager,"ccdjrq")
+            DatePickerFragment().show(this.childFragmentManager, "ccdjrq")
         }
 
         binding.btnGetVehicleInfo.setOnClickListener {
             dataDictionaryViewModel.getDm(FL_HPZL, binding.spHpzl.selectedItem.toString())
                 .observe(this) { hpzl ->
-                    dataDictionaryViewModel.getDm(FL_AJYWLB,binding.spAjywlb.selectedItem.toString()).observe(this){
-                        ajywlb ->
-                        dataDictionaryViewModel.getDm(FL_HJYWLB,binding.spHjywlb.selectedItem.toString()).observe(this){
-                            hjywkb ->
-                            systemParamsViewModel.getJyjgbh("AJ").observe(this){
-                                jyjgbh ->
+                    dataDictionaryViewModel.getDm(
+                        FL_AJYWLB,
+                        binding.spAjywlb.selectedItem.toString()
+                    ).observe(this) { ajywlb ->
+                        dataDictionaryViewModel.getDm(
+                            FL_HJYWLB,
+                            binding.spHjywlb.selectedItem.toString()
+                        ).observe(this) { hjywkb ->
+                            systemParamsViewModel.getJyjgbh("AJ").observe(this) { jyjgbh ->
                                 registerViewModel.getVehicleInfo(
                                     "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
                                     hpzl,
@@ -124,13 +126,23 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                         etHxnbcd.setText(bean?.Hxnbcd)
                                         etHxnbkd.setText(bean?.Hxnbkd)
                                         etHxnbgd.setText(bean?.Hxnbgd)
-                                        cbSfdlxj.isChecked = true.takeIf { bean?.Zxzxjxs == "1" } ?: false
-                                        cbSfdzzc.isChecked = true.takeIf { bean?.Dzss == "1" } ?: false
-                                        cbSfcyc.isChecked = true.takeIf { bean?.Cyc == "1" } ?: false
-                                        cbSfmz.isChecked = true.takeIf { bean?.Sfmz == "1" } ?: false
-                                        cbAjywlb.isChecked = false.takeIf { binding.spAjywlb.selectedItem.toString() == "-"} ?: true
-                                        cbHjywlb.isChecked = false.takeIf { binding.spHjywlb.selectedItem.toString() == "-" } ?: true
-                                        cbZjywlb.isChecked = false.takeIf { binding.spZjywlb.selectedItem.toString() == "-" } ?: true
+                                        cbSfdlxj.isChecked =
+                                            true.takeIf { bean?.Zxzxjxs == "1" } ?: false
+                                        cbSfdzzc.isChecked =
+                                            true.takeIf { bean?.Dzss == "1" } ?: false
+                                        cbSfcyc.isChecked =
+                                            true.takeIf { bean?.Cyc == "1" } ?: false
+                                        cbSfmz.isChecked =
+                                            true.takeIf { bean?.Sfmz == "1" } ?: false
+                                        cbAjywlb.isChecked =
+                                            false.takeIf { binding.spAjywlb.selectedItem.toString() == "-" }
+                                                ?: true
+                                        cbHjywlb.isChecked =
+                                            false.takeIf { binding.spHjywlb.selectedItem.toString() == "-" }
+                                                ?: true
+                                        cbZjywlb.isChecked =
+                                            false.takeIf { binding.spZjywlb.selectedItem.toString() == "-" }
+                                                ?: true
                                         tvCcrq.text = bean?.Ccrq
                                         tvCcdjrq.text = bean?.Ccdjrq
                                         tvDjrq.text = bean?.Djrq
@@ -138,10 +150,13 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
                                     dataDictionaryViewModel.apply {
                                         bean?.let {
-                                            getMc(FL_CLSYXZ,it.Syxz).observe(this@RegisterFragment){
+                                            getMc(
+                                                FL_CLSYXZ,
+                                                it.Syxz
+                                            ).observe(this@RegisterFragment) {
                                                 binding.spSyxz.setText(it)
                                             }
-                                            getMc(FL_HPZL,it.Hpzl).observe(this@RegisterFragment){
+                                            getMc(FL_HPZL, it.Hpzl).observe(this@RegisterFragment) {
                                                 binding.spHpzl.setText(it)
                                             }
                                         }
@@ -188,7 +203,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                 }
 
 
-
         }
         binding.btnNewLsh.setOnClickListener {
             val randomLsh = "${date2String(Date(), "yyyyMMddHHmmss")}${
@@ -203,643 +217,1000 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
             val zsHolder = binding.rvLeftList.findViewHolderForAdapterPosition(12)
             val hdzkValue = hdzkHolder?.itemView?.findViewById<EditText>(R.id.value)
             val zsValue = zsHolder?.itemView?.findViewById<EditText>(R.id.value)
-            for (index in 0 until registerJyxmAdapter.itemCount){
+            for (index in 0 until registerJyxmAdapter.itemCount) {
                 val holder = binding.rvJyxm.findViewHolderForAdapterPosition(index)
-                setJyxm(binding.spAjywlb.selectedItem.toString()
-                    ,binding.spCllx.selectedItem.toString()
-                    ,binding.spSyxz.selectedItem.toString()
-                    ,0.takeIf { hdzkValue?.text.isNullOrBlank() }?:hdzkValue?.text.toString().toInt()
-                    ,holder?.itemView?.findViewById(R.id.cbJyxm)
-                    ,0.takeIf{zsValue?.text.toString().isBlank()}?:zsValue?.text.toString().toInt())
+                setJyxm(binding.spAjywlb.selectedItem.toString(),
+                    binding.spCllx.selectedItem.toString(),
+                    binding.spSyxz.selectedItem.toString(),
+                    0.takeIf { hdzkValue?.text.isNullOrBlank() } ?: hdzkValue?.text.toString()
+                        .toInt(),
+                    holder?.itemView?.findViewById(R.id.cbJyxm),
+                    0.takeIf { zsValue?.text.toString().isBlank() } ?: zsValue?.text.toString()
+                        .toInt()
+                )
             }
 
         }
         binding.btnSaveVehicleInfo.setOnClickListener {
             val textValueList = getTextValue(textAdapter)
-            if (bean!=null){
-                bean?.let {
-                    dataDictionaryViewModel.getDm(FL_HPZL,binding.spHpzl.selectedItem.toString()).observe(this){
-                            hpzl ->
-                        dataDictionaryViewModel.getDm(FL_GCJK,binding.spGcjk.selectedItem.toString()).observe(this){
-                                jkgc ->
-                            dataDictionaryViewModel.getDm(FL_CLLX,binding.spCllx.selectedItem.toString()).observe(this){
-                                    cllx ->
-                                dataDictionaryViewModel.getDm(FL_CLSYXZ,binding.spSyxz.selectedItem.toString()).observe(this){
-                                        syxz ->
-                                    dataDictionaryViewModel.getDm(FL_RYLB,binding.spRyzl1.selectedItem.toString()).observe(this){
-                                            rlzl ->
-                                        dataDictionaryViewModel.getDm(FL_ZXZFS,binding.cbSfdlxj.toString().takeIf { binding.cbSfdlxj.isChecked }?:"非独立悬架").observe(this){
-                                                zxxs ->
-                                            dataDictionaryViewModel.getDm(FL_CLYT,binding.spClyt.selectedItem.toString()).observe(this){
-                                                    clyt ->
-                                                dataDictionaryViewModel.getDm(FL_YTSX,binding.spYtsx.selectedItem.toString()).observe(this){
-                                                        ytsx ->
-                                                    dataDictionaryViewModel.getDm(FL_AJYWLB,binding.spAjywlb.selectedItem.toString()).observe(this){
-                                                            ajywlb ->
-                                                        dataDictionaryViewModel.getDm(FL_HJYWLB,binding.spHjywlb.selectedItem.toString()).observe(this){
-                                                                hjywlb ->
-                                                            dataDictionaryViewModel.getDm(FL_ZJYWLB,binding.spZjywlb.selectedItem.toString()).observe(this){
-                                                                    zjywlb ->
-                                                                dataDictionaryViewModel.getDm(FL_PZCX,binding.spWgcx.selectedItem.toString()).observe(this){
-                                                                        wgcxh ->
-                                                                    dataDictionaryViewModel.getDm(FL_QDFS,binding.spQdxs.selectedItem.toString()).observe(this){
-                                                                            qdxs ->
-                                                                        dataDictionaryViewModel.getDm(
-                                                                            FL_QZDZ,binding.spQzdz.selectedItem.toString()).observe(this){
-                                                                                qzdz ->
-                                                                            dataDictionaryViewModel.getDm(
-                                                                                FL_DW,binding.spDws.selectedItem.toString()).observe(this){
-                                                                                    dws ->
-                                                                                dataDictionaryViewModel.getDm(
-                                                                                    FL_BSX,binding.spBsxs.selectedItem.toString()).observe(this){
-                                                                                        bsxs ->
-                                                                                    dataDictionaryViewModel.getDm(
-                                                                                        FL_ZDLY,binding.spZdly.selectedItem.toString()).observe(this){
-                                                                                            zdly ->
-                                                                                        dataDictionaryViewModel.getDm(
-                                                                                            FL_RYGG,binding.spRygg.selectedItem.toString()).observe(this){
-                                                                                                rygg ->
-                                                                                            dataDictionaryViewModel.getDm(
-                                                                                                FL_HPYS,binding.spHpys.selectedItem.toString()).observe(this){
-                                                                                                    hpys ->
-                                                                                                dataDictionaryViewModel.getDm(
-                                                                                                    FL_CLSSLB,binding.spSslb.selectedItem.toString()).observe(this){
-                                                                                                        jdcsslb ->
-                                                                                                    dataDictionaryViewModel.getDm(
-                                                                                                        FL_JQFS,binding.spJqfs.selectedItem.toString()).observe(this){
-                                                                                                            jqfs ->
-                                                                                                        systemParamsViewModel.getJyjgbh("AJ").observe(this){
-                                                                                                            jyjgbhAj ->
-                                                                                                            dataDictionaryViewModel.getDm(
-                                                                                                                FL_HBXH,binding.spJcxh.selectedItem.toString()).observe(this){
-                                                                                                                    hbxh ->
-                                                                                                                dataDictionaryViewModel.getDm(
-                                                                                                                    FL_GYFS,binding.spGyfs.selectedItem.toString()).observe(this){
-                                                                                                                        gyfs ->
-                                                                                                                    dataDictionaryViewModel.getDm(
-                                                                                                                        FL_CC,binding.spCcs.selectedItem.toString()).observe(this){
-                                                                                                                            ccs ->
-                                                                                                                        dataDictionaryViewModel.getDm(
-                                                                                                                            FL_HCLZL,binding.spHclfs.selectedItem.toString()).observe(this){
-                                                                                                                                hclfs ->
-                                                                                                                            dataDictionaryViewModel.getDmList(
-                                                                                                                                FL_JYXM,getJyxm(registerJyxmAdapter)).observe(this){
-                                                                                                                                    jyxmList ->
-                                                                                                                                var jyxmString = ""
-                                                                                                                                for(element in jyxmList){
-                                                                                                                                    jyxmString += element
-                                                                                                                                    jyxmString +=","
-                                                                                                                                }
-                                                                                                                                jyxmString = jyxmString.substring(0,jyxmString.length-1)
-                                                                                                                                registerViewModel.postSaveVehicleInfo(SaveVehicleInfoW003Request(
-                                                                                                                                    0,
-                                                                                                                                    "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
-                                                                                                                                    hpzl,
-                                                                                                                                    binding.etClsbdh.text.toString(),
-                                                                                                                                    textValueList[1],
-                                                                                                                                    textValueList[2],
-                                                                                                                                    it.Clpp2,
-                                                                                                                                    jkgc,
-                                                                                                                                    it.Zzg,
-                                                                                                                                    textValueList[8],
-                                                                                                                                    textValueList[4],
-                                                                                                                                    cllx,
-                                                                                                                                    it.Csys,
-                                                                                                                                    syxz,
-                                                                                                                                    it.Sfzmhm,
-                                                                                                                                    it.Sfzmmc,
-                                                                                                                                    textValueList[5],
-                                                                                                                                    binding.tvCcdjrq.text.toString(),
-                                                                                                                                    binding.tvDjrq.text.toString(),
-                                                                                                                                    it.Yxqz,
-                                                                                                                                    it.Qzbfqz,
-                                                                                                                                    it.Fzjg,
-                                                                                                                                    it.Glbm,
-                                                                                                                                    it.Bxzzrq,
-                                                                                                                                    textValueList[7],
-                                                                                                                                    it.Dybj,
-                                                                                                                                    textValueList[3],
-                                                                                                                                    rlzl,
-                                                                                                                                    textValueList[28],
-                                                                                                                                    textValueList[27],
-                                                                                                                                    zxxs,
-                                                                                                                                    binding.etCwkc.text.toString(),
-                                                                                                                                    binding.etCwkk.text.toString(),
-                                                                                                                                    binding.etCwkg.text.toString(),
-                                                                                                                                    binding.etHxnbcd.text.toString(),
-                                                                                                                                    binding.etHxnbkd.text.toString(),
-                                                                                                                                    binding.etHxnbgd.text.toString(),
-                                                                                                                                    it.Gbthps,
-                                                                                                                                    textValueList[12],
-                                                                                                                                    textValueList[13],
-                                                                                                                                    textValueList[16],
-                                                                                                                                    textValueList[17],
-                                                                                                                                    textValueList[32],
-                                                                                                                                    it.Lts,
-                                                                                                                                    textValueList[18],
-                                                                                                                                    textValueList[19],
-                                                                                                                                    textValueList[24],
-                                                                                                                                    textValueList[23],
-                                                                                                                                    textValueList[25],
-                                                                                                                                    it.Qpzk,
-                                                                                                                                    it.Hpzk,
-                                                                                                                                    binding.tvCcrq.text.toString(),
-                                                                                                                                    clyt,
-                                                                                                                                    ytsx,
-                                                                                                                                    textValueList[0],
-                                                                                                                                    it.Jyhgbzbh,
-                                                                                                                                    it.Xzqh,
-                                                                                                                                    it.Zsxzqh,
-                                                                                                                                    it.Zzxzqh,
-                                                                                                                                    it.Sfmj,
-                                                                                                                                    "1".takeIf { binding.cbSfcyc.isChecked}?:"0",
-                                                                                                                                    ajywlb,
-                                                                                                                                    zjywlb,
-                                                                                                                                    hjywlb,
-                                                                                                                                    it.Hjxm,
-                                                                                                                                    it.Ajcx,
-                                                                                                                                    it.Zjcx,
-                                                                                                                                    wgcxh,
-                                                                                                                                    it.Hbdbqk,
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    qdxs,
-                                                                                                                                    textValueList[11],
-                                                                                                                                    "",
-                                                                                                                                    textValueList[14],
-                                                                                                                                    qzdz,
-                                                                                                                                    it.Ygdltz,
-                                                                                                                                    it.Zxzxjxs,
-                                                                                                                                    textValueList[30],
-                                                                                                                                    textValueList[9],
-                                                                                                                                    textValueList[10],
-                                                                                                                                    "1".takeIf{ binding.cbSfmz.isChecked}?:"0",
-                                                                                                                                    textValueList[26],
-                                                                                                                                    it.Zjdw,
-                                                                                                                                    bsxs,
-                                                                                                                                    zdly,
-                                                                                                                                    textValueList[33],
-                                                                                                                                    textValueList[32],
-                                                                                                                                    textValueList[6],
-                                                                                                                                    textValueList[34],
-                                                                                                                                    hpys,
-                                                                                                                                    textValueList[31],
-                                                                                                                                    textValueList[22],
-                                                                                                                                    jdcsslb,
-                                                                                                                                    textValueList[15],
-                                                                                                                                    textValueList[21],
-                                                                                                                                    zjywlb,
-                                                                                                                                    "1".takeIf{ binding.cbSfdzzc.isChecked}?:"0",
-                                                                                                                                    "",
-                                                                                                                                    it.Pfjd,
-                                                                                                                                    textValueList[29],
-                                                                                                                                    jqfs,
-                                                                                                                                    dws,
-                                                                                                                                    gyfs,
-                                                                                                                                    it.Hjdlsj,
-                                                                                                                                    "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf{ binding.cbAjywlb.isChecked}?:"",
-                                                                                                                                    "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbHjywlb.isChecked }?:"",
-                                                                                                                                    jyjgbhAj,
-                                                                                                                                    hbxh,
-                                                                                                                                    "",
-                                                                                                                                    jyxmString,
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    date2String(Date(),"yyyyMMdd HH:mm:ss"),
-                                                                                                                                    1,
-                                                                                                                                    1,
-                                                                                                                                    bean001.TrueName,
-                                                                                                                                    bean001.ID,
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    "",
-                                                                                                                                    textValueList[35],
-                                                                                                                                    textValueList[37],
-                                                                                                                                    textValueList[36],
-                                                                                                                                    "",
-                                                                                                                                    textValueList[38],
-                                                                                                                                    textValueList[39],
-                                                                                                                                    ccs,
-                                                                                                                                    hclfs,
-
-                                                                                                                                    )).observe(this){
-                                                                                                                                    if (it){
-                                                                                                                                        Toast.makeText(
-                                                                                                                                            this.requireContext(),
-                                                                                                                                            "登记成功",
-                                                                                                                                            Toast.LENGTH_SHORT
-                                                                                                                                        ).show()
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                    }
-
-
-                                                                                                                }
-
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                            }
-                                                        }
-                                                    }
-
-                                                }
-
-                                            }
-
-                                        }
-
-                                    }
-
+            if (bean == null) {
+//                bean?.let {
+                    dataDictionaryViewModel.getListFromFl(registerViewModel.flList)
+                        .observe(this) { list ->
+                            val spinnerMap = registerViewModel.spinnerMap
+                            val textMap = getTextMap(textAdapter)
+                            for (element in list) {
+                                if (element.Fl == FL_HPZL && element.Mc == binding.spHpzl.selectedItem.toString()) {
+                                    spinnerMap["hpzl"] = element.Dm
+                                }
+                                if (element.Fl == FL_HPYS && element.Mc == binding.spHpys.selectedItem.toString()) {
+                                    spinnerMap["hpys"] = element.Dm
+                                }
+                                if (element.Fl == FL_AJYWLB && element.Mc == binding.spAjywlb.selectedItem.toString()) {
+                                    spinnerMap["ajywlb"] = element.Dm
+                                }
+                                if (element.Fl == FL_HJYWLB && element.Mc == binding.spHjywlb.selectedItem.toString()) {
+                                    spinnerMap["hjywlb"] = element.Dm
+                                }
+                                if (element.Fl == FL_ZJYWLB && element.Mc == binding.spZjywlb.selectedItem.toString()) {
+                                    spinnerMap["zjywlb"] = element.Dm
+                                }
+                                if (element.Fl == FL_CLLX && element.Mc == binding.spCllx.selectedItem.toString()) {
+                                    spinnerMap["cllx"] = element.Dm
+                                }
+                                if (element.Fl == FL_CLYT && element.Mc == binding.spClyt.selectedItem.toString()) {
+                                    spinnerMap["clyt"] = element.Dm
+                                }
+                                if (element.Fl == FL_YTSX && element.Mc == binding.spYtsx.selectedItem.toString()) {
+                                    spinnerMap["ytsx"] = element.Dm
+                                }
+                                if (element.Fl == FL_PZCX && element.Mc == binding.spWgcx.selectedItem.toString()) {
+                                    spinnerMap["wgcx"] = element.Dm
+                                }
+                                if (element.Fl == FL_GCJK && element.Mc == binding.spGcjk.selectedItem.toString()) {
+                                    spinnerMap["gcjk"] = element.Dm
+                                }
+                                if (element.Fl == FL_QDFS && element.Mc == binding.spQdxs.selectedItem.toString()) {
+                                    spinnerMap["qdxs"] = element.Dm
+                                }
+                                if (element.Fl == FL_ZDLY && element.Mc == binding.spZdly.selectedItem.toString()) {
+                                    spinnerMap["zdly"] = element.Dm
+                                }
+                                if (element.Fl == FL_RLZL && element.Mc == binding.spRlzl1.selectedItem.toString()) {
+                                    spinnerMap["rlzl1"] = element.Dm
+                                }
+                                if (element.Fl == FL_RLZL && element.Mc == binding.spRlzl2.selectedItem.toString()) {
+                                    spinnerMap["rlzl2"] = element.Dm
+                                }
+                                if (element.Fl == FL_RYGG && element.Mc == binding.spRygg.selectedItem.toString()) {
+                                    spinnerMap["rygg"] = element.Dm
+                                }
+                                if (element.Fl == FL_QZDZ && element.Mc == binding.spQzdz.selectedItem.toString()) {
+                                    spinnerMap["qzdz"] = element.Dm
+                                }
+                                if (element.Fl == FL_HBXH && element.Mc == binding.spJcxh.selectedItem.toString()) {
+                                    spinnerMap["jcxh"] = element.Dm
+                                }
+                                if (element.Fl == FL_SSLB && element.Mc == binding.spSslb.selectedItem.toString()) {
+                                    spinnerMap["sslb"] = element.Dm
+                                }
+                                if (element.Fl == FL_GYFS && element.Mc == binding.spGyfs.selectedItem.toString()) {
+                                    spinnerMap["gyfs"] = element.Dm
+                                }
+                                if (element.Fl == FL_JQFS && element.Mc == binding.spJqfs.selectedItem.toString()) {
+                                    spinnerMap["jqfs"] = element.Dm
+                                }
+                                if (element.Fl == FL_BSX && element.Mc == binding.spBsxs.selectedItem.toString()) {
+                                    spinnerMap["bsxs"] = element.Dm
+                                }
+                                if (element.Fl == FL_DW && element.Mc == binding.spDws.selectedItem.toString()) {
+                                    spinnerMap["dws"] = element.Dm
+                                }
+                                if (element.Fl == FL_CC && element.Mc == binding.spCcs.selectedItem.toString()) {
+                                    spinnerMap["ccs"] = element.Dm
+                                }
+                                if (element.Fl == FL_HCLZL && element.Mc == binding.spHclfs.selectedItem.toString()) {
+                                    spinnerMap["hclfs"] = element.Dm
+                                }
+                                if(element.Fl == FL_ZXZFS && element.Mc == binding.cbSfdlxj.text.toString().takeIf { binding.cbSfdlxj.isChecked }?:"非独立悬架"){
+                                    spinnerMap["zxxs"] = element.Dm
                                 }
 
                             }
-
-                        }
-
-                    }
-                }
-
-
-            }else{
-                dataDictionaryViewModel.getDm(FL_HPZL,binding.spHpzl.selectedItem.toString()).observe(this){
-                        hpzl ->
-                    dataDictionaryViewModel.getDm(FL_GCJK,binding.spGcjk.selectedItem.toString()).observe(this){
-                            jkgc ->
-                        dataDictionaryViewModel.getDm(FL_CLLX,binding.spCllx.selectedItem.toString()).observe(this){
-                                cllx ->
-                            dataDictionaryViewModel.getDm(FL_CLSYXZ,binding.spSyxz.selectedItem.toString()).observe(this){
-                                    syxz ->
-                                dataDictionaryViewModel.getDm(FL_RYLB,binding.spRyzl1.selectedItem.toString()).observe(this){
-                                        rlzl ->
-                                    dataDictionaryViewModel.getDm(FL_ZXZFS,binding.cbSfdlxj.toString().takeIf { binding.cbSfdlxj.isChecked }?:"非独立悬架").observe(this){
-                                            zxxs ->
-                                        dataDictionaryViewModel.getDm(FL_CLYT,binding.spClyt.selectedItem.toString()).observe(this){
-                                                clyt ->
-                                            dataDictionaryViewModel.getDm(FL_YTSX,binding.spYtsx.selectedItem.toString()).observe(this){
-                                                    ytsx ->
-                                                dataDictionaryViewModel.getDm(FL_AJYWLB,binding.spAjywlb.selectedItem.toString()).observe(this){
-                                                        ajywlb ->
-                                                    dataDictionaryViewModel.getDm(FL_HJYWLB,binding.spHjywlb.selectedItem.toString()).observe(this){
-                                                            hjywlb ->
-                                                        dataDictionaryViewModel.getDm(FL_ZJYWLB,binding.spZjywlb.selectedItem.toString()).observe(this){
-                                                                zjywlb ->
-                                                            dataDictionaryViewModel.getDm(FL_PZCX,binding.spWgcx.selectedItem.toString()).observe(this){
-                                                                    wgcxh ->
-                                                                dataDictionaryViewModel.getDm(FL_QDFS,binding.spQdxs.selectedItem.toString()).observe(this){
-                                                                        qdxs ->
-                                                                    dataDictionaryViewModel.getDm(
-                                                                        FL_QZDZ,binding.spQzdz.selectedItem.toString()).observe(this){
-                                                                            qzdz ->
-                                                                        dataDictionaryViewModel.getDm(
-                                                                            FL_DW,binding.spDws.selectedItem.toString()).observe(this){
-                                                                                dws ->
-                                                                            dataDictionaryViewModel.getDm(
-                                                                                FL_BSX,binding.spBsxs.selectedItem.toString()).observe(this){
-                                                                                    bsxs ->
-                                                                                dataDictionaryViewModel.getDm(
-                                                                                    FL_ZDLY,binding.spZdly.selectedItem.toString()).observe(this){
-                                                                                        zdly ->
-                                                                                    dataDictionaryViewModel.getDm(
-                                                                                        FL_RYGG,binding.spRygg.selectedItem.toString()).observe(this){
-                                                                                            rygg ->
-                                                                                        dataDictionaryViewModel.getDm(
-                                                                                            FL_HPYS,binding.spHpys.selectedItem.toString()).observe(this){
-                                                                                                hpys ->
-                                                                                            dataDictionaryViewModel.getDm(
-                                                                                                FL_CLSSLB,binding.spSslb.selectedItem.toString()).observe(this){
-                                                                                                    jdcsslb ->
-                                                                                                dataDictionaryViewModel.getDm(
-                                                                                                    FL_JQFS,binding.spJqfs.selectedItem.toString()).observe(this){
-                                                                                                        jqfs ->
-                                                                                                    systemParamsViewModel.getJyjgbh("AJ").observe(this){
-                                                                                                            jyjgbhAj ->
-                                                                                                        dataDictionaryViewModel.getDm(
-                                                                                                            FL_HBXH,binding.spJcxh.selectedItem.toString()).observe(this){
-                                                                                                                hbxh ->
-                                                                                                            dataDictionaryViewModel.getDm(
-                                                                                                                FL_GYFS,binding.spGyfs.selectedItem.toString()).observe(this){
-                                                                                                                    gyfs ->
-                                                                                                                dataDictionaryViewModel.getDm(
-                                                                                                                    FL_CC,binding.spCcs.selectedItem.toString()).observe(this){
-                                                                                                                        ccs ->
-                                                                                                                    dataDictionaryViewModel.getDm(
-                                                                                                                        FL_HCLZL,binding.spHclfs.selectedItem.toString()).observe(this){
-                                                                                                                            hclfs ->
-                                                                                                                        dataDictionaryViewModel.getDmList(
-                                                                                                                            FL_JYXM,getJyxm(registerJyxmAdapter)).observe(this){
-                                                                                                                                jyxmList ->
-                                                                                                                            var jyxmString = ""
-                                                                                                                            for(element in jyxmList){
-                                                                                                                                jyxmString += element
-                                                                                                                                jyxmString +=","
-                                                                                                                            }
-                                                                                                                            jyxmString = jyxmString.substring(0,jyxmString.length-1)
-                                                                                                                            registerViewModel.postSaveVehicleInfo(SaveVehicleInfoW003Request(
-                                                                                                                                0,
-                                                                                                                                "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
-                                                                                                                                hpzl,
-                                                                                                                                binding.etClsbdh.text.toString(),
-                                                                                                                                textValueList[1],
-                                                                                                                                textValueList[2],
-                                                                                                                                "",
-                                                                                                                                jkgc,
-                                                                                                                                "",
-                                                                                                                                textValueList[8],
-                                                                                                                                textValueList[4],
-                                                                                                                                cllx,
-                                                                                                                                "",
-                                                                                                                                syxz,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                textValueList[5],
-                                                                                                                                binding.tvCcdjrq.text.toString(),
-                                                                                                                                binding.tvDjrq.text.toString(),
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                textValueList[7],
-                                                                                                                                "",
-                                                                                                                                textValueList[3],
-                                                                                                                                rlzl,
-                                                                                                                                textValueList[28],
-                                                                                                                                textValueList[27],
-                                                                                                                                zxxs,
-                                                                                                                                binding.etCwkc.text.toString(),
-                                                                                                                                binding.etCwkk.text.toString(),
-                                                                                                                                binding.etCwkg.text.toString(),
-                                                                                                                                binding.etHxnbcd.text.toString(),
-                                                                                                                                binding.etHxnbkd.text.toString(),
-                                                                                                                                binding.etHxnbgd.text.toString(),
-                                                                                                                                "",
-                                                                                                                                textValueList[12],
-                                                                                                                                textValueList[13],
-                                                                                                                                textValueList[16],
-                                                                                                                                textValueList[17],
-                                                                                                                                textValueList[32],
-                                                                                                                                "",
-                                                                                                                                textValueList[18],
-                                                                                                                                textValueList[19],
-                                                                                                                                textValueList[24],
-                                                                                                                                textValueList[23],
-                                                                                                                                textValueList[25],
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                binding.tvCcrq.text.toString(),
-                                                                                                                                clyt,
-                                                                                                                                ytsx,
-                                                                                                                                textValueList[0],
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "1".takeIf { binding.cbSfcyc.isChecked}?:"0",
-                                                                                                                                ajywlb,
-                                                                                                                                zjywlb,
-                                                                                                                                hjywlb,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                wgcxh,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                qdxs,
-                                                                                                                                textValueList[11],
-                                                                                                                                "",
-                                                                                                                                textValueList[14],
-                                                                                                                                qzdz,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                textValueList[30],
-                                                                                                                                textValueList[9],
-                                                                                                                                textValueList[10],
-                                                                                                                                "1".takeIf{ binding.cbSfmz.isChecked}?:"0",
-                                                                                                                                textValueList[26],
-                                                                                                                                "",
-                                                                                                                                bsxs,
-                                                                                                                                zdly,
-                                                                                                                                textValueList[33],
-                                                                                                                                textValueList[32],
-                                                                                                                                textValueList[6],
-                                                                                                                                textValueList[34],
-                                                                                                                                hpys,
-                                                                                                                                textValueList[31],
-                                                                                                                                textValueList[22],
-                                                                                                                                jdcsslb,
-                                                                                                                                textValueList[15],
-                                                                                                                                textValueList[21],
-                                                                                                                                zjywlb,
-                                                                                                                                "1".takeIf{ binding.cbSfdzzc.isChecked}?:"0",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                textValueList[29],
-                                                                                                                                jqfs,
-                                                                                                                                dws,
-                                                                                                                                gyfs,
-                                                                                                                                "",
-                                                                                                                                "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf{ binding.cbAjywlb.isChecked}?:"",
-                                                                                                                                "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbHjywlb.isChecked }?:"",
-                                                                                                                                jyjgbhAj,
-                                                                                                                                hbxh,
-                                                                                                                                "",
-                                                                                                                                jyxmString,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                date2String(Date(),"yyyyMMdd HH:mm:ss"),
-                                                                                                                                1,
-                                                                                                                                1,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                bean001.TrueName,
-                                                                                                                                bean001.ID,
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                "",
-                                                                                                                                textValueList[35],
-                                                                                                                                textValueList[37],
-                                                                                                                                textValueList[36],
-                                                                                                                                "",
-                                                                                                                                textValueList[38],
-                                                                                                                                textValueList[39],
-                                                                                                                                ccs,
-                                                                                                                                hclfs,
-
-                                                                                                                                )).observe(this){
-                                                                                                                                if (it){
-                                                                                                                                    Toast.makeText(
-                                                                                                                                        this.requireContext(),
-                                                                                                                                        "登记成功",
-                                                                                                                                        Toast.LENGTH_SHORT
-                                                                                                                                    ).show()
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-
-
-                                                                                                            }
-
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-
-                                                                    }
-                                                                }
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-
-                                            }
-
-                                        }
-
+                            systemParamsViewModel.getJyjgbh("AJ").observe(this) { jyjgbh ->
+                                dataDictionaryViewModel.getDmList(
+                                    FL_JYXM, getJyxm(registerJyxmAdapter)
+                                ).observe(this) { jyxmList ->
+                                    var jyxmString = ""
+                                    for (element in jyxmList) {
+                                        jyxmString += element
+                                        jyxmString += ","
                                     }
-
+                                    jyxmString = jyxmString.substring(0, jyxmString.length - 1)
+                                    registerViewModel.postSaveVehicleInfo(
+                                        SaveVehicleInfoW003Request(
+                                            0,
+                                            "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
+                                            spinnerMap["hpzl"].takeIf { !spinnerMap["hpzl"].isNullOrBlank() }?:"",
+                                            spinnerMap["hpys"].takeIf { !spinnerMap["hpys"].isNullOrBlank() }?:"",
+                                            binding.etClsbdh.text.toString(),
+                                            binding.etCwkc.text.toString(),
+                                            binding.etCwkk.text.toString(),
+                                            binding.etCwkg.text.toString(),
+                                            binding.etHxnbcd.text.toString(),
+                                            binding.etHxnbkd.text.toString(),
+                                            binding.etHxnbgd.text.toString(),
+                                            spinnerMap["zxxs"].takeIf { spinnerMap["zxxs"].isNullOrBlank() }?:"",
+                                            "1".takeIf { binding.cbSfdzzc.isChecked }?:"0",
+                                            "1".takeIf { binding.cbSfcyc.isChecked }?:"0",
+                                            "1".takeIf { binding.cbSfmz.isChecked }?:"0",
+                                            spinnerMap["ajywlb"]!!,
+                                            spinnerMap["hjywlb"]!!,
+                                            spinnerMap["zjywlb"]!!,
+                                            textMap["xszbh"]!!,
+                                            textMap["clpp1"]!!,
+                                            textMap["clxh"]!!,
+                                            textMap["fdjxh"]!!,
+                                            textMap["fdjh"]!!,
+                                            textMap["syr"]!!,
+                                            textMap["lxdh"]!!,
+                                            textMap["zt"]!!,
+                                            textMap["zzcmc"]!!,
+                                            textMap["qdzs"]!!,
+                                            textMap["qdzw"]!!,
+                                            textMap["zczs"]!!,
+//                                            textMap["zczw"]!!,
+                                            "",
+                                            textMap["zs"]!!,
+                                            textMap["zj"]!!,
+                                            textMap["zzs"]!!,
+                                            textMap["qzs"]!!,
+                                            textMap["qlj"]!!,
+                                            textMap["hlj"]!!,
+                                            textMap["zzl"]!!,
+                                            textMap["zbzl"]!!,
+                                            textMap["kqxjzw"]!!,
+                                            textMap["zxzs"]!!,
+                                            textMap["bzzw"]!!,
+                                            textMap["hdzk"]!!,
+                                            textMap["hdzzl"]!!,
+                                            textMap["zqyzl"]!!,
+                                            textMap["zdsjcs"]!!,
+                                            textMap["gl"]!!,
+                                            textMap["pl"]!!,
+                                            textMap["pqgs"]!!,
+                                            textMap["lcbds"]!!,
+                                            textMap["edzs"]!!,
+                                            textMap["ltgg"]!!,
+                                            textMap["qgs"]!!,
+                                            textMap["lxdz"]!!,
+                                            textMap["sjr"]!!,
+                                            textMap["sjrdh"]!!,
+                                            textMap["sjrsfzh"]!!,
+                                            textMap["SCR"]!!,
+                                            textMap["DPF"]!!,
+                                            spinnerMap["cllx"]!!,
+                                            spinnerMap["clyt"]!!,
+                                            spinnerMap["ytsx"]!!,
+                                            spinnerMap["wgcx"]!!,
+                                            spinnerMap["gcjk"]!!,
+                                            spinnerMap["qdxs"]!!,
+                                            spinnerMap["zdly"]!!,
+                                            spinnerMap["rlzl1"]!!,
+                                            spinnerMap["rygg"]!!,
+                                            spinnerMap["qzdz"]!!,
+                                            spinnerMap["jcxh"]!!,
+                                            spinnerMap["sslb"]!!,
+                                            spinnerMap["gyfs"]!!,
+                                            spinnerMap["jqfs"]!!,
+                                            spinnerMap["bsxs"]!!,
+                                            spinnerMap["dws"]!!,
+                                            spinnerMap["ccs"]!!,
+                                            spinnerMap["hclfs"]!!,
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf{ binding.cbAjywlb.isChecked}?:"",
+                                            "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf{ binding.cbHjywlb.isChecked}?:"",
+                                            jyjgbh,
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            date2String(Date(),"yyyyMMdd HH:mm:ss"),
+                                            1,
+                                            1,
+                                            bean001.TrueName,
+                                            bean001.ID,
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            )
+                                    ).observe(this) {
+                                        if (it) {
+                                            Toast.makeText(
+                                                this.requireContext(),
+                                                "登记成功",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
                                 }
-
                             }
-
+//                    dataDictionaryViewModel.getDm(FL_HPZL,binding.spHpzl.selectedItem.toString()).observe(this){
+//                            hpzl ->
+//                        dataDictionaryViewModel.getDm(FL_GCJK,binding.spGcjk.selectedItem.toString()).observe(this){
+//                                jkgc ->
+//                            dataDictionaryViewModel.getDm(FL_CLLX,binding.spCllx.selectedItem.toString()).observe(this){
+//                                    cllx ->
+//                                dataDictionaryViewModel.getDm(FL_CLSYXZ,binding.spSyxz.selectedItem.toString()).observe(this){
+//                                        syxz ->
+//                                    dataDictionaryViewModel.getDm(FL_RYLB,binding.spRyzl1.selectedItem.toString()).observe(this){
+//                                            rlzl ->
+//                                        dataDictionaryViewModel.getDm(FL_ZXZFS,binding.cbSfdlxj.toString().takeIf { binding.cbSfdlxj.isChecked }?:"非独立悬架").observe(this){
+//                                                zxxs ->
+//                                            dataDictionaryViewModel.getDm(FL_CLYT,binding.spClyt.selectedItem.toString()).observe(this){
+//                                                    clyt ->
+//                                                dataDictionaryViewModel.getDm(FL_YTSX,binding.spYtsx.selectedItem.toString()).observe(this){
+//                                                        ytsx ->
+//                                                    dataDictionaryViewModel.getDm(FL_AJYWLB,binding.spAjywlb.selectedItem.toString()).observe(this){
+//                                                            ajywlb ->
+//                                                        dataDictionaryViewModel.getDm(FL_HJYWLB,binding.spHjywlb.selectedItem.toString()).observe(this){
+//                                                                hjywlb ->
+//                                                            dataDictionaryViewModel.getDm(FL_ZJYWLB,binding.spZjywlb.selectedItem.toString()).observe(this){
+//                                                                    zjywlb ->
+//                                                                dataDictionaryViewModel.getDm(FL_PZCX,binding.spWgcx.selectedItem.toString()).observe(this){
+//                                                                        wgcxh ->
+//                                                                    dataDictionaryViewModel.getDm(FL_QDFS,binding.spQdxs.selectedItem.toString()).observe(this){
+//                                                                            qdxs ->
+//                                                                        dataDictionaryViewModel.getDm(
+//                                                                            FL_QZDZ,binding.spQzdz.selectedItem.toString()).observe(this){
+//                                                                                qzdz ->
+//                                                                            dataDictionaryViewModel.getDm(
+//                                                                                FL_DW,binding.spDws.selectedItem.toString()).observe(this){
+//                                                                                    dws ->
+//                                                                                dataDictionaryViewModel.getDm(
+//                                                                                    FL_BSX,binding.spBsxs.selectedItem.toString()).observe(this){
+//                                                                                        bsxs ->
+//                                                                                    dataDictionaryViewModel.getDm(
+//                                                                                        FL_ZDLY,binding.spZdly.selectedItem.toString()).observe(this){
+//                                                                                            zdly ->
+//                                                                                        dataDictionaryViewModel.getDm(
+//                                                                                            FL_RYGG,binding.spRygg.selectedItem.toString()).observe(this){
+//                                                                                                rygg ->
+//                                                                                            dataDictionaryViewModel.getDm(
+//                                                                                                FL_HPYS,binding.spHpys.selectedItem.toString()).observe(this){
+//                                                                                                    hpys ->
+//                                                                                                dataDictionaryViewModel.getDm(
+//                                                                                                    FL_CLSSLB,binding.spSslb.selectedItem.toString()).observe(this){
+//                                                                                                        jdcsslb ->
+//                                                                                                    dataDictionaryViewModel.getDm(
+//                                                                                                        FL_JQFS,binding.spJqfs.selectedItem.toString()).observe(this){
+//                                                                                                            jqfs ->
+//                                                                                                        systemParamsViewModel.getJyjgbh("AJ").observe(this){
+//                                                                                                            jyjgbhAj ->
+//                                                                                                            dataDictionaryViewModel.getDm(
+//                                                                                                                FL_HBXH,binding.spJcxh.selectedItem.toString()).observe(this){
+//                                                                                                                    hbxh ->
+//                                                                                                                dataDictionaryViewModel.getDm(
+//                                                                                                                    FL_GYFS,binding.spGyfs.selectedItem.toString()).observe(this){
+//                                                                                                                        gyfs ->
+//                                                                                                                    dataDictionaryViewModel.getDm(
+//                                                                                                                        FL_CC,binding.spCcs.selectedItem.toString()).observe(this){
+//                                                                                                                            ccs ->
+//                                                                                                                        dataDictionaryViewModel.getDm(
+//                                                                                                                            FL_HCLZL,binding.spHclfs.selectedItem.toString()).observe(this){
+//                                                                                                                                hclfs ->
+//                                                                                                                            dataDictionaryViewModel.getDmList(
+//                                                                                                                                FL_JYXM,getJyxm(registerJyxmAdapter)).observe(this){
+//                                                                                                                                    jyxmList ->
+//                                                                                                                                var jyxmString = ""
+//                                                                                                                                for(element in jyxmList){
+//                                                                                                                                    jyxmString += element
+//                                                                                                                                    jyxmString +=","
+//                                                                                                                                }
+//                                                                                                                                jyxmString = jyxmString.substring(0,jyxmString.length-1)
+//                                                                                                                                registerViewModel.postSaveVehicleInfo(SaveVehicleInfoW003Request(
+//                                                                                                                                    0,
+//                                                                                                                                    "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
+//                                                                                                                                    hpzl,
+//                                                                                                                                    binding.etClsbdh.text.toString(),
+//                                                                                                                                    textValueList[1],
+//                                                                                                                                    textValueList[2],
+//                                                                                                                                    it.Clpp2,
+//                                                                                                                                    jkgc,
+//                                                                                                                                    it.Zzg,
+//                                                                                                                                    textValueList[8],
+//                                                                                                                                    textValueList[4],
+//                                                                                                                                    cllx,
+//                                                                                                                                    it.Csys,
+//                                                                                                                                    syxz,
+//                                                                                                                                    it.Sfzmhm,
+//                                                                                                                                    it.Sfzmmc,
+//                                                                                                                                    textValueList[5],
+//                                                                                                                                    binding.tvCcdjrq.text.toString(),
+//                                                                                                                                    binding.tvDjrq.text.toString(),
+//                                                                                                                                    it.Yxqz,
+//                                                                                                                                    it.Qzbfqz,
+//                                                                                                                                    it.Fzjg,
+//                                                                                                                                    it.Glbm,
+//                                                                                                                                    it.Bxzzrq,
+//                                                                                                                                    textValueList[7],
+//                                                                                                                                    it.Dybj,
+//                                                                                                                                    textValueList[3],
+//                                                                                                                                    rlzl,
+//                                                                                                                                    textValueList[28],
+//                                                                                                                                    textValueList[27],
+//                                                                                                                                    zxxs,
+//                                                                                                                                    binding.etCwkc.text.toString(),
+//                                                                                                                                    binding.etCwkk.text.toString(),
+//                                                                                                                                    binding.etCwkg.text.toString(),
+//                                                                                                                                    binding.etHxnbcd.text.toString(),
+//                                                                                                                                    binding.etHxnbkd.text.toString(),
+//                                                                                                                                    binding.etHxnbgd.text.toString(),
+//                                                                                                                                    it.Gbthps,
+//                                                                                                                                    textValueList[12],
+//                                                                                                                                    textValueList[13],
+//                                                                                                                                    textValueList[16],
+//                                                                                                                                    textValueList[17],
+//                                                                                                                                    textValueList[32],
+//                                                                                                                                    it.Lts,
+//                                                                                                                                    textValueList[18],
+//                                                                                                                                    textValueList[19],
+//                                                                                                                                    textValueList[24],
+//                                                                                                                                    textValueList[23],
+//                                                                                                                                    textValueList[25],
+//                                                                                                                                    it.Qpzk,
+//                                                                                                                                    it.Hpzk,
+//                                                                                                                                    binding.tvCcrq.text.toString(),
+//                                                                                                                                    clyt,
+//                                                                                                                                    ytsx,
+//                                                                                                                                    textValueList[0],
+//                                                                                                                                    it.Jyhgbzbh,
+//                                                                                                                                    it.Xzqh,
+//                                                                                                                                    it.Zsxzqh,
+//                                                                                                                                    it.Zzxzqh,
+//                                                                                                                                    it.Sfmj,
+//                                                                                                                                    "1".takeIf { binding.cbSfcyc.isChecked}?:"0",
+//                                                                                                                                    ajywlb,
+//                                                                                                                                    zjywlb,
+//                                                                                                                                    hjywlb,
+//                                                                                                                                    it.Hjxm,
+//                                                                                                                                    it.Ajcx,
+//                                                                                                                                    it.Zjcx,
+//                                                                                                                                    wgcxh,
+//                                                                                                                                    it.Hbdbqk,
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    qdxs,
+//                                                                                                                                    textValueList[11],
+//                                                                                                                                    "",
+//                                                                                                                                    textValueList[14],
+//                                                                                                                                    qzdz,
+//                                                                                                                                    it.Ygdltz,
+//                                                                                                                                    it.Zxzxjxs,
+//                                                                                                                                    textValueList[30],
+//                                                                                                                                    textValueList[9],
+//                                                                                                                                    textValueList[10],
+//                                                                                                                                    "1".takeIf{ binding.cbSfmz.isChecked}?:"0",
+//                                                                                                                                    textValueList[26],
+//                                                                                                                                    it.Zjdw,
+//                                                                                                                                    bsxs,
+//                                                                                                                                    zdly,
+//                                                                                                                                    textValueList[33],
+//                                                                                                                                    textValueList[32],
+//                                                                                                                                    textValueList[6],
+//                                                                                                                                    textValueList[34],
+//                                                                                                                                    hpys,
+//                                                                                                                                    textValueList[31],
+//                                                                                                                                    textValueList[22],
+//                                                                                                                                    jdcsslb,
+//                                                                                                                                    textValueList[15],
+//                                                                                                                                    textValueList[21],
+//                                                                                                                                    zjywlb,
+//                                                                                                                                    "1".takeIf{ binding.cbSfdzzc.isChecked}?:"0",
+//                                                                                                                                    "",
+//                                                                                                                                    it.Pfjd,
+//                                                                                                                                    textValueList[29],
+//                                                                                                                                    jqfs,
+//                                                                                                                                    dws,
+//                                                                                                                                    gyfs,
+//                                                                                                                                    it.Hjdlsj,
+//                                                                                                                                    "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf{ binding.cbAjywlb.isChecked}?:"",
+//                                                                                                                                    "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbHjywlb.isChecked }?:"",
+//                                                                                                                                    jyjgbhAj,
+//                                                                                                                                    hbxh,
+//                                                                                                                                    "",
+//                                                                                                                                    jyxmString,
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    date2String(Date(),"yyyyMMdd HH:mm:ss"),
+//                                                                                                                                    1,
+//                                                                                                                                    1,
+//                                                                                                                                    bean001.TrueName,
+//                                                                                                                                    bean001.ID,
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    "",
+//                                                                                                                                    textValueList[35],
+//                                                                                                                                    textValueList[37],
+//                                                                                                                                    textValueList[36],
+//                                                                                                                                    "",
+//                                                                                                                                    textValueList[38],
+//                                                                                                                                    textValueList[39],
+//                                                                                                                                    ccs,
+//                                                                                                                                    hclfs,
+//
+//                                                                                                                                    )).observe(this){
+//                                                                                                                                    if (it){
+//                                                                                                                                        Toast.makeText(
+//                                                                                                                                            this.requireContext(),
+//                                                                                                                                            "登记成功",
+//                                                                                                                                            Toast.LENGTH_SHORT
+//                                                                                                                                        ).show()
+//                                                                                                                                    }
+//                                                                                                                                }
+//                                                                                                                            }
+//                                                                                                                        }
+//                                                                                                                    }
+//
+//
+//                                                                                                                }
+//
+//                                                                                                            }
+//                                                                                                        }
+//                                                                                                    }
+//                                                                                                }
+//                                                                                            }
+//                                                                                        }
+//                                                                                    }
+//                                                                                }
+//                                                                            }
+//
+//                                                                        }
+//                                                                    }
+//                                                                }
+//
+//                                                            }
+//                                                        }
+//                                                    }
+//
+//                                                }
+//
+//                                            }
+//
+//                                        }
+//
+//                                    }
+//
+//                                }
+//
+//                            }
+//
+//                        }
+//
+//                    }
                         }
-
-                    }
-
                 }
-            }
 
-        }
+
             }
+//            else{
+//                dataDictionaryViewModel.getDm(FL_HPZL,binding.spHpzl.selectedItem.toString()).observe(this){
+//                        hpzl ->
+//                    dataDictionaryViewModel.getDm(FL_GCJK,binding.spGcjk.selectedItem.toString()).observe(this){
+//                            jkgc ->
+//                        dataDictionaryViewModel.getDm(FL_CLLX,binding.spCllx.selectedItem.toString()).observe(this){
+//                                cllx ->
+//                            dataDictionaryViewModel.getDm(FL_CLSYXZ,binding.spSyxz.selectedItem.toString()).observe(this){
+//                                    syxz ->
+//                                dataDictionaryViewModel.getDm(FL_RLZL,binding.spRlzl1.selectedItem.toString()).observe(this){
+//                                        rlzl ->
+//                                    dataDictionaryViewModel.getDm(FL_ZXZFS,binding.cbSfdlxj.toString().takeIf { binding.cbSfdlxj.isChecked }?:"非独立悬架").observe(this){
+//                                            zxxs ->
+//                                        dataDictionaryViewModel.getDm(FL_CLYT,binding.spClyt.selectedItem.toString()).observe(this){
+//                                                clyt ->
+//                                            dataDictionaryViewModel.getDm(FL_YTSX,binding.spYtsx.selectedItem.toString()).observe(this){
+//                                                    ytsx ->
+//                                                dataDictionaryViewModel.getDm(FL_AJYWLB,binding.spAjywlb.selectedItem.toString()).observe(this){
+//                                                        ajywlb ->
+//                                                    dataDictionaryViewModel.getDm(FL_HJYWLB,binding.spHjywlb.selectedItem.toString()).observe(this){
+//                                                            hjywlb ->
+//                                                        dataDictionaryViewModel.getDm(FL_ZJYWLB,binding.spZjywlb.selectedItem.toString()).observe(this){
+//                                                                zjywlb ->
+//                                                            dataDictionaryViewModel.getDm(FL_PZCX,binding.spWgcx.selectedItem.toString()).observe(this){
+//                                                                    wgcxh ->
+//                                                                dataDictionaryViewModel.getDm(FL_QDFS,binding.spQdxs.selectedItem.toString()).observe(this){
+//                                                                        qdxs ->
+//                                                                    dataDictionaryViewModel.getDm(
+//                                                                        FL_QZDZ,binding.spQzdz.selectedItem.toString()).observe(this){
+//                                                                            qzdz ->
+//                                                                        dataDictionaryViewModel.getDm(
+//                                                                            FL_DW,binding.spDws.selectedItem.toString()).observe(this){
+//                                                                                dws ->
+//                                                                            dataDictionaryViewModel.getDm(
+//                                                                                FL_BSX,binding.spBsxs.selectedItem.toString()).observe(this){
+//                                                                                    bsxs ->
+//                                                                                dataDictionaryViewModel.getDm(
+//                                                                                    FL_ZDLY,binding.spZdly.selectedItem.toString()).observe(this){
+//                                                                                        zdly ->
+//                                                                                    dataDictionaryViewModel.getDm(
+//                                                                                        FL_RYGG,binding.spRygg.selectedItem.toString()).observe(this){
+//                                                                                            rygg ->
+//                                                                                        dataDictionaryViewModel.getDm(
+//                                                                                            FL_HPYS,binding.spHpys.selectedItem.toString()).observe(this){
+//                                                                                                hpys ->
+//                                                                                            dataDictionaryViewModel.getDm(
+//                                                                                                FL_CLSSLB,binding.spSslb.selectedItem.toString()).observe(this){
+//                                                                                                    jdcsslb ->
+//                                                                                                dataDictionaryViewModel.getDm(
+//                                                                                                    FL_JQFS,binding.spJqfs.selectedItem.toString()).observe(this){
+//                                                                                                        jqfs ->
+//                                                                                                    systemParamsViewModel.getJyjgbh("AJ").observe(this){
+//                                                                                                            jyjgbhAj ->
+//                                                                                                        dataDictionaryViewModel.getDm(
+//                                                                                                            FL_HBXH,binding.spJcxh.selectedItem.toString()).observe(this){
+//                                                                                                                hbxh ->
+//                                                                                                            dataDictionaryViewModel.getDm(
+//                                                                                                                FL_GYFS,binding.spGyfs.selectedItem.toString()).observe(this){
+//                                                                                                                    gyfs ->
+//                                                                                                                dataDictionaryViewModel.getDm(
+//                                                                                                                    FL_CC,binding.spCcs.selectedItem.toString()).observe(this){
+//                                                                                                                        ccs ->
+//                                                                                                                    dataDictionaryViewModel.getDm(
+//                                                                                                                        FL_HCLZL,binding.spHclfs.selectedItem.toString()).observe(this){
+//                                                                                                                            hclfs ->
+//                                                                                                                        dataDictionaryViewModel.getDmList(
+//                                                                                                                            FL_JYXM,getJyxm(registerJyxmAdapter)).observe(this){
+//                                                                                                                                jyxmList ->
+//                                                                                                                            var jyxmString = ""
+//                                                                                                                            for(element in jyxmList){
+//                                                                                                                                jyxmString += element
+//                                                                                                                                jyxmString +=","
+//                                                                                                                            }
+//                                                                                                                            jyxmString = jyxmString.substring(0,jyxmString.length-1)
+//                                                                                                                            registerViewModel.postSaveVehicleInfo(SaveVehicleInfoW003Request(
+//                                                                                                                                0,
+//                                                                                                                                "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
+//                                                                                                                                hpzl,
+//                                                                                                                                binding.etClsbdh.text.toString(),
+//                                                                                                                                textValueList[1],
+//                                                                                                                                textValueList[2],
+//                                                                                                                                "",
+//                                                                                                                                jkgc,
+//                                                                                                                                "",
+//                                                                                                                                textValueList[8],
+//                                                                                                                                textValueList[4],
+//                                                                                                                                cllx,
+//                                                                                                                                "",
+//                                                                                                                                syxz,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                textValueList[5],
+//                                                                                                                                binding.tvCcdjrq.text.toString(),
+//                                                                                                                                binding.tvDjrq.text.toString(),
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                textValueList[7],
+//                                                                                                                                "",
+//                                                                                                                                textValueList[3],
+//                                                                                                                                rlzl,
+//                                                                                                                                textValueList[28],
+//                                                                                                                                textValueList[27],
+//                                                                                                                                zxxs,
+//                                                                                                                                binding.etCwkc.text.toString(),
+//                                                                                                                                binding.etCwkk.text.toString(),
+//                                                                                                                                binding.etCwkg.text.toString(),
+//                                                                                                                                binding.etHxnbcd.text.toString(),
+//                                                                                                                                binding.etHxnbkd.text.toString(),
+//                                                                                                                                binding.etHxnbgd.text.toString(),
+//                                                                                                                                "",
+//                                                                                                                                textValueList[12],
+//                                                                                                                                textValueList[13],
+//                                                                                                                                textValueList[16],
+//                                                                                                                                textValueList[17],
+//                                                                                                                                textValueList[32],
+//                                                                                                                                "",
+//                                                                                                                                textValueList[18],
+//                                                                                                                                textValueList[19],
+//                                                                                                                                textValueList[24],
+//                                                                                                                                textValueList[23],
+//                                                                                                                                textValueList[25],
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                binding.tvCcrq.text.toString(),
+//                                                                                                                                clyt,
+//                                                                                                                                ytsx,
+//                                                                                                                                textValueList[0],
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "1".takeIf { binding.cbSfcyc.isChecked}?:"0",
+//                                                                                                                                ajywlb,
+//                                                                                                                                zjywlb,
+//                                                                                                                                hjywlb,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                wgcxh,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                qdxs,
+//                                                                                                                                textValueList[11],
+//                                                                                                                                "",
+//                                                                                                                                textValueList[14],
+//                                                                                                                                qzdz,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                textValueList[30],
+//                                                                                                                                textValueList[9],
+//                                                                                                                                textValueList[10],
+//                                                                                                                                "1".takeIf{ binding.cbSfmz.isChecked}?:"0",
+//                                                                                                                                textValueList[26],
+//                                                                                                                                "",
+//                                                                                                                                bsxs,
+//                                                                                                                                zdly,
+//                                                                                                                                textValueList[33],
+//                                                                                                                                textValueList[32],
+//                                                                                                                                textValueList[6],
+//                                                                                                                                textValueList[34],
+//                                                                                                                                hpys,
+//                                                                                                                                textValueList[31],
+//                                                                                                                                textValueList[22],
+//                                                                                                                                jdcsslb,
+//                                                                                                                                textValueList[15],
+//                                                                                                                                textValueList[21],
+//                                                                                                                                zjywlb,
+//                                                                                                                                "1".takeIf{ binding.cbSfdzzc.isChecked}?:"0",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                textValueList[29],
+//                                                                                                                                jqfs,
+//                                                                                                                                dws,
+//                                                                                                                                gyfs,
+//                                                                                                                                "",
+//                                                                                                                                "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf{ binding.cbAjywlb.isChecked}?:"",
+//                                                                                                                                "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbHjywlb.isChecked }?:"",
+//                                                                                                                                jyjgbhAj,
+//                                                                                                                                hbxh,
+//                                                                                                                                "",
+//                                                                                                                                jyxmString,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                date2String(Date(),"yyyyMMdd HH:mm:ss"),
+//                                                                                                                                1,
+//                                                                                                                                1,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                bean001.TrueName,
+//                                                                                                                                bean001.ID,
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                "",
+//                                                                                                                                textValueList[35],
+//                                                                                                                                textValueList[37],
+//                                                                                                                                textValueList[36],
+//                                                                                                                                "",
+//                                                                                                                                textValueList[38],
+//                                                                                                                                textValueList[39],
+//                                                                                                                                ccs,
+//                                                                                                                                hclfs,
+//
+//                                                                                                                                )).observe(this){
+//                                                                                                                                if (it){
+//                                                                                                                                    Toast.makeText(
+//                                                                                                                                        this.requireContext(),
+//                                                                                                                                        "登记成功",
+//                                                                                                                                        Toast.LENGTH_SHORT
+//                                                                                                                                    ).show()
+//                                                                                                                                }
+//                                                                                                                            }
+//                                                                                                                        }
+//                                                                                                                    }
+//                                                                                                                }
+//
+//
+//                                                                                                            }
+//
+//                                                                                                        }
+//                                                                                                    }
+//                                                                                                }
+//                                                                                            }
+//                                                                                        }
+//                                                                                    }
+//                                                                                }
+//                                                                            }
+//                                                                        }
+//
+//                                                                    }
+//                                                                }
+//                                                            }
+//
+//                                                        }
+//                                                    }
+//                                                }
+//
+//                                            }
+//
+//                                        }
+//
+//                                    }
+//
+//                                }
+//
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+
+//        }
+    }
 
 
     fun initView() {
         dataDictionaryViewModel.apply {
             getMcListFromFl(FL_CSJC).observe(this@RegisterFragment) {
                 binding.spHphm.adapter =
-                    ArrayAdapter(this@RegisterFragment.requireContext(), R.layout.textview_spinner, it)
+                    ArrayAdapter(
+                        this@RegisterFragment.requireContext(),
+                        R.layout.textview_spinner,
+                        it
+                    )
             }
             getMcListFromFl(FL_HPZL).observe(this@RegisterFragment) {
                 binding.spHpzl.adapter =
-                    ArrayAdapter(this@RegisterFragment.requireContext(), R.layout.textview_spinner, it)
+                    ArrayAdapter(
+                        this@RegisterFragment.requireContext(),
+                        R.layout.textview_spinner,
+                        it
+                    )
             }
             getMcListFromFl(FL_HPYS).observe(this@RegisterFragment) {
                 binding.spHpys.adapter =
-                    ArrayAdapter(this@RegisterFragment.requireContext(), R.layout.textview_spinner, it)
+                    ArrayAdapter(
+                        this@RegisterFragment.requireContext(),
+                        R.layout.textview_spinner,
+                        it
+                    )
                 binding.spHpys.setText("蓝色")
             }
             getMcListFromFl(FL_AJYWLB).observe(this@RegisterFragment) {
                 binding.spAjywlb.adapter =
-                    ArrayAdapter(this@RegisterFragment.requireContext(), R.layout.textview_spinner, it)
+                    ArrayAdapter(
+                        this@RegisterFragment.requireContext(),
+                        R.layout.textview_spinner,
+                        it
+                    )
                 binding.spAjywlb.setText("-")
             }
             getMcListFromFl(FL_HJYWLB).observe(this@RegisterFragment) {
                 binding.spHjywlb.adapter =
-                    ArrayAdapter(this@RegisterFragment.requireContext(), R.layout.textview_spinner, it)
+                    ArrayAdapter(
+                        this@RegisterFragment.requireContext(),
+                        R.layout.textview_spinner,
+                        it
+                    )
                 binding.spHjywlb.setText("-")
             }
             getMcListFromFl(FL_ZJYWLB).observe(this@RegisterFragment) {
                 binding.spZjywlb.adapter =
-                    ArrayAdapter(this@RegisterFragment.requireContext(), R.layout.textview_spinner, it)
+                    ArrayAdapter(
+                        this@RegisterFragment.requireContext(),
+                        R.layout.textview_spinner,
+                        it
+                    )
                 binding.spZjywlb.setText("-")
             }
-            getMcListFromFl(FL_CLLX).observe(this@RegisterFragment){
-                binding.spCllx.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_CLLX).observe(this@RegisterFragment) {
+                binding.spCllx.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_CLYT).observe(this@RegisterFragment){
-                binding.spClyt.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_CLYT).observe(this@RegisterFragment) {
+                binding.spClyt.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_YTSX).observe(this@RegisterFragment){
-                binding.spYtsx.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_YTSX).observe(this@RegisterFragment) {
+                binding.spYtsx.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_PZCX).observe(this@RegisterFragment){
-                binding.spWgcx.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_PZCX).observe(this@RegisterFragment) {
+                binding.spWgcx.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_GCJK).observe(this@RegisterFragment){
-                binding.spGcjk.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_GCJK).observe(this@RegisterFragment) {
+                binding.spGcjk.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_QDFS).observe(this@RegisterFragment){
-                binding.spQdxs.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_QDFS).observe(this@RegisterFragment) {
+                binding.spQdxs.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_ZDLY).observe(this@RegisterFragment){
-                binding.spZdly.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_ZDLY).observe(this@RegisterFragment) {
+                binding.spZdly.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_RYGG).observe(this@RegisterFragment){
-                binding.spRygg.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_RYGG).observe(this@RegisterFragment) {
+                binding.spRygg.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_RYLB).observe(this@RegisterFragment){
-                binding.spRyzl1.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
-                binding.spRyzl2.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_RLZL).observe(this@RegisterFragment) {
+                binding.spRlzl1.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
+                binding.spRlzl2.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_QZDZ).observe(this@RegisterFragment){
-                binding.spQzdz.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_QZDZ).observe(this@RegisterFragment) {
+                binding.spQzdz.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_HBXH).observe(this@RegisterFragment){
-                binding.spJcxh.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_HBXH).observe(this@RegisterFragment) {
+                binding.spJcxh.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_CLSSLB).observe(this@RegisterFragment){
-                binding.spSslb.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_SSLB).observe(this@RegisterFragment) {
+                binding.spSslb.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_GYFS).observe(this@RegisterFragment){
-                binding.spGyfs.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_GYFS).observe(this@RegisterFragment) {
+                binding.spGyfs.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_JQFS).observe(this@RegisterFragment){
-                binding.spJqfs.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_JQFS).observe(this@RegisterFragment) {
+                binding.spJqfs.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_BSX).observe(this@RegisterFragment){
-                binding.spBsxs.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_BSX).observe(this@RegisterFragment) {
+                binding.spBsxs.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_DW).observe(this@RegisterFragment){
-                binding.spDws.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_DW).observe(this@RegisterFragment) {
+                binding.spDws.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_CC).observe(this@RegisterFragment){
-                binding.spCcs.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_CC).observe(this@RegisterFragment) {
+                binding.spCcs.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_HCLZL).observe(this@RegisterFragment){
-                binding.spHclfs.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_HCLZL).observe(this@RegisterFragment) {
+                binding.spHclfs.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_HYYT).observe(this@RegisterFragment){
-                binding.spHyyt.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_HYYT).observe(this@RegisterFragment) {
+                binding.spHyyt.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
-            getMcListFromFl(FL_CLSYXZ).observe(this@RegisterFragment){
-                binding.spSyxz.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_CLSYXZ).observe(this@RegisterFragment) {
+                binding.spSyxz.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
         }
         systemParamsViewModel.getLshSzm().observe(this) {
@@ -873,237 +1244,244 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         }
         return list
     }
-    fun getJyxm(adapter : RegisterJyxmAdapter): List<String>{
+
+    fun getTextMap(adapter: RegisterListAdapter): Map<String, String> {
+        val map = mutableMapOf<String, String>()
+        for (index in 0 until adapter.itemCount) {
+            val holder = binding.rvLeftList.findViewHolderForAdapterPosition(index)
+            val clearEditText = holder?.itemView?.findViewById<EditText>(R.id.value)
+            map[registerViewModel.textList[index]] = clearEditText?.text.toString()
+        }
+        return map
+    }
+
+    fun getJyxm(adapter: RegisterJyxmAdapter): List<String> {
         val list = ArrayList<String>()
-        for (index in 0 until adapter.itemCount){
+        for (index in 0 until adapter.itemCount) {
             val holder = binding.rvJyxm.findViewHolderForAdapterPosition(index)
             val checkbox = holder?.itemView?.findViewById<CheckBox>(R.id.cbJyxm)
-            if (checkbox != null && checkbox.isChecked){
+            if (checkbox != null && checkbox.isChecked) {
                 list.add(checkbox.text.toString())
             }
         }
         return list
     }
 
-    fun setJyxm(ajywlb : String, cllx : String, syxz : String, hdzk : Int, Jyxm: CheckBox?, zs : Int){
-//        val list = ArrayList<CheckBox>()
-//        for (index in 0 until registerJyxmAdapter.itemCount){
-//            val view = binding.rvJyxm.layoutManager?.findViewByPosition(index) as CheckBox
-//            list.add(view)
-//        }
-        if (Jyxm?.text.toString() == "外观"){
+    fun setJyxm(ajywlb: String, cllx: String, syxz: String, hdzk: Int, Jyxm: CheckBox?, zs: Int) {
+        if (Jyxm?.text.toString() == "外观") {
             Jyxm?.isChecked = true
         }
-        if (Jyxm?.text.toString() == "唯一性检查"){
+        if (Jyxm?.text.toString() == "唯一性检查") {
             Jyxm?.isChecked = true
         }
-        if (Jyxm?.text.toString() == "联网查询"){
+        if (Jyxm?.text.toString() == "联网查询") {
             Jyxm?.isChecked = true
         }
-        if (ajywlb.contains("注册")){
+        if (ajywlb.contains("注册")) {
 
-            if(isFyyxwzk(cllx,syxz)||cllx.contains("二轮摩托车")||cllx.contains("侧三轮摩托车")){
-                if (Jyxm?.text.toString() == "外廓尺寸"){
+            if (isFyyxwzk(cllx, syxz) || cllx.contains("二轮摩托车") || cllx.contains("侧三轮摩托车")) {
+                if (Jyxm?.text.toString() == "外廓尺寸") {
                     Jyxm?.isChecked = false
                 }
-            }else{
-                if (Jyxm?.text.toString() == "外廓尺寸"){
-                    Jyxm?.isChecked = true
-                }
-//                for (element in list){
-//                    if (element.text.toString() == "外廓尺寸"){
-//                        element.isChecked = true
-//                    }
-//                }
-            }
-            if (isGc(cllx)||!(isZk(cllx)&&(cllx.contains("面包")||hdzk >= 7))){
-                if (Jyxm?.text.toString() == "底盘动态"){
-                    Jyxm?.isChecked = false
-                }
-            }else{
-                if (Jyxm?.text.toString() == "底盘动态"){
+            } else {
+                if (Jyxm?.text.toString() == "外廓尺寸") {
                     Jyxm?.isChecked = true
                 }
             }
-            if (isMtc(cllx)||!(isZk(cllx)&&(cllx.contains("面包")||hdzk >= 7))){
-                if (Jyxm?.text.toString() == "底盘动态"){
+            if (isGc(cllx) || !(isZk(cllx) && (cllx.contains("面包") || hdzk >= 7))) {
+                if (Jyxm?.text.toString() == "底盘动态") {
                     Jyxm?.isChecked = false
                 }
-            }else{
-                if (Jyxm?.text.toString() == "底盘"){
+            } else {
+                if (Jyxm?.text.toString() == "底盘动态") {
                     Jyxm?.isChecked = true
                 }
             }
-            if (isZk(cllx)||isMtc(cllx)){
-                if (Jyxm?.text.toString() == "整备质量"){
+            if (isMtc(cllx) || !(isZk(cllx) && (cllx.contains("面包") || hdzk >= 7))) {
+                if (Jyxm?.text.toString() == "底盘动态") {
                     Jyxm?.isChecked = false
                 }
-            }else{
-                if (Jyxm?.text.toString() == "整备质量"){
+            } else {
+                if (Jyxm?.text.toString() == "底盘") {
                     Jyxm?.isChecked = true
                 }
             }
-            if (isGc(cllx)){
-                if (Jyxm?.text.toString() == "左外灯"){
+            if (isZk(cllx) || isMtc(cllx)) {
+                if (Jyxm?.text.toString() == "整备质量") {
                     Jyxm?.isChecked = false
                 }
-                if (Jyxm?.text.toString() == "右外灯"){
-                    Jyxm?.isChecked = false
-                }
-            }else{
-                if (Jyxm?.text.toString() == "左外灯"){
-                    Jyxm?.isChecked = true
-                }
-                if (Jyxm?.text.toString() == "右外灯"){
+            } else {
+                if (Jyxm?.text.toString() == "整备质量") {
                     Jyxm?.isChecked = true
                 }
             }
-            if (binding.cbSfdzzc.isChecked){
-                if (Jyxm?.text.toString() == "驻车制动"){
+            if (isGc(cllx)) {
+                if (Jyxm?.text.toString() == "左外灯") {
                     Jyxm?.isChecked = false
                 }
-            }else{
-                if (Jyxm?.text.toString() == "驻车制动"){
+                if (Jyxm?.text.toString() == "右外灯") {
+                    Jyxm?.isChecked = false
+                }
+            } else {
+                if (Jyxm?.text.toString() == "左外灯") {
+                    Jyxm?.isChecked = true
+                }
+                if (Jyxm?.text.toString() == "右外灯") {
                     Jyxm?.isChecked = true
                 }
             }
-            if (binding.cbSfdlxj.isChecked){
-                if (Jyxm?.text.toString() == "侧滑"){
+            if (binding.cbSfdzzc.isChecked) {
+                if (Jyxm?.text.toString() == "驻车制动") {
+                    Jyxm?.isChecked = false
+                }
+            } else {
+                if (Jyxm?.text.toString() == "驻车制动") {
                     Jyxm?.isChecked = true
                 }
-            }else{
+            }
+            if (binding.cbSfdlxj.isChecked) {
+                if (Jyxm?.text.toString() == "侧滑") {
+                    Jyxm?.isChecked = true
+                }
+            } else {
                 if (Jyxm?.text.toString() == "侧滑")
-                Jyxm?.isChecked = false
+                    Jyxm?.isChecked = false
             }
-            when(zs){
+            when (zs) {
                 1 -> {
-                    if (Jyxm?.text.toString() == "一轴制动"){
+                    if (Jyxm?.text.toString() == "一轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "二轴制动"){
+                    if (Jyxm?.text.toString() == "二轴制动") {
                         Jyxm?.isChecked = false
                     }
-                    if (Jyxm?.text.toString() == "三轴制动"){
+                    if (Jyxm?.text.toString() == "三轴制动") {
                         Jyxm?.isChecked = false
                     }
-                    if (Jyxm?.text.toString() == "四轴制动"){
+                    if (Jyxm?.text.toString() == "四轴制动") {
                         Jyxm?.isChecked = false
                     }
-                    if (Jyxm?.text.toString() == "五轴制动"){
+                    if (Jyxm?.text.toString() == "五轴制动") {
                         Jyxm?.isChecked = false
                     }
                 }
                 2 -> {
-                    if (Jyxm?.text.toString() == "一轴制动"){
+                    if (Jyxm?.text.toString() == "一轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "二轴制动"){
+                    if (Jyxm?.text.toString() == "二轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "三轴制动"){
+                    if (Jyxm?.text.toString() == "三轴制动") {
                         Jyxm?.isChecked = false
                     }
-                    if (Jyxm?.text.toString() == "四轴制动"){
+                    if (Jyxm?.text.toString() == "四轴制动") {
                         Jyxm?.isChecked = false
                     }
-                    if (Jyxm?.text.toString() == "五轴制动"){
+                    if (Jyxm?.text.toString() == "五轴制动") {
                         Jyxm?.isChecked = false
                     }
                 }
                 3 -> {
-                    if (Jyxm?.text.toString() == "一轴制动"){
+                    if (Jyxm?.text.toString() == "一轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "二轴制动"){
+                    if (Jyxm?.text.toString() == "二轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "三轴制动"){
+                    if (Jyxm?.text.toString() == "三轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "四轴制动"){
+                    if (Jyxm?.text.toString() == "四轴制动") {
                         Jyxm?.isChecked = false
                     }
-                    if (Jyxm?.text.toString() == "五轴制动"){
+                    if (Jyxm?.text.toString() == "五轴制动") {
                         Jyxm?.isChecked = false
                     }
                 }
                 4 -> {
-                    if (Jyxm?.text.toString() == "一轴制动"){
+                    if (Jyxm?.text.toString() == "一轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "二轴制动"){
+                    if (Jyxm?.text.toString() == "二轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "三轴制动"){
+                    if (Jyxm?.text.toString() == "三轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "四轴制动"){
+                    if (Jyxm?.text.toString() == "四轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "五轴制动"){
+                    if (Jyxm?.text.toString() == "五轴制动") {
                         Jyxm?.isChecked = false
                     }
                 }
                 5 -> {
-                    if (Jyxm?.text.toString() == "一轴制动"){
+                    if (Jyxm?.text.toString() == "一轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "二轴制动"){
+                    if (Jyxm?.text.toString() == "二轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "三轴制动"){
+                    if (Jyxm?.text.toString() == "三轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "四轴制动"){
+                    if (Jyxm?.text.toString() == "四轴制动") {
                         Jyxm?.isChecked = true
                     }
-                    if (Jyxm?.text.toString() == "五轴制动"){
+                    if (Jyxm?.text.toString() == "五轴制动") {
                         Jyxm?.isChecked = true
                     }
                 }
             }
 
-        }else if (ajywlb.contains("在用车")){
-            if (syxz.contains("非营运")){
+        } else if (ajywlb.contains("在用车")) {
+            if (syxz.contains("非营运")) {
 
-            }else{
+            } else {
 
             }
-            if (cllx.contains("非营运")){
+            if (cllx.contains("非营运")) {
 
-            }else{
+            } else {
 
             }
 
         }
     }
-    fun isFyy(syxz : String): Boolean {
+
+    fun isFyy(syxz: String): Boolean {
         return syxz == "非营运"
     }
 
-    fun isZk(cllx: String) : Boolean{
+    fun isZk(cllx: String): Boolean {
         return cllx.contains("客车")
-                ||cllx.contains("校车")
-                ||cllx.contains("轿车")
-                ||cllx.contains("面包")
-                ||(cllx.contains("旅居")&&!cllx.contains("挂"))
+                || cllx.contains("校车")
+                || cllx.contains("轿车")
+                || cllx.contains("面包")
+                || (cllx.contains("旅居") && !cllx.contains("挂"))
     }
+
     fun isFyyxwzk(cllx: String, syxz: String): Boolean {
-        return (isZk(cllx)&&(cllx.contains("小")||cllx.contains("微")))&&isFyy(syxz)
+        return (isZk(cllx) && (cllx.contains("小") || cllx.contains("微"))) && isFyy(syxz)
     }
-    fun isHc(cllx: String) : Boolean{
+
+    fun isHc(cllx: String): Boolean {
         return cllx.contains("货车")
-                ||cllx.contains("运输车")
-                ||cllx.contains("专项作业车")
-                ||cllx.contains("牵引")
+                || cllx.contains("运输车")
+                || cllx.contains("专项作业车")
+                || cllx.contains("牵引")
     }
-    fun isGc(cllx: String) : Boolean{
-        return (cllx.contains("挂")&&!cllx.contains("牵引"))
+
+    fun isGc(cllx: String): Boolean {
+        return (cllx.contains("挂") && !cllx.contains("牵引"))
     }
-    fun isSlqc(cllx: String) : Boolean{
+
+    fun isSlqc(cllx: String): Boolean {
         return cllx == "三轮汽车"
     }
-    fun isMtc(cllx: String) : Boolean{
+
+    fun isMtc(cllx: String): Boolean {
         return cllx.contains("摩托")
     }
 

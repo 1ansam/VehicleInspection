@@ -511,7 +511,7 @@
                         android:textSize="20sp" />
 
                     <Spinner
-                        android:id="@+id/spRyzl1"
+                        android:id="@+id/spRlzl1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -525,7 +525,7 @@
                         android:textSize="20sp" />
 
                     <Spinner
-                        android:id="@+id/spRyzl2"
+                        android:id="@+id/spRlzl2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />

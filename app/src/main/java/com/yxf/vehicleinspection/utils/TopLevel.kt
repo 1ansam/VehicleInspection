@@ -35,7 +35,7 @@ import kotlin.collections.ArrayList
 
 //数据字典分类常量
 const val FL_CLSYXZ = "01"
-const val FL_RYLB = "02"
+const val FL_RLZL = "02"
 const val FL_QZDZ = "03"
 const val FL_ZDMS = "04"
 const val FL_SSDQ = "05"
@@ -79,7 +79,7 @@ const val FL_GLBZFS = "44"
 const val FL_KCDJ = "45"
 const val FL_HCCSXS = "46"
 const val FL_SJLJFS = "47"
-const val FL_CLSSLB = "50"
+const val FL_SSLB = "50"
 const val FL_ZFFS = "52"
 const val FL_QYLX = "53"
 const val FL_PZCX = "60"

@@ -15,7 +15,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 /**
  *   author:yxf
@@ -104,31 +103,83 @@ class RegisterRepository() {
         textMap["DPF"] = "DPF（柴油）"
         return textMap
     }
+    fun getTextList() : List<String>{
+        return mutableListOf<String>(
+                    "xszbh",
+                    "clpp1",
+                    "clxh",
+                    "fdjxh",
+                    "fdjh",
+                    "syr",
+                    "lxdh",
+                    "zt",
+                    "zzcmc",
+                    "qdzs",
+                    "qdzw",
+                    "zczs",
+                    "zs",
+                    "zj",
+                    "zzs",
+                    "qzs",
+                    "qlj",
+                    "hlj",
+                    "zzl",
+                    "zbzl",
+                    "kqxjzw",
+                    "zxzs",
+                    "bzzw",
+                    "hdzk",
+                    "hdzzl",
+                    "zqyzl",
+                    "zdsjcs",
+                    "gl",
+                    "pl",
+                    "pqgs",
+                    "lcbds",
+                    "edzs",
+                    "ltgg",
+                    "qgs",
+                    "lxdz",
+                    "sjr",
+                    "sjrdh",
+                    "sjrsfzh",
+                    "SCR",
+                    "DPF",
+        )
+    }
 
-
-    fun getSpinnerMap(): Map<String,String>{
-        val spinnerMap = mutableMapOf<String,String>()
-        spinnerMap ["Cllx"] = "车辆类型"
-        spinnerMap ["Clyt"] = "车辆用途"
-        spinnerMap ["Ytsx"] = "用途属性"
-        spinnerMap ["Wgchx"] = "外观车型"
-        spinnerMap ["Gcjk"] = "国产/进口"
-        spinnerMap ["Qdxs"] = "驱动形式"
-        spinnerMap ["Zdly"] = "制动力源"
-//        spinnerMap ["Xzqh"] = "行政区划"
-        spinnerMap ["Rlzl1"] = "燃料种类1"
-        spinnerMap ["Rlzl2"] = "燃料种类2"
-        spinnerMap ["Rygg"] = "燃油规格"
-        spinnerMap ["Qzdz"] = "前照灯制"
-        spinnerMap ["Jcxh"] = "检测线号"
-        spinnerMap ["Jdcsslb"] = "机动车所属类别"
-        spinnerMap ["Gyfs"] = "供油方式"
-        spinnerMap ["Jqfs"] = "进气方式"
-        spinnerMap ["Bsxs"] = "变速型式"
-        spinnerMap ["Dws"] = "档位数"
-        spinnerMap ["Ccs"] = "冲程数"
-        spinnerMap ["Hclfs"] = "后处理方式"
-        return spinnerMap
+    fun getFlList() : List<String>{
+        val list = mutableListOf<String>(
+            FL_HPZL,
+            FL_HPYS,
+            FL_AJYWLB,
+            FL_HJYWLB,
+            FL_ZJYWLB,
+            FL_CLLX,
+            FL_CLYT,
+            FL_YTSX,
+            FL_PZCX,
+            FL_GCJK,
+            FL_QDFS,
+            FL_ZDLY,
+            FL_RLZL,
+            FL_RYGG,
+            FL_QZDZ,
+            FL_SSLB,
+            FL_GYFS,
+            FL_JQFS,
+            FL_BSX,
+            FL_DW,
+            FL_CC,
+            FL_HCLZL,
+            FL_HYYT,
+            FL_ZXZFS,
+            FL_HBXH
+        )
+        return list
+    }
+    fun getSpinnerMap(): MutableMap<String, String> {
+        return mutableMapOf()
     }
 
 }
