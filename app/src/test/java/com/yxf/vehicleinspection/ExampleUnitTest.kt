@@ -2,8 +2,12 @@ package com.yxf.vehicleinspection
 
 
 
+import android.util.Log
+import com.yxf.vehicleinspection.utils.date2String
+import com.yxf.vehicleinspection.utils.string2Date
+import com.yxf.vehicleinspection.view.fragment.RegisterFragment
 import org.junit.Test
-
+import java.util.*
 
 
 /**
@@ -14,22 +18,17 @@ import org.junit.Test
 class ExampleUnitTest(){
     @Test
     fun main(){
-        val list = listOf<Boolean>(true,true,true,false)
-        val list2 = listOf<Boolean>(true,true,true,true)
-        val list3 = listOf<Boolean>(false,false,false,false)
-        val list4 = listOf<Boolean>(false,true,true,true)
-        println(isAllNotBlank(list))
-        println(isAllNotBlank(list2))
-        println(isAllNotBlank(list3))
-        println(isAllNotBlank(list4))
+        val registerFragment = RegisterFragment()
+        val cllx = "小型轿车"
+        val syxz = "出租客运"
+        val hdzk = 5
+        val zs = 2
+        val betweenMonth = 117L
+        val date = Date()
+        val date2 = Date()
+        val boolean = registerFragment.isFyyxwzk(cllx, syxz)&&(hdzk < 7 || betweenMonth < 118)
+        println(boolean)
     }
-    private fun isAllNotBlank(booleanList: List<Boolean>):Boolean{
-        for (element in booleanList){
-            if (!element){
-                return false
-            }
-        }
-        return true
-    }
+
 }
 
