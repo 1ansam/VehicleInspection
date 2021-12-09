@@ -315,9 +315,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                             args.bean002.Ajjccs,args.bean002.Hjjccs)
                         ).observe(this){
                             if (it){
-                                Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApp.context, "车架号由远及近视频上传成功", Toast.LENGTH_SHORT).show()
                             }else{
-                                Toast.makeText(MyApp.context, "视频数据上传失败", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApp.context, "车架号由远及近视频上传失败", Toast.LENGTH_SHORT).show()
                             }
 
                         }
@@ -349,9 +349,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                             args.bean002.Ajjccs,args.bean002.Hjjccs)
                         ).observe(this){
                             if (it){
-                                Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApp.context, "环视车辆一周视频上传成功", Toast.LENGTH_SHORT).show()
                             }else{
-                                Toast.makeText(MyApp.context, "视频数据上传失败", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApp.context, "环视车辆一周视频上传失败", Toast.LENGTH_SHORT).show()
                             }
 
                         }
@@ -383,9 +383,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                             args.bean002.Ajjccs,args.bean002.Hjjccs)
                         ).observe(this){
                             if (it){
-                                Toast.makeText(MyApp.context, "视频数据上传成功", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApp.context, "轮胎花纹深度视频上传成功", Toast.LENGTH_SHORT).show()
                             }else{
-                                Toast.makeText(MyApp.context, "视频数据上传失败", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApp.context, "轮胎花纹深度视频上传失败", Toast.LENGTH_SHORT).show()
                             }
 
                         }

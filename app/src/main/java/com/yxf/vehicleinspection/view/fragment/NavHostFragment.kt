@@ -25,7 +25,11 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
         val sharedViewModel : SharedViewModel by activityViewModels()
         sharedViewModel.setHostName(HOSTNAME_REGISTER)
         binding.btnRegisterFunc.setOnClickListener {
-            val action = NavHostFragmentDirections.actionNavHostFragmentToRegisterFragment()
+//            val action = NavHostFragmentDirections.actionNavHostFragmentToRegisterFragment()
+//            findNavController().navigate(action)
+        }
+        binding.btnAppointmentAj.setOnClickListener {
+            val action = NavHostFragmentDirections.actionNavHostFragmentToAppointmentAjFragment()
             findNavController().navigate(action)
         }
         binding.btnChargeFunc.setOnClickListener {

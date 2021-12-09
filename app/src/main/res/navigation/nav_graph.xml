@@ -31,15 +31,11 @@
             android:id="@+id/action_navHostFragment_to_vehicleQueueFragment"
             app:destination="@id/vehicleQueueFragment" />
         <action
-            android:id="@+id/action_navHostFragment_to_registerFragment"
-            app:destination="@id/registerFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_navHostFragment_to_vehicleInfoFragment2"
             app:destination="@id/vehicleInfoFragment" />
+        <action
+            android:id="@+id/action_navHostFragment_to_appointmentAjFragment"
+            app:destination="@id/appointmentAjFragment" />
     </fragment>
     <fragment
         android:id="@+id/vehicleImageVideoFragment"
@@ -66,11 +62,6 @@
             android:id="@+id/action_signatureFragment_pop_including_VehicleQueueFragment"
             app:popUpTo="@id/vehicleQueueFragment"
             app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_signatureFragment_pop_including_registerFragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/registerFragment"
-            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_signatureFragment_to_chargeFragment"
             app:popUpTo="@id/chargeFragment"
@@ -112,9 +103,9 @@
         android:id="@+id/registerFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.RegisterFragment"
         android:label="RegisterFragment" >
-        <action
-            android:id="@+id/action_registerFragment_to_signatureFragment"
-            app:destination="@id/signatureFragment" />
+        <argument
+            android:name="bean010"
+            app:argType="com.yxf.vehicleinspection.bean.response.AppointmentAjR010Response" />
     </fragment>
     <fragment
         android:id="@+id/chargeFragment"
@@ -266,5 +257,13 @@
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointmentAjFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.AppointmentAjFragment"
+        android:label="AppointmentAjFragment" >
+        <action
+            android:id="@+id/action_appointmentAjFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 </navigation>

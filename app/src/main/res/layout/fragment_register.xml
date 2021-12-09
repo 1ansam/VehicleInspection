@@ -96,7 +96,7 @@
                     android:layout_weight="1"
                     android:text="号牌号码" />
 
-                <Spinner
+                <com.yxf.vehicleinspection.view.MySpinner
                     android:id="@+id/spHphm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                     android:layout_weight="1"
                     android:text="号牌种类" />
 
-                <Spinner
+                <com.yxf.vehicleinspection.view.MySpinner
                     android:id="@+id/spHpzl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                     android:layout_weight="1"
                     android:text="号牌颜色" />
 
-                <Spinner
+                <com.yxf.vehicleinspection.view.MySpinner
                     android:id="@+id/spHpys"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -300,7 +300,7 @@
                     android:layout_weight="1"
                     android:text="@string/AJ" />
 
-                <androidx.appcompat.widget.AppCompatSpinner
+                <com.yxf.vehicleinspection.view.MySpinner
                     android:id="@+id/spAjywlb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -313,7 +313,7 @@
                     android:layout_weight="1"
                     android:text="环检" />
 
-                <androidx.appcompat.widget.AppCompatSpinner
+                <com.yxf.vehicleinspection.view.MySpinner
                     android:id="@+id/spHjywlb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -326,7 +326,7 @@
                     android:layout_weight="1"
                     android:text="综检" />
 
-                <androidx.appcompat.widget.AppCompatSpinner
+                <com.yxf.vehicleinspection.view.MySpinner
                     android:id="@+id/spZjywlb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -370,7 +370,7 @@
                         android:text="车辆类型"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spCllx"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -384,7 +384,7 @@
                         android:text="车辆用途"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spClyt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -405,7 +405,7 @@
                         android:text="用途属性"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spYtsx"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -419,7 +419,7 @@
                         android:text="外观车型"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spWgcx"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -440,7 +440,7 @@
                         android:text="国产/进口"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spGcjk"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -454,7 +454,7 @@
                         android:text="驱动形式"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spQdxs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -475,7 +475,7 @@
                         android:text="制动力源"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spZdly"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -489,7 +489,7 @@
                         android:text="燃油规格"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spRygg"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -510,13 +510,13 @@
                         android:text="燃油种类"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spRlzl1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spRlzl2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -537,7 +537,7 @@
                         android:text="前照灯制"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spQzdz"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -551,7 +551,7 @@
                         android:text="检测线号"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spJcxh"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -572,7 +572,7 @@
                         android:text="所属类别"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spSslb"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -586,7 +586,7 @@
                         android:text="供油方式"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spGyfs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -607,7 +607,7 @@
                         android:text="进气方式"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spJqfs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -621,7 +621,7 @@
                         android:text="变速形式"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spBsxs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -642,7 +642,7 @@
                         android:text="档位数"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spDws"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -656,7 +656,7 @@
                         android:text="冲程数"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spCcs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -677,7 +677,7 @@
                         android:text="后处理方式"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spHclfs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -691,7 +691,7 @@
                         android:textSize="20sp"
                         android:text="行业用途"/>
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spHyyt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -711,7 +711,7 @@
                         android:text="使用性质"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spSyxz"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -724,7 +724,7 @@
                         android:gravity="start"
                         android:textSize="20sp"/>
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -743,18 +743,18 @@
                         android:text="车身颜色"
                         android:textSize="20sp" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spCsys1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spCsys2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
-                    <Spinner
+                    <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spCsys3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

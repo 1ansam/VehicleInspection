@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.bean.request.SaveVehicleInfoW003Request
+import com.yxf.vehicleinspection.bean.response.AppointmentAjR010Response
 import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR022Response
 import com.yxf.vehicleinspection.repository.DataDictionaryRepository
@@ -21,6 +22,9 @@ class RegisterViewModel(val registerRepository: RegisterRepository) : ViewModel(
     }
     fun postSaveVehicleInfo(saveVehicleInfoW003Request: SaveVehicleInfoW003Request) : LiveData<Boolean>{
         return registerRepository.postSaveVehicleInfo(saveVehicleInfoW003Request)
+    }
+    fun getAppointmentAj(): LiveData<List<AppointmentAjR010Response>> {
+        return registerRepository.getAppointmentAJ()
     }
 
     val textMap = registerRepository.getTextMap()

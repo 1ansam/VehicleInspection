@@ -4,6 +4,8 @@ import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
@@ -35,7 +37,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     private val registerJyxmAdapter = RegisterJyxmAdapter()
 
     private var bean: VehicleAllInfoR022Response? = null
-
+    val args : RegisterFragmentArgs by navArgs()
     override fun init() {
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         initView()
@@ -43,6 +45,29 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         binding.rvLeftList.layoutManager = GridLayoutManager(this.requireContext(), 2)
         val textAdapter = RegisterListAdapter()
         textAdapter.data = registerViewModel.textMap.values.toList()
+        textAdapter.value = arrayListOf(
+            bean?.Xszbh, bean?.Clpp1,
+            bean?.Clxh, bean?.Fdjh,
+            bean?.Fdjxh, bean?.Syr,
+            bean?.Lxdh, bean?.Zt,
+            bean?.Zzcmc, bean?.Qdzs,
+            bean?.Qdzw, bean?.Zczs,
+            bean?.Zczw, bean?.Zs, bean?.Zj,
+            bean?.Zzs, bean?.Qzs,
+            bean?.Qlj, bean?.Hlj,
+            bean?.Zzl, bean?.Zbzl,
+            bean?.Kqxjzw, bean?.Zxzs,
+            bean?.Bzzw, bean?.Hdzk,
+            bean?.Hdzzl, bean?.Zqyzl,
+            bean?.Zdsjcs, bean?.Gl,
+            bean?.Pl, bean?.Pqgs,
+            bean?.Lcbds, bean?.Edzs,
+            bean?.Ltgg, bean?.Qgs,
+            bean?.Lxdz, args.bean010.sjr,
+            args.bean010.sjrdh, args.bean010.sjrsfzh,
+            bean?.SCR, bean?.DPF
+        )
+
         binding.rvLeftList.adapter = textAdapter
         binding.rvLeftList.setHasFixedSize(true)
         binding.rvJyxm.layoutManager = GridLayoutManager(this.requireContext(), 4)
@@ -50,6 +75,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         dataDictionaryViewModel.getMcListFromFl(FL_JYXM).observe(this) {
             registerJyxmAdapter.data = it
         }
+
         binding.spHpzl.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -114,8 +140,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                 ).observe(this) {
                                     bean = it
                                     binding.apply {
-
-
                                         etClsbdh.setText(bean?.Clsbdh)
                                         etCwkc.setText(bean?.Cwkc)
                                         etCwkk.setText(bean?.Cwkk)
@@ -156,19 +180,90 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                             getMc(FL_HPZL, it.Hpzl).observe(this@RegisterFragment) {
                                                 binding.spHpzl.setText(it)
                                             }
-//                                            getMc(
-//                                                FL_HPYS,
-//                                                it.Hpys.takeIf { it != null } ?: "1"
-//                                            ).observe(this@RegisterFragment) {
-//                                                binding.spHpys.setText(it)
-//                                            }
+                                            getMc(FL_CLLX, it.Cllx).observe(this@RegisterFragment) {
+                                                binding.spCllx.setText(it)
+                                            }
+                                            getMc(FL_CLYT, it.Clyt).observe(this@RegisterFragment) {
+                                                binding.spClyt.setText(it)
+                                            }
+                                            getMc(FL_YTSX, it.Ytsx).observe(this@RegisterFragment) {
+                                                binding.spYtsx.setText(it)
+                                            }
+                                            getMc(FL_GCJK, it.Gcjk).observe(this@RegisterFragment) {
+                                                binding.spGcjk.setText(it)
+                                            }
+                                            if (it.Rlzl.length == 1) {
+                                                getMc(
+                                                    FL_RLZL,
+                                                    it.Rlzl
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spRlzl1.setText(it)
+                                                }
+                                                binding.spRlzl2.setText("-")
+                                            } else if (it.Rlzl.length == 2) {
+                                                getMc(
+                                                    FL_RLZL,
+                                                    it.Rlzl.substring(0, 1)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spRlzl1.setText(it)
+                                                }
+                                                getMc(
+                                                    FL_RLZL,
+                                                    it.Rlzl.substring(1, 2)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spRlzl2.setText(it)
+                                                }
+                                            }
+                                            getMc(
+                                                FL_CLSYXZ,
+                                                it.Syxz
+                                            ).observe(this@RegisterFragment) {
+                                                binding.spSyxz.setText(it)
+                                            }
+                                            if (it.Csys.length == 1) {
+                                                getMc(
+                                                    FL_CSYS,
+                                                    it.Csys
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spCsys1.setText(it)
+                                                }
+                                                binding.spCsys2.setText("-")
+                                                binding.spCsys3.setText("-")
+                                            } else if (it.Csys.length == 2) {
+                                                getMc(
+                                                    FL_CSYS,
+                                                    it.Csys.substring(0, 1)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spCsys1.setText(it)
+                                                }
+                                                getMc(
+                                                    FL_CSYS,
+                                                    it.Csys.substring(1, 2)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spCsys2.setText(it)
+                                                }
+                                                binding.spCsys3.setText("-")
+                                            } else if (it.Csys.length == 3) {
+                                                getMc(
+                                                    FL_CSYS,
+                                                    it.Csys.substring(0, 1)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spCsys1.setText(it)
+                                                }
+                                                getMc(
+                                                    FL_CSYS,
+                                                    it.Csys.substring(1, 2)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spCsys2.setText(it)
+                                                }
+                                                getMc(
+                                                    FL_CSYS,
+                                                    it.Csys.substring(2, 3)
+                                                ).observe(this@RegisterFragment) {
+                                                    binding.spCsys3.setText(it)
+                                                }
+                                            }
                                         }
-
-
-//                                        getMc(FL_ZJYWLB, bean.Zjywlb).observe(this@RegisterFragment) {
-//                                            binding.spZjywlb.setText(it)
-//                                        }
-
                                     }
 
                                     val textValueList = arrayListOf(
@@ -189,20 +284,16 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                         bean?.Pl, bean?.Pqgs,
                                         bean?.Lcbds, bean?.Edzs,
                                         bean?.Ltgg, bean?.Qgs,
-                                        bean?.Lxdz, bean?.Sjr,
-                                        bean?.Sjrdh, bean?.Sjrsfzh,
+                                        bean?.Lxdz, args.bean010.sjr,
+                                        args.bean010.sjrdh, args.bean010.sjrsfzh,
                                         bean?.SCR, bean?.DPF
                                     )
                                     textAdapter.value = textValueList
-
                                 }
                             }
                         }
                     }
-
                 }
-
-
         }
         binding.btnNewLsh.setOnClickListener {
             val randomLsh = "${date2String(Date(), "yyyyMMddHHmmss")}${
@@ -212,7 +303,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                 )
             }"
             binding.tvLsh.text = randomLsh
-
             val hdzkHolder = binding.rvLeftList.findViewHolderForAdapterPosition(24)
             val zsHolder = binding.rvLeftList.findViewHolderForAdapterPosition(13)
             val hdzkValue = hdzkHolder?.itemView?.findViewById<EditText>(R.id.value)
@@ -318,19 +408,19 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         if (element.Fl == FL_CLSYXZ && element.Mc == binding.spSyxz.selectedItem.toString()) {
                             valueMap["syxz"] = element.Dm
                         }
-                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys1.selectedItem.toString()){
+                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys1.selectedItem.toString()) {
                             valueMap["csys1"] = element.Dm
                         }
-                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys2.selectedItem.toString()){
+                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys2.selectedItem.toString()) {
                             valueMap["csys2"] = element.Dm
                         }
-                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys3.selectedItem.toString()){
+                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys3.selectedItem.toString()) {
                             valueMap["csys3"] = element.Dm
                         }
                     }
-                    valueMap["rlzl"] = "${ valueMap["rlzl1"] }${valueMap["rlzl2"]}"
-                    valueMap["csys"] = "${valueMap["csys1"]}${valueMap["csys2"]}${valueMap["csys3"]}"
-
+                    valueMap["rlzl"] = "${valueMap["rlzl1"]}${valueMap["rlzl2"]}"
+                    valueMap["csys"] =
+                        "${valueMap["csys1"]}${valueMap["csys2"]}${valueMap["csys3"]}"
                     systemParamsViewModel.getJyjgbh("AJ").observe(this) { jyjgbh ->
                         dataDictionaryViewModel.getDmList(
                             FL_JYXM, getJyxm(registerJyxmAdapter)
@@ -756,6 +846,14 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         R.layout.textview_spinner,
                         it
                     )
+                if (args.bean010.hphm.isNotBlank()){
+                    binding.spHphm.setText(args.bean010.hphm.substring(0,1))
+                    binding.etHphm.setText(args.bean010.hphm.substring(1))
+                    dataDictionaryViewModel.getMc(FL_HPZL,args.bean010.hpzl).observe(this@RegisterFragment){
+                        binding.spHpzl.setText(it)
+                    }
+                    binding.etClsbdh.setText(args.bean010.clsbdh)
+                }
             }
             getMcListFromFl(FL_HPYS).observe(this@RegisterFragment) {
                 binding.spHpys.adapter =
@@ -773,6 +871,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         R.layout.textview_spinner,
                         it
                     )
+                binding.cbAjywlb.isChecked = true
                 binding.spAjywlb.setText("-")
             }
             getMcListFromFl(FL_HJYWLB).observe(this@RegisterFragment) {
@@ -782,6 +881,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         R.layout.textview_spinner,
                         it
                     )
+                binding.cbHjywlb.isChecked = true
                 binding.spHjywlb.setText("-")
             }
             getMcListFromFl(FL_ZJYWLB).observe(this@RegisterFragment) {
@@ -939,10 +1039,22 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     it
                 )
             }
-            getMcListFromFl(FL_CSYS).observe(this@RegisterFragment){
-                binding.spCsys1.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
-                binding.spCsys2.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
-                binding.spCsys3.adapter = ArrayAdapter(this@RegisterFragment.requireContext(),R.layout.textview_spinner,it)
+            getMcListFromFl(FL_CSYS).observe(this@RegisterFragment) {
+                binding.spCsys1.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
+                binding.spCsys2.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
+                binding.spCsys3.adapter = ArrayAdapter(
+                    this@RegisterFragment.requireContext(),
+                    R.layout.textview_spinner,
+                    it
+                )
             }
         }
         systemParamsViewModel.getLshSzm().observe(this) {
@@ -962,17 +1074,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         val list = ArrayList<String>()
         for (index in 0 until listAdapter.itemCount) {
             list.add(listAdapter.data[index])
-        }
-        return list
-    }
-
-    fun getTextValue(adapter: RegisterListAdapter): List<String> {
-        val list = ArrayList<String>()
-
-        for (index in 0 until adapter.itemCount) {
-            val holder = binding.rvLeftList.findViewHolderForAdapterPosition(index)
-            val clearEditText = holder?.itemView?.findViewById<EditText>(R.id.value)
-            list.add(clearEditText?.text.toString())
         }
         return list
     }
@@ -1001,7 +1102,15 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         return list
     }
 
-    fun setJyxm(ajywlb: String, cllx: String, syxz: String, hdzk: Int, Jyxm: CheckBox?, zs: Int, ccrq : String) {
+    fun setJyxm(
+        ajywlb: String,
+        cllx: String,
+        syxz: String,
+        hdzk: Int,
+        Jyxm: CheckBox?,
+        zs: Int,
+        ccrq: String
+    ) {
         if (Jyxm?.text.toString() == "外观") {
             Jyxm?.isChecked = true
         }
@@ -1022,7 +1131,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     Jyxm?.isChecked = true
                 }
             }
-            if (isGc(cllx) || (isZk(cllx) && (!cllx.contains("面包") || hdzk < 7))) {
+            if (isGc(cllx) || ((isZk(cllx) && !cllx.contains("面包") && (isZk(cllx) && hdzk < 7)))) {
                 if (Jyxm?.text.toString() == "底盘动态") {
                     Jyxm?.isChecked = false
                 }
@@ -1031,8 +1140,8 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     Jyxm?.isChecked = true
                 }
             }
-            if (isMtc(cllx) || (isZk(cllx) && (!cllx.contains("面包") || hdzk < 7))) {
-                if (Jyxm?.text.toString() == "底盘动态") {
+            if (isMtc(cllx) || ((isZk(cllx) && !cllx.contains("面包") && (isZk(cllx) && hdzk < 7)))) {
+                if (Jyxm?.text.toString() == "底盘") {
                     Jyxm?.isChecked = false
                 }
             } else {
@@ -1171,43 +1280,53 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
         } else if (ajywlb.contains("在用车")) {
             val ccrqCalendar = Calendar.getInstance()
-            val ccrqDate = string2Date(ccrq,"yyyy-MM-dd")
+            val ccrqDate = string2Date(ccrq, "yyyy-MM-dd")
             ccrqCalendar.time = ccrqDate
             val nowCalendar = Calendar.getInstance()
-            val betweenMonth = (nowCalendar.time.time - ccrqCalendar.time.time)/(1000L*3600*24*30)
-            if ((isHc(cllx)||isGc(cllx))
-                &&(cllx.contains("重")||cllx.contains("大")||cllx.contains("中"))
-                &&!cllx.contains("牵引")
-                &&!cllx.contains("非载货")){
-                if (Jyxm?.text.toString() == "外廓尺寸"){
+            val betweenMonth =
+                (nowCalendar.time.time - ccrqCalendar.time.time) / (1000L * 3600 * 24 * 30)
+            if ((isHc(cllx) || isGc(cllx))
+                && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
+                && !cllx.contains("牵引")
+                && !cllx.contains("非载货")
+            ) {
+                if (Jyxm?.text.toString() == "外廓尺寸") {
                     Jyxm?.isChecked = true
                 }
                 if (Jyxm?.text.toString() == "整备质量") {
                     Jyxm?.isChecked = true
                 }
-            }else{
-                if (Jyxm?.text.toString() == "外廓尺寸"){
+            } else {
+                if (Jyxm?.text.toString() == "外廓尺寸") {
                     Jyxm?.isChecked = false
                 }
                 if (Jyxm?.text.toString() == "整备质量") {
                     Jyxm?.isChecked = false
                 }
             }
-            if(isGc(cllx)||(isFyyxwzk(cllx, syxz)&&(hdzk < 7 || betweenMonth < 118))){
-                if (Jyxm?.text.toString() == "底盘动态"){
+            if (isGc(cllx) || ((isFyyxwzk(cllx, syxz) && hdzk < 7) && (isFyyxwzk(
+                    cllx,
+                    syxz
+                ) && betweenMonth <= 118))
+            ) {
+                if (Jyxm?.text.toString() == "底盘动态") {
                     Jyxm?.isChecked = false
                 }
-            }else{
-                if (Jyxm?.text.toString() == "底盘动态"){
+            } else {
+                if (Jyxm?.text.toString() == "底盘动态") {
                     Jyxm?.isChecked = true
                 }
             }
-            if(isMtc(cllx)||(isFyyxwzk(cllx, syxz)&&(hdzk < 7 || betweenMonth < 118))){
-                if (Jyxm?.text.toString() == "底盘"){
+            if (isMtc(cllx) || ((isFyyxwzk(cllx, syxz) && hdzk < 7) && (isFyyxwzk(
+                    cllx,
+                    syxz
+                ) && betweenMonth <= 118))
+            ) {
+                if (Jyxm?.text.toString() == "底盘") {
                     Jyxm?.isChecked = false
                 }
-            }else{
-                if (Jyxm?.text.toString() == "底盘"){
+            } else {
+                if (Jyxm?.text.toString() == "底盘") {
                     Jyxm?.isChecked = true
                 }
             }

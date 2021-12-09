@@ -9,13 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="正前方照片" />
+        android:text="前上方照片" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRightPhoto"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="正后方照片" />
+        android:text="后上方照片" />
 
 </LinearLayout>

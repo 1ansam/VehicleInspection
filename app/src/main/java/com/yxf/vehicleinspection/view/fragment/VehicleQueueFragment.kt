@@ -2,6 +2,7 @@ package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
 import android.view.View
+import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
@@ -30,13 +31,21 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
 
-        binding.btnSercher.setOnClickListener {
-//            修改使用BaseUrlHelper反射方法
-//            BaseUrlHelper.instance.setUrlField("http://192.168.1.1:8080")
-            getQueueData(binding.tvSearcher.text.toString())
+//        binding.btnSercher.setOnClickListener {
+////            修改使用BaseUrlHelper反射方法
+////            BaseUrlHelper.instance.setUrlField("http://192.168.1.1:8080")
+//            getQueueData(binding.tvSearcher.text.toString())
+//        }
+        binding.svVehicleQueue.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                getQueueData(binding.svVehicleQueue.query.toString())
+                return true
+            }
 
-
-        }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
 //        在Edittext文字改变后自动获取数据
 //        binding.tvSearcher.doAfterTextChanged {
 //            getData(binding.tvSearcher.text.toString())
@@ -64,7 +73,7 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
 
     override fun onResume() {
         super.onResume()
-        getQueueData(binding.tvSearcher.text.toString())
+        getQueueData(binding.svVehicleQueue.query.toString())
     }
 
 

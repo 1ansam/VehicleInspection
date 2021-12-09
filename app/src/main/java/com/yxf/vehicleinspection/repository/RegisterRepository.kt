@@ -4,8 +4,10 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.bean.request.AppointmentAjR010Request
 import com.yxf.vehicleinspection.bean.request.SaveVehicleInfoW003Request
 import com.yxf.vehicleinspection.bean.request.VehicleAllInfoR022Request
+import com.yxf.vehicleinspection.bean.response.AppointmentAjR010Response
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR022Response
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.WriteService
@@ -53,6 +55,25 @@ class RegisterRepository() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+
+    fun getAppointmentAJ(): LiveData<List<AppointmentAjR010Response>> {
+        val liveData = MutableLiveData<List<AppointmentAjR010Response>>()
+        val call = RetrofitService.create(QueryService::class.java).query(
+            QUERY_APPOINTMENT_AJ,
+            getIpAddress(),
+            getJsonData(AppointmentAjR010Request())
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2ListBean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
             }
         })
@@ -182,5 +203,7 @@ class RegisterRepository() {
     fun getSpinnerMap(): MutableMap<String, String> {
         return mutableMapOf()
     }
+
+
 
 }

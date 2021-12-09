@@ -24,24 +24,24 @@ class VerifyFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
         getQueueData("")
-        binding.btnSercher.setOnClickListener {
-//            修改使用BaseUrlHelper类反射方法
-//            BaseUrlHelper.instance.setHostField("192.168.31.70")
-            getQueueData(binding.tvSearcher.text.toString())
-        }
+//        binding.btnSercher.setOnClickListener {
+////            修改使用BaseUrlHelper类反射方法
+////            BaseUrlHelper.instance.setHostField("192.168.31.70")
+//            getQueueData(binding.tvSearcher.text.toString())
+//        }
 //        在Edittext文字改变后自动获取数据
 //        binding.tvSearcher.doAfterTextChanged {
 //            getData(binding.tvSearcher.text.toString())
 //        }
     }
     private fun getQueueData(hphm : String){
-        viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this, {
+        viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this) {
             adapter.data = it
-        })
+        }
     }
     override fun onResume() {
         super.onResume()
-        getQueueData(binding.tvSearcher.text.toString())
+        getQueueData(binding.svVehicleQueue.query.toString())
     }
 
 }

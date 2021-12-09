@@ -19,14 +19,12 @@ class ExampleUnitTest(){
     @Test
     fun main(){
         val registerFragment = RegisterFragment()
-        val cllx = "小型轿车"
-        val syxz = "出租客运"
+        val cllx = "面包车"
+        val syxz = "非营运"
         val hdzk = 5
         val zs = 2
-        val betweenMonth = 117L
-        val date = Date()
-        val date2 = Date()
-        val boolean = registerFragment.isFyyxwzk(cllx, syxz)&&(hdzk < 7 || betweenMonth < 118)
+        val betweenMonth = 159L
+        val boolean = registerFragment.isMtc(cllx) || ((registerFragment.isZk(cllx) && !cllx.contains("面包") &&(registerFragment.isZk(cllx)&& hdzk < 7)))
         println(boolean)
     }
 

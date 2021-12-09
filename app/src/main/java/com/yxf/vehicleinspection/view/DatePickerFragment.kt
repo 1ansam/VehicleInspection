@@ -24,15 +24,15 @@ class DatePickerFragment : DialogFragment(),DatePickerDialog.OnDateSetListener{
         when(this.tag){
             "ccrq" -> {
                 val ccrq = parentFragment?.view?.findViewById<TextView>(R.id.tvCcrq)
-                ccrq?.setText("$year-$month-$dayOfMonth")
+                ccrq?.text = "$year-${month+1}-$dayOfMonth"
             }
             "djrq" ->{
                 val djrq = parentFragment?.view?.findViewById<TextView>(R.id.tvDjrq)
-                djrq?.setText("$year-$month-$dayOfMonth")
+                djrq?.text = "$year-${month+1}-$dayOfMonth"
             }
             "ccdjrq" ->{
                 val ccdjrq = parentFragment?.view?.findViewById<TextView>(R.id.tvCcdjrq)
-                ccdjrq?.setText("$year-$month-$dayOfMonth")
+                ccdjrq?.text = "$year-${month+1}-$dayOfMonth"
             }
 
         }
