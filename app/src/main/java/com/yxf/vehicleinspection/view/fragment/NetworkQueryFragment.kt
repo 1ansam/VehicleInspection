@@ -44,6 +44,46 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
+        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
+            AjJyjghb = it
+            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
+                HjJyjghb = it
+                systemParamsViewModel.getWebPass("AJ").observe(this){
+                    AjJkxlh = it
+                    inspectionItemViewModel.getServerTime().observe(this) {
+                        beginTime = it.Sj
+                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
+                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs
+                        )).observe(this){
+                            if (it){
+                                getSelectData(args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
+                                    args.bean002.Ajlsh,args.bean002.Hjlsh,)
+                            }else{
+                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        binding.rvSelect.adapter = inspectionItemSelectAdapter
+        binding.rvNetworkQueryInfo.layoutManager = LinearLayoutManager(this.requireContext())
+        networkQueryInfoAdapter = NetworkQueryInfoAdapter()
+        binding.rvNetworkQueryInfo.adapter = networkQueryInfoAdapter
+        val networkQueryInfoList = ArrayList<NetworkQueryInfo>()
+        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[0],""))
+        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[1],args.bean005.Syr))
+        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[2],args.bean005.Sjrdh))
+        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[3],args.bean005.Lxdz))
+        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[4],args.bean005.Zzxzqh))
+        networkQueryInfoAdapter.data = networkQueryInfoList
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbNetworkQuerySubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
@@ -66,19 +106,8 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
                 }
             }
         }
-        binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
-        binding.rvSelect.adapter = inspectionItemSelectAdapter
-        binding.rvNetworkQueryInfo.layoutManager = LinearLayoutManager(this.requireContext())
-        networkQueryInfoAdapter = NetworkQueryInfoAdapter()
-        binding.rvNetworkQueryInfo.adapter = networkQueryInfoAdapter
-        val networkQueryInfoList = ArrayList<NetworkQueryInfo>()
-        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[0],""))
-        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[1],args.bean005.Syr))
-        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[2],args.bean005.Sjrdh))
-        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[3],args.bean005.Lxdz))
-        networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[4],args.bean005.Zzxzqh))
-        networkQueryInfoAdapter.data = networkQueryInfoList
+
+
     }
     private fun getSelectData(Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh : String, Hjlsh : String){
         inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh).observe(this){
@@ -132,35 +161,5 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
         return list
 
     }
-    override fun onResume() {
 
-        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-            AjJyjghb = it
-            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-                HjJyjghb = it
-                systemParamsViewModel.getWebPass("AJ").observe(this){
-                    AjJkxlh = it
-                    inspectionItemViewModel.getServerTime().observe(this) {
-                        beginTime = it.Sj
-                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            AjJyjghb,args.jcxh,args.bean005.Hphm,
-                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
-                            args.bean002.Ajlsh,args.bean002.Hjlsh,
-                            args.bean002.Ajjccs,args.bean002.Hjjccs
-                        )).observe(this){
-                            if (it){
-                                getSelectData(args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
-                                    args.bean002.Ajlsh,args.bean002.Hjlsh,)
-                            }else{
-                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        super.onResume()
-    }
 }

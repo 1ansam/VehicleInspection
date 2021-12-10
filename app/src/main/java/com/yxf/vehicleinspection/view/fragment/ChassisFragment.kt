@@ -42,6 +42,31 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
+        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
+            AjJyjghb = it
+            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
+                HjJyjghb = it
+                systemParamsViewModel.getWebPass("AJ").observe(this){
+                    AjJkxlh = it
+                    inspectionItemViewModel.getServerTime().observe(this) {
+                        beginTime = it.Sj
+                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
+                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs
+                        )).observe(this){
+                            if (it){
+                                getSelectData( args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,args.bean002.Ajlsh,args.bean002.Hjlsh)
+                            }else{
+                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbChassisSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
@@ -175,32 +200,4 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-            AjJyjghb = it
-            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-                HjJyjghb = it
-                systemParamsViewModel.getWebPass("AJ").observe(this){
-                    AjJkxlh = it
-                    inspectionItemViewModel.getServerTime().observe(this) {
-                        beginTime = it.Sj
-                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            AjJyjghb,args.jcxh,args.bean005.Hphm,
-                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
-                            args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs
-                        )).observe(this){
-                            if (it){
-                                getSelectData( args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb,args.bean002.Ajlsh,args.bean002.Hjlsh)
-                            }else{
-                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

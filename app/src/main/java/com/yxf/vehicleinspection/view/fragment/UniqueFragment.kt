@@ -52,6 +52,46 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
+        dataDictionaryViewModel.getMc(FL_SPMC,VIN_FAR_TO_CLOSED).observe(this){
+            binding.tvF2.text = it
+        }
+        dataDictionaryViewModel.getMc(FL_SPMC,AROUND_VEHICLE).observe(this){
+            binding.tvF3.text = it
+        }
+        dataDictionaryViewModel.getMc(FL_SPMC,TIRE_TREAD_DEPTH).observe(this){
+            binding.tvF4.text = it
+        }
+        binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        binding.rvSelect.adapter = inspectionItemSelectAdapter
+        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
+            AjJyjghb = it
+            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
+                HjJyjghb = it
+                systemParamsViewModel.getWebPass("AJ").observe(this){
+                    AjJkxlh = it
+                    inspectionItemViewModel.getServerTime().observe(this) {
+                        beginTime = it.Sj
+                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
+                            AjJyjghb,args.jcxh,args.bean005.Hphm,
+                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
+                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
+                            args.bean002.Ajlsh,args.bean002.Hjlsh,
+                            args.bean002.Ajjccs,args.bean002.Hjjccs
+                        )).observe(this){
+                            if (it){
+                                getSelectData( args.bean006.Jcxm,
+                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
+                                    args.bean002.Ajlsh,args.bean002.Hjlsh,)
+                            }else{
+                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         binding.includeTitle.btnSubmit.setOnClickListener {
             binding.pbUniqueSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
@@ -89,18 +129,9 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                         binding.pbUniqueSubmit.visibility = View.GONE
                     }
                 }
-
-
-
-
-
             }
-
-
         }
-        binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
-        binding.rvSelect.adapter = inspectionItemSelectAdapter
+
         binding.btnRecordF2.setOnClickListener {
             Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(requireActivity().packageManager).also {
@@ -117,7 +148,6 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
                         startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE_F2)
                     }
-
                 }
             }
         }
@@ -137,7 +167,6 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
                         startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE_F3)
                     }
-
                 }
             }
         }
@@ -157,7 +186,6 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
                         startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE_F4)
                     }
-
                 }
             }
         }
@@ -251,46 +279,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
         return list
 
     }
-    override fun onResume() {
-        super.onResume()
-        dataDictionaryViewModel.getMc(FL_SPMC,VIN_FAR_TO_CLOSED).observe(this){
-            binding.tvF2.text = it
-        }
-        dataDictionaryViewModel.getMc(FL_SPMC,AROUND_VEHICLE).observe(this){
-            binding.tvF3.text = it
-        }
-        dataDictionaryViewModel.getMc(FL_SPMC,TIRE_TREAD_DEPTH).observe(this){
-            binding.tvF4.text = it
-        }
-        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-            AjJyjghb = it
-            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-                HjJyjghb = it
-                systemParamsViewModel.getWebPass("AJ").observe(this){
-                    AjJkxlh = it
-                    inspectionItemViewModel.getServerTime().observe(this) {
-                        beginTime = it.Sj
-                        inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            AjJyjghb,args.jcxh,args.bean005.Hphm,
-                            args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
-                            beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
-                            args.bean002.Ajlsh,args.bean002.Hjlsh,
-                            args.bean002.Ajjccs,args.bean002.Hjjccs
-                        )).observe(this){
-                            if (it){
-                                getSelectData( args.bean006.Jcxm,
-                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
-                                    args.bean002.Ajlsh,args.bean002.Hjlsh,)
-                            }else{
-                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
