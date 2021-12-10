@@ -734,8 +734,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                         valueMap["gcjk"].takeIf { valueMap["gcjk"] != null } ?: "",
                                         valueMap["qdxs"].takeIf { valueMap["qdxs"] != null } ?: "",
                                         valueMap["zdly"].takeIf { valueMap["zdly"] != null } ?: "",
-                                        valueMap["rlzl1"].takeIf { valueMap["rlzl1"] != null }
-                                            ?: "",
+                                        valueMap["rlzl"].takeIf { valueMap["rlzl1"] != null } ?: "",
                                         valueMap["rygg"].takeIf { valueMap["rygg"] != null } ?: "",
                                         valueMap["qzdz"].takeIf { valueMap["qzdz"] != null } ?: "",
                                         valueMap["jcxh"].takeIf { valueMap["jcxh"] != null } ?: "",
@@ -838,23 +837,24 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         R.layout.textview_spinner,
                         it
                     )
-            }
-            getMcListFromFl(FL_HPZL).observe(this@RegisterFragment) {
-                binding.spHpzl.adapter =
-                    ArrayAdapter(
-                        this@RegisterFragment.requireContext(),
-                        R.layout.textview_spinner,
-                        it
-                    )
-                if (args.bean010.hphm.isNotBlank()){
-                    binding.spHphm.setText(args.bean010.hphm.substring(0,1))
-                    binding.etHphm.setText(args.bean010.hphm.substring(1))
-                    dataDictionaryViewModel.getMc(FL_HPZL,args.bean010.hpzl).observe(this@RegisterFragment){
-                        binding.spHpzl.setText(it)
+                getMcListFromFl(FL_HPZL).observe(this@RegisterFragment) {
+                    binding.spHpzl.adapter =
+                        ArrayAdapter(
+                            this@RegisterFragment.requireContext(),
+                            R.layout.textview_spinner,
+                            it
+                        )
+                    if (args.bean010.hphm.isNotBlank()){
+                        binding.spHphm.setText(args.bean010.hphm.substring(0,1))
+                        binding.etHphm.setText(args.bean010.hphm.substring(1))
+                        dataDictionaryViewModel.getMc(FL_HPZL,args.bean010.hpzl).observe(this@RegisterFragment){
+                            binding.spHpzl.setText(it)
+                        }
+                        binding.etClsbdh.setText(args.bean010.clsbdh)
                     }
-                    binding.etClsbdh.setText(args.bean010.clsbdh)
                 }
             }
+
             getMcListFromFl(FL_HPYS).observe(this@RegisterFragment) {
                 binding.spHpys.adapter =
                     ArrayAdapter(
@@ -1111,345 +1111,73 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         zs: Int,
         ccrq: String
     ) {
-        if (Jyxm?.text.toString() == "外观") {
-            Jyxm?.isChecked = true
-        }
-        if (Jyxm?.text.toString() == "唯一性检查") {
-            Jyxm?.isChecked = true
-        }
-        if (Jyxm?.text.toString() == "联网查询") {
-            Jyxm?.isChecked = true
-        }
-        if (ajywlb.contains("注册")) {
-
-            if (isFyyxwzk(cllx, syxz) || cllx.contains("二轮摩托车") || cllx.contains("侧三轮摩托车")) {
-                if (Jyxm?.text.toString() == "外廓尺寸") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "外廓尺寸") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (isGc(cllx) || ((isZk(cllx) && !cllx.contains("面包") && (isZk(cllx) && hdzk < 7)))) {
-                if (Jyxm?.text.toString() == "底盘动态") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "底盘动态") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (isMtc(cllx) || ((isZk(cllx) && !cllx.contains("面包") && (isZk(cllx) && hdzk < 7)))) {
-                if (Jyxm?.text.toString() == "底盘") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "底盘") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (isZk(cllx) || isMtc(cllx)) {
-                if (Jyxm?.text.toString() == "整备质量") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "整备质量") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (isGc(cllx)) {
-                if (Jyxm?.text.toString() == "左外灯") {
-                    Jyxm?.isChecked = false
-                }
-                if (Jyxm?.text.toString() == "右外灯") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "左外灯") {
-                    Jyxm?.isChecked = true
-                }
-                if (Jyxm?.text.toString() == "右外灯") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (binding.cbSfdzzc.isChecked) {
-                if (Jyxm?.text.toString() == "驻车制动") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "驻车制动") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (binding.cbSfdlxj.isChecked) {
-                if (Jyxm?.text.toString() == "侧滑") {
-                    Jyxm?.isChecked = true
-                }
-            } else {
-                if (Jyxm?.text.toString() == "侧滑")
-                    Jyxm?.isChecked = false
-            }
-            when (zs) {
-                1 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                2 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                3 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                4 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                5 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                }
-            }
-
-        } else if (ajywlb.contains("在用车")) {
-            val ccrqCalendar = Calendar.getInstance()
+        val ccrqCalendar = Calendar.getInstance()
             val ccrqDate = string2Date(ccrq, "yyyy-MM-dd")
             ccrqCalendar.time = ccrqDate
             val nowCalendar = Calendar.getInstance()
             val betweenMonth =
                 (nowCalendar.time.time - ccrqCalendar.time.time) / (1000L * 3600 * 24 * 30)
-            if ((isHc(cllx) || isGc(cllx))
-                && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
-                && !cllx.contains("牵引")
-                && !cllx.contains("非载货")
-            ) {
-                if (Jyxm?.text.toString() == "外廓尺寸") {
-                    Jyxm?.isChecked = true
-                }
-                if (Jyxm?.text.toString() == "整备质量") {
-                    Jyxm?.isChecked = true
-                }
-            } else {
-                if (Jyxm?.text.toString() == "外廓尺寸") {
-                    Jyxm?.isChecked = false
-                }
-                if (Jyxm?.text.toString() == "整备质量") {
-                    Jyxm?.isChecked = false
-                }
-            }
-            if (isGc(cllx) || ((isFyyxwzk(cllx, syxz) && hdzk < 7) && (isFyyxwzk(
-                    cllx,
-                    syxz
-                ) && betweenMonth <= 118))
-            ) {
-                if (Jyxm?.text.toString() == "底盘动态") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "底盘动态") {
-                    Jyxm?.isChecked = true
+        when(Jyxm?.text.toString()){
+            "外观" -> Jyxm?.isChecked = true
+            "唯一性检查" -> Jyxm?.isChecked = true
+            "联网查询" -> Jyxm?.isChecked = true
+            "驻车制动" -> Jyxm?.isChecked = !(binding.cbSfdzzc.isChecked || isMtc(cllx) || isGc(cllx))
+            "侧滑" -> Jyxm?.isChecked = binding.cbSfdlxj.isChecked
+            "外廓尺寸" ->{
+                when{
+                    ajywlb.contains("注册") ->{
+                        Jyxm?.isChecked = !(isFyyxwzk(cllx, syxz) || cllx.contains("二轮摩托车") || cllx.contains("侧三轮摩托车"))
+                    }
+                    ajywlb.contains("在用") ->{
+                        Jyxm?.isChecked = ((isHc(cllx) || isGc(cllx))
+                            && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
+                            && !cllx.contains("牵引")
+                            && !cllx.contains("非载货"))
+                    }
+                    else -> Jyxm?.isChecked = false
                 }
             }
-            if (isMtc(cllx) || ((isFyyxwzk(cllx, syxz) && hdzk < 7) && (isFyyxwzk(
-                    cllx,
-                    syxz
-                ) && betweenMonth <= 118))
-            ) {
-                if (Jyxm?.text.toString() == "底盘") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "底盘") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (isGc(cllx)) {
-                if (Jyxm?.text.toString() == "左外灯") {
-                    Jyxm?.isChecked = false
-                }
-                if (Jyxm?.text.toString() == "右外灯") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "左外灯") {
-                    Jyxm?.isChecked = true
-                }
-                if (Jyxm?.text.toString() == "右外灯") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (binding.cbSfdzzc.isChecked) {
-                if (Jyxm?.text.toString() == "驻车制动") {
-                    Jyxm?.isChecked = false
-                }
-            } else {
-                if (Jyxm?.text.toString() == "驻车制动") {
-                    Jyxm?.isChecked = true
-                }
-            }
-            if (binding.cbSfdlxj.isChecked) {
-                if (Jyxm?.text.toString() == "侧滑") {
-                    Jyxm?.isChecked = true
-                }
-            } else {
-                if (Jyxm?.text.toString() == "侧滑")
-                    Jyxm?.isChecked = false
-            }
-            when (zs) {
-                1 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
+            "整备质量" ->{
+                when{
+                    ajywlb.contains("注册") -> {
+                        Jyxm?.isChecked = !(isZk(cllx)||isMtc(cllx))
                     }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                2 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                3 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                4 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = false
-                    }
-                }
-                5 -> {
-                    if (Jyxm?.text.toString() == "一轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "二轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "三轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "四轴制动") {
-                        Jyxm?.isChecked = true
-                    }
-                    if (Jyxm?.text.toString() == "五轴制动") {
-                        Jyxm?.isChecked = true
+                    ajywlb.contains("在用") -> {
+                        Jyxm?.isChecked = ((isHc(cllx) || isGc(cllx))
+                                && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
+                                && !cllx.contains("牵引")
+                                && !cllx.contains("非载货"))
                     }
                 }
             }
+            "底盘" ->{
+                when{
+                    ajywlb.contains("注册") -> {
+                        Jyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
+                    }
+                    ajywlb.contains("在用") -> {
+                        Jyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                    }
+                }
 
+            }
+            "底盘动态" ->{
+                when{
+                    ajywlb.contains("注册") -> {
+                        Jyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
+                    }
+                    ajywlb.contains("在用") -> {
+                        Jyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                    }
+                }
+
+            }
+            "一轴制动" -> Jyxm?.isChecked = zs >= 1
+            "二轴制动" -> Jyxm?.isChecked = zs >= 2
+            "三轴制动" -> Jyxm?.isChecked = zs >= 3
+            "四轴制动" -> Jyxm?.isChecked = zs >= 4
+            "五轴制动" -> Jyxm?.isChecked = zs >= 5
+            else -> Jyxm?.isChecked = false
         }
     }
 

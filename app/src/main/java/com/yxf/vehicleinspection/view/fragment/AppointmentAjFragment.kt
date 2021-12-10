@@ -27,11 +27,10 @@ class AppointmentAjFragment : BaseBindingFragment<FragmentAppointmentAjBinding>(
     private val dataDictionaryViewModel: DataDictionaryViewModel by viewModels {
         DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository)
     }
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private val registerViewModel : RegisterViewModel by viewModels { RegisterViewModelFactory((requireActivity().application as MyApp).registerRepository) }
     lateinit var adapter: AppointmentAjAdapter
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         adapter = AppointmentAjAdapter(this, dataDictionaryViewModel)
         binding.rvAppointmentAj.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvAppointmentAj.setHasFixedSize(true)
