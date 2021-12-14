@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -7,7 +8,10 @@ import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.util.Base64
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,6 +30,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.reflect.typeOf
 
 /**
  *   author:yxf
@@ -154,8 +159,9 @@ const val QUERY_CHARGE_RESULT = "LYYDJKR014"
 const val QUERY_SYSTEM_PARAMS = "LYYDJKR015"
 const val QUERY_IMAGE_ITEM = "LYYDJKR017"
 const val QUERY_ARTIFICIAL_PROJECT = "LYYDJKR020"
-const val QUERY_VEHICLE_INFO = "LYYDJKR022"
 const val QUERY_VERSION = "LYYDJKR021"
+const val QUERY_VEHICLE_INFO = "LYYDJKR022"
+const val QUERY_ADMINISTRATIVE = "LYYDJKR023"
 const val WRITE_USER_LOGIN = "LYYDJKW001"
 const val WRITE_SAVE_VEHICLE_INFO = "LYYDJKW003"
 const val WRITE_SAVE_SIGNATURE = "LYYDJKW006"
@@ -407,24 +413,33 @@ fun string2String(stringDate: String,oldFormat: String,newFormat: String) : Stri
  * @param liveData 初始化liveData
  * @return 返回response是否请求成功的LiveData
  */
+@OptIn(ExperimentalStdlibApi::class)
 fun response2Boolean(response : Response<ResponseBody>, liveData: MutableLiveData<Boolean>) : LiveData<Boolean>{
-    if (response.isSuccessful){
-        val stringResponse = response.body()?.string()
-        val commonResponse = GsonSingleton.instance
-            .fromJson(stringResponse, CommonResponse::class.java)
-        if (commonResponse.Code == "1"){
-            liveData.value = true
-        }else{
-            liveData.value = false
-            if (commonResponse.Code == null){
-                Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+    if (response != null) {
+        if (response.isSuccessful) {
+            val stringResponse = response.body()?.string()
+            val commonResponse = GsonSingleton.instance
+                .fromJson(stringResponse, CommonResponse::class.java)
+            if (commonResponse.Code == "1") {
+                liveData.value = true
+            } else {
+                liveData.value = false
+                if (commonResponse.Code == null) {
+                    Toast.makeText(
+                        MyApp.context,
+                        "${typeOf<Boolean>()}Code=Null",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                }
             }
+        } else {
+            liveData.value = false
+            Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
         }
     }else{
-        liveData.value = false
-        Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(MyApp.context, "response = null", Toast.LENGTH_SHORT).show()
     }
     return liveData
 }
@@ -436,30 +451,36 @@ fun response2Boolean(response : Response<ResponseBody>, liveData: MutableLiveDat
  * @param E 响应体body实体类
  * @return 返回response转换后的LiveData
  */
+@OptIn(ExperimentalStdlibApi::class)
 inline fun <reified E> response2ListBean(response : Response<ResponseBody>, liveData: MutableLiveData<List<E>>) : LiveData<List<E>>{
-    if (response.isSuccessful){
-        val stringResponse = response.body()?.string()
-        val commonResponse = GsonSingleton.instance
-            .fromJson(stringResponse, CommonResponse::class.java)
-        if (commonResponse.Code == "1"){
-            val beanList = ArrayList<E>()
-            for (element in commonResponse.Body) {
-                val bodyJson =
-                    GsonSingleton.instance.toJson(element)
-                beanList.add(GsonSingleton.instance
-                    .fromJson(bodyJson, E::class.java))
-            }
-            liveData.value = beanList
-        }else{
-            if (commonResponse.Code == null){
-                Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
+    if (response != null){
+        if (response.isSuccessful){
+            val stringResponse = response.body()?.string()
+            val commonResponse = GsonSingleton.instance
+                .fromJson(stringResponse, CommonResponse::class.java)
+            if (commonResponse.Code == "1"){
+                val beanList = ArrayList<E>()
+                for (element in commonResponse.Body) {
+                    val bodyJson =
+                        GsonSingleton.instance.toJson(element)
+                    beanList.add(GsonSingleton.instance
+                        .fromJson(bodyJson, E::class.java))
+                }
+                liveData.value = beanList
             }else{
-                Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                if (commonResponse.Code == null){
+                    Toast.makeText(MyApp.context, "Code=Null", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                }
             }
+        }else{
+            Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
         }
-    }else{
-        Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+    }else {
+        Toast.makeText(MyApp.context, "response = null", Toast.LENGTH_SHORT).show()
     }
+
     return liveData
 }
 /**
@@ -469,35 +490,62 @@ inline fun <reified E> response2ListBean(response : Response<ResponseBody>, live
  * @param E 响应体body实体类
  * @return 返回response转换后的LiveData
  */
+@OptIn(ExperimentalStdlibApi::class)
 inline fun <reified E> response2Bean(response : Response<ResponseBody>, liveData: MutableLiveData<E>) : LiveData<E>{
-    if (response.isSuccessful){
-        val stringResponse = response.body()?.string()
-        val commonResponse = GsonSingleton.instance
-            .fromJson(stringResponse, CommonResponse::class.java)
-        if (commonResponse.Code == "1"){
-            val beanList = ArrayList<E>()
-            for (element in commonResponse.Body) {
-                val bodyJson =
-                    GsonSingleton.instance.toJson(element)
-                beanList.add(GsonSingleton.instance
-                    .fromJson(bodyJson, E::class.java))
-            }
-            if (beanList.isNotEmpty()){
-                liveData.value = beanList[0]
+    if (response != null){
+        if (response.isSuccessful){
+            val stringResponse = response.body()?.string()
+            val commonResponse = GsonSingleton.instance
+                .fromJson(stringResponse, CommonResponse::class.java)
+            if (commonResponse.Code == "1"){
+                val beanList = ArrayList<E>()
+                for (element in commonResponse.Body) {
+                    val bodyJson =
+                        GsonSingleton.instance.toJson(element)
+                    beanList.add(GsonSingleton.instance
+                        .fromJson(bodyJson, E::class.java))
+                }
+                if (beanList.isNotEmpty()){
+                    liveData.value = beanList[0]
+                }
+            }else{
+                if (commonResponse.Code == null){
+                    Toast.makeText(MyApp.context, "${typeOf<E>()}Code=Null", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                }
             }
         }else{
-            if (commonResponse.Code == null){
-                Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
         }
     }else{
-        Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(MyApp.context, "${typeOf<E>()}response = null", Toast.LENGTH_SHORT).show()
     }
+
     return liveData
 }
 fun uploadFile(fileName : String,file : File,requestBody : RequestBody) : MultipartBody.Part{
     val part = MultipartBody.Part.createFormData(fileName,file.name,requestBody)
     return part
+}
+
+fun getScreenHeight(context: Context): Int {
+    val displayMetrics = DisplayMetrics()
+    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+        windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+    }else{
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+    }
+    return displayMetrics.heightPixels
+}
+fun getScreenWidth(context: Context): Int {
+    val displayMetrics = DisplayMetrics()
+    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+        windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+    }else{
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+    }
+    return displayMetrics.widthPixels
 }

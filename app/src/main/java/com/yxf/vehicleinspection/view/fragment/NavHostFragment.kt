@@ -12,6 +12,7 @@ import com.yxf.vehicleinspection.viewModel.SharedViewModel
 class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
     companion object{
         const val HOSTNAME_REGISTER = "Register"
+        const val HOSTNAME_APPOINTMENT = "Appointment"
         const val HOSTNAME_CHARGE = "Charge"
         const val HOSTNAME_VEHICLE_INSPECTION = "VehicleInspection"
         const val HOSTNAME_DISPATCH = "Dispatch"
@@ -21,14 +22,14 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
     }
 
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+//        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         val sharedViewModel : SharedViewModel by activityViewModels()
-        sharedViewModel.setHostName(HOSTNAME_REGISTER)
         binding.btnRegisterFunc.setOnClickListener {
 //            val action = NavHostFragmentDirections.actionNavHostFragmentToRegisterFragment()
 //            findNavController().navigate(action)
         }
         binding.btnAppointmentAj.setOnClickListener {
+            sharedViewModel.setHostName(HOSTNAME_APPOINTMENT)
             val action = NavHostFragmentDirections.actionNavHostFragmentToAppointmentAjFragment()
             findNavController().navigate(action)
         }

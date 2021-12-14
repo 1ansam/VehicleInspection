@@ -67,11 +67,11 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
                                     SignatureFragmentDirections.actionSignatureFragmentPopIncludingInspectionItemFragment()
                                 findNavController().navigate(action)
                             }
-//                            hostName.equals(NavHostFragment.HOSTNAME_REGISTER) -> {
-//                                val action =
-//                                    SignatureFragmentDirections.actionSignatureFragmentPopIncludingRegisterFragment()
-//                                findNavController().navigate(action)
-//                            }
+                            hostName.equals(NavHostFragment.HOSTNAME_APPOINTMENT) -> {
+                                val action =
+                                    SignatureFragmentDirections.actionSignatureFragmentPopIncludingAppointmentAjFragment()
+                                findNavController().navigate(action)
+                            }
 
                         }
 

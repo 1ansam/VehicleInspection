@@ -1,10 +1,9 @@
 package com.yxf.vehicleinspection.view.fragment
 
-import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.*
+import com.google.android.material.snackbar.Snackbar
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yxf.vehicleinspection.MyApp
@@ -15,6 +14,7 @@ import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR022Response
 import com.yxf.vehicleinspection.databinding.FragmentRegisterBinding
 import com.yxf.vehicleinspection.utils.*
+import com.yxf.vehicleinspection.view.AdministrativePicker
 import com.yxf.vehicleinspection.view.DatePickerFragment
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.RegisterJyxmAdapter
@@ -34,18 +34,18 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     private val systemParamsViewModel by viewModels<SystemParamsViewModel> {
         SystemParamsViewModelFactory((requireActivity().application as MyApp).systemParamsRepository)
     }
-    private val registerJyxmAdapter = RegisterJyxmAdapter()
+    private val registerListAdapter = RegisterListAdapter()
+    private val registerAjJyxmAdapter = RegisterJyxmAdapter()
+    private val registerHjJyxmAdapter = RegisterJyxmAdapter()
 
     private var bean: VehicleAllInfoR022Response? = null
     val args : RegisterFragmentArgs by navArgs()
     override fun init() {
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         initView()
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        binding.rvLeftList.layoutManager = GridLayoutManager(this.requireContext(), 2)
-        val textAdapter = RegisterListAdapter()
-        textAdapter.data = registerViewModel.textMap.values.toList()
-        textAdapter.value = arrayListOf(
+        binding.rvTextList.layoutManager = GridLayoutManager(this.requireContext(), 2)
+        registerListAdapter.data = registerViewModel.textMap.values.toList()
+        registerListAdapter.value = arrayListOf(
             bean?.Xszbh, bean?.Clpp1,
             bean?.Clxh, bean?.Fdjh,
             bean?.Fdjxh, bean?.Syr,
@@ -68,13 +68,16 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
             bean?.SCR, bean?.DPF
         )
 
-        binding.rvLeftList.adapter = textAdapter
-        binding.rvLeftList.setHasFixedSize(true)
-        binding.rvJyxm.layoutManager = GridLayoutManager(this.requireContext(), 4)
-        binding.rvJyxm.adapter = registerJyxmAdapter
+        binding.rvTextList.adapter = registerListAdapter
+        binding.rvTextList.setHasFixedSize(true)
+        binding.rvAjJyxm.layoutManager = GridLayoutManager(this.requireContext(), 4)
+        binding.rvAjJyxm.adapter = registerAjJyxmAdapter
         dataDictionaryViewModel.getMcListFromFl(FL_JYXM).observe(this) {
-            registerJyxmAdapter.data = it
+            registerAjJyxmAdapter.data = it
         }
+        binding.rvHjJyxm.layoutManager = GridLayoutManager(this.requireContext(),4)
+        binding.rvHjJyxm.adapter = registerHjJyxmAdapter
+        registerHjJyxmAdapter.data = registerViewModel.hjJyxmList
 
         binding.spHpzl.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -116,6 +119,9 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         }
         binding.tvCcdjrq.setOnClickListener {
             DatePickerFragment().show(this.childFragmentManager, "ccdjrq")
+        }
+        binding.tvXzqhdm.setOnClickListener {
+            AdministrativePicker().show(this.childFragmentManager,"xzqhdm")
         }
 
         binding.btnGetVehicleInfo.setOnClickListener {
@@ -288,7 +294,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                         args.bean010.sjrdh, args.bean010.sjrsfzh,
                                         bean?.SCR, bean?.DPF
                                     )
-                                    textAdapter.value = textValueList
+                                    registerListAdapter.value = textValueList
                                 }
                             }
                         }
@@ -296,6 +302,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                 }
         }
         binding.btnNewLsh.setOnClickListener {
+            if (binding.tvCcrq.text.isNotBlank()){
             val randomLsh = "${date2String(Date(), "yyyyMMddHHmmss")}${
                 String.format(
                     "%03d",
@@ -303,13 +310,15 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                 )
             }"
             binding.tvLsh.text = randomLsh
-            val hdzkHolder = binding.rvLeftList.findViewHolderForAdapterPosition(24)
-            val zsHolder = binding.rvLeftList.findViewHolderForAdapterPosition(13)
+            val hdzkHolder = binding.rvTextList.findViewHolderForAdapterPosition(24)
+            val zsHolder = binding.rvTextList.findViewHolderForAdapterPosition(13)
+            val zzlHolder = binding.rvTextList.findViewHolderForAdapterPosition(19)
             val hdzkValue = hdzkHolder?.itemView?.findViewById<EditText>(R.id.value)
             val zsValue = zsHolder?.itemView?.findViewById<EditText>(R.id.value)
-            for (index in 0 until registerJyxmAdapter.itemCount) {
-                val holder = binding.rvJyxm.findViewHolderForAdapterPosition(index)
-                setJyxm(binding.spAjywlb.selectedItem.toString(),
+            val zzlValue = zzlHolder?.itemView?.findViewById<EditText>(R.id.value)
+            for (index in 0 until registerAjJyxmAdapter.itemCount) {
+                val holder = binding.rvAjJyxm.findViewHolderForAdapterPosition(index)
+                setAjJyxm(binding.spAjywlb.selectedItem.toString(),
                     binding.spCllx.selectedItem.toString(),
                     binding.spSyxz.selectedItem.toString(),
                     0.takeIf { hdzkValue?.text.isNullOrBlank() } ?: hdzkValue?.text.toString()
@@ -320,119 +329,371 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     binding.tvCcrq.text.toString()
                 )
             }
-
+            for (index in 0 until registerHjJyxmAdapter.itemCount){
+                val holder = binding.rvHjJyxm.findViewHolderForAdapterPosition(index)
+                setHjJyxm(binding.spHjywlb.selectedItem.toString(),
+                    holder?.itemView?.findViewById(R.id.cbJyxm),
+                    binding.tvCcrq.text.toString(),
+                    zzlValue?.text.toString().toInt()
+                    )
+            }
+            }else{
+                Snackbar.make(it,"出厂日期不可为空",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(resources.getColor(R.color.grey,null))
+                    .setTextColor(resources.getColor(R.color.red,null))
+                    .show()
+            }
         }
-        binding.btnSaveVehicleInfo.setOnClickListener {
-            dataDictionaryViewModel.getDataDictionaryFromDb()
-                .observe(this) {
-                    val valueMap = getValueMap(textAdapter)
-                    for (element in it) {
-                        if (element.Fl == FL_HPZL && element.Mc == binding.spHpzl.selectedItem.toString()) {
-                            valueMap["hpzl"] = element.Dm
-                        }
-                        if (element.Fl == FL_HPYS && element.Mc == binding.spHpys.selectedItem.toString()) {
-                            valueMap["hpys"] = element.Dm
-                        }
-                        if (element.Fl == FL_ZXZFS && element.Mc == binding.cbSfdlxj.text.toString()
-                                .takeIf { binding.cbSfdlxj.isChecked } ?: "非独立悬架"
-                        ) {
-                            valueMap["zxxs"] = element.Dm
-                        }
-                        if (element.Fl == FL_AJYWLB && element.Mc == binding.spAjywlb.selectedItem.toString()) {
-                            valueMap["ajywlb"] = element.Dm
-                        }
-                        if (element.Fl == FL_HJYWLB && element.Mc == binding.spHjywlb.selectedItem.toString()) {
-                            valueMap["hjywlb"] = element.Dm
-                        }
-                        if (element.Fl == FL_ZJYWLB && element.Mc == binding.spZjywlb.selectedItem.toString()) {
-                            valueMap["zjywlb"] = element.Dm
-                        }
-                        if (element.Fl == FL_CLLX && element.Mc == binding.spCllx.selectedItem.toString()) {
-                            valueMap["cllx"] = element.Dm
-                        }
-                        if (element.Fl == FL_CLYT && element.Mc == binding.spClyt.selectedItem.toString()) {
-                            valueMap["clyt"] = element.Dm
-                        }
-                        if (element.Fl == FL_YTSX && element.Mc == binding.spYtsx.selectedItem.toString()) {
-                            valueMap["ytsx"] = element.Dm
-                        }
-                        if (element.Fl == FL_PZCX && element.Mc == binding.spWgcx.selectedItem.toString()) {
-                            valueMap["wgcx"] = element.Dm
-                        }
-                        if (element.Fl == FL_GCJK && element.Mc == binding.spGcjk.selectedItem.toString()) {
-                            valueMap["gcjk"] = element.Dm
-                        }
-                        if (element.Fl == FL_QDFS && element.Mc == binding.spQdxs.selectedItem.toString()) {
-                            valueMap["qdxs"] = element.Dm
-                        }
-                        if (element.Fl == FL_ZDLY && element.Mc == binding.spZdly.selectedItem.toString()) {
-                            valueMap["zdly"] = element.Dm
-                        }
-                        if (element.Fl == FL_RLZL && element.Mc == binding.spRlzl1.selectedItem.toString()) {
-                            valueMap["rlzl1"] = element.Dm
-                        }
-                        if (element.Fl == FL_RLZL && element.Mc == binding.spRlzl2.selectedItem.toString()) {
-                            valueMap["rlzl2"] = element.Dm
-                        }
-                        if (element.Fl == FL_RYGG && element.Mc == binding.spRygg.selectedItem.toString()) {
-                            valueMap["rygg"] = element.Dm
-                        }
-                        if (element.Fl == FL_QZDZ && element.Mc == binding.spQzdz.selectedItem.toString()) {
-                            valueMap["qzdz"] = element.Dm
-                        }
-                        if (element.Fl == FL_HBXH && element.Mc == binding.spJcxh.selectedItem.toString()) {
-                            valueMap["jcxh"] = element.Dm
-                        }
-                        if (element.Fl == FL_SSLB && element.Mc == binding.spSslb.selectedItem.toString()) {
-                            valueMap["sslb"] = element.Dm
-                        }
-                        if (element.Fl == FL_GYFS && element.Mc == binding.spGyfs.selectedItem.toString()) {
-                            valueMap["gyfs"] = element.Dm
-                        }
-                        if (element.Fl == FL_JQFS && element.Mc == binding.spJqfs.selectedItem.toString()) {
-                            valueMap["jqfs"] = element.Dm
-                        }
-                        if (element.Fl == FL_BSX && element.Mc == binding.spBsxs.selectedItem.toString()) {
-                            valueMap["bsxs"] = element.Dm
-                        }
-                        if (element.Fl == FL_DW && element.Mc == binding.spDws.selectedItem.toString()) {
-                            valueMap["dws"] = element.Dm
-                        }
-                        if (element.Fl == FL_CC && element.Mc == binding.spCcs.selectedItem.toString()) {
-                            valueMap["ccs"] = element.Dm
-                        }
-                        if (element.Fl == FL_HCLZL && element.Mc == binding.spHclfs.selectedItem.toString()) {
-                            valueMap["hclfs"] = element.Dm
-                        }
+        binding.btnRegister.setOnClickListener {
 
-                        if (element.Fl == FL_CLSYXZ && element.Mc == binding.spSyxz.selectedItem.toString()) {
-                            valueMap["syxz"] = element.Dm
-                        }
-                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys1.selectedItem.toString()) {
-                            valueMap["csys1"] = element.Dm
-                        }
-                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys2.selectedItem.toString()) {
-                            valueMap["csys2"] = element.Dm
-                        }
-                        if (element.Fl == FL_CSYS && element.Mc == binding.spCsys3.selectedItem.toString()) {
-                            valueMap["csys3"] = element.Dm
-                        }
-                    }
-                    valueMap["rlzl"] = "${valueMap["rlzl1"]}${valueMap["rlzl2"]}"
-                    valueMap["csys"] =
-                        "${valueMap["csys1"]}${valueMap["csys2"]}${valueMap["csys3"]}"
-                    systemParamsViewModel.getJyjgbh("AJ").observe(this) { jyjgbh ->
-                        dataDictionaryViewModel.getDmList(
-                            FL_JYXM, getJyxm(registerJyxmAdapter)
-                        ).observe(this) { jyxmList ->
-                            var jyxmString = ""
-                            for (element in jyxmList) {
-                                jyxmString += element
-                                jyxmString += ","
+                dataDictionaryViewModel.getDataDictionaryFromDb()
+                    .observe(this) {
+                        val valueMap = getValueMap(registerListAdapter)
+                        for (element in it) {
+                            if (element.Fl == FL_HPZL && element.Mc == binding.spHpzl.selectedItem.toString()) {
+                                valueMap["hpzl"] = element.Dm
                             }
-                            jyxmString = jyxmString.substring(0, jyxmString.length - 1)
-                            if (bean != null) {
-                                bean!!.let {
+                            if (element.Fl == FL_HPYS && element.Mc == binding.spHpys.selectedItem.toString()) {
+                                valueMap["hpys"] = element.Dm
+                            }
+                            if (element.Fl == FL_ZXZFS && element.Mc == binding.cbSfdlxj.text.toString()
+                                    .takeIf { binding.cbSfdlxj.isChecked } ?: "非独立悬架"
+                            ) {
+                                valueMap["zxxs"] = element.Dm
+                            }
+                            if (element.Fl == FL_AJYWLB && element.Mc == binding.spAjywlb.selectedItem.toString()) {
+                                valueMap["ajywlb"] = element.Dm
+                            }
+                            if (element.Fl == FL_HJYWLB && element.Mc == binding.spHjywlb.selectedItem.toString()) {
+                                valueMap["hjywlb"] = element.Dm
+                            }
+                            if (element.Fl == FL_ZJYWLB && element.Mc == binding.spZjywlb.selectedItem.toString()) {
+                                valueMap["zjywlb"] = element.Dm
+                            }
+                            if (element.Fl == FL_CLLX && element.Mc == binding.spCllx.selectedItem.toString()) {
+                                valueMap["cllx"] = element.Dm
+                            }
+                            if (element.Fl == FL_CLYT && element.Mc == binding.spClyt.selectedItem.toString()) {
+                                valueMap["clyt"] = element.Dm
+                            }
+                            if (element.Fl == FL_YTSX && element.Mc == binding.spYtsx.selectedItem.toString()) {
+                                valueMap["ytsx"] = element.Dm
+                            }
+                            if (element.Fl == FL_PZCX && element.Mc == binding.spWgcx.selectedItem.toString()) {
+                                valueMap["wgcx"] = element.Dm
+                            }
+                            if (element.Fl == FL_GCJK && element.Mc == binding.spGcjk.selectedItem.toString()) {
+                                valueMap["gcjk"] = element.Dm
+                            }
+                            if (element.Fl == FL_QDFS && element.Mc == binding.spQdxs.selectedItem.toString()) {
+                                valueMap["qdxs"] = element.Dm
+                            }
+                            if (element.Fl == FL_ZDLY && element.Mc == binding.spZdly.selectedItem.toString()) {
+                                valueMap["zdly"] = element.Dm
+                            }
+                            if (element.Fl == FL_RLZL && element.Mc == binding.spRlzl1.selectedItem.toString()) {
+                                valueMap["rlzl1"] = element.Dm
+                            }
+                            if (element.Fl == FL_RLZL && element.Mc == binding.spRlzl2.selectedItem.toString()) {
+                                valueMap["rlzl2"] = element.Dm
+                            }
+                            if (element.Fl == FL_RYGG && element.Mc == binding.spRygg.selectedItem.toString()) {
+                                valueMap["rygg"] = element.Dm
+                            }
+                            if (element.Fl == FL_QZDZ && element.Mc == binding.spQzdz.selectedItem.toString()) {
+                                valueMap["qzdz"] = element.Dm
+                            }
+                            if (element.Fl == FL_HBXH && element.Mc == binding.spJcxh.selectedItem.toString()) {
+                                valueMap["jcxh"] = element.Dm
+                            }
+                            if (element.Fl == FL_SSLB && element.Mc == binding.spSslb.selectedItem.toString()) {
+                                valueMap["sslb"] = element.Dm
+                            }
+                            if (element.Fl == FL_GYFS && element.Mc == binding.spGyfs.selectedItem.toString()) {
+                                valueMap["gyfs"] = element.Dm
+                            }
+                            if (element.Fl == FL_JQFS && element.Mc == binding.spJqfs.selectedItem.toString()) {
+                                valueMap["jqfs"] = element.Dm
+                            }
+                            if (element.Fl == FL_BSX && element.Mc == binding.spBsxs.selectedItem.toString()) {
+                                valueMap["bsxs"] = element.Dm
+                            }
+                            if (element.Fl == FL_DW && element.Mc == binding.spDws.selectedItem.toString()) {
+                                valueMap["dws"] = element.Dm
+                            }
+                            if (element.Fl == FL_CC && element.Mc == binding.spCcs.selectedItem.toString()) {
+                                valueMap["ccs"] = element.Dm
+                            }
+                            if (element.Fl == FL_HCLZL && element.Mc == binding.spHclfs.selectedItem.toString()) {
+                                valueMap["hclfs"] = element.Dm
+                            }
+
+                            if (element.Fl == FL_CLSYXZ && element.Mc == binding.spSyxz.selectedItem.toString()) {
+                                valueMap["syxz"] = element.Dm
+                            }
+                            if (element.Fl == FL_CSYS && element.Mc == binding.spCsys1.selectedItem.toString()) {
+                                valueMap["csys1"] = element.Dm
+                            }
+                            if (element.Fl == FL_CSYS && element.Mc == binding.spCsys2.selectedItem.toString()) {
+                                valueMap["csys2"] = element.Dm
+                            }
+                            if (element.Fl == FL_CSYS && element.Mc == binding.spCsys3.selectedItem.toString()) {
+                                valueMap["csys3"] = element.Dm
+                            }
+                        }
+                        valueMap["rlzl"] = "${valueMap["rlzl1"]}${valueMap["rlzl2"]}"
+                        valueMap["csys"] =
+                            "${valueMap["csys1"]}${valueMap["csys2"]}${valueMap["csys3"]}"
+                        var hjJyxmString = ""
+                        for (index in 0 until registerHjJyxmAdapter.itemCount){
+                            val holder = binding.rvHjJyxm.findViewHolderForAdapterPosition(index)
+                            val hjJyxm = holder?.itemView?.findViewById<CheckBox>(R.id.cbJyxm)
+                            when(hjJyxm?.text.toString()){
+                                "环保外观" ->{
+                                    hjJyxmString += "F1".takeIf { hjJyxm?.isChecked == true }
+                                }
+                                "环保底盘" ->{
+                                    hjJyxmString += "C1".takeIf { hjJyxm?.isChecked == true }
+                                }
+                                "OBD" ->{
+                                    hjJyxmString += "OBD".takeIf { hjJyxm?.isChecked == true }
+                                }
+                                "尾气" ->{
+                                    hjJyxmString += "WQ".takeIf { hjJyxm?.isChecked == true }
+                                }
+                            }
+                            hjJyxmString += ","
+                        }
+                        hjJyxmString = hjJyxmString.substring(0,hjJyxmString.length-1)
+
+                        systemParamsViewModel.getJyjgbh("AJ").observe(this) { jyjgbh ->
+                            dataDictionaryViewModel.getDmList(
+                                FL_JYXM, getJyxm(registerAjJyxmAdapter)
+                            ).observe(this) { jyxmList ->
+                                var ajJyxmString = ""
+                                for (element in jyxmList) {
+                                    ajJyxmString += element
+                                    ajJyxmString += ","
+                                }
+                                ajJyxmString = ajJyxmString.substring(0, ajJyxmString.length - 1)
+                                if (bean != null) {
+                                    bean!!.let {
+                                        registerViewModel.postSaveVehicleInfo(
+                                            SaveVehicleInfoW003Request(
+                                                0,
+                                                "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
+                                                valueMap["hpzl"].takeIf { !valueMap["hpzl"].isNullOrBlank() }
+                                                    ?: "",
+                                                valueMap["hpys"].takeIf { !valueMap["hpys"].isNullOrBlank() }
+                                                    ?: "",
+                                                binding.etClsbdh.text.toString(),
+                                                binding.etCwkc.text.toString(),
+                                                binding.etCwkk.text.toString(),
+                                                binding.etCwkg.text.toString(),
+                                                binding.etHxnbcd.text.toString(),
+                                                binding.etHxnbkd.text.toString(),
+                                                binding.etHxnbgd.text.toString(),
+                                                valueMap["zxxs"].takeIf { valueMap["zxxs"].isNullOrBlank() }
+                                                    ?: "",
+                                                "1".takeIf { binding.cbSfdzzc.isChecked } ?: "0",
+                                                "1".takeIf { binding.cbSfcyc.isChecked } ?: "0",
+                                                "1".takeIf { binding.cbSfmz.isChecked } ?: "0",
+                                                valueMap["ajywlb"].takeIf { valueMap["ajywlb"] != null }
+                                                    ?: "",
+                                                valueMap["hjywlb"].takeIf { valueMap["hjywlb"] != null }
+                                                    ?: "",
+                                                valueMap["zjywlb"].takeIf { valueMap["zjywlb"] != null }
+                                                    ?: "",
+                                                valueMap["xszbh"].takeIf { valueMap["xszbh"] != null }
+                                                    ?: "",
+                                                valueMap["clpp1"].takeIf { valueMap["clpp1"] != null }
+                                                    ?: "",
+                                                valueMap["clxh"].takeIf { valueMap["clxh"] != null }
+                                                    ?: "",
+                                                valueMap["fdjxh"].takeIf { valueMap["fdjxh"] != null }
+                                                    ?: "",
+                                                valueMap["fdjh"].takeIf { valueMap["fdjh"] != null }
+                                                    ?: "",
+                                                valueMap["syr"].takeIf { valueMap["syr"] != null }
+                                                    ?: "",
+                                                valueMap["lxdh"].takeIf { valueMap["lxdh"] != null }
+                                                    ?: "",
+                                                valueMap["zt"].takeIf { valueMap["zt"] != null } ?: "",
+                                                valueMap["zzcmc"].takeIf { valueMap["zzcmc"] != null }
+                                                    ?: "",
+                                                valueMap["qdzs"].takeIf { valueMap["qdzs"] != null }
+                                                    ?: "",
+                                                valueMap["qdzw"].takeIf { valueMap["qdzw"] != null }
+                                                    ?: "",
+                                                valueMap["zczs"].takeIf { valueMap["zczs"] != null }
+                                                    ?: "",
+                                                valueMap["zczw"].takeIf { valueMap["zczw"] != null }
+                                                    ?: "",
+                                                valueMap["zs"].takeIf { valueMap["zs"] != null } ?: "",
+                                                valueMap["zj"].takeIf { valueMap["zj"] != null } ?: "",
+                                                valueMap["zzs"].takeIf { valueMap["zzs"] != null }
+                                                    ?: "",
+                                                valueMap["qzs"].takeIf { valueMap["qzs"] != null }
+                                                    ?: "",
+                                                valueMap["qlj"].takeIf { valueMap["qlj"] != null }
+                                                    ?: "",
+                                                valueMap["hlj"].takeIf { valueMap["hlj"] != null }
+                                                    ?: "",
+                                                valueMap["zzl"].takeIf { valueMap["zzl"] != null }
+                                                    ?: "",
+                                                valueMap["zbzl"].takeIf { valueMap["zbzl"] != null }
+                                                    ?: "",
+                                                valueMap["kqxjzw"].takeIf { valueMap["kqxjzw"] != null }
+                                                    ?: "",
+                                                valueMap["zxzs"].takeIf { valueMap["zxzs"] != null }
+                                                    ?: "",
+                                                valueMap["bzzw"].takeIf { valueMap["bzzw"] != null }
+                                                    ?: "",
+                                                valueMap["hdzk"].takeIf { valueMap["hdzk"] != null }
+                                                    ?: "",
+                                                valueMap["hdzzl"].takeIf { valueMap["hdzzl"] != null }
+                                                    ?: "",
+                                                valueMap["zqyzl"].takeIf { valueMap["zqyzl"] != null }
+                                                    ?: "",
+                                                valueMap["zdsjcs"].takeIf { valueMap["zdsjcs"] != null }
+                                                    ?: "",
+                                                valueMap["gl"].takeIf { valueMap["gl"] != null } ?: "",
+                                                valueMap["pl"].takeIf { valueMap["pl"] != null } ?: "",
+                                                valueMap["pqgs"].takeIf { valueMap["pqgs"] != null }
+                                                    ?: "",
+                                                valueMap["lcbds"].takeIf { valueMap["lcbds"] != null }
+                                                    ?: "",
+                                                valueMap["edzs"].takeIf { valueMap["edzs"] != null }
+                                                    ?: "",
+                                                valueMap["ltgg"].takeIf { valueMap["ltgg"] != null }
+                                                    ?: "",
+                                                valueMap["qgs"].takeIf { valueMap["qgs"] != null }
+                                                    ?: "",
+                                                valueMap["lxdz"].takeIf { valueMap["lxdz"] != null }
+                                                    ?: "",
+                                                valueMap["sjr"].takeIf { valueMap["sjr"] != null }
+                                                    ?: "",
+                                                valueMap["sjrdh"].takeIf { valueMap["sjrdh"] != null }
+                                                    ?: "",
+                                                valueMap["sjrsfzh"].takeIf { valueMap["sjrsfzh"] != null }
+                                                    ?: "",
+                                                valueMap["SCR"].takeIf { valueMap["SCR"] != null }
+                                                    ?: "",
+                                                valueMap["DPF"].takeIf { valueMap["DPF"] != null }
+                                                    ?: "",
+                                                valueMap["cllx"].takeIf { valueMap["cllx"] != null }
+                                                    ?: "",
+                                                valueMap["clyt"].takeIf { valueMap["clyt"] != null }
+                                                    ?: "",
+                                                valueMap["ytsx"].takeIf { valueMap["ytsx"] != null }
+                                                    ?: "",
+                                                valueMap["wgcx"].takeIf { valueMap["wgcx"] != null }
+                                                    ?: "",
+                                                valueMap["gcjk"].takeIf { valueMap["gcjk"] != null }
+                                                    ?: "",
+                                                valueMap["qdxs"].takeIf { valueMap["qdxs"] != null }
+                                                    ?: "",
+                                                valueMap["zdly"].takeIf { valueMap["zdly"] != null }
+                                                    ?: "",
+                                                valueMap["rlzl"].takeIf { valueMap["rlzl1"] != null }
+                                                    ?: "",
+                                                valueMap["rygg"].takeIf { valueMap["rygg"] != null }
+                                                    ?: "",
+                                                valueMap["qzdz"].takeIf { valueMap["qzdz"] != null }
+                                                    ?: "",
+                                                valueMap["jcxh"].takeIf { valueMap["jcxh"] != null }
+                                                    ?: "",
+                                                valueMap["sslb"].takeIf { valueMap["sslb"] != null }
+                                                    ?: "",
+                                                valueMap["gyfs"].takeIf { valueMap["gyfs"] != null }
+                                                    ?: "",
+                                                valueMap["jqfs"].takeIf { valueMap["jqfs"] != null }
+                                                    ?: "",
+                                                valueMap["bsxs"].takeIf { valueMap["bsxs"] != null }
+                                                    ?: "",
+                                                valueMap["dws"].takeIf { valueMap["dws"] != null }
+                                                    ?: "",
+                                                valueMap["ccs"].takeIf { valueMap["ccs"] != null }
+                                                    ?: "",
+                                                valueMap["hclfs"].takeIf { valueMap["hclfs"] != null }
+                                                    ?: "",
+                                                valueMap["syxz"].takeIf { valueMap["syxz"] != null }
+                                                    ?: "",
+                                                binding.tvCcrq.text.toString(),
+                                                binding.tvCcdjrq.text.toString(),
+                                                binding.tvDjrq.text.toString(),
+                                                it.Clpp2,
+                                                it.Zzg,
+                                                valueMap["csys"].takeIf { valueMap["csys"] != null }
+                                                    ?: "",
+                                                it.Sfzmhm,
+                                                it.Sfzmmc,
+                                                it.Yxqz,
+                                                it.Qzbfqz,
+                                                it.Fzjg,
+                                                it.Glbm,
+                                                it.Bxzzrq,
+                                                it.Dybj,
+                                                it.Gbthps,
+                                                it.Lts,
+                                                it.Qpzk,
+                                                it.Hpzk,
+                                                it.Jyhgbzbh,
+                                                binding.tvXzqhdm.text.toString(),
+                                                it.Zsxzqh,
+                                                it.Zzxzqh,
+                                                it.Sfmj,
+                                                valueMap["zjywlb"]!!,
+                                                it.Hjxm,
+                                                it.Ajcx,
+                                                it.Zjcx,
+                                                it.Hbdbqk,
+                                                date2String(Date(), "yyyy-MM-dd"),
+                                                date2String(Date(), "HH:mm:ss"),
+                                                it.Ygdltz,
+                                                it.Zxzxjxs,
+                                                it.Zjdw,
+                                                it.Pfjd,
+                                                it.Hjdlsj,
+                                                "${binding.etLshSzm.text.toString()}${binding.tvLsh.text}".takeIf { binding.cbAjywlb.isChecked }
+                                                    ?: "",
+                                                "${binding.etLshSzm.text.toString()}${binding.tvLsh.text}".takeIf { binding.cbHjywlb.isChecked }
+                                                    ?: "",
+                                                jyjgbh,
+                                                "",
+                                                ajJyxmString,
+                                                hjJyxmString,
+                                                "",
+                                                "",
+                                                "",
+                                                date2String(Date(), "yyyyMMdd HH:mm:ss"),
+                                                1,
+                                                1,
+                                                bean001.TrueName,
+                                                bean001.ID,
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                it.Jcxlb,
+                                                it.Yyzh,
+                                            )
+                                        ).observe(this) {
+                                            if (it) {
+                                                Toast.makeText(
+                                                    this.requireContext(),
+                                                    "登记成功",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+
+                                } else {
                                     registerViewModel.postSaveVehicleInfo(
                                         SaveVehicleInfoW003Request(
                                             0,
@@ -463,49 +724,32 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                                 ?: "",
                                             valueMap["clpp1"].takeIf { valueMap["clpp1"] != null }
                                                 ?: "",
-                                            valueMap["clxh"].takeIf { valueMap["clxh"] != null }
-                                                ?: "",
+                                            valueMap["clxh"].takeIf { valueMap["clxh"] != null } ?: "",
                                             valueMap["fdjxh"].takeIf { valueMap["fdjxh"] != null }
                                                 ?: "",
-                                            valueMap["fdjh"].takeIf { valueMap["fdjh"] != null }
-                                                ?: "",
-                                            valueMap["syr"].takeIf { valueMap["syr"] != null }
-                                                ?: "",
-                                            valueMap["lxdh"].takeIf { valueMap["lxdh"] != null }
-                                                ?: "",
+                                            valueMap["fdjh"].takeIf { valueMap["fdjh"] != null } ?: "",
+                                            valueMap["syr"].takeIf { valueMap["syr"] != null } ?: "",
+                                            valueMap["lxdh"].takeIf { valueMap["lxdh"] != null } ?: "",
                                             valueMap["zt"].takeIf { valueMap["zt"] != null } ?: "",
                                             valueMap["zzcmc"].takeIf { valueMap["zzcmc"] != null }
                                                 ?: "",
-                                            valueMap["qdzs"].takeIf { valueMap["qdzs"] != null }
-                                                ?: "",
-                                            valueMap["qdzw"].takeIf { valueMap["qdzw"] != null }
-                                                ?: "",
-                                            valueMap["zczs"].takeIf { valueMap["zczs"] != null }
-                                                ?: "",
-                                            valueMap["zczw"].takeIf { valueMap["zczw"] != null }
-                                                ?: "",
+                                            valueMap["qdzs"].takeIf { valueMap["qdzs"] != null } ?: "",
+                                            valueMap["qdzw"].takeIf { valueMap["qdzw"] != null } ?: "",
+                                            valueMap["zczs"].takeIf { valueMap["zczs"] != null } ?: "",
+                                            valueMap["zczw"].takeIf { valueMap["zczw"] != null } ?: "",
                                             valueMap["zs"].takeIf { valueMap["zs"] != null } ?: "",
                                             valueMap["zj"].takeIf { valueMap["zj"] != null } ?: "",
-                                            valueMap["zzs"].takeIf { valueMap["zzs"] != null }
-                                                ?: "",
-                                            valueMap["qzs"].takeIf { valueMap["qzs"] != null }
-                                                ?: "",
-                                            valueMap["qlj"].takeIf { valueMap["qlj"] != null }
-                                                ?: "",
-                                            valueMap["hlj"].takeIf { valueMap["hlj"] != null }
-                                                ?: "",
-                                            valueMap["zzl"].takeIf { valueMap["zzl"] != null }
-                                                ?: "",
-                                            valueMap["zbzl"].takeIf { valueMap["zbzl"] != null }
-                                                ?: "",
+                                            valueMap["zzs"].takeIf { valueMap["zzs"] != null } ?: "",
+                                            valueMap["qzs"].takeIf { valueMap["qzs"] != null } ?: "",
+                                            valueMap["qlj"].takeIf { valueMap["qlj"] != null } ?: "",
+                                            valueMap["hlj"].takeIf { valueMap["hlj"] != null } ?: "",
+                                            valueMap["zzl"].takeIf { valueMap["zzl"] != null } ?: "",
+                                            valueMap["zbzl"].takeIf { valueMap["zbzl"] != null } ?: "",
                                             valueMap["kqxjzw"].takeIf { valueMap["kqxjzw"] != null }
                                                 ?: "",
-                                            valueMap["zxzs"].takeIf { valueMap["zxzs"] != null }
-                                                ?: "",
-                                            valueMap["bzzw"].takeIf { valueMap["bzzw"] != null }
-                                                ?: "",
-                                            valueMap["hdzk"].takeIf { valueMap["hdzk"] != null }
-                                                ?: "",
+                                            valueMap["zxzs"].takeIf { valueMap["zxzs"] != null } ?: "",
+                                            valueMap["bzzw"].takeIf { valueMap["bzzw"] != null } ?: "",
+                                            valueMap["hdzk"].takeIf { valueMap["hdzk"] != null } ?: "",
                                             valueMap["hdzzl"].takeIf { valueMap["hdzzl"] != null }
                                                 ?: "",
                                             valueMap["zqyzl"].takeIf { valueMap["zqyzl"] != null }
@@ -514,110 +758,83 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                                 ?: "",
                                             valueMap["gl"].takeIf { valueMap["gl"] != null } ?: "",
                                             valueMap["pl"].takeIf { valueMap["pl"] != null } ?: "",
-                                            valueMap["pqgs"].takeIf { valueMap["pqgs"] != null }
-                                                ?: "",
+                                            valueMap["pqgs"].takeIf { valueMap["pqgs"] != null } ?: "",
                                             valueMap["lcbds"].takeIf { valueMap["lcbds"] != null }
                                                 ?: "",
-                                            valueMap["edzs"].takeIf { valueMap["edzs"] != null }
-                                                ?: "",
-                                            valueMap["ltgg"].takeIf { valueMap["ltgg"] != null }
-                                                ?: "",
-                                            valueMap["qgs"].takeIf { valueMap["qgs"] != null }
-                                                ?: "",
-                                            valueMap["lxdz"].takeIf { valueMap["lxdz"] != null }
-                                                ?: "",
-                                            valueMap["sjr"].takeIf { valueMap["sjr"] != null }
-                                                ?: "",
+                                            valueMap["edzs"].takeIf { valueMap["edzs"] != null } ?: "",
+                                            valueMap["ltgg"].takeIf { valueMap["ltgg"] != null } ?: "",
+                                            valueMap["qgs"].takeIf { valueMap["qgs"] != null } ?: "",
+                                            valueMap["lxdz"].takeIf { valueMap["lxdz"] != null } ?: "",
+                                            valueMap["sjr"].takeIf { valueMap["sjr"] != null } ?: "",
                                             valueMap["sjrdh"].takeIf { valueMap["sjrdh"] != null }
                                                 ?: "",
                                             valueMap["sjrsfzh"].takeIf { valueMap["sjrsfzh"] != null }
                                                 ?: "",
-                                            valueMap["SCR"].takeIf { valueMap["SCR"] != null }
-                                                ?: "",
-                                            valueMap["DPF"].takeIf { valueMap["DPF"] != null }
-                                                ?: "",
-                                            valueMap["cllx"].takeIf { valueMap["cllx"] != null }
-                                                ?: "",
-                                            valueMap["clyt"].takeIf { valueMap["clyt"] != null }
-                                                ?: "",
-                                            valueMap["ytsx"].takeIf { valueMap["ytsx"] != null }
-                                                ?: "",
-                                            valueMap["wgcx"].takeIf { valueMap["wgcx"] != null }
-                                                ?: "",
-                                            valueMap["gcjk"].takeIf { valueMap["gcjk"] != null }
-                                                ?: "",
-                                            valueMap["qdxs"].takeIf { valueMap["qdxs"] != null }
-                                                ?: "",
-                                            valueMap["zdly"].takeIf { valueMap["zdly"] != null }
-                                                ?: "",
-                                            valueMap["rlzl"].takeIf { valueMap["rlzl1"] != null }
-                                                ?: "",
-                                            valueMap["rygg"].takeIf { valueMap["rygg"] != null }
-                                                ?: "",
-                                            valueMap["qzdz"].takeIf { valueMap["qzdz"] != null }
-                                                ?: "",
-                                            valueMap["jcxh"].takeIf { valueMap["jcxh"] != null }
-                                                ?: "",
-                                            valueMap["sslb"].takeIf { valueMap["sslb"] != null }
-                                                ?: "",
-                                            valueMap["gyfs"].takeIf { valueMap["gyfs"] != null }
-                                                ?: "",
-                                            valueMap["jqfs"].takeIf { valueMap["jqfs"] != null }
-                                                ?: "",
-                                            valueMap["bsxs"].takeIf { valueMap["bsxs"] != null }
-                                                ?: "",
-                                            valueMap["dws"].takeIf { valueMap["dws"] != null }
-                                                ?: "",
-                                            valueMap["ccs"].takeIf { valueMap["ccs"] != null }
-                                                ?: "",
+                                            valueMap["SCR"].takeIf { valueMap["SCR"] != null } ?: "",
+                                            valueMap["DPF"].takeIf { valueMap["DPF"] != null } ?: "",
+                                            valueMap["cllx"].takeIf { valueMap["cllx"] != null } ?: "",
+                                            valueMap["clyt"].takeIf { valueMap["clyt"] != null } ?: "",
+                                            valueMap["ytsx"].takeIf { valueMap["ytsx"] != null } ?: "",
+                                            valueMap["wgcx"].takeIf { valueMap["wgcx"] != null } ?: "",
+                                            valueMap["gcjk"].takeIf { valueMap["gcjk"] != null } ?: "",
+                                            valueMap["qdxs"].takeIf { valueMap["qdxs"] != null } ?: "",
+                                            valueMap["zdly"].takeIf { valueMap["zdly"] != null } ?: "",
+                                            valueMap["rlzl"].takeIf { valueMap["rlzl1"] != null } ?: "",
+                                            valueMap["rygg"].takeIf { valueMap["rygg"] != null } ?: "",
+                                            valueMap["qzdz"].takeIf { valueMap["qzdz"] != null } ?: "",
+                                            valueMap["jcxh"].takeIf { valueMap["jcxh"] != null } ?: "",
+                                            valueMap["sslb"].takeIf { valueMap["sslb"] != null } ?: "",
+                                            valueMap["gyfs"].takeIf { valueMap["gyfs"] != null } ?: "",
+                                            valueMap["jqfs"].takeIf { valueMap["jqfs"] != null } ?: "",
+                                            valueMap["bsxs"].takeIf { valueMap["bsxs"] != null } ?: "",
+                                            valueMap["dws"].takeIf { valueMap["dws"] != null } ?: "",
+                                            valueMap["ccs"].takeIf { valueMap["ccs"] != null } ?: "",
                                             valueMap["hclfs"].takeIf { valueMap["hclfs"] != null }
                                                 ?: "",
-                                            valueMap["syxz"].takeIf { valueMap["syxz"] != null }
-                                                ?: "",
+                                            valueMap["syxz"].takeIf { valueMap["syxz"] != null } ?: "",
                                             binding.tvCcrq.text.toString(),
                                             binding.tvCcdjrq.text.toString(),
                                             binding.tvDjrq.text.toString(),
-                                            it.Clpp2,
-                                            it.Zzg,
-                                            valueMap["csys"].takeIf { valueMap["csys"] != null }
-                                                ?: "",
-                                            it.Sfzmhm,
-                                            it.Sfzmmc,
-                                            it.Yxqz,
-                                            it.Qzbfqz,
-                                            it.Fzjg,
-                                            it.Glbm,
-                                            it.Bxzzrq,
-                                            it.Dybj,
-                                            it.Gbthps,
-                                            it.Lts,
-                                            it.Qpzk,
-                                            it.Hpzk,
-                                            it.Jyhgbzbh,
-                                            it.Xzqh,
-                                            it.Zsxzqh,
-                                            it.Zzxzqh,
-                                            it.Sfmj,
+                                            "",
+                                            "",
+                                            valueMap["csys"].takeIf { valueMap["csys"] != null } ?: "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            binding.tvXzqhdm.text.toString(),
+                                            "",
+                                            "",
+                                            "",
                                             valueMap["zjywlb"]!!,
-                                            it.Hjxm,
-                                            it.Ajcx,
-                                            it.Zjcx,
-                                            it.Hbdbqk,
+                                            "",
+                                            "",
+                                            "",
+                                            "",
                                             date2String(Date(), "yyyy-MM-dd"),
                                             date2String(Date(), "HH:mm:ss"),
-                                            it.Ygdltz,
-                                            it.Zxzxjxs,
-                                            it.Zjdw,
-                                            it.Pfjd,
-                                            it.Hjdlsj,
+                                            "",
+                                            "",
+                                            "",
+                                            "",
+                                            "",
                                             "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbAjywlb.isChecked }
                                                 ?: "",
                                             "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbHjywlb.isChecked }
                                                 ?: "",
                                             jyjgbh,
                                             "",
-                                            jyxmString,
-                                            "",
+                                            ajJyxmString,
+                                            hjJyxmString,
                                             "",
                                             "",
                                             "",
@@ -634,8 +851,8 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                             "",
                                             "",
                                             "",
-                                            it.Jcxlb,
-                                            it.Yyzh,
+                                            "",
+                                            ""
                                         )
                                     ).observe(this) {
                                         if (it) {
@@ -647,181 +864,11 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                         }
                                     }
                                 }
-
-                            } else {
-                                registerViewModel.postSaveVehicleInfo(
-                                    SaveVehicleInfoW003Request(
-                                        0,
-                                        "${binding.spHphm.selectedItem}${binding.etHphm.text.toString()}",
-                                        valueMap["hpzl"].takeIf { !valueMap["hpzl"].isNullOrBlank() }
-                                            ?: "",
-                                        valueMap["hpys"].takeIf { !valueMap["hpys"].isNullOrBlank() }
-                                            ?: "",
-                                        binding.etClsbdh.text.toString(),
-                                        binding.etCwkc.text.toString(),
-                                        binding.etCwkk.text.toString(),
-                                        binding.etCwkg.text.toString(),
-                                        binding.etHxnbcd.text.toString(),
-                                        binding.etHxnbkd.text.toString(),
-                                        binding.etHxnbgd.text.toString(),
-                                        valueMap["zxxs"].takeIf { valueMap["zxxs"].isNullOrBlank() }
-                                            ?: "",
-                                        "1".takeIf { binding.cbSfdzzc.isChecked } ?: "0",
-                                        "1".takeIf { binding.cbSfcyc.isChecked } ?: "0",
-                                        "1".takeIf { binding.cbSfmz.isChecked } ?: "0",
-                                        valueMap["ajywlb"].takeIf { valueMap["ajywlb"] != null }
-                                            ?: "",
-                                        valueMap["hjywlb"].takeIf { valueMap["hjywlb"] != null }
-                                            ?: "",
-                                        valueMap["zjywlb"].takeIf { valueMap["zjywlb"] != null }
-                                            ?: "",
-                                        valueMap["xszbh"].takeIf { valueMap["xszbh"] != null }
-                                            ?: "",
-                                        valueMap["clpp1"].takeIf { valueMap["clpp1"] != null }
-                                            ?: "",
-                                        valueMap["clxh"].takeIf { valueMap["clxh"] != null } ?: "",
-                                        valueMap["fdjxh"].takeIf { valueMap["fdjxh"] != null }
-                                            ?: "",
-                                        valueMap["fdjh"].takeIf { valueMap["fdjh"] != null } ?: "",
-                                        valueMap["syr"].takeIf { valueMap["syr"] != null } ?: "",
-                                        valueMap["lxdh"].takeIf { valueMap["lxdh"] != null } ?: "",
-                                        valueMap["zt"].takeIf { valueMap["zt"] != null } ?: "",
-                                        valueMap["zzcmc"].takeIf { valueMap["zzcmc"] != null }
-                                            ?: "",
-                                        valueMap["qdzs"].takeIf { valueMap["qdzs"] != null } ?: "",
-                                        valueMap["qdzw"].takeIf { valueMap["qdzw"] != null } ?: "",
-                                        valueMap["zczs"].takeIf { valueMap["zczs"] != null } ?: "",
-                                        valueMap["zczw"].takeIf { valueMap["zczw"] != null } ?: "",
-                                        valueMap["zs"].takeIf { valueMap["zs"] != null } ?: "",
-                                        valueMap["zj"].takeIf { valueMap["zj"] != null } ?: "",
-                                        valueMap["zzs"].takeIf { valueMap["zzs"] != null } ?: "",
-                                        valueMap["qzs"].takeIf { valueMap["qzs"] != null } ?: "",
-                                        valueMap["qlj"].takeIf { valueMap["qlj"] != null } ?: "",
-                                        valueMap["hlj"].takeIf { valueMap["hlj"] != null } ?: "",
-                                        valueMap["zzl"].takeIf { valueMap["zzl"] != null } ?: "",
-                                        valueMap["zbzl"].takeIf { valueMap["zbzl"] != null } ?: "",
-                                        valueMap["kqxjzw"].takeIf { valueMap["kqxjzw"] != null }
-                                            ?: "",
-                                        valueMap["zxzs"].takeIf { valueMap["zxzs"] != null } ?: "",
-                                        valueMap["bzzw"].takeIf { valueMap["bzzw"] != null } ?: "",
-                                        valueMap["hdzk"].takeIf { valueMap["hdzk"] != null } ?: "",
-                                        valueMap["hdzzl"].takeIf { valueMap["hdzzl"] != null }
-                                            ?: "",
-                                        valueMap["zqyzl"].takeIf { valueMap["zqyzl"] != null }
-                                            ?: "",
-                                        valueMap["zdsjcs"].takeIf { valueMap["zdsjcs"] != null }
-                                            ?: "",
-                                        valueMap["gl"].takeIf { valueMap["gl"] != null } ?: "",
-                                        valueMap["pl"].takeIf { valueMap["pl"] != null } ?: "",
-                                        valueMap["pqgs"].takeIf { valueMap["pqgs"] != null } ?: "",
-                                        valueMap["lcbds"].takeIf { valueMap["lcbds"] != null }
-                                            ?: "",
-                                        valueMap["edzs"].takeIf { valueMap["edzs"] != null } ?: "",
-                                        valueMap["ltgg"].takeIf { valueMap["ltgg"] != null } ?: "",
-                                        valueMap["qgs"].takeIf { valueMap["qgs"] != null } ?: "",
-                                        valueMap["lxdz"].takeIf { valueMap["lxdz"] != null } ?: "",
-                                        valueMap["sjr"].takeIf { valueMap["sjr"] != null } ?: "",
-                                        valueMap["sjrdh"].takeIf { valueMap["sjrdh"] != null }
-                                            ?: "",
-                                        valueMap["sjrsfzh"].takeIf { valueMap["sjrsfzh"] != null }
-                                            ?: "",
-                                        valueMap["SCR"].takeIf { valueMap["SCR"] != null } ?: "",
-                                        valueMap["DPF"].takeIf { valueMap["DPF"] != null } ?: "",
-                                        valueMap["cllx"].takeIf { valueMap["cllx"] != null } ?: "",
-                                        valueMap["clyt"].takeIf { valueMap["clyt"] != null } ?: "",
-                                        valueMap["ytsx"].takeIf { valueMap["ytsx"] != null } ?: "",
-                                        valueMap["wgcx"].takeIf { valueMap["wgcx"] != null } ?: "",
-                                        valueMap["gcjk"].takeIf { valueMap["gcjk"] != null } ?: "",
-                                        valueMap["qdxs"].takeIf { valueMap["qdxs"] != null } ?: "",
-                                        valueMap["zdly"].takeIf { valueMap["zdly"] != null } ?: "",
-                                        valueMap["rlzl"].takeIf { valueMap["rlzl1"] != null } ?: "",
-                                        valueMap["rygg"].takeIf { valueMap["rygg"] != null } ?: "",
-                                        valueMap["qzdz"].takeIf { valueMap["qzdz"] != null } ?: "",
-                                        valueMap["jcxh"].takeIf { valueMap["jcxh"] != null } ?: "",
-                                        valueMap["sslb"].takeIf { valueMap["sslb"] != null } ?: "",
-                                        valueMap["gyfs"].takeIf { valueMap["gyfs"] != null } ?: "",
-                                        valueMap["jqfs"].takeIf { valueMap["jqfs"] != null } ?: "",
-                                        valueMap["bsxs"].takeIf { valueMap["bsxs"] != null } ?: "",
-                                        valueMap["dws"].takeIf { valueMap["dws"] != null } ?: "",
-                                        valueMap["ccs"].takeIf { valueMap["ccs"] != null } ?: "",
-                                        valueMap["hclfs"].takeIf { valueMap["hclfs"] != null }
-                                            ?: "",
-                                        valueMap["syxz"].takeIf { valueMap["syxz"] != null } ?: "",
-                                        binding.tvCcrq.text.toString(),
-                                        binding.tvCcdjrq.text.toString(),
-                                        binding.tvDjrq.text.toString(),
-                                        "",
-                                        "",
-                                        valueMap["csys"].takeIf { valueMap["csys"] != null } ?: "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        valueMap["zjywlb"]!!,
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        date2String(Date(), "yyyy-MM-dd"),
-                                        date2String(Date(), "HH:mm:ss"),
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbAjywlb.isChecked }
-                                            ?: "",
-                                        "${binding.etLshSzm.text.toString()}${binding.tvLsh.text.toString()}".takeIf { binding.cbHjywlb.isChecked }
-                                            ?: "",
-                                        jyjgbh,
-                                        "",
-                                        jyxmString,
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        date2String(Date(), "yyyyMMdd HH:mm:ss"),
-                                        1,
-                                        1,
-                                        bean001.TrueName,
-                                        bean001.ID,
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        ""
-                                    )
-                                ).observe(this) {
-                                    if (it) {
-                                        Toast.makeText(
-                                            this.requireContext(),
-                                            "登记成功",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
                             }
                         }
                     }
-                }
+
+
         }
 
 
@@ -1060,6 +1107,8 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         systemParamsViewModel.getLshSzm().observe(this) {
             binding.etLshSzm.setText(it)
         }
+
+
     }
 
     fun Spinner.setText(text: String) {
@@ -1070,18 +1119,12 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         }
     }
 
-    fun getKey(listAdapter: RegisterListAdapter): List<String> {
-        val list = ArrayList<String>()
-        for (index in 0 until listAdapter.itemCount) {
-            list.add(listAdapter.data[index])
-        }
-        return list
-    }
+
 
     fun getValueMap(adapter: RegisterListAdapter): MutableMap<String, String> {
         val map = mutableMapOf<String, String>()
         for (index in 0 until adapter.itemCount) {
-            val holder = binding.rvLeftList.findViewHolderForAdapterPosition(index)
+            val holder = binding.rvTextList.findViewHolderForAdapterPosition(index)
             val clearEditText = holder?.itemView?.findViewById<EditText>(R.id.value)
             map[registerViewModel.textMap.keys.toList()[index]] = clearEditText?.text.toString()
         }
@@ -1093,7 +1136,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     fun getJyxm(adapter: RegisterJyxmAdapter): List<String> {
         val list = ArrayList<String>()
         for (index in 0 until adapter.itemCount) {
-            val holder = binding.rvJyxm.findViewHolderForAdapterPosition(index)
+            val holder = binding.rvAjJyxm.findViewHolderForAdapterPosition(index)
             val checkbox = holder?.itemView?.findViewById<CheckBox>(R.id.cbJyxm)
             if (checkbox != null && checkbox.isChecked) {
                 list.add(checkbox.text.toString())
@@ -1102,82 +1145,108 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         return list
     }
 
-    fun setJyxm(
+    fun setAjJyxm(
         ajywlb: String,
         cllx: String,
         syxz: String,
         hdzk: Int,
-        Jyxm: CheckBox?,
+        ajJyxm: CheckBox?,
         zs: Int,
         ccrq: String
     ) {
         val ccrqCalendar = Calendar.getInstance()
-            val ccrqDate = string2Date(ccrq, "yyyy-MM-dd")
-            ccrqCalendar.time = ccrqDate
-            val nowCalendar = Calendar.getInstance()
-            val betweenMonth =
-                (nowCalendar.time.time - ccrqCalendar.time.time) / (1000L * 3600 * 24 * 30)
-        when(Jyxm?.text.toString()){
-            "外观" -> Jyxm?.isChecked = true
-            "唯一性检查" -> Jyxm?.isChecked = true
-            "联网查询" -> Jyxm?.isChecked = true
-            "驻车制动" -> Jyxm?.isChecked = !(binding.cbSfdzzc.isChecked || isMtc(cllx) || isGc(cllx))
-            "侧滑" -> Jyxm?.isChecked = binding.cbSfdlxj.isChecked
-            "外廓尺寸" ->{
-                when{
-                    ajywlb.contains("注册") ->{
-                        Jyxm?.isChecked = !(isFyyxwzk(cllx, syxz) || cllx.contains("二轮摩托车") || cllx.contains("侧三轮摩托车"))
-                    }
-                    ajywlb.contains("在用") ->{
-                        Jyxm?.isChecked = ((isHc(cllx) || isGc(cllx))
-                            && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
-                            && !cllx.contains("牵引")
-                            && !cllx.contains("非载货"))
-                    }
-                    else -> Jyxm?.isChecked = false
-                }
-            }
-            "整备质量" ->{
-                when{
-                    ajywlb.contains("注册") -> {
-                        Jyxm?.isChecked = !(isZk(cllx)||isMtc(cllx))
-                    }
-                    ajywlb.contains("在用") -> {
-                        Jyxm?.isChecked = ((isHc(cllx) || isGc(cllx))
-                                && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
-                                && !cllx.contains("牵引")
-                                && !cllx.contains("非载货"))
+        val ccrqDate = string2Date(ccrq, "yyyy-MM-dd")
+        ccrqCalendar.time = ccrqDate
+        val nowCalendar = Calendar.getInstance()
+        val betweenMonth =
+            (nowCalendar.time.time - ccrqCalendar.time.time) / (1000L * 3600 * 24 * 30)
+        if (ajywlb != "-"){
+            when(ajJyxm?.text.toString()){
+                "外观" -> ajJyxm?.isChecked = true
+                "唯一性检查" -> ajJyxm?.isChecked = true
+                "联网查询" -> ajJyxm?.isChecked = true
+                "驻车制动" -> ajJyxm?.isChecked = !(binding.cbSfdzzc.isChecked || isMtc(cllx) || isGc(cllx))
+                "侧滑" -> ajJyxm?.isChecked = binding.cbSfdlxj.isChecked
+                "外廓尺寸" ->{
+                    when{
+                        ajywlb.contains("注册") ->{
+                            ajJyxm?.isChecked = !(isFyyxwzk(cllx, syxz) || cllx.contains("二轮摩托车") || cllx.contains("侧三轮摩托车"))
+                        }
+                        ajywlb.contains("在用") ->{
+                            ajJyxm?.isChecked = ((isHc(cllx) || isGc(cllx))
+                                    && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
+                                    && !cllx.contains("牵引")
+                                    && !cllx.contains("非载货"))
+                        }
+                        else -> ajJyxm?.isChecked = false
                     }
                 }
-            }
-            "底盘" ->{
-                when{
-                    ajywlb.contains("注册") -> {
-                        Jyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
-                    }
-                    ajywlb.contains("在用") -> {
-                        Jyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                "整备质量" ->{
+                    when{
+                        ajywlb.contains("注册") -> {
+                            ajJyxm?.isChecked = !(isZk(cllx)||isMtc(cllx))
+                        }
+                        ajywlb.contains("在用") -> {
+                            ajJyxm?.isChecked = ((isHc(cllx) || isGc(cllx))
+                                    && (cllx.contains("重") || cllx.contains("大") || cllx.contains("中"))
+                                    && !cllx.contains("牵引")
+                                    && !cllx.contains("非载货"))
+                        }
                     }
                 }
+                "底盘" ->{
+                    when{
+                        ajywlb.contains("注册") -> {
+                            ajJyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
+                        }
+                        ajywlb.contains("在用") -> {
+                            ajJyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                        }
+                    }
 
-            }
-            "底盘动态" ->{
-                when{
-                    ajywlb.contains("注册") -> {
-                        Jyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
+                }
+                "底盘动态" ->{
+                    when{
+                        ajywlb.contains("注册") -> {
+                            ajJyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
+                        }
+                        ajywlb.contains("在用") -> {
+                            ajJyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                        }
                     }
-                    ajywlb.contains("在用") -> {
-                        Jyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+
+                }
+                "一轴制动" -> ajJyxm?.isChecked = zs >= 1
+                "二轴制动" -> ajJyxm?.isChecked = zs >= 2
+                "三轴制动" -> ajJyxm?.isChecked = zs >= 3
+                "四轴制动" -> ajJyxm?.isChecked = zs >= 4
+                "五轴制动" -> ajJyxm?.isChecked = zs >= 5
+                else -> ajJyxm?.isChecked = false
+            }
+        }else{
+            ajJyxm?.isChecked = false
+        }
+
+    }
+    fun setHjJyxm(hjywlb : String,  hjJyxm : CheckBox?, ccrq: String, zzl : Int){
+        val ccrqDate = string2Date(ccrq, "yyyy-MM-dd")
+        val obdDate1 = string2Date("2011-07-01","yyyy-MM-dd")
+        val obdDate2 = string2Date("2013-07-01","yyyy-MM-dd")
+        if (hjywlb != "-"){
+            when(hjJyxm?.text.toString()){
+                "环保外观" -> hjJyxm?.isChecked = true
+                "环保底盘" -> hjJyxm?.isChecked = true
+                "OBD" -> {
+                    if (zzl <= 3500){
+                        hjJyxm?.isChecked = ccrqDate >= obdDate1
+                    }else{
+                        hjJyxm?.isChecked = ccrqDate >= obdDate2
                     }
                 }
-
+                "尾气" -> hjJyxm?.isChecked = true
             }
-            "一轴制动" -> Jyxm?.isChecked = zs >= 1
-            "二轴制动" -> Jyxm?.isChecked = zs >= 2
-            "三轴制动" -> Jyxm?.isChecked = zs >= 3
-            "四轴制动" -> Jyxm?.isChecked = zs >= 4
-            "五轴制动" -> Jyxm?.isChecked = zs >= 5
-            else -> Jyxm?.isChecked = false
+        }else{
+            hjJyxm?.isChecked = false
         }
     }
 

@@ -9,7 +9,9 @@
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_cloud_24.xml" value="0.26564102564102565" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.26564102564102565" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.26564102564102565" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_register_grey.xml" value="0.216" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_searcher.xml" value="0.1135" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_submit.xml" value="0.216" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/icon_block.xml" value="0.26564102564102565" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/icon_yes.xml" value="0.26564102564102565" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/activity_display.xml" value="0.1296875" />
@@ -17,6 +19,7 @@
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/activity_login.xml" value="0.17391304347826086" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/activity_setting.xml" value="0.1" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/activity_welcome.xml" value="0.2" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_administrative.xml" value="0.1983695652173913" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_appointment_aj.xml" value="0.264" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_charge.xml" value="0.1296875" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_chassis.xml" value="0.15081521739130435" />
@@ -33,6 +36,7 @@
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_vehicle_info.xml" value="0.1296875" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_vehicle_queue.xml" value="0.264" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/inspection_info_item.xml" value="0.14583333333333334" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/item_administrative.xml" value="0.16822916666666668" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/item_appointment_aj.xml" value="0.14583333333333334" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/item_exterior_select.xml" value="0.1" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/item_line_number.xml" value="0.25364583333333335" />

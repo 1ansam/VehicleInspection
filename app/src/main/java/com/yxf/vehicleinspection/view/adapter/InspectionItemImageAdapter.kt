@@ -40,7 +40,8 @@ class InspectionItemImageAdapter() : BaseRvAdapter<ImageItemR017Response, Vehicl
         holder.binding.ivImage.setOnClickListener {
             onItemViewClickListener?.onItemClick(
                 holder.itemView,
-                position
+                position,
+                bean
             )
         }
 

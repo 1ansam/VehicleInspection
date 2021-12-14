@@ -125,83 +125,9 @@ class RegisterRepository() {
         textMap["DPF"] = "DPF（柴油）"
         return textMap
     }
-    fun getTextList() : List<String>{
-        return mutableListOf<String>(
-                    "xszbh",
-                    "clpp1",
-                    "clxh",
-                    "fdjxh",
-                    "fdjh",
-                    "syr",
-                    "lxdh",
-                    "zt",
-                    "zzcmc",
-                    "qdzs",
-                    "qdzw",
-                    "zczs",
-                    "zs",
-                    "zj",
-                    "zzs",
-                    "qzs",
-                    "qlj",
-                    "hlj",
-                    "zzl",
-                    "zbzl",
-                    "kqxjzw",
-                    "zxzs",
-                    "bzzw",
-                    "hdzk",
-                    "hdzzl",
-                    "zqyzl",
-                    "zdsjcs",
-                    "gl",
-                    "pl",
-                    "pqgs",
-                    "lcbds",
-                    "edzs",
-                    "ltgg",
-                    "qgs",
-                    "lxdz",
-                    "sjr",
-                    "sjrdh",
-                    "sjrsfzh",
-                    "SCR",
-                    "DPF",
-        )
-    }
 
-    fun getFlList() : List<String>{
-        val list = mutableListOf<String>(
-            FL_HPZL,
-            FL_HPYS,
-            FL_AJYWLB,
-            FL_HJYWLB,
-            FL_ZJYWLB,
-            FL_CLLX,
-            FL_CLYT,
-            FL_YTSX,
-            FL_PZCX,
-            FL_GCJK,
-            FL_QDFS,
-            FL_ZDLY,
-            FL_RLZL,
-            FL_RYGG,
-            FL_QZDZ,
-            FL_SSLB,
-            FL_GYFS,
-            FL_JQFS,
-            FL_BSX,
-            FL_DW,
-            FL_CC,
-            FL_HCLZL,
-            FL_HYYT,
-            FL_ZXZFS,
-            FL_HBXH
-        )
-        return list
-    }
-    fun getSpinnerMap(): MutableMap<String, String> {
-        return mutableMapOf()
+    fun getHjJyxm() : List<String>{
+        return mutableListOf("环保外观","环保底盘","OBD","尾气")
     }
 
 

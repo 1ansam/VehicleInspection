@@ -66,6 +66,10 @@
             android:id="@+id/action_signatureFragment_to_chargeFragment"
             app:popUpTo="@id/chargeFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_signatureFragment_pop_including_AppointmentAjFragment"
+            app:popUpTo="@id/appointmentAjFragment"
+            app:launchSingleTop="true" />
         <argument
             android:name="bean006"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
@@ -106,6 +110,9 @@
         <argument
             android:name="bean010"
             app:argType="com.yxf.vehicleinspection.bean.response.AppointmentAjR010Response" />
+        <action
+            android:id="@+id/action_registerFragment_to_signatureFragment"
+            app:destination="@id/signatureFragment" />
     </fragment>
     <fragment
         android:id="@+id/chargeFragment"

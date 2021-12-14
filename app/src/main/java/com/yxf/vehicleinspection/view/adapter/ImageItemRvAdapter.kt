@@ -32,7 +32,7 @@ class ImageItemRvAdapter() : BaseRvAdapter<ImageItemR017Response, VehicleImageIt
         }
         holder.binding.ivImage.setOnClickListener {
             onItemViewClickListener?.onItemClick(holder.itemView,
-                position)
+                position,bean)
         }
 
 

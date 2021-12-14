@@ -22,6 +22,7 @@ import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.bean.request.*
+import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentExteriorBinding
 import com.yxf.vehicleinspection.utils.*
@@ -112,8 +113,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         binding.rvAjSelect.adapter = inspectionItemAjSelectAdapter
         binding.rvHjSelect.adapter = inspectionItemHjSelectAdapter
         inspectionItemImageAdapter.onItemViewClickListener =
-            object : BaseRvAdapter.OnItemViewClickListener {
-                override fun onItemClick(view: View, position: Int) {
+            object : BaseRvAdapter.OnItemViewClickListener<ImageItemR017Response> {
+                override fun onItemClick(view: View, position: Int, bean : ImageItemR017Response) {
                     Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                         takePictureIntent.resolveActivity(requireActivity().packageManager).also {
                             val photoFile: File? = try {

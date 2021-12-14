@@ -19,7 +19,7 @@ abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<Ba
         notifyDataSetChanged()
     }
 
-    open var onItemViewClickListener : OnItemViewClickListener? = null
+    open var onItemViewClickListener : OnItemViewClickListener<E>? = null
     set(value)  {
         field = value
     }
@@ -33,8 +33,8 @@ abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<Ba
     abstract fun onBindViewHolder(holder : BaseRvViewHolder<V>, position : Int,binding: V, bean : E)
 
 
-    interface OnItemViewClickListener{
-        fun onItemClick(view : View,position: Int)
+    interface OnItemViewClickListener<E>{
+        fun onItemClick(view : View,position: Int, bean : E)
     }
 }
 open class BaseRvViewHolder<V : ViewBinding>(val binding : V) : RecyclerView.ViewHolder(binding.root)
