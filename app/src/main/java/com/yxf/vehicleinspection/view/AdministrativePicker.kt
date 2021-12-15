@@ -95,8 +95,8 @@ class AdministrativePicker : DialogFragment() {
         super.onStart()
         val window = dialog?.window
         val layoutParams = window?.attributes
-        layoutParams?.height = (25 * getScreenHeight(this.requireContext()) / 32)
-        layoutParams?.width = (8 * getScreenWidth(this.requireContext()) / 9)
+        layoutParams?.height = (25 * getScreenHeight(this.requireActivity()) / 32)
+        layoutParams?.width = (8 * getScreenWidth(this.requireActivity()) / 9)
         window?.setLayout(layoutParams?.width!!, layoutParams?.height!!)
     }
 

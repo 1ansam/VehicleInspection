@@ -17,6 +17,8 @@ import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
 import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.date2String
+import com.yxf.vehicleinspection.utils.getScreenHeight
+import com.yxf.vehicleinspection.utils.getScreenWidth
 import com.yxf.vehicleinspection.view.PaintView
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 import com.yxf.vehicleinspection.viewModel.SignatureViewModel
@@ -30,8 +32,8 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        val screenWidth = getScreenWidth()
-        val screenHeight = getScreenHeight()
+        val screenWidth = getScreenWidth(this.requireActivity())
+        val screenHeight = getScreenHeight(this.requireActivity())
         val mPaintView = PaintView(this.requireContext(),screenWidth,screenHeight)
         binding.tablet.addView(mPaintView)
         mPaintView.requestFocus()
@@ -85,28 +87,6 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
 
 
     }
-    private fun getScreenWidth(): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            val windowMetrics = this.requireActivity().window.windowManager.currentWindowMetrics
-            val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            windowMetrics.bounds.width() - insets.left - insets.right
-        }else{
-            val mDisplayMetrics = DisplayMetrics()
-            this.requireActivity().window.windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
-            mDisplayMetrics.widthPixels
-        }
-    }
 
-    private fun getScreenHeight(): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            val windowMetrics = this.requireActivity().window.windowManager.currentWindowMetrics
-            val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            windowMetrics.bounds.height() - insets.left - insets.right
-        }else{
-            val mDisplayMetrics = DisplayMetrics()
-            this.requireActivity().window.windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
-            mDisplayMetrics.heightPixels
-        }
-    }
 
 }

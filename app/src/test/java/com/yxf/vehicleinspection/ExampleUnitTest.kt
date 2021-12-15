@@ -18,15 +18,14 @@ import java.util.*
 class ExampleUnitTest(){
     @Test
     fun main(){
-        val registerFragment = RegisterFragment()
-        val cllx = "摩托车"
-        val syxz = "非营运"
-        val hdzk = 4
-        val zs = 2
-        val betweenMonth = 119L
-        val boolean = (!registerFragment.isMtc(cllx) || !(registerFragment.isFyyxwzk(cllx, syxz) && (hdzk >= 7 ||betweenMonth >= 118 || cllx.contains("面包"))))
-        val boolean2 = !(registerFragment.isMtc(cllx) || (registerFragment.isFyyxwzk(cllx,syxz) && hdzk <7 && betweenMonth < 118 && !cllx.contains("面包")))
-        println(boolean2)
+
+        for(index in 0 until 0 ){
+            val string = ","
+            println(string)
+            println(string.substring(1))
+        }
+
+
     }
 
 }

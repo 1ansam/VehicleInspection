@@ -14,7 +14,6 @@ class PaintView(context: Context, screenWidth: Int, screenHeight: Int) :
     View(context) {
     private var mPaint: Paint = Paint()
     var path: Path
-        private set
     private var mBitmap: Bitmap
     private var mCanvas: Canvas
     private var currentX = 0f
@@ -24,6 +23,7 @@ class PaintView(context: Context, screenWidth: Int, screenHeight: Int) :
         mPaint.strokeWidth = 30f //画笔宽度
         mPaint.style = Paint.Style.STROKE //style = 签字笔
         mPaint.color = Color.BLACK //画笔颜色
+        mPaint.strokeCap = Paint.Cap.ROUND //线帽
         path = Path()
         mBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888)
         mCanvas = Canvas(mBitmap)

@@ -356,6 +356,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="车辆类型"
@@ -370,6 +371,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="车辆用途"
@@ -391,6 +393,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="用途属性"
@@ -405,6 +408,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="外观车型"
@@ -426,6 +430,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="国产/进口"
@@ -440,6 +445,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="驱动形式"
@@ -461,6 +467,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="制动力源"
@@ -475,6 +482,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="燃油规格"
@@ -496,6 +504,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="燃油种类"
@@ -523,6 +532,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="前照灯制"
@@ -537,6 +547,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="检测线号"
@@ -558,6 +569,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="所属类别"
@@ -572,6 +584,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="供油方式"
@@ -593,6 +606,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="进气方式"
@@ -607,6 +621,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="变速形式"
@@ -628,6 +643,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="档位数"
@@ -642,6 +658,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="冲程数"
@@ -663,6 +680,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="后处理方式"
@@ -677,6 +695,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="行业用途"
@@ -698,10 +717,12 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="使用性质"
                         android:textSize="20sp" />
+
 
                     <com.yxf.vehicleinspection.view.MySpinner
                         android:id="@+id/spSyxz"
@@ -712,11 +733,14 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
+                        android:text="安检车型"
                         android:textSize="20sp" />
 
                     <com.yxf.vehicleinspection.view.MySpinner
+                        android:id="@+id/spAjcx"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -731,6 +755,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="车身颜色"
@@ -754,6 +779,28 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bord_shape"
+                    android:paddingTop="5dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="环保检测方式"
+                        android:textSize="20sp" />
+
+                    <com.yxf.vehicleinspection.view.MySpinner
+                        android:id="@+id/spHbjcfs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -767,6 +814,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
@@ -795,6 +843,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
@@ -823,6 +872,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
@@ -841,6 +891,7 @@
                     android:hint="点击选择日期"
                     android:textSize="20sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -850,6 +901,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
@@ -918,6 +970,7 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -930,6 +983,55 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bord_shape"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="start"
+                    android:text="车主签名"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivCzqm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="start"
+                    android:src="@drawable/ic_verify_signature"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bord_shape"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="start"
+                    android:text="登录员签名"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/ivDlyqm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="start"
+                    android:textSize="20sp"
+                    android:src="@drawable/ic_verify_signature"/>
             </LinearLayout>
 
         </LinearLayout>

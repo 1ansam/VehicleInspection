@@ -111,8 +111,9 @@
             android:name="bean010"
             app:argType="com.yxf.vehicleinspection.bean.response.AppointmentAjR010Response" />
         <action
-            android:id="@+id/action_registerFragment_to_signatureFragment"
-            app:destination="@id/signatureFragment" />
+            android:id="@+id/action_registerFragment_pop_including_appointmentAjFragment"
+            app:popUpTo="@id/appointmentAjFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/chargeFragment"

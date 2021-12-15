@@ -1,6 +1,7 @@
 package com.yxf.vehicleinspection.utils
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,7 +12,9 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.util.Base64
 import android.util.DisplayMetrics
+import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -529,23 +532,32 @@ fun uploadFile(fileName : String,file : File,requestBody : RequestBody) : Multip
     return part
 }
 
-fun getScreenHeight(context: Context): Int {
-    val displayMetrics = DisplayMetrics()
-    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
-        windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+fun getScreenHeight(activity: Activity): Int {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        val windowMetrics = activity.window.windowManager.currentWindowMetrics
+        val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+        windowMetrics.bounds.height() - insets.left - insets.right
     }else{
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val mDisplayMetrics = DisplayMetrics()
+        activity.window.windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
+        mDisplayMetrics.heightPixels
     }
-    return displayMetrics.heightPixels
 }
-fun getScreenWidth(context: Context): Int {
-    val displayMetrics = DisplayMetrics()
-    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
-        windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+fun getScreenWidth(activity : Activity): Int {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        val windowMetrics = activity.window.windowManager.currentWindowMetrics
+        val insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+        windowMetrics.bounds.width() - insets.left - insets.right
     }else{
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val mDisplayMetrics = DisplayMetrics()
+        activity.window.windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
+        mDisplayMetrics.widthPixels
     }
-    return displayMetrics.widthPixels
+}
+fun Spinner.setText(text: String) {
+    for (i in 0 until this.adapter.count) {
+        if (this.adapter.getItem(i).toString().contains(text)) {
+            this.setSelection(i)
+        }
+    }
 }

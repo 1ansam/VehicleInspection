@@ -83,7 +83,7 @@ class RegisterRepository() {
     fun getTextMap() : Map<String, String> {
         val textMap = mutableMapOf<String,String>()
         textMap["xszbh"] = "行驶证编号"
-        textMap["clpp1"] = "车辆品牌1"
+        textMap["clpp1"] = "车辆品牌"
         textMap["clxh"] = "车辆型号"
         textMap["fdjxh"] = "发动机型号"
         textMap["fdjh"] = "发动机号"
@@ -124,6 +124,47 @@ class RegisterRepository() {
         textMap["SCR"] = "SCR（柴油）"
         textMap["DPF"] = "DPF（柴油）"
         return textMap
+    }
+    fun getZtDmMap() : Map<String,String>{
+        val map = mutableMapOf<String,String>()
+        map["A"] = "正常"
+        map["B"] = "转出"
+        map["C"] = "盗抢嫌疑"
+        map["D"] = "停驶"
+        map["E"] = "注销"
+        map["G"] = "违章未处理"
+        map["H"] = "海关监管"
+        map["I"] = "事故未处理"
+        map["J"] = "嫌疑车"
+        map["K"] = "查封"
+        map["L"] = "暂扣"
+        map["M"] = "强制注销"
+        map["N"] = "事故逃逸"
+        map["O"] = "锁定"
+        map["Z"] = "其他"
+        map["Q"] = "逾期未检验"
+        return map
+    }
+
+    fun getZtMcMap() : Map<String,String>{
+        val map = mutableMapOf<String,String>()
+        map["正常"] = "A"
+        map["转出"] = "B"
+        map["盗抢嫌疑"] = "C"
+        map["停驶"] = "D"
+        map["注销"] = "E"
+        map["违章未处理"] = "G"
+        map["海关监管"] = "H"
+        map["事故未处理"] = "I"
+        map["嫌疑车"] = "J"
+        map["查封"] = "K"
+        map["暂扣"] = "L"
+        map["强制注销"] = "M"
+        map["事故逃逸"] = "N"
+        map["锁定"] = "O"
+        map["其他"] = "Z"
+        map["逾期未检验"] = "Q"
+        return map
     }
 
     fun getHjJyxm() : List<String>{
