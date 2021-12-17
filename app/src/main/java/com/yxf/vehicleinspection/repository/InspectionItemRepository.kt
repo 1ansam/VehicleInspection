@@ -211,25 +211,7 @@ class InspectionItemRepository {
         })
     return liveData
     }
-    fun postSignature(saveSignatureW006Request: SaveSignatureW006Request) : LiveData<Boolean>{
-        val liveData = MutableLiveData<Boolean>()
-        val call = RetrofitService.create(WriteService::class.java).write(
-            WRITE_SAVE_SIGNATURE,
-            getIpAddress(),
-            getJsonData(saveSignatureW006Request)
-        )
-        call.enqueue(object : Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                response2Boolean(response, liveData)
-            }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                liveData.value = false
-                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
-            }
-        })
-        return liveData
-    }
     fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(

@@ -17,5 +17,4 @@ data class SaveSignatureW006Request(
     val Hjlsh : String,
     val Ajjccs : Int,
     val Hjjccs : Int
-) {
-}
+)

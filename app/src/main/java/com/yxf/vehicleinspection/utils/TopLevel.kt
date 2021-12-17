@@ -1,6 +1,5 @@
 package com.yxf.vehicleinspection.utils
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
@@ -13,7 +12,6 @@ import android.os.Build
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -21,9 +19,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.CommonRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.singleton.GsonSingleton
-import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -32,7 +28,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.reflect.typeOf
 
 /**
@@ -157,7 +152,7 @@ const val QUERY_ADMISSION_INFO = "LYYDJKR009"
 const val QUERY_APPOINTMENT_AJ = "LYYDJKR010"
 const val QUERY_SERVER_TIME = "LYYDJKR011"
 const val QUERY_BREAK_AND_AXIS_LOAD_CURVE = "LYYDJKR012"
-const val QUERY_WAIT_VERIFY = "LYYDJKR013"
+const val QUERY_VERIFY_QUEUE = "LYYDJKR013"
 const val QUERY_CHARGE_RESULT = "LYYDJKR014"
 const val QUERY_SYSTEM_PARAMS = "LYYDJKR015"
 const val QUERY_IMAGE_ITEM = "LYYDJKR017"

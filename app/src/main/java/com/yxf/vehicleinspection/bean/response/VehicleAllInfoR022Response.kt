@@ -241,5 +241,4 @@ data class VehicleAllInfoR022Response(
     val Hjlsh : String?,
     val SCR : String?,
     val DPF : String?,
-) : Serializable{
-}
+) : Serializable

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.VehicleQueueFragment">
+    tools:context=".view.fragment.ModerationQueueFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20"
@@ -15,7 +15,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_vehicle_queue"
+        android:id="@+id/rv_moderation_queue"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,6 +52,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <RadioGroup
+            android:id="@+id/rgShyw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:checkedButton="@id/rbTjsh"
+            >
+            <RadioButton
+                android:id="@+id/rbTjsh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="同检审核"
+                android:textColor="@color/grey"/>
+            <RadioButton
+                android:id="@+id/rbAjsh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="安检审核"
+                android:textColor="@color/grey"/>
+            <RadioButton
+                android:id="@+id/rbHjsh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="环检审核"
+                android:textColor="@color/grey"/>
+        </RadioGroup>
 
     </LinearLayout>
 
@@ -71,10 +97,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.18" />
 
     <SearchView
-        android:id="@+id/sv_vehicle_queue"
+        android:id="@+id/sv_moderation_queue"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"

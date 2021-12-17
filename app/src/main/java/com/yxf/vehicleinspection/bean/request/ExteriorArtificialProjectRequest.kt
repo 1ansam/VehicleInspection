@@ -82,5 +82,4 @@ data class ExteriorArtificialProjectRequest(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

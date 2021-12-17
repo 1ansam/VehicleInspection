@@ -28,5 +28,4 @@ data class UniqueArtificialProjectRequest(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

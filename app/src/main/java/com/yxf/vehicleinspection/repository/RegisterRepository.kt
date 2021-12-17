@@ -22,7 +22,7 @@ import retrofit2.Response
  *   author:yxf
  *   time:2021/12/2
  */
-class RegisterRepository() {
+class RegisterRepository {
     fun getVehicleInfo(Hphm : String, Hpzl : String, Clsbdh : String, Ajywlb : String, Hjywlb : String, Jyjgbh : String) : LiveData<VehicleAllInfoR022Response>{
         val liveData = MutableLiveData<VehicleAllInfoR022Response>()
         val call = RetrofitService.create(QueryService::class.java).query(

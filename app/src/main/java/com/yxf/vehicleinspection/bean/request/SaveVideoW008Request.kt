@@ -52,5 +52,4 @@ data class SaveVideoW008Request(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

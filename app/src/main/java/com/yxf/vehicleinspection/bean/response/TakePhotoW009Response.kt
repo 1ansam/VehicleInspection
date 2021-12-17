@@ -13,5 +13,4 @@ data class TakePhotoW009Response(
     val BcjgHj : String,
     val BcsbyyHj : String,
 
-) {
-}
+)

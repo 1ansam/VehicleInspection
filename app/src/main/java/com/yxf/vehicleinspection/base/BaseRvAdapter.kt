@@ -11,10 +11,7 @@ import androidx.viewbinding.ViewBinding
  */
 abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<BaseRvViewHolder<V>>() {
     open var data : List<E> = ArrayList()
-        get() {
-            return field
-        }
-    set(value) {
+        set(value) {
         field = value
         notifyDataSetChanged()
     }

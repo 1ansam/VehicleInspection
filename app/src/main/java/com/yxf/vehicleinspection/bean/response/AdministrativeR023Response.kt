@@ -12,5 +12,4 @@ data class AdministrativeR023Response(
     @PrimaryKey val Id : Int,
     val Xzqhdm : String,
     val Xzqhmc : String,
-) {
-}
+)

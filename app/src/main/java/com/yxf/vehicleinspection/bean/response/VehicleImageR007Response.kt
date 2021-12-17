@@ -1,5 +1,7 @@
 package com.yxf.vehicleinspection.bean.response
 
+import android.graphics.Bitmap
+
 /**
  * @author yxf
  * @param ID 编号
@@ -30,6 +32,7 @@ data class VehicleImageR007Response(
     val Zpzl : String?,
     val Ywlb : String?,
     val ImageName : String?,
-    val ZpzlMc : String?
+    val ZpzlMc : String?,
+    val ZpBitmap : Bitmap?
 
 )

@@ -12,5 +12,4 @@ data class ProjectEndW012Response(
     val BcjgHj : String,
     val BcsbyyHj : String,
 
-) {
-}
+)

@@ -28,5 +28,4 @@ data class InspectionPhotoW007Request(
     val Hjjccs : Int,
 
 
-) {
-}
+)

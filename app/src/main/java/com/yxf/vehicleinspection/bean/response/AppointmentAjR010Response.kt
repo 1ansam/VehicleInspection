@@ -14,5 +14,4 @@ data class AppointmentAjR010Response(
     val sjr : String,
     val sjrdh : String,
     val sjrsfzh : String,
-): Serializable {
-}
+): Serializable

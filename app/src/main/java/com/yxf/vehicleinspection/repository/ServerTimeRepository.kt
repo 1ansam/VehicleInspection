@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.ServerTimeR011Request
-import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.bean.response.ServerTimeR011Response
 import com.yxf.vehicleinspection.service.QueryService
-import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
-import com.yxf.vehicleinspection.utils.*
+import com.yxf.vehicleinspection.utils.QUERY_SERVER_TIME
+import com.yxf.vehicleinspection.utils.getIpAddress
+import com.yxf.vehicleinspection.utils.getJsonData
+import com.yxf.vehicleinspection.utils.response2Bean
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

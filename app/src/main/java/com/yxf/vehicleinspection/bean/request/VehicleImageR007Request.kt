@@ -5,5 +5,6 @@ package com.yxf.vehicleinspection.bean.request
  * @param Lsh 流水号
  */
 data class VehicleImageR007Request(
-    val Lsh : String
+    val Ajlsh : String,
+    val Hjlsh : String
 )

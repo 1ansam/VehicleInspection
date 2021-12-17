@@ -26,5 +26,4 @@ data class VehicleInspectionItemR006Response(
     val Hjjccs : String,
 
 
-): Serializable {
-}
+): Serializable

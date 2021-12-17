@@ -7,7 +7,6 @@ import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.AdministrativeR023Request
 import com.yxf.vehicleinspection.bean.response.AdministrativeR023Response
 import com.yxf.vehicleinspection.bean.response.CommonResponse
-import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 import com.yxf.vehicleinspection.room.AdministrativeDao
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -15,7 +14,6 @@ import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.QUERY_ADMINISTRATIVE
 import com.yxf.vehicleinspection.utils.getIpAddress
 import com.yxf.vehicleinspection.utils.getJsonData
-import com.yxf.vehicleinspection.utils.response2ListBean
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

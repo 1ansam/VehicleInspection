@@ -19,5 +19,4 @@ data class TakePhotoW009Request(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

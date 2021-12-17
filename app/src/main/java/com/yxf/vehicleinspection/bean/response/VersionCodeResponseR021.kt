@@ -7,5 +7,4 @@ package com.yxf.vehicleinspection.bean.response
 data class VersionCodeResponseR021(
     val Version : String,
     val VersionCode : String
-) {
-}
+)

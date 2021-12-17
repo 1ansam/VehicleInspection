@@ -239,5 +239,4 @@ data class VehicleAllInfoR005Response(
     val Hjdlsj : String,
     val Ajlsh : String,
     val Hjlsh : String,
-) : Serializable{
-}
+) : Serializable

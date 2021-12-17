@@ -27,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
-    lateinit var bean001: UserInfoR001Response
+    private lateinit var bean001: UserInfoR001Response
     private val registerViewModel by viewModels<RegisterViewModel> {
         RegisterViewModelFactory((requireActivity().application as MyApp).registerRepository)
     }
@@ -45,7 +45,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     private val registerHjJyxmAdapter = RegisterJyxmAdapter()
 
     private var bean: VehicleAllInfoR022Response? = null
-    val args : RegisterFragmentArgs by navArgs()
+    private val args : RegisterFragmentArgs by navArgs()
     override fun init() {
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         initView()
@@ -189,96 +189,111 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
                                     dataDictionaryViewModel.apply {
                                         bean?.let {
+                                            bean022 ->
                                             getMc(
                                                 FL_CLSYXZ,
-                                                it.Syxz
+                                                bean022.Syxz
                                             ).observe(this@RegisterFragment) {
-                                                binding.spSyxz.setText(it)
+                                                syzx ->
+                                                binding.spSyxz.setText(syzx)
                                             }
-                                            getMc(FL_HPZL, it.Hpzl).observe(this@RegisterFragment) {
-                                                binding.spHpzl.setText(it)
+                                            getMc(FL_HPZL, bean022.Hpzl).observe(this@RegisterFragment) {
+                                                hpzl ->
+                                                binding.spHpzl.setText(hpzl)
                                             }
-                                            getMc(FL_CLLX, it.Cllx).observe(this@RegisterFragment) {
-                                                binding.spCllx.setText(it)
+                                            getMc(FL_CLLX, bean022.Cllx).observe(this@RegisterFragment) {
+                                                cllx ->
+                                                binding.spCllx.setText(cllx)
                                             }
-                                            getMc(FL_CLYT, it.Clyt).observe(this@RegisterFragment) {
-                                                binding.spClyt.setText(it)
+                                            getMc(FL_CLYT, bean022.Clyt).observe(this@RegisterFragment) {
+                                                clyt ->
+                                                binding.spClyt.setText(clyt)
                                             }
-                                            getMc(FL_YTSX, it.Ytsx).observe(this@RegisterFragment) {
-                                                binding.spYtsx.setText(it)
+                                            getMc(FL_YTSX, bean022.Ytsx).observe(this@RegisterFragment) {
+                                                ytsx ->
+                                                binding.spYtsx.setText(ytsx)
                                             }
-                                            getMc(FL_GCJK, it.Gcjk).observe(this@RegisterFragment) {
-                                                binding.spGcjk.setText(it)
+                                            getMc(FL_GCJK, bean022.Gcjk).observe(this@RegisterFragment) {
+                                                gcjk ->
+                                                binding.spGcjk.setText(gcjk)
                                             }
-                                            if (it.Rlzl.length == 1) {
+                                            if (bean022.Rlzl.length == 1) {
                                                 getMc(
                                                     FL_RLZL,
                                                     it.Rlzl
                                                 ).observe(this@RegisterFragment) {
-                                                    binding.spRlzl1.setText(it)
+                                                    rlzl ->
+                                                    binding.spRlzl1.setText(rlzl)
                                                 }
                                                 binding.spRlzl2.setText("-")
-                                            } else if (it.Rlzl.length == 2) {
+                                            } else if (bean022.Rlzl.length == 2) {
                                                 getMc(
                                                     FL_RLZL,
-                                                    it.Rlzl.substring(0, 1)
+                                                    bean022.Rlzl.substring(0, 1)
                                                 ).observe(this@RegisterFragment) {
-                                                    binding.spRlzl1.setText(it)
+                                                    rlzl ->
+                                                    binding.spRlzl1.setText(rlzl)
                                                 }
                                                 getMc(
                                                     FL_RLZL,
-                                                    it.Rlzl.substring(1, 2)
+                                                    bean022.Rlzl.substring(1, 2)
                                                 ).observe(this@RegisterFragment) {
-                                                    binding.spRlzl2.setText(it)
+                                                    rlzl ->
+                                                    binding.spRlzl2.setText(rlzl)
                                                 }
                                             }
                                             getMc(
                                                 FL_CLSYXZ,
-                                                it.Syxz
+                                                bean022.Syxz
                                             ).observe(this@RegisterFragment) {
-                                                binding.spSyxz.setText(it)
+                                                syxz ->
+                                                binding.spSyxz.setText(syxz)
                                             }
-                                            if (it.Csys.length == 1) {
-                                                getMc(
-                                                    FL_CSYS,
-                                                    it.Csys
-                                                ).observe(this@RegisterFragment) {
-                                                    binding.spCsys1.setText(it)
+                                            when (bean022.Csys.length) {
+                                                1 -> {
+                                                    getMc(
+                                                        FL_CSYS,
+                                                        bean022.Csys
+                                                    ).observe(this@RegisterFragment) { csys ->
+                                                        binding.spCsys1.setText(csys)
+                                                    }
+                                                    binding.spCsys2.setText("-")
+                                                    binding.spCsys3.setText("-")
                                                 }
-                                                binding.spCsys2.setText("-")
-                                                binding.spCsys3.setText("-")
-                                            } else if (it.Csys.length == 2) {
-                                                getMc(
-                                                    FL_CSYS,
-                                                    it.Csys.substring(0, 1)
-                                                ).observe(this@RegisterFragment) {
-                                                    binding.spCsys1.setText(it)
+                                                2 -> {
+                                                    getMc(
+                                                        FL_CSYS,
+                                                        bean022.Csys.substring(0, 1)
+                                                    ).observe(this@RegisterFragment) { csys ->
+                                                        binding.spCsys1.setText(csys)
+                                                    }
+                                                    getMc(
+                                                        FL_CSYS,
+                                                        bean022.Csys.substring(1, 2)
+                                                    ).observe(this@RegisterFragment) { csys ->
+                                                        binding.spCsys2.setText(csys)
+                                                    }
+                                                    binding.spCsys3.setText("-")
                                                 }
-                                                getMc(
-                                                    FL_CSYS,
-                                                    it.Csys.substring(1, 2)
-                                                ).observe(this@RegisterFragment) {
-                                                    binding.spCsys2.setText(it)
-                                                }
-                                                binding.spCsys3.setText("-")
-                                            } else if (it.Csys.length == 3) {
-                                                getMc(
-                                                    FL_CSYS,
-                                                    it.Csys.substring(0, 1)
-                                                ).observe(this@RegisterFragment) {
-                                                    binding.spCsys1.setText(it)
-                                                }
-                                                getMc(
-                                                    FL_CSYS,
-                                                    it.Csys.substring(1, 2)
-                                                ).observe(this@RegisterFragment) {
-                                                    binding.spCsys2.setText(it)
-                                                }
-                                                getMc(
-                                                    FL_CSYS,
-                                                    it.Csys.substring(2, 3)
-                                                ).observe(this@RegisterFragment) {
-                                                    binding.spCsys3.setText(it)
+                                                3 -> {
+                                                    getMc(
+                                                        FL_CSYS,
+                                                        bean022.Csys.substring(0, 1)
+                                                    ).observe(this@RegisterFragment) { csys ->
+                                                        binding.spCsys1.setText(csys)
+                                                    }
+                                                    getMc(
+                                                        FL_CSYS,
+                                                        bean022.Csys.substring(1, 2)
+                                                    ).observe(this@RegisterFragment) { csys ->
+                                                        binding.spCsys2.setText(csys)
+                                                    }
+                                                    getMc(
+                                                        FL_CSYS,
+                                                        bean022.Csys.substring(2, 3)
+                                                    ).observe(this@RegisterFragment) { csys ->
+                                                        binding.spCsys3.setText(csys)
+                                                    }
                                                 }
                                             }
                                         }
@@ -977,22 +992,24 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
     }
 
 
-    fun initView() {
+    private fun initView() {
         binding.nestedScrollView2.isNestedScrollingEnabled = true
         dataDictionaryViewModel.apply {
             getMcListFromFl(FL_CSJC).observe(this@RegisterFragment) {
+                hphm ->
                 binding.spHphm.adapter =
                     ArrayAdapter(
                         this@RegisterFragment.requireContext(),
                         R.layout.textview_spinner,
-                        it
+                        hphm
                     )
                 getMcListFromFl(FL_HPZL).observe(this@RegisterFragment) {
+                    hpzl ->
                     binding.spHpzl.adapter =
                         ArrayAdapter(
                             this@RegisterFragment.requireContext(),
                             R.layout.textview_spinner,
-                            it
+                            hpzl
                         )
                     if (args.bean010.hphm.isNotBlank()){
                         binding.spHphm.setText(args.bean010.hphm.substring(0,1))
@@ -1230,7 +1247,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
 
 
 
-    fun getValueMap(adapter: RegisterListAdapter): MutableMap<String, String> {
+    private fun getValueMap(adapter: RegisterListAdapter): MutableMap<String, String> {
         val map = mutableMapOf<String, String>()
         for (index in 0 until adapter.itemCount) {
             val holder = binding.rvTextList.findViewHolderForAdapterPosition(index)
@@ -1260,7 +1277,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         return map
     }
 
-    fun getJyxm(adapter: RegisterJyxmAdapter): List<String> {
+    private fun getJyxm(adapter: RegisterJyxmAdapter): List<String> {
         val list = ArrayList<String>()
         for (index in 0 until adapter.itemCount) {
             val holder = binding.rvAjJyxm.findViewHolderForAdapterPosition(index)
@@ -1272,7 +1289,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         return list
     }
 
-    fun setAjJyxm(
+    private fun setAjJyxm(
         ajywlb: String,
         cllx: String,
         syxz: String,
@@ -1355,7 +1372,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         }
 
     }
-    fun setHjJyxm(hjywlb : String,  hjJyxm : CheckBox?, ccrq: String, zzl : Int){
+    private fun setHjJyxm(hjywlb : String, hjJyxm : CheckBox?, ccrq: String, zzl : Int){
         val ccrqDate = string2Date(ccrq, "yyyy-MM-dd")
         val obdDate1 = string2Date("2011-07-01","yyyy-MM-dd")
         val obdDate2 = string2Date("2013-07-01","yyyy-MM-dd")
@@ -1404,9 +1421,6 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         return (cllx.contains("挂") && !cllx.contains("牵引"))
     }
 
-    private fun isSlqc(cllx: String): Boolean {
-        return cllx == "三轮汽车"
-    }
 
     private  fun isMtc(cllx: String): Boolean {
         return cllx.contains("摩托")

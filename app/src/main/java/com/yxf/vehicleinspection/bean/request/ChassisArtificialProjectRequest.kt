@@ -30,5 +30,4 @@ data class ChassisArtificialProjectRequest(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

@@ -6,5 +6,4 @@ package com.yxf.vehicleinspection.bean.response
  */
 data class ServerTimeR011Response(
     val Sj : String
-) {
-}
+)

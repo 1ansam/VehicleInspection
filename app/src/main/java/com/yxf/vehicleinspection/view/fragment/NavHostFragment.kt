@@ -50,7 +50,7 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
         }
         binding.btnVerifySignatureFunc.setOnClickListener {
             sharedViewModel.setHostName(HOSTNAME_VERIFY_SIGNATURE)
-            val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
+            val action = NavHostFragmentDirections.actionNavHostFragmentToModerationQueueFragment()
             findNavController().navigate(action)
         }
         binding.btnVehicleInformationFunc.setOnClickListener {

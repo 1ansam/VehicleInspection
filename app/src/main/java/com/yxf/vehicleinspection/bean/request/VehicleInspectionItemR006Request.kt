@@ -9,5 +9,4 @@ data class VehicleInspectionItemR006Request(
     val Hjlsh : String,
     val Ajywlb : String,
     val Hjywlb : String,
-    ) {
-}
+    )

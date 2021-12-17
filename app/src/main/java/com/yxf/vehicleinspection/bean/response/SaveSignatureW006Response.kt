@@ -14,5 +14,4 @@ data class SaveSignatureW006Response(
     val BcjgHj : String,
     val BcsbyyHj : String,
 
-) {
-}
+)

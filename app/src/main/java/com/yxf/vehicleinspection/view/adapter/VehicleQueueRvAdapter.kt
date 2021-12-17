@@ -74,14 +74,7 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
                         it.findNavController().navigate(action)
                     }
                 }
-                hostName.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) -> {
-                    holder.itemView.setOnClickListener {
-                        val action =
-                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToVehicleImageVideoFragment(
-                                bean)
-                        it.findNavController().navigate(action)
-                    }
-                }
+
             }
         }
 

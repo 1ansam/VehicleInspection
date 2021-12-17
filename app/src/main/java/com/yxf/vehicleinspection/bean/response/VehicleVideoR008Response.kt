@@ -31,5 +31,4 @@ data class VehicleVideoR008Response(
     val Lxdz : String?,
     val Spmc : String?,
 
-) {
-}
+)

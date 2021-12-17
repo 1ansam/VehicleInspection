@@ -7,5 +7,4 @@ package com.yxf.vehicleinspection.bean
 data class NetworkQueryInfo(
     val name : String,
     val value : String
-) {
-}
+)

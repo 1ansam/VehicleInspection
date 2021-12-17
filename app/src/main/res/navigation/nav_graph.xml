@@ -18,9 +18,6 @@
         <action
             android:id="@+id/action_vehicleQueueFragment_to_dispatchFragment"
             app:destination="@id/dispatchFragment" />
-        <action
-            android:id="@+id/action_vehicleQueueFragment_to_vehicleImageVideoFragment"
-            app:destination="@id/vehicleImageVideoFragment" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -36,18 +33,21 @@
         <action
             android:id="@+id/action_navHostFragment_to_appointmentAjFragment"
             app:destination="@id/appointmentAjFragment" />
+        <action
+            android:id="@+id/action_navHostFragment_to_moderationQueueFragment"
+            app:destination="@id/moderationQueueFragment" />
     </fragment>
     <fragment
         android:id="@+id/vehicleImageVideoFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.VehicleImageVideoFragment"
         android:label="fragment_vehicle_image_video"
         tools:layout="@layout/fragment_vehicle_image_video" >
-        <action
-            android:id="@+id/action_vehicleImageVideoFragment_to_signatureFragment"
-            app:destination="@id/signatureFragment" />
         <argument
-            android:name="bean002"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+            android:name="bean013"
+            app:argType="com.yxf.vehicleinspection.bean.response.ModerationQueueR013Response" />
+        <action
+            android:id="@+id/action_vehicleImageVideoFragment_to_signatureVerifyFragment"
+            app:destination="@id/signatureVerifyFragment" />
     </fragment>
     <fragment
         android:id="@+id/signatureFragment"
@@ -273,5 +273,25 @@
         <action
             android:id="@+id/action_appointmentAjFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moderationQueueFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.ModerationQueueFragment"
+        android:label="fragment_moderation_queue"
+        tools:layout="@layout/fragment_moderation_queue" >
+        <action
+            android:id="@+id/action_moderationQueueFragment_to_vehicleImageVideoFragment"
+            app:destination="@id/vehicleImageVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signatureVerifyFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.SignatureVerifyFragment"
+        android:label="SignatureVerifyFragment" >
+        <argument
+            android:name="bean013"
+            app:argType="com.yxf.vehicleinspection.bean.response.ModerationQueueR013Response" />
+        <argument
+            android:name="shjg"
+            app:argType="integer" />
     </fragment>
 </navigation>

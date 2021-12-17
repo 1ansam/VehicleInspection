@@ -21,5 +21,4 @@ data class ProjectEndW012Request(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

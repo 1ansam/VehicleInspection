@@ -8,6 +8,7 @@ package com.yxf.vehicleinspection.bean.request
  * @param Jccs 检测次数
  */
 data class VehicleVideoR008Request(
-    val Lsh : String,
-    val Jccs : String?
+    val Ajlsh : String,
+    val Hjlsh : String,
+    val Jccs : Int?
 )

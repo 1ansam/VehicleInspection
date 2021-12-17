@@ -30,5 +30,4 @@ data class DynamicArtificialProjectRequest(
     val Ajjccs : Int,
     val Hjjccs : Int,
 
-) {
-}
+)

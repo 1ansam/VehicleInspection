@@ -35,5 +35,4 @@ data class ProjectStartW010Request(
     val Hjjccs : Int,
 
 
-) {
-}
+)

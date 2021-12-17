@@ -145,5 +145,4 @@ data class SaveVehicleInfoW003Request(
     val Yyzh : String?,
 
 
-) {
-}
+)

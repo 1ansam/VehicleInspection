@@ -12,5 +12,4 @@ data class ArtificialProjectW011Response(
     val BcjgHj : String,
     val BcsbyyHj : String,
 
-) {
-}
+)

@@ -12,5 +12,4 @@ data class ImageItemR017Request(
     val Hjlsh : String,
 
 
-) {
-}
+)

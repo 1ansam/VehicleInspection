@@ -2,7 +2,6 @@ package com.yxf.vehicleinspection.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.yxf.vehicleinspection.bean.response.DataDictionaryR003Response
 import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 
 /**

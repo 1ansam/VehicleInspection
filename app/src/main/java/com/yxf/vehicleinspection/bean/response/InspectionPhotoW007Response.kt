@@ -14,5 +14,4 @@ data class InspectionPhotoW007Response(
     val BcjgHj : String,
     val BcsbyyHj : String,
 
-) {
-}
+)

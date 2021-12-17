@@ -22,5 +22,4 @@ data class SystemParamsR015Response(
     val LshSzm : String,
     @PrimaryKey val Sjlb : String,
 
-    ) {
-}
+    )

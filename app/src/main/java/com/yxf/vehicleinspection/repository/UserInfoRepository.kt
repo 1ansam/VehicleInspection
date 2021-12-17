@@ -1,11 +1,9 @@
 package com.yxf.vehicleinspection.repository
 
 import android.widget.Toast
-import androidx.compose.runtime.internal.updateLiveLiteralValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.bean.request.AllUserInfoR001Request
 import com.yxf.vehicleinspection.bean.request.UserInfoRequest
 import com.yxf.vehicleinspection.bean.request.VersionCodeRequestR021
 import com.yxf.vehicleinspection.bean.response.CommonResponse

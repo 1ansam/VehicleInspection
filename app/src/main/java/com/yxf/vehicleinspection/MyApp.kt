@@ -25,6 +25,7 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     val serverTimeRepository by lazy { ServerTimeRepository() }
     val registerRepository by lazy { RegisterRepository() }
     val administrativeRepository by lazy { AdministrativeRepository(database.administrativeDao()) }
+    val verifyRepository by lazy { VerifyRepository() }
     var activityCount = 0
     var isBackground = false
     var isScreenOf = false

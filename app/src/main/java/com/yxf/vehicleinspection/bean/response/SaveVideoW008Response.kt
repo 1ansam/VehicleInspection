@@ -13,5 +13,4 @@ data class SaveVideoW008Response(
     val  BcjgHj : String,
     val  BcsbyyHj : String,
 
-) {
-}
+)

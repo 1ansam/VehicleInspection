@@ -25,7 +25,6 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding.rvVehicleQueue.layoutManager = LinearLayoutManager(this.requireContext())
         adapter = VehicleQueueRvAdapter(this, sharedViewModel)
         binding.rvVehicleQueue.adapter = adapter
@@ -54,19 +53,12 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
 
     private fun getQueueData(hphm: String) {
         binding.pbVehicleQueue.visibility = View.VISIBLE
-        sharedViewModel.hostName.observe(this) { hostName ->
-            if (hostName == NavHostFragment.HOSTNAME_VERIFY_SIGNATURE) {
-                viewModel.getVerifyDataQueue(hphm.uppercase(Locale.getDefault())).observe(this) {
-                    binding.pbVehicleQueue.visibility = View.GONE
-                    adapter.data = it
-                }
-            } else {
+
+
                 binding.pbVehicleQueue.visibility = View.GONE
                 viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this) {
                     adapter.data = it
                 }
-            }
-        }
 
 
     }
