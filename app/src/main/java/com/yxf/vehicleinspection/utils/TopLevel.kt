@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.util.Base64
@@ -156,6 +157,7 @@ const val QUERY_VERIFY_QUEUE = "LYYDJKR013"
 const val QUERY_CHARGE_RESULT = "LYYDJKR014"
 const val QUERY_SYSTEM_PARAMS = "LYYDJKR015"
 const val QUERY_IMAGE_ITEM = "LYYDJKR017"
+const val QUERY_LEASTEST_TIME = "LYYDJKR019"
 const val QUERY_ARTIFICIAL_PROJECT = "LYYDJKR020"
 const val QUERY_VERSION = "LYYDJKR021"
 const val QUERY_VEHICLE_INFO = "LYYDJKR022"
@@ -306,6 +308,19 @@ fun getIpAddress() : String {
     }
 //    return "192.168.2.132"
 
+}
+
+fun getWifiRssi(): Int {
+    val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    val wifiInfo = wifiManager.connectionInfo
+    val connectivityManager = MyApp.context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+    if (networkInfo?.isConnected == true){
+        return wifiInfo.rssi
+    }else{
+        Toast.makeText(MyApp.context, "获取wifi信号强度失败", Toast.LENGTH_SHORT).show()
+        return 99999
+    }
 }
 
 /**

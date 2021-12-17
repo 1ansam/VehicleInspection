@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.bean.request.*
-import com.yxf.vehicleinspection.bean.response.ArtificialProjectR020Response
-import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
-import com.yxf.vehicleinspection.bean.response.ServerTimeR011Response
-import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
+import com.yxf.vehicleinspection.bean.response.*
 import com.yxf.vehicleinspection.repository.InspectionItemRepository
 import com.yxf.vehicleinspection.repository.ServerTimeRepository
 import okhttp3.RequestBody
@@ -63,6 +60,9 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     }
     fun getPostVideoData( Jcxh : String, Hphm : String, Hpzl : String, Jcxm : String, Spbhaj : String, Spbhhj : String, Ajywlb : String, Hjywlb : String, Jcrq : String, Jcsj : String, Jckssj : String, Jcjssj : String, Lxxx : String, Clpp : String, Czdw : String, Hjdlsj : String, Lxdz : String, Lxbz : String,Ajlsh : String,Hjlsh : String, Ajjccs: Int, Hjjccs: Int ) : SaveVideoW008Request{
         return SaveVideoW008Request(0,Jcxh,  Hphm, Hpzl, Jcxm, Spbhaj, Spbhhj, Ajywlb, Hjywlb, Jcrq, Jcsj, Jckssj, Jcjssj, Lxxx, Clpp, Czdw, Hjdlsj, Lxdz, Lxbz,Ajlsh, Hjlsh, Ajjccs, Hjjccs)
+    }
+    fun getLeastestTime(ajcx : String, jyxm : String): MutableLiveData<LeastestTimeR019Response> {
+        return inspectionItemRepository.getLeastestTime(ajcx, jyxm)
     }
 
 

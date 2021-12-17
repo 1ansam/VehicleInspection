@@ -23,13 +23,13 @@ class VehicleAllInfoViewModel(val repository: VehicleAllInfoRepository) : ViewMo
         return repository.getVehicleAllInfoRepository(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh, Hjlsh)
     }
 }
-class VehicleAllInfoViewModelFactory(private val repositoryAll: VehicleAllInfoRepository) :
+class VehicleAllInfoViewModelFactory(private val repository: VehicleAllInfoRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VehicleAllInfoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return VehicleAllInfoViewModel(repositoryAll) as T
+            return VehicleAllInfoViewModel(repository) as T
         }
-        throw IllegalArgumentException("未知ViewModel")
+        throw IllegalArgumentException("IllegalArgumentException")
     }
 }

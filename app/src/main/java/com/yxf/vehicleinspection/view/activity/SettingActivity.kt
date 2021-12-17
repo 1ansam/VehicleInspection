@@ -13,6 +13,7 @@ import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.databinding.ActivitySettingBinding
 import com.yxf.vehicleinspection.singleton.SharedP
+import com.yxf.vehicleinspection.utils.getWifiRssi
 import com.yxf.vehicleinspection.viewModel.*
 
 class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
@@ -27,6 +28,7 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
     }
 
     override fun init() {
+
         binding.tvIpAddress.setText(SharedP.instance.getString("ipAddress", "192.168.1.1"))
         binding.tvPort.setText(SharedP.instance.getString("ipPort", "80"))
 

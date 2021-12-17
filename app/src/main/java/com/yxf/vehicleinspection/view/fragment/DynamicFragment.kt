@@ -1,6 +1,7 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -11,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
@@ -26,6 +28,7 @@ import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
 
 class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
+    private lateinit var count: CountDownTimer
     private var AjJyjghb = ""
     private var HjJyjghb = ""
     private var AjJkxlh = ""
@@ -69,45 +72,92 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                 }
             }
         }
+        inspectionItemViewModel.getLeastestTime(args.bean005.Ajcx, args.bean006.Jcxm)
+            .observe(this) {
+                count = object : CountDownTimer(it.Yqsc.toInt() * 1000L, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        binding.includeTitle.textView.text = "动态查验${millisUntilFinished / 1000}"
+                    }
+                    override fun onFinish() {
+                        Snackbar.make(this@DynamicFragment.requireView(),"检验时间已到可以提交查验", Snackbar.LENGTH_SHORT).show()
+                    }
+                }.start()
+            }
         binding.includeTitle.btnSubmit.setOnClickListener {
-            binding.pbDynamicSubmit.visibility = View.VISIBLE
-            inspectionItemViewModel.getServerTime().observe(this) {
-                endTime = it.Sj
-                inspectionItemViewModel.postSaveVideoW008(getPostVideoData(DYNAMIC_BEHIND,
-                    "")).observe(this){
+            if (binding.includeTitle.textView.text.toString().substring(4) != "0") {
+                Snackbar.make(this.requireView(),"检验时间未到",Snackbar.LENGTH_SHORT).show()
+            } else {
 
-                    if(it){
-                        inspectionItemViewModel.postSaveVideoW008(getPostVideoData(DYNAMIC_FRONT,"")).observe(this){
-                            if (it){
-                                inspectionItemViewModel.postArtificialProjectW011(getPostArtificialData(inspectionItemSelectAdapter)).observe(this){
 
-                                    if (it){
-                                        inspectionItemViewModel.postProjectEndW012(getPostProjectEndData()).observe(this){
-                                            binding.pbDynamicSubmit.visibility = View.GONE
-                                            if (it){
-                                                Toast.makeText(this.context, "底盘动态项目结束", Toast.LENGTH_SHORT).show()
-                                                val action = DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(args.bean006,args.bean005,args.jcxh,args.bean002)
-                                                findNavController().navigate(action)
-                                            }else{
-                                                Toast.makeText(this.context, "底盘动态项目结束失败", Toast.LENGTH_SHORT).show()
+                binding.pbDynamicSubmit.visibility = View.VISIBLE
+                inspectionItemViewModel.getServerTime().observe(this) {
+                    endTime = it.Sj
+                    inspectionItemViewModel.postSaveVideoW008(
+                        getPostVideoData(
+                            DYNAMIC_BEHIND,
+                            ""
+                        )
+                    ).observe(this) {
+
+                        if (it) {
+                            inspectionItemViewModel.postSaveVideoW008(
+                                getPostVideoData(
+                                    DYNAMIC_FRONT,
+                                    ""
+                                )
+                            ).observe(this) {
+                                if (it) {
+                                    inspectionItemViewModel.postArtificialProjectW011(
+                                        getPostArtificialData(inspectionItemSelectAdapter)
+                                    ).observe(this) {
+
+                                        if (it) {
+                                            inspectionItemViewModel.postProjectEndW012(
+                                                getPostProjectEndData()
+                                            ).observe(this) {
+                                                binding.pbDynamicSubmit.visibility = View.GONE
+                                                if (it) {
+                                                    Toast.makeText(
+                                                        this.context,
+                                                        "底盘动态项目结束",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                    val action =
+                                                        DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(
+                                                            args.bean006,
+                                                            args.bean005,
+                                                            args.jcxh,
+                                                            args.bean002
+                                                        )
+                                                    findNavController().navigate(action)
+                                                } else {
+                                                    Toast.makeText(
+                                                        this.context,
+                                                        "底盘动态项目结束失败",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
                                             }
+                                        } else {
+                                            binding.pbDynamicSubmit.visibility = View.GONE
+                                            Toast.makeText(
+                                                this.context,
+                                                "人工检验信息上传失败",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         }
-                                    }else{
-                                        binding.pbDynamicSubmit.visibility = View.GONE
-                                        Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }
+
+                        } else {
+                            Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
+                            binding.pbDynamicSubmit.visibility = View.GONE
                         }
-
-                    }else{
-                        Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
-                        binding.pbDynamicSubmit.visibility = View.GONE
                     }
+
                 }
-
             }
-
 
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
@@ -215,6 +265,10 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
         Log.e("TAG", "getPostArtificialData: $list", )
         return list
 
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        count.cancel()
     }
 
 }

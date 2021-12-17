@@ -14,6 +14,7 @@ import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
 import com.yxf.vehicleinspection.service.UploadFile
 import com.yxf.vehicleinspection.singleton.RetrofitService
+import com.yxf.vehicleinspection.utils.getWifiRssi
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModelFactory
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
@@ -33,6 +34,8 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
         SystemParamsViewModelFactory((application as MyApp).systemParamsRepository)
     }
     override fun init() {
+
+        Log.e("TAG", "init: ${getWifiRssi()}", )
         PermissionX.init(this)
             .permissions(Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_WIFI_STATE,

@@ -42,5 +42,7 @@ data class VehicleQueueR002Response (
     val Hjlsh : String,
     val Ajjccs : Int,
     val Hjjccs : Int,
+    val Sfsf : String,
+    val Sfkp : String,
 
 ): Serializable

@@ -4,11 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.widget.Toast
 import com.yxf.vehicleinspection.repository.*
 import com.yxf.vehicleinspection.room.DataDictionaryDatabase
+import com.yxf.vehicleinspection.utils.getWifiRssi
 
 class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     private val database by lazy { DataDictionaryDatabase.getDatabase(context) }
@@ -17,10 +22,8 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     val inspectionItemRepository by lazy{ InspectionItemRepository()}
     val userInfoRepository by lazy{ UserInfoRepository()}
     val vehicleAllInfoRepository by lazy{ VehicleAllInfoRepository()}
-    val vehicleImageRepository by lazy{ VehicleImageRepository()}
     val vehicleInspectionItemRepository by lazy{ VehicleInspectionItemRepository()}
     val vehicleQueueRepository by lazy{ VehicleQueueRepository()}
-    val vehicleVideoRepository by lazy{ VehicleVideoRepository()}
     val signatureRepository by lazy { SignatureRepository() }
     val serverTimeRepository by lazy { ServerTimeRepository() }
     val registerRepository by lazy { RegisterRepository() }
@@ -41,6 +44,20 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
         this.registerActivityLifecycleCallbacks(this)
         context = applicationContext
         manager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(WifiManager.RSSI_CHANGED_ACTION)
+            addAction(WifiManager.WIFI_STATE_CHANGED_ACTION)
+            addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
+
+        }
+        context.registerReceiver(object : BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (getWifiRssi() < -60){
+                    Toast.makeText(context, "您正处于弱网络下...", Toast.LENGTH_SHORT).show()
+                }
+            }
+        },filter)
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
