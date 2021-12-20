@@ -14,6 +14,7 @@ import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
 import com.yxf.vehicleinspection.utils.FL_AJYWLB
 import com.yxf.vehicleinspection.utils.FL_HJYWLB
+import com.yxf.vehicleinspection.utils.FL_JCXH
 import com.yxf.vehicleinspection.view.fragment.InspectionItemFragmentDirections
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 
@@ -26,7 +27,7 @@ class InspectionItemAdapter(
     private val dataDictionaryViewModel: DataDictionaryViewModel,
     val bean002 : VehicleQueueR002Response
 ) : BaseRvAdapter<VehicleInspectionItemR006Response, RvItemInspectionItemBinding>() {
-    var beanR005: VehicleAllInfoR005Response? = null
+    var bean005: VehicleAllInfoR005Response? = null
         set(value) {
             field = value
         }
@@ -66,64 +67,75 @@ class InspectionItemAdapter(
 
             }
         }
-
-        when (bean.Jcxm) {
-            "F1" -> dataDictionaryViewModel.getListFromFl("wx").observe(fragment) {
-                binding.lvLineNumber.adapter =
-                    LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
-                binding.lvLineNumber.onItemClickListener =
-                    AdapterView.OnItemClickListener { _, _, position, _ ->
-                        fragment.findNavController()
-                            .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToExteriorFragment(
-                                bean,
-                                beanR005!!,it[position].Dm,bean002))
-                    }
-            }
-            "C1" -> dataDictionaryViewModel.getListFromFl("dx").observe(fragment) {
-                binding.lvLineNumber.adapter =
-                    LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
-                binding.lvLineNumber.onItemClickListener =
-                    AdapterView.OnItemClickListener{
-                            _, _, position, _ ->
-                        fragment.findNavController()
-                    .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToChassisFragment(bean,
-                        beanR005!!,it[position].Dm,bean002))
-                    }
-            }
-            "DC" -> dataDictionaryViewModel.getListFromFl("tx").observe(fragment) {
-                binding.lvLineNumber.adapter =
-                    LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
-                binding.lvLineNumber.onItemClickListener =
-                    AdapterView.OnItemClickListener{
-                            _, _, position, _ ->
-                        fragment.findNavController()
-                            .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToDynamicFragment(bean,
-                                beanR005!!,it[position].Dm,bean002))
-                    }
-            }
-            "NQ" -> dataDictionaryViewModel.getListFromFl("nx").observe(fragment) {
-                binding.lvLineNumber.adapter =
-                    LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
-                binding.lvLineNumber.onItemClickListener =
-                    AdapterView.OnItemClickListener{
-                            _, _, position, _ ->
-                        fragment.findNavController()
-                            .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToNetworkQueryFragment(bean,
-                                beanR005!!,it[position].Dm,bean002))
-                    }
-            }
-            "UC" -> dataDictionaryViewModel.getListFromFl("ux").observe(fragment) {
-                binding.lvLineNumber.adapter =
-                    LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
-                binding.lvLineNumber.onItemClickListener =
-                    AdapterView.OnItemClickListener{
-                            _, _, position, _ ->
-                        fragment.findNavController()
-                            .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToUniqueFragment(bean,
-                                beanR005!!,it[position].Dm,bean002))
-                    }
+        if (bean005 != null){
+            when (bean.Jcxm) {
+                "F1" -> dataDictionaryViewModel.getListFromFl("wx").observe(fragment) {
+                    binding.lvLineNumber.adapter =
+                        LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
+                    binding.lvLineNumber.onItemClickListener =
+                        AdapterView.OnItemClickListener { _, _, position, _ ->
+                            fragment.findNavController()
+                                .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToExteriorFragment(
+                                    bean,
+                                    bean005!!,it[position].Dm,bean002))
+                        }
+                }
+                "C1" -> dataDictionaryViewModel.getListFromFl("dx").observe(fragment) {
+                    binding.lvLineNumber.adapter =
+                        LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
+                    binding.lvLineNumber.onItemClickListener =
+                        AdapterView.OnItemClickListener{
+                                _, _, position, _ ->
+                            fragment.findNavController()
+                                .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToChassisFragment(bean,
+                                    bean005!!,it[position].Dm,bean002))
+                        }
+                }
+                "DC" -> dataDictionaryViewModel.getListFromFl("tx").observe(fragment) {
+                    binding.lvLineNumber.adapter =
+                        LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
+                    binding.lvLineNumber.onItemClickListener =
+                        AdapterView.OnItemClickListener{
+                                _, _, position, _ ->
+                            fragment.findNavController()
+                                .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToDynamicFragment(bean,
+                                    bean005!!,it[position].Dm,bean002))
+                        }
+                }
+                "NQ" -> dataDictionaryViewModel.getListFromFl("nx").observe(fragment) {
+                    binding.lvLineNumber.adapter =
+                        LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
+                    binding.lvLineNumber.onItemClickListener =
+                        AdapterView.OnItemClickListener{
+                                _, _, position, _ ->
+                            fragment.findNavController()
+                                .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToNetworkQueryFragment(bean,
+                                    bean005!!,it[position].Dm,bean002))
+                        }
+                }
+                "UC" -> dataDictionaryViewModel.getListFromFl("ux").observe(fragment) {
+                    binding.lvLineNumber.adapter =
+                        LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
+                    binding.lvLineNumber.onItemClickListener =
+                        AdapterView.OnItemClickListener{
+                                _, _, position, _ ->
+                            fragment.findNavController()
+                                .navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToUniqueFragment(bean,
+                                    bean005!!,it[position].Dm,bean002))
+                        }
+                }
+                "YQ" -> dataDictionaryViewModel.getListFromFl(FL_JCXH).observe(fragment){
+                    binding.lvLineNumber.adapter =
+                        LineNumberAdapter(fragment.requireContext(),R.layout.item_line_number,it)
+                    binding.lvLineNumber.onItemClickListener =
+                        AdapterView.OnItemClickListener{
+                                _,_,position,_ ->
+                            fragment.findNavController().navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToOnlineFragment(bean,bean005!!,it[position].Dm,bean002))
+                        }
+                }
             }
         }
+
 
     }
 

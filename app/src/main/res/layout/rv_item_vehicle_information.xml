@@ -27,7 +27,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="流水号："
+                android:text="安检流水号："
                 android:textSize="18sp" />
 
 
@@ -65,7 +65,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="流水号："
+                android:text="环检流水号："
                 android:textSize="18sp" />
 
 

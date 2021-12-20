@@ -1344,7 +1344,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                             ajJyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
                         }
                         ajywlb.contains("在用") -> {
-                            ajJyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                            ajJyxm?.isChecked = !(isMtc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 117 && !cllx.contains("面包")))
                         }
                     }
 
@@ -1355,7 +1355,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                             ajJyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && !cllx.contains("面包") || hdzk < 7))
                         }
                         ajywlb.contains("在用") -> {
-                            ajJyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 118 && !cllx.contains("面包")))
+                            ajJyxm?.isChecked = !(isGc(cllx) || (isFyyxwzk(cllx, syxz) && hdzk < 7 && betweenMonth < 117 && !cllx.contains("面包")))
                         }
                     }
 

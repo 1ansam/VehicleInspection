@@ -1,6 +1,5 @@
 package com.yxf.vehicleinspection.view.fragment
 
-import android.content.pm.ActivityInfo
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
@@ -15,7 +14,7 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
         const val HOSTNAME_APPOINTMENT = "Appointment"
         const val HOSTNAME_CHARGE = "Charge"
         const val HOSTNAME_VEHICLE_INSPECTION = "VehicleInspection"
-        const val HOSTNAME_DISPATCH = "Dispatch"
+        const val HOSTNAME_REPLENISH = "Replenish"
         const val HOSTNAME_VERIFY_SIGNATURE = "VerifySignature"
         const val HOSTNAME_VEHICLE_INFORMATION = "VehicleInformation"
 
@@ -43,8 +42,8 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
             val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
             findNavController().navigate(action)
         }
-        binding.btnDispatchFunc.setOnClickListener {
-            sharedViewModel.setHostName(HOSTNAME_DISPATCH)
+        binding.btnReplenishFunc.setOnClickListener {
+            sharedViewModel.setHostName(HOSTNAME_REPLENISH)
             val action = NavHostFragmentDirections.actionNavHostFragmentToVehicleQueueFragment()
             findNavController().navigate(action)
         }

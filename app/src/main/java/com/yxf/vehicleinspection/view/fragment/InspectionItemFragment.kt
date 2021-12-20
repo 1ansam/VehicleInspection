@@ -61,7 +61,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 //                    inspectionItemAdapter.vehicleAllInfoResponse = element
                 }
                 if (it.isNotEmpty()){
-                    inspectionItemAdapter.beanR005 = it[0]
+                    inspectionItemAdapter.bean005 = it[0]
                 }
                 vehicleInformationAdapter.data = vehicleInformationList
             }

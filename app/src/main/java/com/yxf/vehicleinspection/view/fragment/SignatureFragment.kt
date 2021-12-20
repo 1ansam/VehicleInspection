@@ -57,7 +57,6 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
                     sharedViewModel.hostName.observe(this) { hostName ->
                         when {
                             hostName.equals(NavHostFragment.HOSTNAME_VERIFY_SIGNATURE)
-                                    || hostName.equals(NavHostFragment.HOSTNAME_DISPATCH)
                                     || hostName.equals(NavHostFragment.HOSTNAME_CHARGE) -> {
                                 val action =
                                     SignatureFragmentDirections.actionSignatureFragmentPopIncludingVehicleQueueFragment()

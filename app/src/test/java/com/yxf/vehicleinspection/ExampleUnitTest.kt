@@ -8,6 +8,7 @@ import com.yxf.vehicleinspection.utils.string2Date
 import com.yxf.vehicleinspection.view.fragment.RegisterFragment
 import org.junit.Test
 import java.util.*
+import kotlin.concurrent.timerTask
 
 
 /**
@@ -18,13 +19,6 @@ import java.util.*
 class ExampleUnitTest(){
     @Test
     fun main(){
-
-        for(index in 0 until 0 ){
-            val string = ","
-            println(string)
-            println(string.substring(1))
-        }
-
 
     }
 

@@ -14,9 +14,9 @@ tools:context=".view.fragment.NavHostFragment">
     android:layout_marginBottom="5dp"
     android:text="@string/verifySignature"
     app:layout_constraintBottom_toTopOf="@+id/guideline16"
-    app:layout_constraintEnd_toEndOf="@+id/btnDispatchFunc"
+    app:layout_constraintEnd_toEndOf="@+id/btnReplenishFunc"
     app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="@+id/btnDispatchFunc"
+    app:layout_constraintStart_toStartOf="@+id/btnReplenishFunc"
     app:layout_constraintTop_toTopOf="@+id/guideline15"
     app:layout_constraintVertical_bias="0.0"
     app:drawableLeftCompat="@drawable/ic_verify_signature"
@@ -166,10 +166,10 @@ tools:context=".view.fragment.NavHostFragment">
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/btnDispatchFunc"
+        android:id="@+id/btnReplenishFunc"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/dispatch"
+        android:text="数据补传"
         app:drawableLeftCompat="@drawable/ic_dispatch"
         app:drawableRightCompat="@drawable/ic_next"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"

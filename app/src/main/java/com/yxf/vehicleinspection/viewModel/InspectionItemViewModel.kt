@@ -64,7 +64,12 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun getLeastestTime(ajcx : String, jyxm : String): MutableLiveData<LeastestTimeR019Response> {
         return inspectionItemRepository.getLeastestTime(ajcx, jyxm)
     }
-
+    fun startOnline(startOnlineW015Request: StartOnlineW015Request) : LiveData<Boolean>{
+        return inspectionItemRepository.startOnline(startOnlineW015Request)
+    }
+    fun getOnlineStatus(onlineStatusR024Request: OnlineStatusR024Request) : LiveData<OnlineStatusR024Response> {
+        return inspectionItemRepository.getOnlineStatus(onlineStatusR024Request)
+    }
 
 
 

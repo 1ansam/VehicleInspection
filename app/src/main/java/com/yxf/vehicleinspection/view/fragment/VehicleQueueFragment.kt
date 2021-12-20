@@ -1,17 +1,13 @@
 package com.yxf.vehicleinspection.view.fragment
 
-import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
-import com.yxf.vehicleinspection.repository.VehicleQueueRepository
 import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
@@ -30,14 +26,10 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
 
-//        binding.btnSercher.setOnClickListener {
-////            修改使用BaseUrlHelper反射方法
-////            BaseUrlHelper.instance.setUrlField("http://192.168.1.1:8080")
-//            getQueueData(binding.tvSearcher.text.toString())
-//        }
-        binding.svVehicleQueue.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+
+        binding.svVehicleQueue.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                getQueueData(binding.svVehicleQueue.query.toString())
+                getInspectionQueue(binding.svVehicleQueue.query.toString())
                 return true
             }
 
@@ -45,27 +37,30 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
                 return false
             }
         })
-//        在Edittext文字改变后自动获取数据
-//        binding.tvSearcher.doAfterTextChanged {
-//            getData(binding.tvSearcher.text.toString())
-//        }
+
     }
 
-    private fun getQueueData(hphm: String) {
+    private fun getInspectionQueue(hphm: String) {
         binding.pbVehicleQueue.visibility = View.VISIBLE
-
-
-                binding.pbVehicleQueue.visibility = View.GONE
-                viewModel.getDataQueue(hphm.uppercase(Locale.getDefault())).observe(this) {
+        when(sharedViewModel.hostName.value){
+            NavHostFragment.HOSTNAME_CHARGE ->{
+                viewModel.getChargeQueue(hphm.uppercase(Locale.getDefault())).observe(this) {
+                    binding.pbVehicleQueue.visibility = View.GONE
                     adapter.data = it
                 }
-
-
+            }
+            else -> {
+                viewModel.getInspectionQueue(hphm.uppercase(Locale.getDefault())).observe(this) {
+                    binding.pbVehicleQueue.visibility = View.GONE
+                    adapter.data = it
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        getQueueData(binding.svVehicleQueue.query.toString())
+        getInspectionQueue(binding.svVehicleQueue.query.toString())
     }
 
 

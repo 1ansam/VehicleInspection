@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.repository
 
+import android.app.DownloadManager
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import com.yxf.vehicleinspection.bean.response.*
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.UploadFile
 import com.yxf.vehicleinspection.service.WriteService
+import com.yxf.vehicleinspection.singleton.GsonSingleton
 import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.*
 import okhttp3.RequestBody
@@ -18,6 +20,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.io.File
+import java.util.*
+import kotlin.concurrent.timerTask
+import kotlin.reflect.typeOf
 
 /**
  *   author:yxf
@@ -37,29 +42,32 @@ class InspectionItemRepository {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(MyApp.context,
+                Toast.makeText(
+                    MyApp.context,
                     t.message,
-                    Toast.LENGTH_LONG).show()
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
         return liveData
     }
+
     fun getImageItemData(
         Jyxm: String,
         Ajywlb: String,
         Hjywlb: String,
-        Ajlsh : String,
-        Hjlsh : String,
+        Ajlsh: String,
+        Hjlsh: String,
     ): LiveData<List<ImageItemR017Response>> {
         val liveData = MutableLiveData<List<ImageItemR017Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_IMAGE_ITEM,
             getIpAddress(),
-            getJsonData(ImageItemR017Request(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh))
+            getJsonData(ImageItemR017Request(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                response2ListBean(response,liveData)
+                response2ListBean(response, liveData)
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -73,18 +81,18 @@ class InspectionItemRepository {
         Jyxm: String,
         Ajywlb: String,
         Hjywlb: String,
-        Ajlsh : String,
-        Hjlsh : String,
+        Ajlsh: String,
+        Hjlsh: String,
     ): LiveData<List<ArtificialProjectR020Response>> {
         val liveData = MutableLiveData<List<ArtificialProjectR020Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_ARTIFICIAL_PROJECT,
             getIpAddress(),
-            getJsonData(ArtificialProjectR020Request(Jyxm, Ajywlb, Hjywlb,Ajlsh, Hjlsh))
+            getJsonData(ArtificialProjectR020Request(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh))
         )
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-               response2ListBean(response, liveData)
+                response2ListBean(response, liveData)
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -93,8 +101,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-    fun getNetworkQueryInfoName(): List<String>{
-        return listOf("联网查询结果描述","机动车所有人","手机号码","联系地址","邮政编码")
+
+    fun getNetworkQueryInfoName(): List<String> {
+        return listOf("联网查询结果描述", "机动车所有人", "手机号码", "联系地址", "邮政编码")
     }
 
 
@@ -104,7 +113,8 @@ class InspectionItemRepository {
             RetrofitService.create(WriteService::class.java).write(
                 WRITE_INSPECTION_PHOTO,
                 getIpAddress(),
-                getJsonData(list))
+                getJsonData(list)
+            )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
@@ -117,14 +127,15 @@ class InspectionItemRepository {
         })
         return liveData
     }
-    fun <T> postArtificialProjectW011(list : List<ArtificialProjectW011Request<T>>) : MutableLiveData<Boolean> {
+
+    fun <T> postArtificialProjectW011(list: List<ArtificialProjectW011Request<T>>): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
             WRITE_ARTIFICIAL_PROJECT,
             getIpAddress(),
             getJsonData(list)
         )
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
             }
@@ -136,14 +147,15 @@ class InspectionItemRepository {
         })
         return liveData
     }
-    fun postSaveVideoW008(saveVideoW008Request: SaveVideoW008Request): LiveData<Boolean>{
+
+    fun postSaveVideoW008(saveVideoW008Request: SaveVideoW008Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
             WRITE_SAVE_VIDEO,
             getIpAddress(),
             getJsonData(saveVideoW008Request)
         )
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
             }
@@ -155,14 +167,15 @@ class InspectionItemRepository {
         })
         return liveData
     }
-    fun postProjectStartW010(projectStartW010Request: ProjectStartW010Request):LiveData<Boolean>{
+
+    fun postProjectStartW010(projectStartW010Request: ProjectStartW010Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
             WRITE_PROJECT_START,
             getIpAddress(),
             getJsonData(projectStartW010Request)
         )
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
             }
@@ -174,14 +187,15 @@ class InspectionItemRepository {
         })
         return liveData
     }
-    fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean>{
+
+    fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
             WRITE_PROJECT_END,
             getIpAddress(),
             getJsonData(projectEndW012Request)
         )
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
             }
@@ -194,14 +208,14 @@ class InspectionItemRepository {
         return liveData
     }
 
-    fun postUploadFile(file : File, requestBody: RequestBody):LiveData<String>{
+    fun postUploadFile(file: File, requestBody: RequestBody): LiveData<String> {
         val liveData = MutableLiveData<String>()
         val call = RetrofitService.create(UploadFile::class.java).upload(
-            uploadFile("objFile",file,requestBody)
+            uploadFile("objFile", file, requestBody)
         )
-        call.enqueue(object :Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     liveData.value = response.body()?.string()
                 }
             }
@@ -210,18 +224,18 @@ class InspectionItemRepository {
                 Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
             }
         })
-    return liveData
+        return liveData
     }
 
-    fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request) : LiveData<Boolean>{
+    fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
             WRITE_TAKE_PHOTO,
             getIpAddress(),
             getJsonData(takePhotoW009Request)
         )
-        call.enqueue(object : Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>){
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
             }
 
@@ -233,14 +247,14 @@ class InspectionItemRepository {
         return liveData
     }
 
-    fun getLeastestTime(ajcx : String, jyxm : String): MutableLiveData<LeastestTimeR019Response> {
+    fun getLeastestTime(ajcx: String, jyxm: String): MutableLiveData<LeastestTimeR019Response> {
         val liveData = MutableLiveData<LeastestTimeR019Response>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_LEASTEST_TIME,
             getIpAddress(),
-            getJsonData(LeastestTimeR019Request(ajcx,jyxm))
+            getJsonData(LeastestTimeR019Request(ajcx, jyxm))
         )
-        call.enqueue(object : Callback<ResponseBody>{
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Bean(response, liveData)
             }
@@ -250,5 +264,91 @@ class InspectionItemRepository {
             }
         })
         return liveData
+    }
+
+    fun startOnline(startOnlineW015Request: StartOnlineW015Request): LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        val call = RetrofitService.create(WriteService::class.java).write(
+            WRITE_START_ONLINE,
+            getIpAddress(),
+            getJsonData(startOnlineW015Request)
+        )
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Boolean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+
+    fun getOnlineStatus(onlineStatusR024Request: OnlineStatusR024Request): LiveData<OnlineStatusR024Response> {
+        val liveData = MutableLiveData<OnlineStatusR024Response>()
+
+        val call = RetrofitService.create(QueryService::class.java).query(
+            QUERY_ONLINE_STUTAS,
+            getIpAddress(),
+            getJsonData(onlineStatusR024Request)
+        )
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        val stringResponse = response.body()?.string()
+                        val commonResponse = GsonSingleton.instance
+                            .fromJson(stringResponse, CommonResponse::class.java)
+                        if (commonResponse.Code == "1") {
+                            val beanList = ArrayList<OnlineStatusR024Response>()
+                            for (element in commonResponse.Body) {
+                                val bodyJson =
+                                    GsonSingleton.instance.toJson(element)
+                                beanList.add(
+                                    GsonSingleton.instance
+                                        .fromJson(bodyJson, OnlineStatusR024Response::class.java)
+                                )
+                            }
+                            if (beanList.isNotEmpty()) {
+                                liveData.value = beanList[0]
+                            }
+                        } else {
+                            if (commonResponse.Code == null) {
+                                Toast.makeText(
+                                    MyApp.context,
+                                    "${typeOf<OnlineStatusR024Response>()}Code=Null",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    MyApp.context,
+                                    commonResponse.Message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        MyApp.context,
+                        "${typeOf<OnlineStatusR024Response>()}response = null",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        return liveData
+    }
+    fun getRefreshOnlineData(onlineStatusR024Request: OnlineStatusR024Request) : LiveData<OnlineStatusR024Response>{
+        return getOnlineStatus(onlineStatusR024Request)
     }
 }

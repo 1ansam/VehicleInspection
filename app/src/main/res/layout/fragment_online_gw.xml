@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.DispatchFragment">
+    tools:context=".view.fragment.OnlineFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline32">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/backFromDispatch"
+            android:id="@+id/btnBack"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -66,15 +66,9 @@
             android:layout_weight="1"
             android:text="@string/startInspection" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDynamicInspection"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/dynamicInspection" />
     </LinearLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="409dp"
         android:layout_height="583dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline32"
@@ -87,18 +81,55 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tvLsh"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
-            <View
-                android:id="@+id/view"
-                android:background="@color/black"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="0.3"
+                    android:gravity="start"
+                    android:text="流水号" />
+
+                <TextView
+                    android:id="@+id/tvLsh"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="0.3"
+                    android:gravity="start"
+                    android:text="号牌号码" />
+
+                <TextView
+                    android:id="@+id/tvHphm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOnline"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

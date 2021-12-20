@@ -16,8 +16,8 @@
             android:id="@+id/action_vehicleQueueFragment_to_chargeFragment"
             app:destination="@id/chargeFragment" />
         <action
-            android:id="@+id/action_vehicleQueueFragment_to_dispatchFragment"
-            app:destination="@id/dispatchFragment" />
+            android:id="@+id/action_vehicleQueueFragment_to_replenishFragment"
+            app:destination="@id/replenishFragment" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -92,16 +92,27 @@
 
     </fragment>
     <fragment
-        android:id="@+id/dispatchFragment"
-        android:name="com.yxf.vehicleinspection.view.fragment.DispatchFragment"
+        android:id="@+id/onlineFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.OnlineFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_dispatchFragment_to_dynamicFragment"
-            app:destination="@id/dynamicFragment" />
+        <argument
+            android:name="bean006"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
+        <argument
+            android:name="jcxh"
+            app:argType="string"
+            android:defaultValue="0" />
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+        <action
+            android:id="@+id/action_onlineFragment_pop_including_inspectionItemFragment"
+            app:popUpTo="@id/inspectionItemFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -153,6 +164,9 @@
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+        <action
+            android:id="@+id/action_inspectionItemFragment_to_onlineFragment"
+            app:destination="@id/onlineFragment" />
     </fragment>
     <fragment
         android:id="@+id/exteriorFragment"
@@ -293,5 +307,14 @@
         <argument
             android:name="shjg"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/replenishFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.ReplenishFragment"
+        android:label="fragment_replenish"
+        tools:layout="@layout/fragment_replenish" >
+        <argument
+            android:name="bean002"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
     </fragment>
 </navigation>
