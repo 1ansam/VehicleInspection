@@ -19,6 +19,8 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     private val database by lazy { DataDictionaryDatabase.getDatabase(context) }
     val dataDictionaryRepository by lazy { DataDictionaryRepository(database.dataDictionaryDao()) }
     val systemParamsRepository by lazy { SystemParamsRepository(database.systemParamsDao()) }
+    val administrativeRepository by lazy { AdministrativeRepository(database.administrativeDao()) }
+    val chargeItemRepository by lazy { ChargeItemRepository(database.chargeItemDao()) }
     val inspectionItemRepository by lazy{ InspectionItemRepository()}
     val userInfoRepository by lazy{ UserInfoRepository()}
     val vehicleAllInfoRepository by lazy{ VehicleAllInfoRepository()}
@@ -27,12 +29,7 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     val signatureRepository by lazy { SignatureRepository() }
     val serverTimeRepository by lazy { ServerTimeRepository() }
     val registerRepository by lazy { RegisterRepository() }
-    val administrativeRepository by lazy { AdministrativeRepository(database.administrativeDao()) }
     val verifyRepository by lazy { VerifyRepository() }
-    var activityCount = 0
-    var isBackground = false
-    var isScreenOf = false
-    var backgroundStamp = 0L
     companion object{
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context

@@ -21,5 +21,9 @@ data class SystemParamsR015Response(
     val KPF : String,
     val LshSzm : String,
     @PrimaryKey val Sjlb : String,
+    val Appid : String,
+    val Md5key : String,
+    val C : String,
+    val C1 : String
 
     )

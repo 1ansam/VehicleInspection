@@ -26,6 +26,9 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
     private val administrativeViewModel: AdministrativeViewModel by viewModels {
         AdministrativeViewModelFactory((application as MyApp).administrativeRepository)
     }
+    private val chargeItemViewModel: ChargeItemViewModel by viewModels {
+        ChargeItemViewModelFactory((application as MyApp).chargeItemRepository)
+    }
 
     override fun init() {
 
@@ -44,107 +47,48 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
             dataDictionaryViewModel.deleteDataDictionary()
             systemParamsViewModel.deleteSystemParams()
             administrativeViewModel.deleteAdministrative()
-            dataDictionaryViewModel.getDataDictionary().observe(this) { listDataDictionary ->
-                dataDictionaryViewModel.insertDataDictionary(listDataDictionary)
-                systemParamsViewModel.getSystemParamsData().observe(this) { listSystemParams ->
-                    systemParamsViewModel.insertSystemParams(listSystemParams)
+            chargeItemViewModel.deleteChargeItem()
+            dataDictionaryViewModel.getDataDictionary().observe(this) { dataDictionaryList ->
+                dataDictionaryViewModel.insertDataDictionary(dataDictionaryList)
+                systemParamsViewModel.getSystemParamsData().observe(this) { systemParamsList ->
+                    systemParamsViewModel.insertSystemParams(systemParamsList)
                     administrativeViewModel.getAdministrativeList()
-                        .observe(this) { listAdministrative ->
-                            administrativeViewModel.insertAdministrativeList(listAdministrative)
-                            dataDictionaryViewModel.insertEnd.observe(this) {
-                                if (it) {
-                                    systemParamsViewModel.insertEnd.observe(this) {
-                                        if (it) {
-                                            administrativeViewModel.insertEnd.observe(this) {
-                                                if (it) {
-                                                    binding.pbSync.visibility = View.GONE
-                                                    Toast.makeText(
-                                                        this,
-                                                        "参数同步成功",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                    intent =
-                                                        Intent(this, WelcomeActivity::class.java)
-                                                    startActivity(intent)
-                                                    finish()
+                        .observe(this) { administrativeList ->
+                            administrativeViewModel.insertAdministrativeList(administrativeList)
+                            chargeItemViewModel.getChargeItem().observe(this){ chargeItemList ->
+                                chargeItemViewModel.insertChargeItem(chargeItemList)
+                                dataDictionaryViewModel.insertEnd.observe(this) {
+                                    if (it) {
+                                        systemParamsViewModel.insertEnd.observe(this) {
+                                            if (it) {
+                                                administrativeViewModel.insertEnd.observe(this) {
+                                                    if (it) {
+                                                        binding.pbSync.visibility = View.GONE
+                                                        Toast.makeText(
+                                                            this,
+                                                            "参数同步成功",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                        intent =
+                                                            Intent(this, WelcomeActivity::class.java)
+                                                        startActivity(intent)
+                                                        finish()
+                                                    }
                                                 }
                                             }
+
                                         }
-
                                     }
-                                }
 
+                                }
                             }
+
                         }
                 }
 
 
             }
 
-//            binding.pbSync.visibility = View.VISIBLE
-//            dataDictionaryViewModel.getDataDictionaryExist(1).observe(this){
-//                if (it!=null){
-//                    dataDictionaryViewModel.deleteDataDictionary()
-//                    systemParamsViewModel.getSystemParamsDataExist().observe(this){
-//                        if (it!=null){
-//                            systemParamsViewModel.deleteSystemParams()
-//                        }else{
-//                            dataDictionaryViewModel.getDataDictionary().observe(this) { listDataDictionary ->
-//                                Log.e("TAG", "init: insertDataDictionaryStart", )
-//                                dataDictionaryViewModel.insertDataDictionary(listDataDictionary)
-//                                systemParamsViewModel.getSystemParamsData().observe(this){ listSystemParams ->
-//                                    systemParamsViewModel.insertSystemParams(listSystemParams)
-//                                    dataDictionaryViewModel.insertEnd.observe(this){
-//                                        if (it){
-//                                            systemParamsViewModel.insertEnd.observe(this){
-//                                                if (it){
-//                                                    binding.pbSync.visibility = View.GONE
-//                                                    Toast.makeText(this, "参数同步成功", Toast.LENGTH_SHORT).show()
-//                                                }
-//                                            }
-//
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }else{
-//                    systemParamsViewModel.getSystemParamsDataExist().observe(this){
-//                        if (it!=null){
-//                            systemParamsViewModel.deleteSystemParams()
-//                        }else{
-//                            dataDictionaryViewModel.getDataDictionary().observe(this) { listDataDictionary ->
-//                                Log.e("TAG", "init: insertDataDictionaryStart", )
-//                                dataDictionaryViewModel.insertDataDictionary(listDataDictionary)
-//                                systemParamsViewModel.getSystemParamsData().observe(this){ listSystemParams ->
-//                                    systemParamsViewModel.insertSystemParams(listSystemParams)
-//                                    dataDictionaryViewModel.insertEnd.observe(this){
-//                                        if (it){
-//                                            systemParamsViewModel.insertEnd.observe(this){
-//                                                if (it){
-//                                                    binding.pbSync.visibility = View.GONE
-//                                                    Toast.makeText(this, "参数同步成功", Toast.LENGTH_SHORT).show()
-//                                                }
-//                                            }
-//
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            dataDictionaryViewModel.deleteDataDictionary()
-//            systemParamsViewModel.getSystemParamsDataExist().observe(this){
-//                if (it!=null){
-//                    systemParamsViewModel.deleteSystemParams()
-//                }else{
-//
-//                }
-//            }
-//
 
         }
 

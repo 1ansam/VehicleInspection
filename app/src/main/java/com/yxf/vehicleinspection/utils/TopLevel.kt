@@ -12,12 +12,15 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.util.Base64
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.WindowInsets
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.bean.CollectMoney
 import com.yxf.vehicleinspection.bean.request.CommonRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.singleton.GsonSingleton
@@ -27,8 +30,10 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.experimental.and
 import kotlin.reflect.typeOf
 
 /**
@@ -573,3 +578,71 @@ fun Spinner.setText(text: String) {
         }
     }
 }
+fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
+    val comparator = kotlin.Comparator{
+        key1 : String, key2 : String ->
+        key1.compareTo(key2)
+    }
+    val treeMap = TreeMap<String,String>(comparator)
+    var string = ""
+    treeMap["appid"] = collectMoney.appid
+    treeMap["c"] = collectMoney.c
+    treeMap["oid"] = collectMoney.oid
+    treeMap["amt"] = collectMoney.amt
+    treeMap["trxreserve"] = collectMoney.trxreserve
+    treeMap["sign"] = collectMoney.sign
+    treeMap["key"] = collectMoney.key
+    for(element in treeMap.entries){
+        if (element.value.isNotBlank()){
+            string += "&"
+            string += element
+        }
+    }
+    if (string.isNotBlank()){
+        string = string.substring(1)
+    }
+    return string
+}
+
+fun md5( b : ByteArray) : String {
+    val md = MessageDigest.getInstance("MD5")
+    md.reset()
+    md.update(b)
+    val hash = md.digest()
+    val outStrBuf = StringBuffer(32)
+    for (i in hash.indices){
+        val v : Int= hash[i].toInt() and 0xff
+        if (v < 16){
+            outStrBuf.append('0')
+        }
+        outStrBuf.append(v.toString(16).lowercase())
+    }
+    return outStrBuf.toString()
+}
+
+fun getSignFromCollectMoney(collectMoney: CollectMoney) : String{
+    val comparator = kotlin.Comparator{
+            key1 : String, key2 : String ->
+        key1.compareTo(key2)
+    }
+    val treeMap = TreeMap<String,String>(comparator)
+    var string = ""
+    treeMap["appid"] = collectMoney.appid
+    treeMap["c"] = collectMoney.c
+    treeMap["oid"] = collectMoney.oid
+    treeMap["amt"] = collectMoney.amt
+    treeMap["trxreserve"] = collectMoney.trxreserve
+    treeMap["sign"] = collectMoney.sign
+    treeMap["key"] = collectMoney.key
+    for(element in treeMap.entries){
+        if (element.value.isNotBlank()){
+            string += "&"
+            string += element
+        }
+    }
+    if (string.isNotBlank()){
+        string = string.substring(1)
+    }
+    return md5(string.toByteArray()).uppercase()
+}
+

@@ -18,8 +18,7 @@ interface DataDictionaryDao {
      */
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>) : List<Long>
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDataDictionary(dataDictionary : DataDictionaryR003Response) : Long
+
     /**
      * 更新数据列表
      * 更新操作只可更新当前数据库中存在的数据
@@ -29,7 +28,7 @@ interface DataDictionaryDao {
     @Update
     suspend fun updateDataDictionary(dataDictionaryListResponse : List<DataDictionaryR003Response>)
     @Update
-    suspend fun updateDateDictionary(dataDictionary : DataDictionaryR003Response)
+    suspend fun updateDataDictionary(dataDictionary : DataDictionaryR003Response)
     /**
      *  删除数据库中所有数据
      */

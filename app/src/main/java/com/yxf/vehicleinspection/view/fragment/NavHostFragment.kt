@@ -1,10 +1,13 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
+import com.yxf.vehicleinspection.bean.CollectMoney
 import com.yxf.vehicleinspection.databinding.FragmentNavHostBinding
+import com.yxf.vehicleinspection.utils.getStringFromCollectMoney
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 
 
@@ -53,9 +56,11 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
             findNavController().navigate(action)
         }
         binding.btnVehicleInformationFunc.setOnClickListener {
-            sharedViewModel.setHostName(HOSTNAME_VEHICLE_INFORMATION)
-
-            findNavController().navigate(R.id.action_navHostFragment_to_vehicleInfoFragment2)
+//            sharedViewModel.setHostName(HOSTNAME_VEHICLE_INFORMATION)
+//
+//            findNavController().navigate(R.id.action_navHostFragment_to_vehicleInfoFragment2)
+            val collectMoney = CollectMoney("","c111111","oid1111","amt111","trx111","sign111","key111")
+            Log.e("TAG", "init: ${getStringFromCollectMoney(collectMoney)}")
         }
     }
 }

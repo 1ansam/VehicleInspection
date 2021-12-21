@@ -7,6 +7,7 @@
     tools:context=".view.fragment.ReplenishFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -50,6 +51,7 @@
                 android:nestedScrollingEnabled="false">
 
             </androidx.recyclerview.widget.RecyclerView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +62,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="start" />
+                    android:gravity="start"
+                    android:paddingStart="10dp" />
 
                 <Button
                     android:id="@+id/btnRecordF2"
@@ -84,7 +87,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="start" />
+                    android:gravity="start"
+                    android:paddingStart="10dp" />
 
                 <Button
                     android:id="@+id/btnRecordF3"
@@ -107,7 +111,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="start" />
+                    android:gravity="start"
+                    android:paddingStart="10dp" />
 
                 <Button
                     android:id="@+id/btnRecordF4"
@@ -117,6 +122,37 @@
                     android:background="@color/lightBlue"
                     android:enabled="false"
                     android:text="录制" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnExteriorSign"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="外观签名" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnChassisSign"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="底盘签名" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDynamicSign"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="动态签名" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -140,6 +176,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
+
+    <ProgressBar
+        android:id="@+id/pbReplenish"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/includeTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

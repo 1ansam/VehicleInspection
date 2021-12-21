@@ -124,10 +124,12 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                                                     ).show()
                                                     val action =
                                                         DynamicFragmentDirections.actionDynamicFragmentToSignatureFragment(
-                                                            args.bean006,
                                                             args.bean005,
                                                             args.jcxh,
-                                                            args.bean002
+                                                            args.bean002,
+                                                            args.bean006.Jcxm,
+                                                            args.bean006.Ajywlb,
+                                                            args.bean006.Hjywlb
                                                         )
                                                     findNavController().navigate(action)
                                                 } else {

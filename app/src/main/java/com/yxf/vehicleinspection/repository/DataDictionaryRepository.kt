@@ -81,9 +81,6 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     suspend fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) : List<Long>{
         return dao.insertDataDictionary(dataDictionaryListResponse)
     }
-    suspend fun insertDataDictionary(dataDictionary: DataDictionaryR003Response): Long {
-        return dao.insertDataDictionary(dataDictionary)
-    }
     /**
      * 更新数据列表
      * 更新操作只可更新当前数据库中存在的数据
@@ -94,7 +91,7 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
         dao.updateDataDictionary(dataDictionaryListResponse)
     }
     suspend fun updateDataDictionary(dataDictionary: DataDictionaryR003Response) {
-        dao.insertDataDictionary(dataDictionary)
+        dao.updateDataDictionary(dataDictionary)
     }
     /**
      *  删除数据库中所有数据

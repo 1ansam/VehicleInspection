@@ -70,9 +70,16 @@
             android:id="@+id/action_signatureFragment_pop_including_AppointmentAjFragment"
             app:popUpTo="@id/appointmentAjFragment"
             app:launchSingleTop="true" />
-        <argument
-            android:name="bean006"
-            app:argType="com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response" />
+        <action
+            android:id="@+id/action_signatureFragment_to_exteriorFragment2"
+            app:destination="@+id/exteriorFragment"
+            app:popUpTo="@id/exteriorFragment"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_signatureFragment_pop_including_ReplenishFragment"
+            app:popUpTo="@id/replenishFragment"
+            app:launchSingleTop="true"/>
         <argument
             android:name="bean005"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
@@ -80,15 +87,18 @@
             android:name="jcxh"
             app:argType="string"
             android:defaultValue="0" />
-        <action
-            android:id="@+id/action_signatureFragment_to_exteriorFragment2"
-            app:destination="@+id/exteriorFragment"
-            app:popUpTo="@id/exteriorFragment"
-            app:launchSingleTop="true"
-            />
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+        <argument
+            android:name="jcxm"
+            app:argType="string" />
+        <argument
+            android:name="ajywlb"
+            app:argType="string" />
+        <argument
+            android:name="hjywlb"
+            app:argType="string" />
 
     </fragment>
     <fragment
@@ -316,5 +326,12 @@
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+        <action
+            android:id="@+id/action_replenishFragment_to_signatureFragment"
+            app:destination="@id/signatureFragment" />
+        <action
+            android:id="@+id/action_replenishFragment_pop_including_vehicleQueueFragment"
+            app:popUpTo="@id/vehicleQueueFragment"
+            app:launchSingleTop="true"/>
     </fragment>
 </navigation>

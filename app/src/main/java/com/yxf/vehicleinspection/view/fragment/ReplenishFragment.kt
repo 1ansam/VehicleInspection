@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -82,9 +83,16 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
         dataDictionaryViewModel.getMc(FL_SPMC, TIRE_TREAD_DEPTH).observe(this){
             binding.tvF4.text = it
         }
-        binding.btnRecordF2.alpha = 0.5F
-        binding.btnRecordF3.alpha = 0.5F
-        binding.btnRecordF4.alpha = 0.5F
+        binding.apply {
+            btnRecordF2.alpha = 0.5F
+            btnRecordF3.alpha = 0.5F
+            btnRecordF4.alpha = 0.5F
+            btnExteriorSign.alpha = 0.5F
+            btnChassisSign.alpha = 0.5F
+            btnDynamicSign.alpha = 0.5F
+            includeTitle.btnSubmit.isEnabled = false
+            includeTitle.btnSubmit.alpha = 0.5F
+        }
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         vehicleInformationAdapter = VehicleAllInfoAdapter(this,dataDictionaryViewModel)
         binding.rvVehicleInformation.adapter = vehicleInformationAdapter
@@ -176,7 +184,20 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                 }
             }
         }
+        binding.btnExteriorSign.setOnClickListener {
+            val action = ReplenishFragmentDirections.actionReplenishFragmentToSignatureFragment(bean005,"1",args.bean002,"F1",args.bean002.Ajywlb,args.bean002.Hjywlb)
+            findNavController().navigate(action)
+        }
+        binding.btnChassisSign.setOnClickListener {
+            val action = ReplenishFragmentDirections.actionReplenishFragmentToSignatureFragment(bean005,"1",args.bean002,"C1",args.bean002.Ajywlb,args.bean002.Hjywlb)
+            findNavController().navigate(action)
+        }
+        binding.btnDynamicSign.setOnClickListener {
+            val action = ReplenishFragmentDirections.actionReplenishFragmentToSignatureFragment(bean005,"1",args.bean002,"DC",args.bean002.Ajywlb,args.bean002.Hjywlb)
+            findNavController().navigate(action)
+        }
         binding.includeTitle.btnSubmit.setOnClickListener{
+            binding.pbReplenish.visibility = View.VISIBLE
             systemParamsViewModel.getJyjgbh("AJ").observe(this){
                 AjJyjghb = it
                 systemParamsViewModel.getJyjgbh("HJ").observe(this){
@@ -187,7 +208,9 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                         )
                     ).observe(this){
                         if (it){
+                            binding.pbReplenish.visibility = View.GONE
                             Toast.makeText(this.requireContext(), "上传成功", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(ReplenishFragmentDirections.actionReplenishFragmentPopIncludingVehicleQueueFragment())
                         }
                     }
                 }
@@ -200,17 +223,30 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
             ArrayList<VehicleAllInfoR005Response>()
         vehicleAllInfoViewModel.getVehicleAllInfo(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh,Hjlsh)
             .observe(this) {
-                for (element in it) {
-                    vehicleInformationList.add(element)
-                    bean005 = element
+                if (it.isNotEmpty()){
+                    for (element in it) {
+                        vehicleInformationList.add(element)
+                        bean005 = element
+                    }
+                    binding.apply {
+                        binding.includeTitle.btnSubmit.isEnabled = true
+                        btnRecordF2.isEnabled = true
+                        btnRecordF3.isEnabled = true
+                        btnRecordF4.isEnabled = true
+                        btnExteriorSign.isEnabled = true
+                        btnChassisSign.isEnabled = true
+                        btnDynamicSign.isEnabled = true
+                        binding.includeTitle.btnSubmit.alpha = 1F
+                        btnRecordF2.alpha = 1F
+                        btnRecordF3.alpha = 1F
+                        btnRecordF4.alpha = 1F
+                        btnExteriorSign.alpha = 1F
+                        btnChassisSign.alpha = 1F
+                        btnDynamicSign.alpha = 1F
+                    }
+                    vehicleInformationAdapter.data = vehicleInformationList
                 }
-                binding.btnRecordF2.isEnabled = true
-                binding.btnRecordF3.isEnabled = true
-                binding.btnRecordF4.isEnabled = true
-                binding.btnRecordF2.alpha = 1F
-                binding.btnRecordF3.alpha = 1F
-                binding.btnRecordF4.alpha = 1F
-                vehicleInformationAdapter.data = vehicleInformationList
+
             }
     }
     private fun getPostPhotoData(adapter: InspectionItemImageAdapter): List<InspectionPhotoW007Request> {

@@ -33,9 +33,6 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
             insertEnd.value = true
         }
     }
-    fun insertDataDictionary(dataDictionary : DataDictionaryR003Response) = viewModelScope.launch {
-        dataDictionaryRepository.insertDataDictionary(dataDictionary)
-    }
     /**
      * 更新数据列表
      * 更新操作只可更新当前数据库中存在的数据
