@@ -16,6 +16,10 @@ interface SystemParamsDao {
     @Update
     suspend fun updateSystemParams(systemParamsList: List<SystemParamsR015Response>)
 
+    @Query("SELECT * FROM SystemParams WHERE Sjlb = :Sjlb")
+    fun getSystemParamsFromDb(Sjlb: String) : LiveData<SystemParamsR015Response>
+    @Query("SELECT * FROM SystemParams WHERE Sjlb = 'AJ'")
+    fun getSystemParamsFromDb() : LiveData<List<SystemParamsR015Response>>
     @Query("DELETE FROM SystemParams")
     suspend fun deleteSystemParams()
     @Query("SELECT * FROM SystemParams WHERE Sjlb = 'AJ' OR Sjlb = 'HJ' LIMIT 1")

@@ -30,6 +30,7 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     val serverTimeRepository by lazy { ServerTimeRepository() }
     val registerRepository by lazy { RegisterRepository() }
     val verifyRepository by lazy { VerifyRepository() }
+    val chargeRepository by lazy { ChargeRepository() }
     companion object{
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context

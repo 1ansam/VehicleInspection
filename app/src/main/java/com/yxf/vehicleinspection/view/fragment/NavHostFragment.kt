@@ -59,8 +59,7 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
 //            sharedViewModel.setHostName(HOSTNAME_VEHICLE_INFORMATION)
 //
 //            findNavController().navigate(R.id.action_navHostFragment_to_vehicleInfoFragment2)
-            val collectMoney = CollectMoney("","c111111","oid1111","amt111","trx111","sign111","key111")
-            Log.e("TAG", "init: ${getStringFromCollectMoney(collectMoney)}")
+
         }
     }
 }

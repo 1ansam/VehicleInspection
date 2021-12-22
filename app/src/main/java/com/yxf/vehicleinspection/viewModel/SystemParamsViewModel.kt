@@ -15,6 +15,12 @@ class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepo
     fun getSystemParamsData() : LiveData<List<SystemParamsR015Response>> {
         return systemParamsRepository.getSystemParamsData()
     }
+    fun getSystemParamsDataFromDb() : LiveData<List<SystemParamsR015Response>> {
+        return systemParamsRepository.getSystemParamsFromDb()
+    }
+    fun getSystemParamsDataFromDb(Sjlb: String) : LiveData<SystemParamsR015Response> {
+        return systemParamsRepository.getSystemParamsFromDb(Sjlb)
+    }
 
     fun getSystemParamsDataExist() : LiveData<SystemParamsR015Response> {
         return systemParamsRepository.getSystemParamsDataExist()

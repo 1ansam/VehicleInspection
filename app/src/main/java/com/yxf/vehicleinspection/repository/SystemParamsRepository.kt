@@ -74,6 +74,13 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
         return liveData
     }
 
+    fun getSystemParamsFromDb() : LiveData<List<SystemParamsR015Response>> {
+        return systemParamsDao.getSystemParamsFromDb()
+    }
+    fun getSystemParamsFromDb(Sjlb: String) : LiveData<SystemParamsR015Response> {
+        return systemParamsDao.getSystemParamsFromDb(Sjlb)
+    }
+
     fun getJyjgbh(Sjlb : String) : LiveData<String>{
         return systemParamsDao.getJyjgbh(Sjlb)
     }

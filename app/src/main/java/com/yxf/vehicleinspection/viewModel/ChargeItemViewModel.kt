@@ -1,7 +1,7 @@
 package com.yxf.vehicleinspection.viewModel
 
 import androidx.lifecycle.*
-import com.yxf.vehicleinspection.bean.response.ChargeR004Response
+import com.yxf.vehicleinspection.bean.response.ChargeItemR004Response
 import com.yxf.vehicleinspection.repository.ChargeItemRepository
 import kotlinx.coroutines.launch
 
@@ -12,23 +12,23 @@ import kotlinx.coroutines.launch
 class ChargeItemViewModel(private val chargeItemRepository: ChargeItemRepository) : ViewModel() {
     var insertEnd = MutableLiveData<Boolean>()
 
-    fun getChargeItem(): LiveData<List<ChargeR004Response>> {
+    fun getChargeItem(): LiveData<List<ChargeItemR004Response>> {
         return chargeItemRepository.getChargeItem()
     }
 
-    fun getChargeItemFromDb(): LiveData<List<ChargeR004Response>> {
+    fun getChargeItemFromDb(): LiveData<List<ChargeItemR004Response>> {
         return chargeItemRepository.getChargeItemFromDb()
     }
 
-    fun insertChargeItem(chargeItemR004Response: List<ChargeR004Response>) = viewModelScope.launch {
-        chargeItemRepository.insertChargeItem(chargeItemR004Response)
-        if (chargeItemRepository.insertChargeItem(chargeItemR004Response).size == chargeItemRepository.rowNum){
+    fun insertChargeItem(chargeItemItemR004Response: List<ChargeItemR004Response>) = viewModelScope.launch {
+        chargeItemRepository.insertChargeItem(chargeItemItemR004Response)
+        if (chargeItemRepository.insertChargeItem(chargeItemItemR004Response).size == chargeItemRepository.rowNum){
             insertEnd.value = true
         }
     }
 
-    fun updateChargeItem(chargeItemR004Response: List<ChargeR004Response>) = viewModelScope.launch {
-        chargeItemRepository.updateChargeItem(chargeItemR004Response)
+    fun updateChargeItem(chargeItemItemR004Response: List<ChargeItemR004Response>) = viewModelScope.launch {
+        chargeItemRepository.updateChargeItem(chargeItemItemR004Response)
     }
 
     fun deleteChargeItem() = viewModelScope.launch {

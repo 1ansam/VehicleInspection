@@ -2,7 +2,7 @@ package com.yxf.vehicleinspection.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.yxf.vehicleinspection.bean.response.ChargeR004Response
+import com.yxf.vehicleinspection.bean.response.ChargeItemR004Response
 
 /**
  *   author:yxf
@@ -11,14 +11,14 @@ import com.yxf.vehicleinspection.bean.response.ChargeR004Response
 @Dao
 interface ChargeItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertChargeItem(chargeR004ResponseList : List<ChargeR004Response>) : List<Long>
+    suspend fun insertChargeItem(chargeItemR004ResponseList : List<ChargeItemR004Response>) : List<Long>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateChargeItem(chargeR004ResponseList : List<ChargeR004Response>)
+    suspend fun updateChargeItem(chargeItemR004ResponseList : List<ChargeItemR004Response>)
 
     @Query("DELETE FROM ChargeItem")
     suspend fun deleteChargeItem()
 
     @Query("SELECT * FROM ChargeItem")
-    fun getChargeItemFromDb() : LiveData<List<ChargeR004Response>>
+    fun getChargeItemFromDb() : LiveData<List<ChargeItemR004Response>>
 }

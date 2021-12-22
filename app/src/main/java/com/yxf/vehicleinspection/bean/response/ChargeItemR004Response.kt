@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
  * @param Spdj 商品单价
  */
 @Entity(tableName = "ChargeItem")
-data class ChargeR004Response(
+data class ChargeItemR004Response(
     @PrimaryKey val Spbh: String,
     val Spmc: String,
     val Spdj: String

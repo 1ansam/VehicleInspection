@@ -12,11 +12,9 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.util.Base64
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.WindowInsets
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
@@ -30,10 +28,11 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.lang.StringBuilder
+import java.net.URLEncoder
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.experimental.and
 import kotlin.reflect.typeOf
 
 /**
@@ -159,7 +158,7 @@ const val QUERY_APPOINTMENT_AJ = "LYYDJKR010"
 const val QUERY_SERVER_TIME = "LYYDJKR011"
 const val QUERY_BREAK_AND_AXIS_LOAD_CURVE = "LYYDJKR012"
 const val QUERY_VERIFY_QUEUE = "LYYDJKR013"
-const val QUERY_CHARGE_RESULT = "LYYDJKR014"
+const val QUERY_CHARGE_STATUS = "LYYDJKR014"
 const val QUERY_SYSTEM_PARAMS = "LYYDJKR015"
 const val QUERY_IMAGE_ITEM = "LYYDJKR017"
 const val QUERY_LEASTEST_TIME = "LYYDJKR019"
@@ -170,6 +169,7 @@ const val QUERY_ADMINISTRATIVE = "LYYDJKR023"
 const val QUERY_ONLINE_STUTAS = "LYYDJKR024"
 const val WRITE_USER_LOGIN = "LYYDJKW001"
 const val WRITE_SAVE_VEHICLE_INFO = "LYYDJKW003"
+const val WRITE_SAVE_CHARGE_INFO = "LYYDJKW004"
 const val WRITE_SAVE_SIGNATURE = "LYYDJKW006"
 const val WRITE_INSPECTION_PHOTO = "LYYDJKW007"
 const val WRITE_SAVE_VIDEO = "LYYDJKW008"
@@ -584,27 +584,29 @@ fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
         key1.compareTo(key2)
     }
     val treeMap = TreeMap<String,String>(comparator)
-    var string = ""
+    val stringBuilder = StringBuilder()
     treeMap["appid"] = collectMoney.appid
     treeMap["c"] = collectMoney.c
     treeMap["oid"] = collectMoney.oid
-    treeMap["amt"] = collectMoney.amt
+    treeMap["amt"] = collectMoney.amt.toString()
     treeMap["trxreserve"] = collectMoney.trxreserve
     treeMap["sign"] = collectMoney.sign
     treeMap["key"] = collectMoney.key
     for(element in treeMap.entries){
         if (element.value.isNotBlank()){
-            string += "&"
-            string += element
+            stringBuilder.append(element.key).append("=").append(URLEncoder.encode(element.value,"utf-8")).append("&")
         }
     }
-    if (string.isNotBlank()){
-        string = string.substring(1)
+    if (stringBuilder.isNotBlank()){
+        val string = stringBuilder.toString()
+        return string.substring(0,string.length -1)
+    }else{
+        throw IllegalArgumentException("未找到付款信息")
     }
-    return string
+
 }
 
-fun md5( b : ByteArray) : String {
+fun md5(b : ByteArray) : String {
     val md = MessageDigest.getInstance("MD5")
     md.reset()
     md.update(b)
@@ -626,23 +628,30 @@ fun getSignFromCollectMoney(collectMoney: CollectMoney) : String{
         key1.compareTo(key2)
     }
     val treeMap = TreeMap<String,String>(comparator)
-    var string = ""
+    var stringBuilder = StringBuilder()
     treeMap["appid"] = collectMoney.appid
     treeMap["c"] = collectMoney.c
     treeMap["oid"] = collectMoney.oid
-    treeMap["amt"] = collectMoney.amt
+    treeMap["amt"] = collectMoney.amt.toString()
     treeMap["trxreserve"] = collectMoney.trxreserve
     treeMap["sign"] = collectMoney.sign
     treeMap["key"] = collectMoney.key
     for(element in treeMap.entries){
         if (element.value.isNotBlank()){
-            string += "&"
-            string += element
+            if (element.key == "trxreserve" || element.key == "returl"){
+                stringBuilder.append(element.key).append("=").append(element.value).append("&")
+            }else{
+                stringBuilder.append(element.key).append("=").append(URLEncoder.encode(element.value,"utf-8")).append("&")
+            }
+
         }
     }
-    if (string.isNotBlank()){
-        string = string.substring(1)
+    if (stringBuilder.isNotBlank()){
+        val string = stringBuilder.toString().substring(0,stringBuilder.length -1)
+        return md5(string.toByteArray()).uppercase()
+    }else{
+        throw IllegalArgumentException("未找到付款信息")
     }
-    return md5(string.toByteArray()).uppercase()
+
 }
 

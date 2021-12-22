@@ -51,7 +51,7 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
                     holder.itemView.setOnClickListener {
 
                         val action =
-                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeFragment(
+                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeItemFragment(
                                 bean)
                         it.findNavController().navigate(action)
                     }
