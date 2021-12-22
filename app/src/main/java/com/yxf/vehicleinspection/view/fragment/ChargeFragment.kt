@@ -49,7 +49,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                     if (it){
                         timer.cancel()
                         Toast.makeText(MyApp.context, "付款成功", Toast.LENGTH_SHORT).show()
-                        chargeViewModel.postChargePayment(wbean004.chargeOrder,wbean004.chargeDetails).observe(this@ChargeFragment){
+                        chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                                 if (it){
                                     Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
                                 }
