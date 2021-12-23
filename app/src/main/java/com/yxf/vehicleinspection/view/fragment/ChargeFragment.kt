@@ -31,6 +31,9 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
     viewModels<ChargeViewModel> { ChargeViewModelFactory(
         (requireActivity().application as MyApp).chargeRepository)
     }
+    private val vehicleAllInfoViewModel by viewModels<VehicleAllInfoViewModel> {
+        VehicleAllInfoViewModelFactory((requireActivity().application as MyApp).vehicleAllInfoRepository)
+    }
     override fun init() {
         var url  = args.c1
         var collectMoney = args.collectMoney
@@ -52,17 +55,50 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                         chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                                 if (it){
                                     Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
+                                    vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Hphm,args.bean002.Hpzl,"","",args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
+                                        if (it.isNotEmpty()){
+                                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004, collectMoney)
+                                            findNavController().navigate(action)
+                                        }else{
+                                            Toast.makeText(
+                                                this@ChargeFragment.requireContext(),
+                                                "未获取到车辆信息",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+
+                                    }
                                 }
                         }
-//                        findNavController().navigate(OnlineFragmentDirections.actionOnlineFragmentPopIncludingInspectionItemFragment())
+
                     }
 
                 }
             }
         }
+        binding.btnInvoice.setOnClickListener {
+            chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
+                if (it){
+                    Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
+                    vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Hphm,args.bean002.Hpzl,"","",args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
+                        if (it.isNotEmpty()){
+                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004, collectMoney)
+                            findNavController().navigate(action)
+                        }else{
+                            Toast.makeText(
+                                this@ChargeFragment.requireContext(),
+                                "未获取到车辆信息",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    }
+                }
+            }
+        }
         timer.schedule(timerTask {
             val message = Message()
-            message.obj = chargeViewModel.getChargeStatus(collectMoney.oid)
+            message.obj = chargeViewModel.getChargeStatus(collectMoney.oid,args.bean002.Ajlsh)
             handler.sendMessage(message)
         },1000,3000)
 

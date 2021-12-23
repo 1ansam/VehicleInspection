@@ -5,6 +5,7 @@ package com.yxf.vehicleinspection.bean.request
  *   time:2021/12/22
  */
 data class ChargeStatusR014Request(
-    val oid : String
+    val oid : String,
+    val Ajlsh : String,
 ) {
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.*
+import com.yxf.vehicleinspection.bean.response.BuyerParamsR026Response
 import com.yxf.vehicleinspection.bean.response.ChargeStatusR014Response
 import com.yxf.vehicleinspection.bean.response.InvoiceParamsR025Response
 import com.yxf.vehicleinspection.service.QueryService
@@ -22,12 +23,12 @@ import retrofit2.Retrofit
  *   time:2021/12/22
  */
 class ChargeRepository {
-    fun getChargeStatus(oid : String) : LiveData<Boolean>{
+    fun getChargeStatus(oid : String, ajlsh : String) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_CHARGE_STATUS,
             getIpAddress(),
-            getJsonData(ChargeStatusR014Request(oid))
+            getJsonData(ChargeStatusR014Request(oid,ajlsh))
         )
         call.enqueue(object : Callback<ResponseBody>{
 
@@ -93,6 +94,25 @@ class ChargeRepository {
         call.enqueue(object : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 response2Boolean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
+
+    fun getBuyerParams(buyerParamsR026Request: BuyerParamsR026Request) : LiveData<BuyerParamsR026Response>{
+        val liveData = MutableLiveData<BuyerParamsR026Response>()
+        val call = RetrofitService.create(QueryService::class.java).query(
+            QUERY_BUYER_PARAMS,
+            getIpAddress(),
+            getJsonData(buyerParamsR026Request)
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Bean(response, liveData)
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

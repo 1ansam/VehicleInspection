@@ -13,9 +13,6 @@
             android:id="@+id/action_vehicleQueueFragment_to_inspectionItemFragment"
             app:destination="@id/inspectionItemFragment" />
         <action
-            android:id="@+id/action_vehicleQueueFragment_to_chargeFragment"
-            app:destination="@id/chargeFragment" />
-        <action
             android:id="@+id/action_vehicleQueueFragment_to_replenishFragment"
             app:destination="@id/replenishFragment" />
         <action
@@ -64,10 +61,6 @@
         <action
             android:id="@+id/action_signatureFragment_pop_including_VehicleQueueFragment"
             app:popUpTo="@id/vehicleQueueFragment"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_signatureFragment_to_chargeFragment"
-            app:popUpTo="@id/chargeFragment"
             app:launchSingleTop="true" />
         <action
             android:id="@+id/action_signatureFragment_pop_including_AppointmentAjFragment"
@@ -143,9 +136,6 @@
         android:id="@+id/chargeFragment"
         android:name="com.yxf.vehicleinspection.view.fragment.ChargeFragment"
         android:label="ChargeFragment" >
-        <action
-            android:id="@+id/action_chargeFragment_to_signatureFragment"
-            app:destination="@id/signatureFragment" />
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
@@ -158,6 +148,9 @@
         <argument
             android:name="wbean004"
             app:argType="com.yxf.vehicleinspection.bean.request.SaveChargeInfoW004Request" />
+        <action
+            android:id="@+id/action_chargeFragment_to_invoiceFragment"
+            app:destination="@id/invoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/vehicleInfoFragment"
@@ -357,5 +350,25 @@
         <argument
             android:name="bean002"
             app:argType="com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response" />
+    </fragment>
+    <fragment
+        android:id="@+id/invoiceFragment"
+        android:name="com.yxf.vehicleinspection.view.fragment.InvoiceFragment"
+        android:label="fragment_invoice"
+        tools:layout="@layout/fragment_invoice" >
+        <argument
+            android:name="bean005"
+            app:argType="com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response" />
+        <argument
+            android:name="wbean004"
+            app:argType="com.yxf.vehicleinspection.bean.request.SaveChargeInfoW004Request" />
+        <argument
+            android:name="collectMoney"
+            app:argType="com.yxf.vehicleinspection.bean.CollectMoney" />
+        <action
+            android:id="@+id/action_invoiceFragment_to_vehicleQueueFragment"
+            app:destination="@id/vehicleQueueFragment"
+            app:popUpTo="@id/vehicleQueueFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -13,4 +13,6 @@ data class InvoiceParamsR025Response(
     val Khh : String,
     val Fpjksfsbm : String,
     val Bmdm : String,
-    val Spbm : String,)
+    val Spbm : String,
+    val Sl : String,
+    )
