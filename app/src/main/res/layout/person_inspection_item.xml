@@ -34,23 +34,18 @@
                     android:layout_weight="2"
                     android:gravity="start|center_vertical"
                     android:paddingStart="10dp"
-                    android:text="@string/hphm" />
+                    android:text="@string/hphm"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvHpzl"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="start|center_vertical"
-                    android:paddingStart="10dp"
-                    android:text="@string/hpzl" />
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvJyzt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/lightBlue"
-                    android:text="@string/WaitInspection" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -58,6 +53,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvHpzl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="@string/hpzl"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvAjywlb"
                     android:layout_width="match_parent"

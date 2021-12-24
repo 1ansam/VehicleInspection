@@ -18,6 +18,7 @@
         android:id="@+id/rvAppointmentAj"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#EDEAEA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -71,14 +72,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <SearchView
         android:id="@+id/svAppointmentAj"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/lightBlue"
+        android:background="@color/whitesmoke"
         app:layout_constraintBottom_toTopOf="@+id/guideline21"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
