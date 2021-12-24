@@ -37,6 +37,9 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
     fun postInspectionPhotoW007(list : List<InspectionPhotoW007Request>) : LiveData<Boolean>{
         return inspectionItemRepository.postInspectionPhotoW007(list)
     }
+    fun postInspectionPhotoW007(inspectionPhotoW007Request: InspectionPhotoW007Request): LiveData<Boolean> {
+        return inspectionItemRepository.postInspectionPhotoW007(inspectionPhotoW007Request)
+    }
     fun <T> postArtificialProjectW011(list : List<ArtificialProjectW011Request<T>>): MutableLiveData<Boolean> {
         return inspectionItemRepository.postArtificialProjectW011(list)
     }

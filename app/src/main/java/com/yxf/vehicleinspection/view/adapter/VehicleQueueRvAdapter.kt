@@ -2,23 +2,28 @@ package com.yxf.vehicleinspection.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
+import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.view.fragment.NavHostFragment
 import com.yxf.vehicleinspection.view.fragment.VehicleQueueFragmentDirections
-import com.yxf.vehicleinspection.viewModel.SharedViewModel
+import com.yxf.vehicleinspection.viewModel.*
 
 
 /**
  *   author:yxf
  *   time:2021/10/15
  */
-class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val sharedViewModel: SharedViewModel) : BaseRvAdapter<VehicleQueueR002Response,PersonInspectionItemBinding>() {
-
+class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedViewModel: SharedViewModel) : BaseRvAdapter<VehicleQueueR002Response,PersonInspectionItemBinding>() {
+    private val vehicleAllInfoViewModel = ViewModelProvider(fragment,VehicleAllInfoViewModelFactory((fragment.requireActivity().application as MyApp).vehicleAllInfoRepository))[VehicleAllInfoViewModel::class.java]
+    private val chargeViewModel = ViewModelProvider(fragment,ChargeViewModelFactory((fragment.requireActivity().application as MyApp).chargeRepository))[ChargeViewModel::class.java]
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -44,17 +49,39 @@ class VehicleQueueRvAdapter(private val owner: LifecycleOwner, private val share
             binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
         }
-        sharedViewModel.hostName.observe(owner) { hostName ->
+        sharedViewModel.hostName.observe(fragment) { hostName ->
 
             when {
                 hostName.equals(NavHostFragment.HOSTNAME_CHARGE) -> {
                     holder.itemView.setOnClickListener {
+                        view ->
+                        if (bean.Sfsf == "1"&& bean.Sfkp == "0"){
+                            vehicleAllInfoViewModel.getVehicleAllInfo(bean.Hphm,bean.Hpzl,"","",bean.Ajlsh,bean.Hjlsh).observe(fragment){
+                                if (it.isNotEmpty()){
+                                    val bean005 = it[0]
+                                    chargeViewModel.getChargeInfo(bean005.Ajlsh).observe(fragment){
+                                            wbean004 ->
+                                        val action =
+                                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToInvoiceFragment(bean005,wbean004)
+                                        view.findNavController().navigate(action)
 
-                        val action =
-                            VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeItemFragment(
-                                bean)
-                        it.findNavController().navigate(action)
+
+                                    }
+                                }
+                            }
+                        }else{
+                            holder.itemView.setOnClickListener {
+
+                                val action =
+                                    VehicleQueueFragmentDirections.actionVehicleQueueFragmentToChargeItemFragment(
+                                        bean)
+                                it.findNavController().navigate(action)
+                            }
+                        }
+
                     }
+
+
                 }
                 hostName.equals(NavHostFragment.HOSTNAME_VEHICLE_INSPECTION) -> {
                     holder.itemView.setOnClickListener {

@@ -95,7 +95,7 @@ class VehicleQueueRepository {
                                     GsonSingleton.instance.toJson(element)
                                 val bean = GsonSingleton.instance
                                     .fromJson(bodyJson, VehicleQueueR002Response::class.java)
-                                if (bean.Sfsf != "1"){
+                                if (bean.Sfsf == "0"||(bean.Sfkp == "0")){
                                     beanList.add(bean)
                                 }
                             }

@@ -57,7 +57,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                                     Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
                                     vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Hphm,args.bean002.Hpzl,"","",args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
                                         if (it.isNotEmpty()){
-                                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004, collectMoney)
+                                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
                                             findNavController().navigate(action)
                                         }else{
                                             Toast.makeText(
@@ -82,7 +82,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                     Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
                     vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Hphm,args.bean002.Hpzl,"","",args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
                         if (it.isNotEmpty()){
-                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004, collectMoney)
+                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
                             findNavController().navigate(action)
                         }else{
                             Toast.makeText(

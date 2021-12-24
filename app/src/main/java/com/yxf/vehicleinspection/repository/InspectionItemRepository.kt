@@ -127,6 +127,26 @@ class InspectionItemRepository {
         })
         return liveData
     }
+    fun postInspectionPhotoW007(inspectionPhotoW007Request: InspectionPhotoW007Request): LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        val call =
+            RetrofitService.create(WriteService::class.java).write(
+                WRITE_INSPECTION_PHOTO,
+                getIpAddress(),
+                getJsonData(inspectionPhotoW007Request)
+            )
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Boolean(response, liveData)
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                liveData.value = false
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        return liveData
+    }
 
     fun <T> postArtificialProjectW011(list: List<ArtificialProjectW011Request<T>>): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()

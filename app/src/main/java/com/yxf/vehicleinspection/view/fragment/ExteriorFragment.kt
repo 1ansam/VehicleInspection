@@ -164,7 +164,6 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                                     "com.example.android.fileprovider",
                                     it
                                 )
-                                galleryAddPic(it)
                                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
                             }

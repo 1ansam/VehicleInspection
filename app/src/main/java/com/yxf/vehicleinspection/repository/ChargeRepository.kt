@@ -122,5 +122,25 @@ class ChargeRepository {
         return liveData
     }
 
+    fun getChargeInfo(ajlsh: String): LiveData<SaveChargeInfoW004Request> {
+        val liveData = MutableLiveData<SaveChargeInfoW004Request>()
+        val call = RetrofitService.create(QueryService::class.java).query(
+            QUERY_CHARGE_STATUS,
+            getIpAddress(),
+            getJsonData(ChargeStatusR014Request("",ajlsh))
+        )
+        call.enqueue(object : Callback<ResponseBody>{
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                response2Bean(response, liveData)
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+        return liveData
+    }
+
 
 }

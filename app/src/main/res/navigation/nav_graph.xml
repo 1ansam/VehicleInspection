@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_vehicleQueueFragment_to_chargeItemFragment"
             app:destination="@id/chargeItemFragment" />
+        <action
+            android:id="@+id/action_vehicleQueueFragment_to_invoiceFragment"
+            app:destination="@id/invoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/navHostFragment"
@@ -362,9 +365,6 @@
         <argument
             android:name="wbean004"
             app:argType="com.yxf.vehicleinspection.bean.request.SaveChargeInfoW004Request" />
-        <argument
-            android:name="collectMoney"
-            app:argType="com.yxf.vehicleinspection.bean.CollectMoney" />
         <action
             android:id="@+id/action_invoiceFragment_to_vehicleQueueFragment"
             app:destination="@id/vehicleQueueFragment"

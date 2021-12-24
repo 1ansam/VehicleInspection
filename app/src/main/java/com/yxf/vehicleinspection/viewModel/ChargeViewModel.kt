@@ -17,6 +17,9 @@ class ChargeViewModel(private val chargeRepository: ChargeRepository) : ViewMode
     fun getChargeStatus(oid : String, ajlsh : String) : LiveData<Boolean> {
         return chargeRepository.getChargeStatus(oid,ajlsh)
     }
+    fun getChargeInfo(ajlsh: String) : LiveData<SaveChargeInfoW004Request>{
+        return chargeRepository.getChargeInfo(ajlsh)
+    }
     fun postChargePayment(saveChargeInfoW004Request: SaveChargeInfoW004Request): LiveData<Boolean> {
         return chargeRepository.postChargePayment(saveChargeInfoW004Request)
     }

@@ -7,6 +7,8 @@
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/bord_shape.xml" value="0.2175" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/charge.xml" value="0.164" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_alipay.xml" value="0.164" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.169" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_add_a_photo_50.xml" value="0.169" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.26564102564102565" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_cloud_24.xml" value="0.26564102564102565" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.26564102564102565" />
@@ -36,7 +38,7 @@
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_network_query.xml" value="0.15081521739130435" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_online.xml" value="0.1" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_online_gw.xml" value="0.1" />
-        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_register.xml" value="0.16" />
+        <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_register.xml" value="0.5251798561151079" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_replenish.xml" value="0.13677536231884058" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_signature.xml" value="0.264" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/layout/fragment_signature_picker.xml" value="0.1" />

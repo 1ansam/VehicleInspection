@@ -7,6 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
+import com.yxf.vehicleinspection.base.BaseRvAdapter
+import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
 import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
@@ -25,7 +27,6 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
         adapter = VehicleQueueRvAdapter(this, sharedViewModel)
         binding.rvVehicleQueue.adapter = adapter
         binding.rvVehicleQueue.setHasFixedSize(true)
-
 
         binding.svVehicleQueue.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
