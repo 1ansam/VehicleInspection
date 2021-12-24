@@ -28,7 +28,7 @@ import java.util.*
 
 class SignatureVerifyFragment : BaseBindingFragment<FragmentSignatureBinding>() {
     val signatureViewModel by viewModels<SignatureViewModel> { SignatureViewModelFactory((requireActivity().application as MyApp).signatureRepository) }
-    val args : SignatureFragmentArgs by navArgs()
+    val args : SignatureVerifyFragmentArgs by navArgs()
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
@@ -39,7 +39,7 @@ class SignatureVerifyFragment : BaseBindingFragment<FragmentSignatureBinding>() 
         mPaintView.requestFocus()
         val sharedViewModel : SharedViewModel by activityViewModels()
         binding.backFromSignature.setOnClickListener {
-
+            requireActivity().onBackPressed()
         }
         binding.btnClear.setOnClickListener {
             mPaintView.clear()

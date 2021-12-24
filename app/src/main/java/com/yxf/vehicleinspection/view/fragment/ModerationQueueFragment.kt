@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.RadioGroup
@@ -22,6 +23,7 @@ class ModerationQueueFragment : BaseBindingFragment<FragmentModerationQueueBindi
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val dataDictionaryViewModel by viewModels<DataDictionaryViewModel> { DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository) }
     override fun init() {
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         adapter = VehicleModerationRvAdapter(this,dataDictionaryViewModel)
         binding.rvModerationQueue.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvModerationQueue.adapter = adapter

@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,6 +50,7 @@ class InvoiceFragment : BaseBindingFragment<FragmentInvoiceBinding>() {
         DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository)
     }
     override fun init() {
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 val action = InvoiceFragmentDirections.actionInvoiceFragmentToVehicleQueueFragment()

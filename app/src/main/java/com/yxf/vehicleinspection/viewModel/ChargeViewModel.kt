@@ -14,8 +14,8 @@ import java.lang.IllegalArgumentException
  *   time:2021/12/22
  */
 class ChargeViewModel(private val chargeRepository: ChargeRepository) : ViewModel() {
-    fun getChargeStatus(oid : String, ajlsh : String) : LiveData<Boolean> {
-        return chargeRepository.getChargeStatus(oid,ajlsh)
+    fun getChargeStatus(oid : String) : LiveData<Boolean> {
+        return chargeRepository.getChargeStatus(oid)
     }
     fun getChargeInfo(ajlsh: String) : LiveData<SaveChargeInfoW004Request>{
         return chargeRepository.getChargeInfo(ajlsh)

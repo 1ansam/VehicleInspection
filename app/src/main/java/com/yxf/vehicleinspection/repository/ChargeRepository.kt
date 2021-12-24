@@ -23,12 +23,12 @@ import retrofit2.Retrofit
  *   time:2021/12/22
  */
 class ChargeRepository {
-    fun getChargeStatus(oid : String, ajlsh : String) : LiveData<Boolean>{
+    fun getChargeStatus(oid : String) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_CHARGE_STATUS,
             getIpAddress(),
-            getJsonData(ChargeStatusR014Request(oid,ajlsh))
+            getJsonData(ChargeStatusR014Request(oid,""))
         )
         call.enqueue(object : Callback<ResponseBody>{
 

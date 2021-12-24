@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,6 +45,7 @@ class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
     }
     private val args : ChargeItemFragmentArgs by navArgs()
     override fun init() {
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         binding.includeTitle.Alltitle.text = "选择收费项目"
         binding.rvChargeItem.apply {
             layoutManager = GridLayoutManager(this@ChargeItemFragment.requireContext(),4)

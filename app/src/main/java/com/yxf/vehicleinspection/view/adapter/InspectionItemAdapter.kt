@@ -1,6 +1,7 @@
 package com.yxf.vehicleinspection.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
@@ -61,10 +62,9 @@ class InspectionItemAdapter(
             dataDictionaryViewModel.getMc(FL_HJYWLB,bean.Hjywlb).observe(fragment){
                 binding.tvHjywlb.text = "环检业务类别：$it"
             }
-//        if (binding.tvJyzt.text.equals("完成"))
-//            holder.binding.lvLineNumber.visibility = View.GONE
+        if (bean.Jczt == "完成")
+            holder.binding.lvLineNumber.visibility = View.GONE
             holder.itemView.setOnClickListener {
-
             }
         }
         if (bean005 != null){

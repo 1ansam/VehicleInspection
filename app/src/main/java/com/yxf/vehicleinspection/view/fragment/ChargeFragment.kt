@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -35,6 +36,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         VehicleAllInfoViewModelFactory((requireActivity().application as MyApp).vehicleAllInfoRepository)
     }
     override fun init() {
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         var url  = args.c1
         var collectMoney = args.collectMoney
         val sign = getSignFromCollectMoney(collectMoney)
@@ -98,7 +100,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         }
         timer.schedule(timerTask {
             val message = Message()
-            message.obj = chargeViewModel.getChargeStatus(collectMoney.oid,args.bean002.Ajlsh)
+            message.obj = chargeViewModel.getChargeStatus(collectMoney.oid)
             handler.sendMessage(message)
         },1000,3000)
 
