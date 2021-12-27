@@ -9,9 +9,9 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"/>
 
-    <VideoView
+    <com.yxf.vehicleinspection.view.MyVideoView
         android:id="@+id/vvVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="720dp" />
 
 </LinearLayout>

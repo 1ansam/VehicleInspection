@@ -46,7 +46,7 @@ class SignaturePicker : DialogFragment(){
         layoutParams?.width = (8 * getScreenWidth(this.requireActivity()) / 9)
         window?.setLayout(layoutParams?.width!!, layoutParams?.height!!)
         mPaintView = PaintView(this.requireContext(), layoutParams!!.width,
-            layoutParams!!.height,)
+            layoutParams.height,)
 
     }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
+import com.yxf.vehicleinspection.bean.request.SaveVerifyInfoW013Request
 import com.yxf.vehicleinspection.repository.SignatureRepository
 import java.lang.IllegalArgumentException
 
@@ -14,6 +15,9 @@ import java.lang.IllegalArgumentException
 class SignatureViewModel(val repository : SignatureRepository) : ViewModel() {
     fun postSignature(saveSignatureW006Request: SaveSignatureW006Request): LiveData<Boolean> {
         return repository.postSignature(saveSignatureW006Request)
+    }
+    fun postVerifyInfo(saveVerifyInfoW013Request: SaveVerifyInfoW013Request):LiveData<Boolean>{
+        return repository.postVerifyInfo(saveVerifyInfoW013Request)
     }
 }
 class SignatureViewModelFactory(val repository : SignatureRepository) : ViewModelProvider.Factory{

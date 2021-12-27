@@ -2,6 +2,10 @@ package com.yxf.vehicleinspection.view.fragment
 
 
 import android.content.pm.ActivityInfo
+import android.net.Uri
+import android.provider.MediaStore
+import android.widget.MediaController
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -19,7 +23,7 @@ import com.yxf.vehicleinspection.viewModel.*
 
 class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoBinding>() {
     private var imageRvAdapter = VehicleImageRvAdapter()
-    private var videoRvAdapter = VehicleVideoRvAdapter()
+    private lateinit var videoRvAdapter : VehicleVideoRvAdapter
 
     private val verifyViewModel by
         viewModels<VerifyViewModel> { VerifyViewModelFactory(
@@ -28,6 +32,7 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
 
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        videoRvAdapter = VehicleVideoRvAdapter(this)
         binding.rvLeft.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvLeft.adapter = imageRvAdapter
         binding.rvRight.layoutManager = LinearLayoutManager(this.requireContext())
