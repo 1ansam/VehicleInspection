@@ -61,7 +61,7 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
             }
             imageRvAdapter.data = list
         }
-        verifyViewModel.getVehicleVideo(ajLsh, hjLsh , Jccs).observe(this) {
+        verifyViewModel.getVehicleVideo(ajLsh, hjLsh).observe(this) {
             videoRvAdapter.data = it
         }
     }

@@ -40,7 +40,7 @@ import kotlin.reflect.typeOf
  *   time:2021/11/15
  *   kotlin顶层函数及常量
  */
-
+const val FILE_PROVIDER = "com.yxf.vehicleinspection.fileprovider"
 //数据字典分类常量
 const val FL_CLSYXZ = "01"
 const val FL_RLZL = "02"

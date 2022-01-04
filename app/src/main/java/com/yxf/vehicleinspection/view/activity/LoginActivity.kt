@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.activity
 
+import android.Manifest
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,13 +15,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
+import com.permissionx.guolindev.PermissionX
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.singleton.SharedP
+import com.yxf.vehicleinspection.utils.FILE_PROVIDER
 import com.yxf.vehicleinspection.viewModel.LoginViewModel
 import com.yxf.vehicleinspection.viewModel.LoginViewModelFactory
 import java.io.File
@@ -33,6 +37,23 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     private val TAG = "LoginActivity"
     private val loginViewModel by viewModels<LoginViewModel> { LoginViewModelFactory((application as MyApp).userInfoRepository) }
     override fun init() {
+        PermissionX.init(this)
+            .permissions(
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,)
+            .request { allGranted, _, deniedList ->
+                if (allGranted) {
+                    Toast.makeText(this, "已获取所需权限", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this,
+                        "未获取到: $deniedList",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
         if (SharedP.instance.getString("username","")!=null && SharedP.instance.getString("username","")!= ""){
             binding.cbRememberUsername.isChecked = true
         }
@@ -66,6 +87,10 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                     .setCancelable(false)
                     .setTitle("检测更新").create().show()
             }
+        }
+        binding.btnSetting.setOnClickListener {
+            startActivity(Intent(this,SettingActivity::class.java))
+            finish()
         }
 
         binding.btnLogin.setOnClickListener {
@@ -137,7 +162,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             }
             apkFile?.also {
                 val apkUri : Uri = FileProvider.getUriForFile(this,
-                    "com.example.android.fileprovider",
+                    FILE_PROVIDER,
                 it)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

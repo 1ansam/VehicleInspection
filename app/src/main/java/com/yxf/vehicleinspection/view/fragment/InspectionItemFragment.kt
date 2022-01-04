@@ -49,12 +49,12 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
      *   @param Clsbdh 车辆识别代号 用流水号/行驶证编号查询时可空（空字符串）
      *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
      */
-    private fun getData(Hphm: String, Hpzl: String, Clsbdh: String, Xszbh: String, Ajlsh : String, Hjlsh : String) {
+    private fun getData(Ajlsh : String, Hjlsh : String) {
         val vehicleInformationList =
             ArrayList<VehicleAllInfoR005Response>()
         val inspectionItemList = ArrayList<VehicleInspectionItemR006Response>()
 
-        vehicleAllInfoViewModel.getVehicleAllInfo(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh,Hjlsh)
+        vehicleAllInfoViewModel.getVehicleAllInfo(Ajlsh,Hjlsh)
             .observe(this) {
                 for (element in it) {
                     vehicleInformationList.add(element)
@@ -79,7 +79,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 
     override fun onResume() {
         super.onResume()
-        getData(args.bean002.Hphm, args.bean002.Hpzl, "", "",args.bean002.Ajlsh,args.bean002.Hjlsh)
+        getData(args.bean002.Ajlsh,args.bean002.Hjlsh)
     }
 
 

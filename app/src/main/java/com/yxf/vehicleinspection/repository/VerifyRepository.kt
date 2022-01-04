@@ -65,12 +65,12 @@ class VerifyRepository {
         })
         return liveData
     }
-    fun getVehicleVideo(ajLsh : String, hjLsh : String, Jccs : Int) : LiveData<List<VehicleVideoR008Response>> {
+    fun getVehicleVideo(ajLsh : String, hjLsh : String) : LiveData<List<VehicleVideoR008Response>> {
         val liveData = MutableLiveData<List<VehicleVideoR008Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_VEHICLE_VIDEO,
             getIpAddress(),
-            getJsonData(VehicleVideoR008Request(ajLsh, hjLsh , Jccs))
+            getJsonData(VehicleVideoR008Request(ajLsh, hjLsh ))
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

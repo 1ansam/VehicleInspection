@@ -40,9 +40,9 @@ class VehicleVideoRvAdapter(val fragment: VehicleImageVideoFragment) : BaseRvAda
         holder.binding.vvVideo.setOnClickListener {
             VideoPickerFragment(bean).show(fragment.childFragmentManager,bean.Xmbh)
         }
-        holder.binding.vvVideo.apply {
-            setVideoPath("${BaseUrlHelper.instance.httpUrl}${bean.Lxdz}")
-            seekTo(1)
-        }
+//        holder.binding.vvVideo.apply {
+//            setVideoPath("${BaseUrlHelper.instance.httpUrl}${bean.Lxdz}")
+//            seekTo(1)
+//        }
     }
 }

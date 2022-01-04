@@ -10,12 +10,13 @@ import androidx.viewbinding.ViewBinding
  *   time:2021/9/28
  */
 abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<BaseRvViewHolder<V>>() {
+    //设置data
     open var data : List<E> = ArrayList()
         set(value) {
         field = value
         notifyDataSetChanged()
     }
-
+    //设置itemClickListener
     open var onItemViewClickListener : OnItemViewClickListener<E>? = null
     set(value)  {
         field = value

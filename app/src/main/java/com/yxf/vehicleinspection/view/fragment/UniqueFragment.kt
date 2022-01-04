@@ -142,7 +142,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     }
                     videoFile?.also {
                         val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
@@ -161,7 +161,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     }
                     videoFile?.also {
                         val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
@@ -180,7 +180,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
                     }
                     videoFile?.also {
                         val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)

@@ -39,7 +39,6 @@ android {
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.test.ext:junit-ktx:1.1.2'
     def roomVersion = "2.4.0-rc01"
     def fragment_version = "1.3.6"
@@ -54,7 +53,6 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
@@ -97,5 +95,6 @@ dependencies {
 
 // 提供了自定义UI图片选择器的基本组件，自定义UI的需求需要添加该依赖
     implementation 'com.github.qingmei2:rximagepicker_support:2.5.6'
-
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
 }

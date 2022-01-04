@@ -1,17 +1,21 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.CollectMoney
+import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentNavHostBinding
 import com.yxf.vehicleinspection.utils.getStringFromCollectMoney
+import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 
 
 class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
+    lateinit var bean001 : UserInfoR001Response
     companion object{
         const val HOSTNAME_REGISTER = "Register"
         const val HOSTNAME_APPOINTMENT = "Appointment"
@@ -24,11 +28,41 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
     }
 
     override fun init() {
-//        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        bean001 = DisplayActivity.bean001 as UserInfoR001Response
+
+        when{
+            bean001.RoleDm.contains("WJY")||bean001.RoleDm.contains("DJY")||bean001.RoleDm.contains("DTJY")||bean001.RoleDm.contains("YCY") ->{
+                binding.btnAppointmentAj.visibility = View.GONE
+                binding.btnChargeFunc.visibility = View.GONE
+                binding.btnVehicleInspectionFunc.visibility = View.VISIBLE
+                binding.btnReplenishFunc.visibility = View.VISIBLE
+                binding.btnVerifySignatureFunc.visibility = View.GONE
+            }
+            bean001.RoleDm.contains("SQQZR") ->{
+                binding.btnAppointmentAj.visibility = View.GONE
+                binding.btnChargeFunc.visibility = View.GONE
+                binding.btnVehicleInspectionFunc.visibility = View.GONE
+                binding.btnReplenishFunc.visibility = View.GONE
+                binding.btnVerifySignatureFunc.visibility = View.VISIBLE
+            }
+            bean001.RoleDm.contains("XTGLY") ->{
+                binding.btnAppointmentAj.visibility = View.VISIBLE
+                binding.btnChargeFunc.visibility = View.VISIBLE
+                binding.btnVehicleInspectionFunc.visibility = View.VISIBLE
+                binding.btnReplenishFunc.visibility = View.VISIBLE
+                binding.btnVerifySignatureFunc.visibility = View.VISIBLE
+            }
+            bean001.RoleDm.contains("DLY") ->{
+                binding.btnAppointmentAj.visibility = View.VISIBLE
+                binding.btnChargeFunc.visibility = View.VISIBLE
+                binding.btnVehicleInspectionFunc.visibility = View.GONE
+                binding.btnReplenishFunc.visibility = View.GONE
+                binding.btnVerifySignatureFunc.visibility = View.GONE
+            }
+        }
         val sharedViewModel : SharedViewModel by activityViewModels()
         binding.btnRegisterFunc.setOnClickListener {
-//            val action = NavHostFragmentDirections.actionNavHostFragmentToRegisterFragment()
-//            findNavController().navigate(action)
+
         }
         binding.btnAppointmentAj.setOnClickListener {
             sharedViewModel.setHostName(HOSTNAME_APPOINTMENT)
@@ -55,11 +89,6 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
             val action = NavHostFragmentDirections.actionNavHostFragmentToModerationQueueFragment()
             findNavController().navigate(action)
         }
-        binding.btnVehicleInformationFunc.setOnClickListener {
-//            sharedViewModel.setHostName(HOSTNAME_VEHICLE_INFORMATION)
-//
-//            findNavController().navigate(R.id.action_navHostFragment_to_vehicleInfoFragment2)
 
-        }
     }
 }

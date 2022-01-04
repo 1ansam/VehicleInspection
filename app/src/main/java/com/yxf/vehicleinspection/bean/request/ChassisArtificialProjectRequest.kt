@@ -3,7 +3,30 @@ package com.yxf.vehicleinspection.bean.request
 /**
  *   author:yxf
  *   time:2021/11/12
- *
+ *   底盘人工检验项目
+ *   @param Jyjgbh 检验机构编号（安检）
+ *   @param Jcxh 检测线号
+ *   @param Hphm 号牌号码
+ *   @param Hpzl 号牌种类
+ *   @param Clsbdh 车辆识别代号
+ *   @param Jyxm 检验项目
+ *   @param Ajywlb 安检业务类别
+ *   @param Hjywlb 胡安检业务类别
+ *   @param AjJkxlh 安检接口序列号
+ *   @param Xmlb 项目列表
+ *   @param Jckssj 检测开始时间
+ *   @param Jcjssj 检测结束时间
+ *   @param Jyyjy 检验员建议
+ *   @param Dpjyy 底盘检验员
+ *   @param Dpjyysfzh 底盘检验员身份证号
+ *   @param Ycy 引车员
+ *   @param Ycysfzh 引车员身份证号
+ *   @param Ycyjy 引车员建议
+ *   @param Bz 备注
+ *   @param Ajlsh 安检流水号
+ *   @param Hjlsh 环检流水号
+ *   @param Ajjccs 安检检测次数
+ *   @param Hjjccs 环检检测次数
  */
 data class ChassisArtificialProjectRequest(
     val Jyjgbh : String,

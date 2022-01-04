@@ -6,89 +6,19 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".view.fragment.NavHostFragment">
 
-<TextView
-    android:id="@+id/btnVerifySignatureFunc"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:text="@string/verifySignature"
-    app:layout_constraintBottom_toTopOf="@+id/guideline16"
-    app:layout_constraintEnd_toEndOf="@+id/btnReplenishFunc"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="@+id/btnReplenishFunc"
-    app:layout_constraintTop_toTopOf="@+id/guideline15"
-    app:layout_constraintVertical_bias="0.0"
-    app:drawableLeftCompat="@drawable/ic_verify_signature"
-    app:drawableRightCompat="@drawable/ic_next" />
 
 
 
-<androidx.constraintlayout.widget.Guideline
+    <androidx.constraintlayout.widget.Guideline
     android:id="@+id/guideline11"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     app:layout_constraintGuide_percent="0.1" />
 
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline19"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.15" />
-
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline12"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.25" />
-
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline13"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.35" />
-
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline14"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.45" />
-
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline15"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.55" />
-
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline16"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.65" />
-
-<androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline17"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintGuide_percent="0.75" />
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline34"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
 
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/lightBlue"
@@ -109,85 +39,95 @@ tools:context=".view.fragment.NavHostFragment">
 
     </LinearLayout>
 
-<TextView
-    android:id="@+id/btnRegisterFunc"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginLeft="30dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginBottom="5dp"
-    android:text="@string/notRegisterVehicleInspection"
-    app:layout_constraintBottom_toTopOf="@+id/guideline12"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/guideline19"
-    app:drawableLeftCompat="@drawable/ic_register"
-    app:drawableRightCompat="@drawable/ic_next" />
-
-    <TextView
-        android:id="@+id/btnAppointmentAj"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="预约查询及注册登记"
-        app:drawableLeftCompat="@drawable/ic_register"
-        app:drawableRightCompat="@drawable/ic_next"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
-    <TextView
-        android:id="@+id/btnChargeFunc"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/charge"
-        app:drawableLeftCompat="@drawable/ic_cny"
-        app:drawableRightCompat="@drawable/ic_next"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintEnd_toEndOf="@+id/btnRegisterFunc"
-        app:layout_constraintStart_toStartOf="@+id/btnRegisterFunc"
-        app:layout_constraintTop_toTopOf="@+id/guideline13" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline11"
+            app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/btnVehicleInspectionFunc"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/personInspectionItem"
-        app:drawableLeftCompat="@drawable/ic_searcher"
-        app:drawableRightCompat="@drawable/ic_next"
-        app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toEndOf="@+id/btnChargeFunc"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/btnChargeFunc"
-        app:layout_constraintTop_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/btnRegisterFunc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/notRegisterVehicleInspection"
+                android:textSize="24sp"
+                android:visibility="gone"
+                app:drawableLeftCompat="@drawable/ic_register"
+                app:drawableRightCompat="@drawable/ic_next" />
 
-    <TextView
-        android:id="@+id/btnReplenishFunc"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="数据补传"
-        app:drawableLeftCompat="@drawable/ic_dispatch"
-        app:drawableRightCompat="@drawable/ic_next"
-        app:layout_constraintBottom_toTopOf="@+id/guideline17"
-        app:layout_constraintEnd_toEndOf="@+id/btnVehicleInspectionFunc"
-        app:layout_constraintStart_toStartOf="@+id/btnVehicleInspectionFunc"
-        app:layout_constraintTop_toBottomOf="@+id/btnVerifySignatureFunc" />
+            <TextView
+                android:id="@+id/btnAppointmentAj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="预约查询及注册登记"
+                android:textSize="24sp"
+                app:drawableLeftCompat="@drawable/ic_register"
+                app:drawableRightCompat="@drawable/ic_next" />
 
-    <TextView
-        android:id="@+id/btnVehicleInformationFunc"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/vehicleInformation"
-        app:drawableLeftCompat="@drawable/ic_vehicle_info"
-        app:drawableRightCompat="@drawable/ic_next"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toEndOf="@+id/btnVerifySignatureFunc"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnVerifySignatureFunc"
-        app:layout_constraintTop_toTopOf="@+id/guideline17"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/btnChargeFunc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/charge"
+                android:textSize="24sp"
+                app:drawableLeftCompat="@drawable/ic_cny"
+                app:drawableRightCompat="@drawable/ic_next" />
+
+            <TextView
+                android:id="@+id/btnVehicleInspectionFunc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/personInspectionItem"
+                android:textSize="24sp"
+                app:drawableLeftCompat="@drawable/ic_searcher"
+                app:drawableRightCompat="@drawable/ic_next" />
+
+            <TextView
+                android:id="@+id/btnReplenishFunc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="数据补传"
+                android:textSize="24sp"
+                app:drawableLeftCompat="@drawable/ic_dispatch"
+                app:drawableRightCompat="@drawable/ic_next" />
+
+            <TextView
+                android:id="@+id/btnVerifySignatureFunc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="24sp"
+                android:text="@string/verifySignature"
+                app:drawableLeftCompat="@drawable/ic_verify_signature"
+                app:drawableRightCompat="@drawable/ic_next"
+                />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,16 +12,38 @@ import com.yxf.vehicleinspection.repository.VehicleAllInfoRepository
  */
 class VehicleAllInfoViewModel(val repository: VehicleAllInfoRepository) : ViewModel(){
     /**
-     *   @param Lsh 流水号 VARCHAR(20) 按流水号查询时其他参数可空（空字符串）
-     *   @param Hphm 号牌号码 用流水号/行驶证编号查询时可空（空字符串）
-     *   @param Hpzl 号牌种类 用流水号/行驶证编号查询时可空（空字符串）
-     *   @param Clsbdh 车辆识别代号 用流水号/行驶证编号查询时可空（空字符串）
-     *   @param Xszbh 行驶证编号 按行驶证编号查询时其他参数可空（空字符串）
+     *   获取车辆信息
+     *   @param Hphm 号牌号码
+     *   @param Hpzl 号牌种类
+     *   @param Clsbdh 车辆识别代号
+     *   @param Xszbh 行驶证编号
+     *   @param Ajlsh 安检流水号
+     *   @param Hjlsh 环检流水号
      *   @return LiveData<List<VehicleAllInfoResponse>>
      */
     fun getVehicleAllInfo(Hphm : String, Hpzl : String, Clsbdh : String, Xszbh : String, Ajlsh : String, Hjlsh : String): LiveData<List<VehicleAllInfoR005Response>> {
         return repository.getVehicleAllInfoRepository(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh, Hjlsh)
     }
+    /**
+     * 获取车辆信息
+     *   @param Hphm 号牌号码
+     *   @param Hpzl 号牌种类
+     *   @param Clsbdh 车辆识别代号
+     *   @return LiveData<List<VehicleAllInfoResponse>>
+     */
+    fun getVehicleAllInfo(Hphm : String, Hpzl : String, Clsbdh : String): LiveData<List<VehicleAllInfoR005Response>> {
+        return repository.getVehicleAllInfoRepository(Hphm, Hpzl, Clsbdh, "", "", "")
+    }
+    /**
+     * 获取车辆信息
+     *   @param Ajlsh 安检流水号
+     *   @param Hjlsh 环检流水号
+     *   @return LiveData<List<VehicleAllInfoResponse>>
+     */
+    fun getVehicleAllInfo(Ajlsh : String, Hjlsh : String): LiveData<List<VehicleAllInfoR005Response>> {
+        return repository.getVehicleAllInfoRepository("", "", "", "", Ajlsh, Hjlsh)
+    }
+
 }
 class VehicleAllInfoViewModelFactory(private val repository: VehicleAllInfoRepository) :
     ViewModelProvider.Factory {

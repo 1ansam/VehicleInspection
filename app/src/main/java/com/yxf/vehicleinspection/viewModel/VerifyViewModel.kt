@@ -21,8 +21,8 @@ class VerifyViewModel(private val verifyRepository: VerifyRepository) : ViewMode
     fun getVehicleImage(ajlsh : String, hjlsh : String): LiveData<List<VehicleImageR007Response>> {
         return verifyRepository.getVehicleImage(ajlsh,hjlsh)
     }
-    fun getVehicleVideo(ajlsh: String, hjlsh: String, jccs : Int): LiveData<List<VehicleVideoR008Response>> {
-        return verifyRepository.getVehicleVideo(ajlsh,hjlsh,jccs)
+    fun getVehicleVideo(ajlsh: String, hjlsh: String): LiveData<List<VehicleVideoR008Response>> {
+        return verifyRepository.getVehicleVideo(ajlsh,hjlsh)
     }
 }
 class VerifyViewModelFactory(private val verifyRepository: VerifyRepository) : ViewModelProvider.Factory {

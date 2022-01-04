@@ -57,7 +57,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                         chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                                 if (it){
                                     Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
-                                    vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Hphm,args.bean002.Hpzl,"","",args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
+                                    vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
                                         if (it.isNotEmpty()){
                                             val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
                                             findNavController().navigate(action)
@@ -82,7 +82,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
             chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                 if (it){
                     Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
-                    vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Hphm,args.bean002.Hpzl,"","",args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
+                    vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
                         if (it.isNotEmpty()){
                             val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
                             findNavController().navigate(action)

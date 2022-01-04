@@ -5,18 +5,12 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,22 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
-import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.bean.request.InspectionPhotoW007Request
 import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
-import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.databinding.FragmentReplenishBinding
-import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
 import com.yxf.vehicleinspection.utils.*
-import com.yxf.vehicleinspection.view.adapter.InspectionItemAdapter
 import com.yxf.vehicleinspection.view.adapter.InspectionItemImageAdapter
 import com.yxf.vehicleinspection.view.adapter.VehicleAllInfoAdapter
-import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
 import com.yxf.vehicleinspection.viewModel.*
-import io.reactivex.rxkotlin.toObservable
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
@@ -63,7 +51,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
     private val systemParamsViewModel by viewModels<SystemParamsViewModel> {
         SystemParamsViewModelFactory((requireActivity().application as MyApp).systemParamsRepository)
     }
-    val inspectionItemImageAdapter = InspectionItemImageAdapter()
+    private val inspectionItemImageAdapter = InspectionItemImageAdapter()
     private val args: InspectionItemFragmentArgs by navArgs()
     lateinit var currentPhotoPath: String
     private var videoPath: String = ""
@@ -74,14 +62,17 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
     private var HjJyjghb = ""
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        dataDictionaryViewModel.getMc(FL_SPMC, VIN_FAR_TO_CLOSED).observe(this){
-            binding.tvF2.text = it
-        }
-        dataDictionaryViewModel.getMc(FL_SPMC, AROUND_VEHICLE).observe(this){
-            binding.tvF3.text = it
-        }
-        dataDictionaryViewModel.getMc(FL_SPMC, TIRE_TREAD_DEPTH).observe(this){
-            binding.tvF4.text = it
+
+        dataDictionaryViewModel.apply {
+            getMc(FL_SPMC, VIN_FAR_TO_CLOSED).observe(this@ReplenishFragment){
+                binding.tvF2.text = it
+            }
+            getMc(FL_SPMC, AROUND_VEHICLE).observe(this@ReplenishFragment){
+                binding.tvF3.text = it
+            }
+            getMc(FL_SPMC, TIRE_TREAD_DEPTH).observe(this@ReplenishFragment){
+                binding.tvF4.text = it
+            }
         }
         binding.apply {
             btnRecordF2.alpha = 0.5F
@@ -93,12 +84,16 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
             includeTitle.btnSubmit.isEnabled = false
             includeTitle.btnSubmit.alpha = 0.5F
         }
-        binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         vehicleInformationAdapter = VehicleAllInfoAdapter(this,dataDictionaryViewModel)
-        binding.rvVehicleInformation.adapter = vehicleInformationAdapter
-        binding.rvVehicleInformation.setHasFixedSize(true)
-        binding.rvImage.layoutManager = LinearLayoutManager(this.requireContext())
-        binding.rvImage.adapter = inspectionItemImageAdapter
+        binding.rvVehicleInformation.apply {
+            layoutManager = LinearLayoutManager(this@ReplenishFragment.requireContext())
+            adapter = vehicleInformationAdapter
+            setHasFixedSize(true)
+        }
+        binding.rvImage.apply {
+            layoutManager = LinearLayoutManager(this@ReplenishFragment.requireContext())
+            adapter = inspectionItemImageAdapter
+        }
         inspectionItemImageAdapter.onItemViewClickListener =
             object : BaseRvAdapter.OnItemViewClickListener<ImageItemR017Response> {
                 override fun onItemClick(view: View, position: Int, bean: ImageItemR017Response) {
@@ -112,7 +107,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                             photoFile?.also {
                                 val photoURI: Uri = FileProvider.getUriForFile(
                                     requireContext(),
-                                    "com.example.android.fileprovider",
+                                    FILE_PROVIDER,
                                     it
                                 )
                                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -124,8 +119,6 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                     ivImage = holder?.itemView?.findViewById(R.id.ivImage)
 
                 }
-
-
             }
         binding.btnRecordF2.setOnClickListener {
             Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takePictureIntent ->
@@ -137,7 +130,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                     }
                     videoFile?.also {
                         val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
@@ -156,7 +149,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                     }
                     videoFile?.also {
                         val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
@@ -175,7 +168,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                     }
                     videoFile?.also {
                         val videoURI: Uri = FileProvider.getUriForFile(requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
@@ -218,10 +211,15 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
 
         }
     }
-    private fun getData(Hphm: String, Hpzl: String, Clsbdh: String, Xszbh: String, Ajlsh : String, Hjlsh : String) {
+
+    /**
+     * 获取车辆信息
+     * @param Hphm 号牌号码
+     */
+    private fun getData(Ajlsh : String, Hjlsh : String) {
         val vehicleInformationList =
             ArrayList<VehicleAllInfoR005Response>()
-        vehicleAllInfoViewModel.getVehicleAllInfo(Hphm, Hpzl, Clsbdh, Xszbh, Ajlsh,Hjlsh)
+        vehicleAllInfoViewModel.getVehicleAllInfo(Ajlsh,Hjlsh)
             .observe(this) {
                 if (it.isNotEmpty()){
                     for (element in it) {
@@ -327,7 +325,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
     }
     override fun onResume() {
         super.onResume()
-        getData(args.bean002.Hphm, args.bean002.Hpzl, "", "",args.bean002.Ajlsh,args.bean002.Hjlsh)
+        getData(args.bean002.Ajlsh,args.bean002.Hjlsh)
         getImageData(
                 "F1",
             args.bean002.Ajywlb,
@@ -339,26 +337,29 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val targetW: Int = ivImage!!.width
-            val targetH: Int = ivImage!!.height
+            if(ivImage != null){
+                val targetW: Int = ivImage!!.width
+                val targetH: Int = ivImage!!.height
 
-            val bmOptions = BitmapFactory.Options().apply {
-                // Get the dimensions of the bitmap
-                inJustDecodeBounds = true
+                val bmOptions = BitmapFactory.Options().apply {
+                    // Get the dimensions of the bitmap
+                    inJustDecodeBounds = true
 
-                val photoW: Int = outWidth
-                val photoH: Int = outHeight
+                    val photoW: Int = outWidth
+                    val photoH: Int = outHeight
 
-                // Determine how much to scale down the image
-                val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
-                inJustDecodeBounds = false
-                inSampleSize = 4
-                inPurgeable = true
+                    // Determine how much to scale down the image
+                    val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+                    inJustDecodeBounds = false
+                    inSampleSize = 4
+                    inPurgeable = true
+                }
+                BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
+                    ivImage!!.setImageBitmap(bitmap)
+                    ivImage!!.tag = "1"
+                }
             }
-            BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-                ivImage!!.setImageBitmap(bitmap)
-                ivImage!!.tag = "1"
-            }
+
 
         }
         if (requestCode == REQUEST_VIDEO_CAPTURE_F2 && resultCode == Activity.RESULT_OK){
@@ -372,7 +373,9 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                             "1",args.bean002.Hphm,
                             args.bean002.Hpzl,VIN_FAR_TO_CLOSED,
                             VIN_FAR_TO_CLOSED, "",args.bean002.Ajywlb,args.bean002.Hjywlb,
-                            it.Sj.substring(0,10),it.Sj.substring(11), date2String(Date(),"yyyyMMddHHmmss"),
+                            it.Sj.substring(0,10),
+                            it.Sj.substring(11),
+                            date2String(Date(),"yyyyMMddHHmmss"),
                             string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
                             "",bean005.Clpp1,bean005.Syr,
                             bean005.Hjdlsj,path,"1",
@@ -404,9 +407,9 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                             "1",args.bean002.Hphm,
                             args.bean002.Hpzl,AROUND_VEHICLE,
                             AROUND_VEHICLE, "",args.bean002.Ajywlb,args.bean002.Hjywlb,
-                            it.Sj.substring(0,10),it.Sj.substring(11), string2String(date2String(Date(),"yyyyMMddHHmmss"),
-                                "yyyy-MM-dd HH:mm:ss",
-                                "yyyyMMddHHmmss"),
+                            it.Sj.substring(0,10),
+                            it.Sj.substring(11),
+                            date2String(Date(),"yyyyMMddHHmmss"),
                             string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
                             "",bean005.Clpp1,bean005.Syr,
                             bean005.Hjdlsj,path,"1",
@@ -438,9 +441,9 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
                             "1",args.bean002.Hphm,
                             args.bean002.Hpzl,TIRE_TREAD_DEPTH,
                             TIRE_TREAD_DEPTH, "",args.bean002.Ajywlb,args.bean002.Hjywlb,
-                            it.Sj.substring(0,10),it.Sj.substring(11), string2String(date2String(Date(),"yyyyMMddHHmmss"),
-                                "yyyy-MM-dd HH:mm:ss",
-                                "yyyyMMddHHmmss"),
+                            it.Sj.substring(0,10),
+                            it.Sj.substring(11),
+                            date2String(Date(),"yyyyMMddHHmmss"),
                             string2String(it.Sj,"yyyy-MM-dd HH:mm:ss","yyyyMMddHHmmss"),
                             "",bean005.Clpp1,bean005.Syr,
                             bean005.Hjdlsj,path,"1",

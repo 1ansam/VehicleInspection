@@ -163,7 +163,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     photoFile?.also {
                         val photoURI: Uri = FileProvider.getUriForFile(
                             requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -183,7 +183,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                     photoFile?.also {
                         val photoURI: Uri = FileProvider.getUriForFile(
                             requireContext(),
-                            "com.example.android.fileprovider",
+                            FILE_PROVIDER,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
