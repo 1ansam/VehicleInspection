@@ -19,5 +19,6 @@ data class ArtificialProject(
     val Xmdm : String,
     val Xmms : String,
     val Sycx : String,
+    val Jyyq : String,
 
 )

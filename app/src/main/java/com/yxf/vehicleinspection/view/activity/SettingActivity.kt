@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -14,6 +15,8 @@ import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.databinding.ActivitySettingBinding
 import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.getWifiRssi
+import com.yxf.vehicleinspection.utils.setForceUnable
+import com.yxf.vehicleinspection.utils.setVisibility
 import com.yxf.vehicleinspection.viewModel.*
 
 class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
@@ -31,7 +34,6 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
     }
 
     override fun init() {
-
         binding.tvIpAddress.setText(SharedP.instance.getString("ipAddress", "192.168.1.1"))
         binding.tvPort.setText(SharedP.instance.getString("ipPort", "80"))
 
@@ -41,7 +43,7 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
                 putString("ipPort", binding.tvPort.text.toString())
                 apply()
             }
-            binding.pbSync.visibility = View.VISIBLE
+
             BaseUrlHelper.instance.setHostField(binding.tvIpAddress.text.toString())
             BaseUrlHelper.instance.setPortField(binding.tvPort.text.toString().toInt())
             dataDictionaryViewModel.deleteDataDictionary()
@@ -49,6 +51,7 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
             administrativeViewModel.deleteAdministrative()
             chargeItemViewModel.deleteChargeItem()
             dataDictionaryViewModel.getDataDictionary().observe(this) { dataDictionaryList ->
+                setVisibility(this,binding.pbSync,true)
                 dataDictionaryViewModel.insertDataDictionary(dataDictionaryList)
                 systemParamsViewModel.getSystemParamsData().observe(this) { systemParamsList ->
                     systemParamsViewModel.insertSystemParams(systemParamsList)
@@ -58,19 +61,20 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
                             chargeItemViewModel.getChargeItem().observe(this){ chargeItemList ->
                                 chargeItemViewModel.insertChargeItem(chargeItemList)
                                 dataDictionaryViewModel.insertEnd.observe(this) {
+
                                     if (it) {
                                         systemParamsViewModel.insertEnd.observe(this) {
                                             if (it) {
                                                 administrativeViewModel.insertEnd.observe(this) {
                                                     if (it) {
-                                                        binding.pbSync.visibility = View.GONE
+                                                        setVisibility(this,binding.pbSync,false)
                                                         Toast.makeText(
                                                             this,
                                                             "参数同步成功",
                                                             Toast.LENGTH_SHORT
                                                         ).show()
                                                         intent =
-                                                            Intent(this, WelcomeActivity::class.java)
+                                                            Intent(this, LoginActivity::class.java)
                                                         startActivity(intent)
                                                         finish()
                                                     }
@@ -93,5 +97,7 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
         }
 
     }
+
+
 
 }

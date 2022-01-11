@@ -12,9 +12,13 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.util.Base64
 import android.util.DisplayMetrics
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
@@ -33,7 +37,10 @@ import java.net.URLEncoder
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.reflect.typeOf
+import kotlin.collections.Map as Map
 
 /**
  *   author:yxf
@@ -658,6 +665,27 @@ fun getSignFromCollectMoney(collectMoney: CollectMoney) : String{
     }else{
         throw IllegalArgumentException("未找到付款信息")
     }
+
+
+
+}
+fun setForceUnable(viewGroup: ViewGroup, isUnable : Boolean){
+    for (index in 0 until viewGroup.childCount){
+        viewGroup[index].isEnabled = isUnable
+    }
+}
+
+fun setVisibility(activity: Activity, view : View, visibility : Boolean){
+    if (visibility){
+        view.visibility = View.VISIBLE
+        activity.window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }else{
+        view.visibility = View.GONE
+        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+}
+fun a(){
 
 }
 

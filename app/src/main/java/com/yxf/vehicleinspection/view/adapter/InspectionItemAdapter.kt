@@ -13,9 +13,7 @@ import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.RvItemInspectionItemBinding
-import com.yxf.vehicleinspection.utils.FL_AJYWLB
-import com.yxf.vehicleinspection.utils.FL_HJYWLB
-import com.yxf.vehicleinspection.utils.FL_JCXH
+import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.fragment.InspectionItemFragmentDirections
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 
@@ -69,7 +67,7 @@ class InspectionItemAdapter(
         }
         if (bean005 != null){
             when (bean.Jcxm) {
-                "F1" -> dataDictionaryViewModel.getListFromFl("wx").observe(fragment) {
+                "F1" -> dataDictionaryViewModel.getListFromFl(FL_F1XH).observe(fragment) {
                     binding.lvLineNumber.adapter =
                         LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
                     binding.lvLineNumber.onItemClickListener =
@@ -80,7 +78,7 @@ class InspectionItemAdapter(
                                     bean005!!,it[position].Dm,bean002))
                         }
                 }
-                "C1" -> dataDictionaryViewModel.getListFromFl("dx").observe(fragment) {
+                "C1" -> dataDictionaryViewModel.getListFromFl(FL_C1XH).observe(fragment) {
                     binding.lvLineNumber.adapter =
                         LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
                     binding.lvLineNumber.onItemClickListener =
@@ -91,7 +89,7 @@ class InspectionItemAdapter(
                                     bean005!!,it[position].Dm,bean002))
                         }
                 }
-                "DC" -> dataDictionaryViewModel.getListFromFl("tx").observe(fragment) {
+                "DC" -> dataDictionaryViewModel.getListFromFl(FL_DCXH).observe(fragment) {
                     binding.lvLineNumber.adapter =
                         LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
                     binding.lvLineNumber.onItemClickListener =
@@ -102,7 +100,7 @@ class InspectionItemAdapter(
                                     bean005!!,it[position].Dm,bean002))
                         }
                 }
-                "NQ" -> dataDictionaryViewModel.getListFromFl("nx").observe(fragment) {
+                "NQ" -> dataDictionaryViewModel.getListFromFl(FL_NQXH).observe(fragment) {
                     binding.lvLineNumber.adapter =
                         LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
                     binding.lvLineNumber.onItemClickListener =
@@ -113,7 +111,7 @@ class InspectionItemAdapter(
                                     bean005!!,it[position].Dm,bean002))
                         }
                 }
-                "UC" -> dataDictionaryViewModel.getListFromFl("ux").observe(fragment) {
+                "UC" -> dataDictionaryViewModel.getListFromFl(FL_UCXH).observe(fragment) {
                     binding.lvLineNumber.adapter =
                         LineNumberAdapter(fragment.requireContext(), R.layout.item_line_number, it)
                     binding.lvLineNumber.onItemClickListener =

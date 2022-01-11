@@ -163,7 +163,7 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
 
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter(this)
         binding.rvSelect.adapter = inspectionItemSelectAdapter
         inspectionItemViewModel.getUserInfo().observe(this){
             val nameList = ArrayList<String>()

@@ -85,16 +85,16 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             if (binding.includeTitle.textView.text.toString().substring(4) != "0") {
                 Snackbar.make(this.requireView(),"检验时间未到",Snackbar.LENGTH_SHORT).show()
             } else {
-
-
-                binding.pbChassisSubmit.visibility = View.VISIBLE
+                setVisibility(this.requireActivity(),binding.pbChassisSubmit,true)
                 inspectionItemViewModel.getServerTime().observe(this) {
                     endTime = it.Sj
+                    setVisibility(this.requireActivity(),binding.pbChassisSubmit,true)
                     inspectionItemViewModel.postSaveVideoW008(
                         getPostVideoData(
                             CHASSIS,
                             CHASSIS_HJ
                         )
+
                     ).observe(this) {
                         if (it) {
                             inspectionItemViewModel.postArtificialProjectW011(
@@ -106,6 +106,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                                     binding.pbChassisSubmit.visibility = View.GONE
                                     inspectionItemViewModel.postProjectEndW012(getPostProjectEndData())
                                         .observe(this) {
+                                            setVisibility(this.requireActivity(),binding.pbChassisSubmit,false)
                                             if (it) {
                                                 Toast.makeText(
                                                     this.context,
@@ -132,14 +133,14 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                                             }
                                         }
                                 } else {
-                                    binding.pbChassisSubmit.visibility = View.GONE
+                                    setVisibility(this.requireActivity(),binding.pbChassisSubmit,false)
                                     Toast.makeText(this.context, "人工检验信息上传失败", Toast.LENGTH_SHORT)
                                         .show()
                                 }
                             }
                         } else {
                             Toast.makeText(this.context, "保存视频失败", Toast.LENGTH_SHORT).show()
-                            binding.pbChassisSubmit.visibility = View.GONE
+                            setVisibility(this.requireActivity(),binding.pbChassisSubmit,false)
                         }
                     }
 
@@ -149,7 +150,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
 
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter(this)
         binding.rvSelect.adapter = inspectionItemSelectAdapter
         inspectionItemViewModel.getUserInfo().observe(this){
             val nameList = ArrayList<String>()

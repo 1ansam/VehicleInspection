@@ -25,6 +25,7 @@ import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.FILE_PROVIDER
+import com.yxf.vehicleinspection.utils.setVisibility
 import com.yxf.vehicleinspection.viewModel.LoginViewModel
 import com.yxf.vehicleinspection.viewModel.LoginViewModelFactory
 import java.io.File
@@ -37,6 +38,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     private val TAG = "LoginActivity"
     private val loginViewModel by viewModels<LoginViewModel> { LoginViewModelFactory((application as MyApp).userInfoRepository) }
     override fun init() {
+        binding.tvVersion.text = packageManager.getPackageInfo(this.packageName,0).versionName
         PermissionX.init(this)
             .permissions(
                 Manifest.permission.CAMERA,
@@ -106,21 +108,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 }
             }
 
-            binding.pbLogin.visibility = View.VISIBLE
-//            loginViewModel.isLoading(
-//                binding.tvUsername.text.toString(),
-//                binding.tvPassword.text.toString()).observe(this){
-//                if (it) {
-////                    binding.pbLogin.visibility = View.GONE
-//                    val intent = Intent(this@LoginActivity, DisplayActivity::class.java)
-//                    val bundle = Bundle()
-//                    bundle.putSerializable("bean001",)
-//                    startActivity(intent)
-//                    finish()
-//                } else {
-//                    binding.pbLogin.visibility = View.GONE
-//                }
-//            }
+            setVisibility(this,binding.pbLogin,true)
             loginViewModel.getUser(
                 binding.tvUsername.text.toString(),
                 binding.tvPassword.text.toString()
@@ -133,66 +121,14 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 finish()
             }
             loginViewModel.isLogin.observe(this){
-                if (it) {
-                } else {
-                    binding.pbLogin.visibility = View.GONE
-                }
+                setVisibility(this,binding.pbLogin,false)
             }
 
 
         }
 
     }
-    fun downloadFile(): Long {
 
-        val apkUrl = "http://${SharedP.instance.getString("ipAddress","192.168.1.1")}:${SharedP.instance.getString("ipPort","80")}/apk/app-release.apk"
-        val uri = Uri.parse(apkUrl)
-        val request = DownloadManager.Request(uri)
-        request.setDestinationInExternalPublicDir("Download","app-release.apk")
-        id =  downloadManager.enqueue(request)
-        return id
-    }
-    fun installApk(){
-        Intent(Intent.ACTION_VIEW).also {
-            installIntent ->
-            val apkFile : File? = try {
-                createApkFile()
-            }catch (ex : IOException){
-                null
-            }
-            apkFile?.also {
-                val apkUri : Uri = FileProvider.getUriForFile(this,
-                    FILE_PROVIDER,
-                it)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        //Android8.0开始需要获取应用内安装权限
-                        val allowInstall: Boolean = this.packageManager.canRequestPackageInstalls()
-                        //如果还没有授权安装应用，去设置内开启应用内安装权限
-                        if (!allowInstall) {
-                            //注意这个是8.0新API
-                            val packageUri = Uri.parse("package:$packageName")
-                            val intentX = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageUri)
-                            startActivityForResult(intentX,666)
-                            return
-                        }
-                    }
-                    installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-
-                installIntent.setDataAndType(apkUri,"application/vnd.android.package-archive")
-                installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(installIntent)
-
-            }
-        }
-    }
-
-    private fun createApkFile(): File {
-        val filePath = "${Environment.getExternalStorageDirectory().absolutePath}/Download/app-release.apk"
-        Log.e(TAG, "init: $filePath", )
-        return File(filePath)
-    }
 
     fun downloadApk(downloadPath : String){
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
@@ -203,7 +139,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         request.allowScanningByMediaScanner()
         request.setVisibleInDownloadsUi(true)
         var refernece = downloadManager.enqueue(request)
-        var filter : IntentFilter = IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        var filter  = IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
         var receive : BroadcastReceiver = object : BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
                 var myDownloadId = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
@@ -223,7 +159,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         var intent = Intent(Intent.ACTION_VIEW)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             intent.setDataAndType(content,"application/vnd.android.package-archive")
 
         }else{
@@ -242,9 +178,6 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
 
 }

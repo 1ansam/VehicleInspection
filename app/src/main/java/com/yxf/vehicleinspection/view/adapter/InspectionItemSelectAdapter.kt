@@ -3,17 +3,19 @@ package com.yxf.vehicleinspection.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.ArtificialProject
 import com.yxf.vehicleinspection.databinding.ItemExteriorSelectBinding
+import com.yxf.vehicleinspection.view.JyyqPickerFragment
 
 /**
  *   author:yxf
  *   time:2021/11/9
  */
-class InspectionItemSelectAdapter : BaseRvAdapter<ArtificialProject,ItemExteriorSelectBinding>(){
+class InspectionItemSelectAdapter(val fragment : Fragment) : BaseRvAdapter<ArtificialProject,ItemExteriorSelectBinding>(){
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,6 +33,9 @@ class InspectionItemSelectAdapter : BaseRvAdapter<ArtificialProject,ItemExterior
     ) {
         holder.binding.tvXmms.text = bean.Xmms
         holder.binding.tvXmdm.text = bean.Xmdm
+        holder.binding.ivJyyq.setOnClickListener {
+            JyyqPickerFragment(bean.Jyyq).show(fragment.childFragmentManager,bean.Xmdm)
+        }
         var selected : Boolean? = null
         holder.binding.ivSelected.tag = "0"
         if (bean.Sycx == "1"){

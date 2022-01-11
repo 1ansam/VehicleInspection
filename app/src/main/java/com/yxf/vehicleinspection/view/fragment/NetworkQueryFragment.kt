@@ -72,7 +72,7 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
             }
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter(this)
         binding.rvSelect.adapter = inspectionItemSelectAdapter
         binding.rvNetworkQueryInfo.layoutManager = LinearLayoutManager(this.requireContext())
         networkQueryInfoAdapter = NetworkQueryInfoAdapter()

@@ -62,7 +62,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             binding.tvF4.text = it
         }
         binding.rvSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemSelectAdapter = InspectionItemSelectAdapter()
+        inspectionItemSelectAdapter = InspectionItemSelectAdapter(this)
         binding.rvSelect.adapter = inspectionItemSelectAdapter
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
             AjJyjghb = it

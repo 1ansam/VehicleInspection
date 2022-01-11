@@ -144,8 +144,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         binding.rvImage.adapter = inspectionItemImageAdapter
         binding.rvAjSelect.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvHjSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        inspectionItemAjSelectAdapter = InspectionItemSelectAdapter()
-        inspectionItemHjSelectAdapter = InspectionItemSelectAdapter()
+        inspectionItemAjSelectAdapter = InspectionItemSelectAdapter(this)
+        inspectionItemHjSelectAdapter = InspectionItemSelectAdapter(this)
         binding.rvAjSelect.adapter = inspectionItemAjSelectAdapter
         binding.rvHjSelect.adapter = inspectionItemHjSelectAdapter
         inspectionItemImageAdapter.onItemViewClickListener =
