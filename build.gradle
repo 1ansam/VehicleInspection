@@ -2,10 +2,12 @@
 buildscript {
     ext.kotlin_version = "1.5.21"
     repositories {
-        maven{
-            url 'http://localhost:8081/artifactory/android_group/'
-            allowInsecureProtocol = true
-        }
+//        maven{
+//            url 'http://localhost:8081/artifactory/android_group/'
+//            allowInsecureProtocol = true
+//        }
+        google()
+        jcenter()
 
     }
     dependencies {
@@ -20,11 +22,13 @@ buildscript {
 
 allprojects {
     repositories {
-        maven{
-            url 'http://localhost:8081/artifactory/android_group/'
-            mavenCentral()
-            allowInsecureProtocol = true
-        }
+        google()
+        jcenter()
+        mavenCentral()
+//        maven{
+//            url 'http://localhost:8081/artifactory/android_group/'
+//            allowInsecureProtocol = true
+//        }
     }
 }
 

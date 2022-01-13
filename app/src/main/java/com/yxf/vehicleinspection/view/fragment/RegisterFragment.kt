@@ -588,11 +588,9 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                             bitmap2Base64(getBitmapFromDrawable(binding.ivCzqm.drawable)),
                                             date2String(Date(),"yyyy-MM-dd HH:mm:ss"),
                                             "CZ",
-                                            valueMap["sjr"].takeIf { valueMap["sjr"] != null } ?: "",
-                                            valueMap["ajywlb"].takeIf { valueMap["ajywlb"] != null }
-                                                ?: "",
-                                            valueMap["hjywlb"].takeIf { valueMap["hjywlb"] != null }
-                                                ?: "",
+                                            valueMap["sjr"]?:"",
+                                            valueMap["ajywlb"]?: "",
+                                            valueMap["hjywlb"]?: "",
                                             "${binding.etLshSzm.text.toString()}${binding.tvLsh.text}".takeIf { binding.cbAjywlb.isChecked }
                                                 ?: "",
                                             "${binding.etLshSzm.text.toString()}${binding.tvLsh.text}".takeIf { binding.cbHjywlb.isChecked }
@@ -608,10 +606,8 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                                     date2String(Date(),"yyyy-MM-dd HH:mm:ss"),
                                                     "DL",
                                                     valueMap["sjr"].takeIf { valueMap["sjr"] != null } ?: "",
-                                                    valueMap["ajywlb"].takeIf { valueMap["ajywlb"] != null }
-                                                        ?: "",
-                                                    valueMap["hjywlb"].takeIf { valueMap["hjywlb"] != null }
-                                                        ?: "",
+                                                    valueMap["ajywlb"]?: "",
+                                                    valueMap["hjywlb"]?: "",
                                                     "${binding.etLshSzm.text.toString()}${binding.tvLsh.text}".takeIf { binding.cbAjywlb.isChecked }
                                                         ?: "",
                                                     "${binding.etLshSzm.text.toString()}${binding.tvLsh.text}".takeIf { binding.cbHjywlb.isChecked }
@@ -702,139 +698,79 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                                                                                         binding.etHxnbcd.text.toString(),
                                                                                                         binding.etHxnbkd.text.toString(),
                                                                                                         binding.etHxnbgd.text.toString(),
-                                                                                                        valueMap["zxxs"].takeIf { valueMap["zxxs"].isNullOrBlank() }
-                                                                                                            ?: "",
+                                                                                                        valueMap["zxxs"]?: "",
                                                                                                         "1".takeIf { binding.cbSfdzzc.isChecked } ?: "0",
                                                                                                         "1".takeIf { binding.cbSfcyc.isChecked } ?: "0",
                                                                                                         "1".takeIf { binding.cbSfmz.isChecked } ?: "0",
-                                                                                                        valueMap["ajywlb"].takeIf { valueMap["ajywlb"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["hjywlb"].takeIf { valueMap["hjywlb"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zjywlb"].takeIf { valueMap["zjywlb"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["xszbh"].takeIf { valueMap["xszbh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["clpp1"].takeIf { valueMap["clpp1"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["clxh"].takeIf { valueMap["clxh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["fdjxh"].takeIf { valueMap["fdjxh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["fdjh"].takeIf { valueMap["fdjh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["syr"].takeIf { valueMap["syr"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["lxdh"].takeIf { valueMap["lxdh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zt"].takeIf { valueMap["zt"] != null } ?: "",
-                                                                                                        valueMap["zzcmc"].takeIf { valueMap["zzcmc"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qdzs"].takeIf { valueMap["qdzs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qdzw"].takeIf { valueMap["qdzw"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zczs"].takeIf { valueMap["zczs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zczw"].takeIf { valueMap["zczw"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zs"].takeIf { valueMap["zs"] != null } ?: "",
-                                                                                                        valueMap["zj"].takeIf { valueMap["zj"] != null } ?: "",
-                                                                                                        valueMap["zzs"].takeIf { valueMap["zzs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qzs"].takeIf { valueMap["qzs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qlj"].takeIf { valueMap["qlj"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["hlj"].takeIf { valueMap["hlj"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zzl"].takeIf { valueMap["zzl"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zbzl"].takeIf { valueMap["zbzl"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["kqxjzw"].takeIf { valueMap["kqxjzw"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zxzs"].takeIf { valueMap["zxzs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["bzzw"].takeIf { valueMap["bzzw"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["hdzk"].takeIf { valueMap["hdzk"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["hdzzl"].takeIf { valueMap["hdzzl"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zqyzl"].takeIf { valueMap["zqyzl"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zdsjcs"].takeIf { valueMap["zdsjcs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["gl"].takeIf { valueMap["gl"] != null } ?: "",
-                                                                                                        valueMap["pl"].takeIf { valueMap["pl"] != null } ?: "",
-                                                                                                        valueMap["pqgs"].takeIf { valueMap["pqgs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["lcbds"].takeIf { valueMap["lcbds"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["edzs"].takeIf { valueMap["edzs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["ltgg"].takeIf { valueMap["ltgg"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qgs"].takeIf { valueMap["qgs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["lxdz"].takeIf { valueMap["lxdz"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["sjr"].takeIf { valueMap["sjr"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["sjrdh"].takeIf { valueMap["sjrdh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["sjrsfzh"].takeIf { valueMap["sjrsfzh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["SCR"].takeIf { valueMap["SCR"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["DPF"].takeIf { valueMap["DPF"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["cllx"].takeIf { valueMap["cllx"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["clyt"].takeIf { valueMap["clyt"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["ytsx"].takeIf { valueMap["ytsx"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["wgcx"].takeIf { valueMap["wgcx"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["gcjk"].takeIf { valueMap["gcjk"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qdxs"].takeIf { valueMap["qdxs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["zdly"].takeIf { valueMap["zdly"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["rlzl"].takeIf { valueMap["rlzl1"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["rygg"].takeIf { valueMap["rygg"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["qzdz"].takeIf { valueMap["qzdz"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["jcxh"].takeIf { valueMap["jcxh"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["sslb"].takeIf { valueMap["sslb"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["gyfs"].takeIf { valueMap["gyfs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["jqfs"].takeIf { valueMap["jqfs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["bsxs"].takeIf { valueMap["bsxs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["dws"].takeIf { valueMap["dws"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["ccs"].takeIf { valueMap["ccs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["hclfs"].takeIf { valueMap["hclfs"] != null }
-                                                                                                            ?: "",
-                                                                                                        valueMap["syxz"].takeIf { valueMap["syxz"] != null }
-                                                                                                            ?: "",
+                                                                                                        valueMap["ajywlb"]?: "",
+                                                                                                        valueMap["hjywlb"]?: "",
+                                                                                                        valueMap["zjywlb"]?: "",
+                                                                                                        valueMap["xszbh"]?: "",
+                                                                                                        valueMap["clpp1"]?: "",
+                                                                                                        valueMap["clxh"]?: "",
+                                                                                                        valueMap["fdjxh"]?: "",
+                                                                                                        valueMap["fdjh"]?: "",
+                                                                                                        valueMap["syr"]?: "",
+                                                                                                        valueMap["lxdh"] ?: "",
+                                                                                                        valueMap["zt"]?: "",
+                                                                                                        valueMap["zzcmc"]?: "",
+                                                                                                        valueMap["qdzs"] ?: "",
+                                                                                                        valueMap["qdzw"]?: "",
+                                                                                                        valueMap["zczs"]?: "",
+                                                                                                        valueMap["zczw"]?: "",
+                                                                                                        valueMap["zs"]?: "",
+                                                                                                        valueMap["zj"]?: "",
+                                                                                                        valueMap["zzs"]?: "",
+                                                                                                        valueMap["qzs"]?: "",
+                                                                                                        valueMap["qlj"]?: "",
+                                                                                                        valueMap["hlj"]?: "",
+                                                                                                        valueMap["zzl"]?: "",
+                                                                                                        valueMap["zbzl"]?: "",
+                                                                                                        valueMap["kqxjzw"]?: "",
+                                                                                                        valueMap["zxzs"]?: "",
+                                                                                                        valueMap["bzzw"]?: "",
+                                                                                                        valueMap["hdzk"]?: "",
+                                                                                                        valueMap["hdzzl"]?: "",
+                                                                                                        valueMap["zqyzl"]?: "",
+                                                                                                        valueMap["zdsjcs"]?: "",
+                                                                                                        valueMap["gl"]?: "",
+                                                                                                        valueMap["pl"]?: "",
+                                                                                                        valueMap["pqgs"]?: "",
+                                                                                                        valueMap["lcbds"]?: "",
+                                                                                                        valueMap["edzs"]?: "",
+                                                                                                        valueMap["ltgg"]?: "",
+                                                                                                        valueMap["qgs"]?: "",
+                                                                                                        valueMap["lxdz"]?: "",
+                                                                                                        valueMap["sjr"]?: "",
+                                                                                                        valueMap["sjrdh"]?: "",
+                                                                                                        valueMap["sjrsfzh"]?: "",
+                                                                                                        valueMap["SCR"]?: "",
+                                                                                                        valueMap["DPF"]?: "",
+                                                                                                        valueMap["cllx"]?: "",
+                                                                                                        valueMap["clyt"]?: "",
+                                                                                                        valueMap["ytsx"]?: "",
+                                                                                                        valueMap["wgcx"]?: "",
+                                                                                                        valueMap["gcjk"]?: "",
+                                                                                                        valueMap["qdxs"]?: "",
+                                                                                                        valueMap["zdly"]?: "",
+                                                                                                        valueMap["rlzl"]?: "",
+                                                                                                        valueMap["rygg"]?: "",
+                                                                                                        valueMap["qzdz"]?: "",
+                                                                                                        valueMap["jcxh"]?: "",
+                                                                                                        valueMap["sslb"]?: "",
+                                                                                                        valueMap["gyfs"]?: "",
+                                                                                                        valueMap["jqfs"]?: "",
+                                                                                                        valueMap["bsxs"]?: "",
+                                                                                                        valueMap["dws"]?: "",
+                                                                                                        valueMap["ccs"]?: "",
+                                                                                                        valueMap["hclfs"]?: "",
+                                                                                                        valueMap["syxz"]?: "",
                                                                                                         binding.tvCcrq.text.toString(),
                                                                                                         binding.tvCcdjrq.text.toString(),
                                                                                                         binding.tvDjrq.text.toString(),
                                                                                                         it.Clpp2,
                                                                                                         it.Zzg,
-                                                                                                        valueMap["csys"].takeIf { valueMap["csys"] != null }
-                                                                                                            ?: "",
+                                                                                                        valueMap["csys"]?: "",
                                                                                                         it.Sfzmhm,
                                                                                                         it.Sfzmmc,
                                                                                                         it.Yxqz,
@@ -852,10 +788,9 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                                                                                         it.Zsxzqh,
                                                                                                         it.Zzxzqh,
                                                                                                         it.Sfmj,
-                                                                                                        valueMap["zjywlb"]!!,
+                                                                                                        valueMap["zjywlb"]?: "",
                                                                                                         it.Hjxm,
-                                                                                                        valueMap["ajcx"].takeIf { valueMap["ajcx"] != null }
-                                                                                                            ?: "",
+                                                                                                        valueMap["ajcx"]?: "",
                                                                                                         it.Zjcx,
                                                                                                         it.Hbdbqk,
                                                                                                         date2String(Date(), "yyyy-MM-dd"),
@@ -873,8 +808,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                                                                                         "",
                                                                                                         ajJyxmString,
                                                                                                         hjJyxmString,
-                                                                                                        valueMap["hbjcfs"].takeIf { valueMap["hbjcfs"] != null }
-                                                                                                            ?: "",
+                                                                                                        valueMap["hbjcfs"]?: "",
                                                                                                         "",
                                                                                                         "",
                                                                                                         date2String(Date(), "yyyyMMdd HH:mm:ss"),
