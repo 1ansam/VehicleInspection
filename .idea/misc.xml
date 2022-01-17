@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.30520833333333336" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/bolder.xml" value="0.14583333333333334" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/bolder_left.xml" value="0.169" />
         <entry key="..\:/AndroidWorkSpace/VehicleInspection/app/src/main/res/drawable/bord_shape.xml" value="0.2175" />
@@ -140,6 +141,7 @@
         <entry key="..\:/Users/yxf/AndroidStudioProjects/VehicleInspection/app/src/main/res/layout/activity_data_binding.xml" value="0.1" />
         <entry key="..\:/Users/yxf/AndroidStudioProjects/VehicleInspection/app/src/main/res/layout/activity_person_inspection.xml" value="0.1636271529888551" />
         <entry key="..\:/Users/yxf/AndroidStudioProjects/VehicleInspection/app/src/main/res/layout/fragment_register.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1171875" />
       </map>
     </option>
   </component>

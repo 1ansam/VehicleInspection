@@ -377,6 +377,9 @@ fun bitmap2Base64(bitmap: Bitmap) : String{
     }
     return ""
 }
+fun bitmapDrawable2Base64(bitmapDrawable : Drawable) : String{
+    return bitmap2Base64(getBitmapFromDrawable(bitmapDrawable))
+}
 
 /**
  * 将base64转成Bitmap对象
