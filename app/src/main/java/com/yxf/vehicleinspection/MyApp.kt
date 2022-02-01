@@ -76,9 +76,12 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
     }
 
     override fun onActivityStopped(activity: Activity) {
-        if (manager.getRunningTasks(1)[0].topActivity?.packageName != context.packageName){
-            Toast.makeText(context, "车辆检验正在后台运行", Toast.LENGTH_SHORT).show()
+        if (manager.getRunningTasks(1).isNotEmpty()){
+            if (manager.getRunningTasks(1)[0].topActivity?.packageName != context.packageName){
+                Toast.makeText(context, "车辆检验正在后台运行", Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
