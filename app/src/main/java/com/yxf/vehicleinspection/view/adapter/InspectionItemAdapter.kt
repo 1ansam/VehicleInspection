@@ -60,11 +60,7 @@ class InspectionItemAdapter(
             dataDictionaryViewModel.getMc(FL_HJYWLB,bean.Hjywlb).observe(fragment){
                 binding.tvHjywlb.text = "环检业务类别：$it"
             }
-        if (bean.Jczt == "完成")
-            holder.binding.lvLineNumber.visibility = View.GONE
-            holder.itemView.setOnClickListener {
-            }
-        }
+
         if (bean005 != null){
             when (bean.Jcxm) {
                 "F1" -> dataDictionaryViewModel.getListFromFl(FL_F1XH).observe(fragment) {
@@ -133,7 +129,11 @@ class InspectionItemAdapter(
                 }
             }
         }
-
+        if (bean.Jczt == "完成")
+            holder.binding.lvLineNumber.visibility = View.GONE
+            holder.itemView.setOnClickListener {
+        }
+        }
 
     }
 

@@ -7,8 +7,8 @@
     <string name="startEnjoy">立即体验</string>
     <!--登录界面-->
     <string name="login">登录</string>
-    <string name="usernameHint">请输入用户名</string>
-    <string name="passwordHint">请输入密码</string>
+    <string name="usernameHint">用户名</string>
+    <string name="passwordHint">密码</string>
     <string name="rememberUsername">记住用户名</string>
     <string name="corporationLogo">良源科技Logo</string>
     <!--功能选择界面-->

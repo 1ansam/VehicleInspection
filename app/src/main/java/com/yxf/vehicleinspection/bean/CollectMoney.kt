@@ -5,6 +5,7 @@ import java.io.Serializable
 /**
  *   author:yxf
  *   time:2021/12/21
+ *   收费信息集合
  */
 data class CollectMoney(
     val appid : String,

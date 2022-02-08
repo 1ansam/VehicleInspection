@@ -34,6 +34,7 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
     }
 
     override fun init() {
+        binding.titleSetting.Alltitle.text = "参数设置"
         binding.tvIpAddress.setText(SharedP.instance.getString("ipAddress", "192.168.1.1"))
         binding.tvPort.setText(SharedP.instance.getString("ipPort", "80"))
 
