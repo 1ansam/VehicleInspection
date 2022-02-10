@@ -6,7 +6,7 @@ import com.yxf.vehicleinspection.databinding.FragmentVehicleInfoBinding
 
 class VehicleInfoFragment : BaseBindingFragment<FragmentVehicleInfoBinding>() {
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
 }

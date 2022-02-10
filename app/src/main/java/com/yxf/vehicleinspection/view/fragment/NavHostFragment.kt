@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
+import android.content.pm.ActivityInfo
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -28,8 +29,9 @@ class NavHostFragment : BaseBindingFragment<FragmentNavHostBinding>() {
     }
 
     override fun init() {
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
-
+        binding.tvChoiceFunction.text = "${bean001.UserName} 功能选择"
         when{
             bean001.RoleDm.contains("WJY")||bean001.RoleDm.contains("DJY")||bean001.RoleDm.contains("DTJY")||bean001.RoleDm.contains("YCY") ->{
                 binding.btnAppointmentAj.visibility = View.GONE

@@ -78,7 +78,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             binding.llVehicleFeatures.visibility = View.GONE
         }
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
             AjJyjghb = it
             systemParamsViewModel.getJyjgbh("HJ").observe(this) {

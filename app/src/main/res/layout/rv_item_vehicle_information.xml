@@ -38,7 +38,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="流水号"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -76,7 +77,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="流水号"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -112,7 +114,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="号牌号码"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -146,7 +149,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="号牌种类"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -180,7 +184,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="号牌颜色"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -214,7 +219,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="车辆类型"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -248,7 +254,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="外廓尺寸"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -282,7 +289,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="整备质量"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -316,7 +324,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="轮胎规格"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -350,7 +359,8 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end|center_vertical"
                 android:text="出厂日期"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

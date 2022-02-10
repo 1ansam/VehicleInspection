@@ -29,7 +29,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@style/TextLable">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tvIpAddress"
                 android:layout_width="match_parent"
@@ -42,7 +43,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@style/TextLable">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tvPort"
                 android:layout_width="match_parent"

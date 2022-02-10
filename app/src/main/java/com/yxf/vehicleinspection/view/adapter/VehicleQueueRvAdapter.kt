@@ -2,11 +2,13 @@ package com.yxf.vehicleinspection.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
@@ -48,6 +50,12 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
             binding.tvHjlsh.text = "环检流水号：${bean.Hjlsh}"
             binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
+            if (bean.Jyzt?.contains("未") == true){
+                binding.tvJyzt.apply {
+                    setBackgroundResource(R.color.red)
+                    setTextColor(resources.getColor(R.color.white,null))
+                }
+            }
         }
         sharedViewModel.hostName.observe(fragment) { hostName ->
 
@@ -55,7 +63,7 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
                 hostName.equals(NavHostFragment.HOSTNAME_CHARGE) -> {
                     holder.itemView.setOnClickListener {
                         view ->
-                        if (bean.Sfsf == "1"&& bean.Sfkp == "0"){
+                         if (bean.Sfsf == "1"&& bean.Sfkp == "0"){
                             vehicleAllInfoViewModel.getVehicleAllInfo(bean.Ajlsh,bean.Hjlsh).observe(fragment){
                                 if (it.isNotEmpty()){
                                     val bean005 = it[0]

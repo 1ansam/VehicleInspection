@@ -61,7 +61,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
     private var AjJyjghb = ""
     private var HjJyjghb = ""
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         dataDictionaryViewModel.apply {
             getMc(FL_SPMC, VIN_FAR_TO_CLOSED).observe(this@ReplenishFragment){

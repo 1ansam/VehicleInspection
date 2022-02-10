@@ -2,7 +2,7 @@ package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
 import android.view.View
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -30,7 +30,7 @@ class AppointmentAjFragment : BaseBindingFragment<FragmentAppointmentAjBinding>(
     private val registerViewModel : RegisterViewModel by viewModels { RegisterViewModelFactory((requireActivity().application as MyApp).registerRepository) }
     lateinit var adapter: AppointmentAjAdapter
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         adapter = AppointmentAjAdapter(this, dataDictionaryViewModel)
         binding.rvAppointmentAj.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvAppointmentAj.setHasFixedSize(true)
@@ -41,16 +41,23 @@ class AppointmentAjFragment : BaseBindingFragment<FragmentAppointmentAjBinding>(
             )
             findNavController().navigate(action)
         }
-        binding.svAppointmentAj.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                getAppointmentAjQueue()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
+//        binding.svAppointmentAj.setOnClickListener{
+//            binding.svAppointmentAj.onActionViewExpanded()
+//        }
+//        binding.svAppointmentAj.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                getAppointmentAjQueue()
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                return false
+//            }
+//        })
+        binding.refresh.setOnRefreshListener {
+            getAppointmentAjQueue()
+            binding.refresh.isRefreshing = false
+        }
     }
 
     private fun getAppointmentAjQueue() {

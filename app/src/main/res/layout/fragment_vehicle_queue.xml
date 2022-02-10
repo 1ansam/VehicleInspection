@@ -11,14 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.08" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_vehicle_queue"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#EDEAEA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,7 +24,16 @@
         app:layout_constraintTop_toTopOf="@+id/guideline21"
         app:layout_constraintVertical_bias="0.0">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_vehicle_queue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightgray">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -47,7 +54,7 @@
             android:layout_weight="1"
             android:gravity="center|start"
             android:text="@string/vehicleQueueTitle"
-            android:textSize="24sp"
+            android:textSize="30sp"
             app:drawableLeftCompat="@drawable/ic_car"
             app:layout_constraintBottom_toTopOf="@+id/guideline18"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,15 +81,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_vehicle_queue"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:theme="@style/AppSearchView"
         android:background="@color/whitesmoke"
-        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintBottom_toTopOf="@+id/refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline20" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

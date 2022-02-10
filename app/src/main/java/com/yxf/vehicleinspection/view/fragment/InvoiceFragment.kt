@@ -50,7 +50,7 @@ class InvoiceFragment : BaseBindingFragment<FragmentInvoiceBinding>() {
         DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository)
     }
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 val action = InvoiceFragmentDirections.actionInvoiceFragmentToVehicleQueueFragment()

@@ -155,5 +155,6 @@
     <color name="navy">#000080</color>
     <color name="colorDarkText">#B3000000</color>
     <color name="colorGrayText">#98000000</color>
-    <color name="colorRed">#E2F44336</color><!--海军色 -->
+    <color name="colorRed">#E2F44336</color><!--透明-->
+    <color name="transparent">#00000000</color>
 </resources>

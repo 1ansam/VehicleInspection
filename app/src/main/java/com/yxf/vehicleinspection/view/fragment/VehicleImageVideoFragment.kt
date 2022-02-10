@@ -31,7 +31,7 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
     private val args : VehicleImageVideoFragmentArgs by navArgs()
 
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         videoRvAdapter = VehicleVideoRvAdapter(this)
         binding.rvLeft.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvLeft.adapter = imageRvAdapter

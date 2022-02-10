@@ -43,7 +43,7 @@ class OnlineFragment : BaseBindingFragment<FragmentOnlineGwBinding>() {
     val onlineAdapter = OnlineAdapter ()
     val timer = Timer()
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         binding.tvLsh.text = args.bean005.Ajlsh
         binding.tvHphm.text = args.bean005.Hphm

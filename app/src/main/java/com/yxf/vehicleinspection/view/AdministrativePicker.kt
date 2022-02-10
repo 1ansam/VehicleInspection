@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
@@ -65,28 +65,24 @@ class AdministrativePicker : DialogFragment() {
                 dismiss()
             }
         }
+        svAdministrative.setOnClickListener {
+            svAdministrative.onActionViewExpanded()
+        }
         svAdministrative.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null){
-                    administrativeViewModel.getAdministrativeListFromMc(newText).observe(this@AdministrativePicker){
+                    administrativeViewModel.getAdministrativeListFromMc(newText?:"").observe(this@AdministrativePicker){
                         adapter.data = it
                     }
-                    return true
-                }else{
                     return false
-                }
 
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null){
-                    administrativeViewModel.getAdministrativeListFromMc(query).observe(this@AdministrativePicker){
+                    administrativeViewModel.getAdministrativeListFromMc(query?:"").observe(this@AdministrativePicker) {
                         adapter.data = it
-                    }
-                    return true
-                }else{
-                    return false
+
                 }
+                return false
             }
         })
     }

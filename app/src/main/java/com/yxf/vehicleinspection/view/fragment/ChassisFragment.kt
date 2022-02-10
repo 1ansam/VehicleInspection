@@ -43,7 +43,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
     private val args: ChassisFragmentArgs by navArgs()
 
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
             AjJyjghb = it

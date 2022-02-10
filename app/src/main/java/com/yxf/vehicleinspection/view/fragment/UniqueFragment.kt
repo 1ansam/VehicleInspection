@@ -50,7 +50,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
     lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
     private val args: UniqueFragmentArgs by navArgs()
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         dataDictionaryViewModel.getMc(FL_SPMC,VIN_FAR_TO_CLOSED).observe(this){
             binding.tvF2.text = it

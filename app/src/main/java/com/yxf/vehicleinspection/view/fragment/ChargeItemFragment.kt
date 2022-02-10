@@ -45,7 +45,7 @@ class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
     }
     private val args : ChargeItemFragmentArgs by navArgs()
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         binding.includeTitle.Alltitle.text = "选择收费项目"
         binding.rvChargeItem.apply {
             layoutManager = GridLayoutManager(this@ChargeItemFragment.requireContext(),4)

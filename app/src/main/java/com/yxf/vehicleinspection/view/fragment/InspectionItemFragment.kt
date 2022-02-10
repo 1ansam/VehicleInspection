@@ -27,7 +27,7 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     private val args: InspectionItemFragmentArgs by navArgs()
 
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         binding.rvVehicleInformation.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvInspectionItem.layoutManager = LinearLayoutManager(this.requireContext())

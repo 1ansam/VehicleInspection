@@ -4,7 +4,7 @@ import android.content.pm.ActivityInfo
 import android.provider.ContactsContract
 import android.view.View
 import android.widget.RadioGroup
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +23,7 @@ class ModerationQueueFragment : BaseBindingFragment<FragmentModerationQueueBindi
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val dataDictionaryViewModel by viewModels<DataDictionaryViewModel> { DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository) }
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         adapter = VehicleModerationRvAdapter(this,dataDictionaryViewModel)
         binding.rvModerationQueue.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvModerationQueue.adapter = adapter
@@ -32,17 +32,24 @@ class ModerationQueueFragment : BaseBindingFragment<FragmentModerationQueueBindi
         binding.rgShyw.setOnCheckedChangeListener { group, checkedId ->
             getQueueData(binding.svModerationQueue.query.toString(),group)
         }
+        binding.svModerationQueue.setOnClickListener {
+            binding.svModerationQueue.onActionViewExpanded()
+        }
+
         binding.svModerationQueue.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                getQueueData(binding.svModerationQueue.query.toString(),binding.rgShyw)
-                return true
+                getQueueData(query?:"",binding.rgShyw)
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
         })
-
+        binding.refresh.setOnRefreshListener {
+            getQueueData(binding.svModerationQueue.query.toString(),binding.rgShyw)
+            binding.refresh.isRefreshing = false
+        }
     }
 
     private fun getQueueData(hphm: String, rgShyw : RadioGroup) {

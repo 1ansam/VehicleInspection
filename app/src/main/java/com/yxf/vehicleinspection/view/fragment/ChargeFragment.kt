@@ -36,7 +36,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         VehicleAllInfoViewModelFactory((requireActivity().application as MyApp).vehicleAllInfoRepository)
     }
     override fun init() {
-        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         var url  = args.c1
         var collectMoney = args.collectMoney
         val sign = getSignFromCollectMoney(collectMoney)
@@ -56,7 +56,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                         Toast.makeText(MyApp.context, "付款成功", Toast.LENGTH_SHORT).show()
                         chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                                 if (it){
-                                    Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(this@ChargeFragment.requireView(),"上传付款信息成功",Snackbar.LENGTH_SHORT).show()
                                     vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
                                         if (it.isNotEmpty()){
                                             val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
@@ -81,7 +81,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         binding.btnInvoice.setOnClickListener {
             chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                 if (it){
-                    Snackbar.make(this@ChargeFragment.requireView(),"上传成功",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(this@ChargeFragment.requireView(),"上传付款信息成功",Snackbar.LENGTH_SHORT).show()
                     vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
                         if (it.isNotEmpty()){
                             val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
