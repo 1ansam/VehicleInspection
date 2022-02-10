@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
+import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.bean.NetworkQueryInfo
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
@@ -84,7 +85,7 @@ class NetworkQueryFragment : BaseBindingFragment<FragmentNetworkQueryBinding>() 
         networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[3],args.bean005.Lxdz))
         networkQueryInfoList.add(NetworkQueryInfo(inspectionItemViewModel.getNetworkQueryInfoName()[4],args.bean005.Zzxzqh))
         networkQueryInfoAdapter.data = networkQueryInfoList
-        binding.includeTitle.btnSubmit.setOnClickListener {
+        binding.includeTitle.btnSubmit.clickWithTrigger {
             binding.pbNetworkQuerySubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj

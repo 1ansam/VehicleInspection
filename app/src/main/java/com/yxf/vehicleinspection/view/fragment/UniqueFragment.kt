@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
+import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentUniqueBinding
@@ -92,7 +93,7 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             }
         }
 
-        binding.includeTitle.btnSubmit.setOnClickListener {
+        binding.includeTitle.btnSubmit.clickWithTrigger {
             binding.pbUniqueSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.getServerTime().observe(this) {
                 endTime = it.Sj

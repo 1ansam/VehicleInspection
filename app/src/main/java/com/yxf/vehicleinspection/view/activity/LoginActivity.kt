@@ -22,6 +22,7 @@ import androidx.core.content.FileProvider
 import com.permissionx.guolindev.PermissionX
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
+import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.FILE_PROVIDER
@@ -95,7 +96,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             finish()
         }
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.clickWithTrigger {
             if (binding.cbRememberUsername.isChecked) {
                 SharedP.instance.edit().apply {
                     putString("username", binding.tvUsername.text.toString())

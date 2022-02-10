@@ -13,7 +13,8 @@
         app:cardElevation="5dp"
         app:cardMaxElevation="10dp"
         app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,7 +135,8 @@
                         android:layout_marginLeft="5dp"
                         android:gravity="fill_horizontal"
                         android:text="检验项目"
-                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <View
@@ -148,7 +150,8 @@
                         android:layout_marginLeft="5dp"
                         android:gravity="fill_horizontal"
                         android:text="检验状态"
-                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
                     <View
                         android:layout_width="match_parent"

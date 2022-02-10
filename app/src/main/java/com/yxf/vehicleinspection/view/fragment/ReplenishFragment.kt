@@ -20,6 +20,7 @@ import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
+import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.bean.request.InspectionPhotoW007Request
 import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
@@ -189,7 +190,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
             val action = ReplenishFragmentDirections.actionReplenishFragmentToSignatureFragment(bean005,"1",args.bean002,"DC",args.bean002.Ajywlb,args.bean002.Hjywlb)
             findNavController().navigate(action)
         }
-        binding.includeTitle.btnSubmit.setOnClickListener{
+        binding.includeTitle.btnSubmit.clickWithTrigger{
             binding.pbReplenish.visibility = View.VISIBLE
             systemParamsViewModel.getJyjgbh("AJ").observe(this){
                 AjJyjghb = it

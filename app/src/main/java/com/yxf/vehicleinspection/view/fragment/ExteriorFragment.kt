@@ -24,6 +24,7 @@ import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.base.BaseRvAdapter
+import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.ImageItemR017Response
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
@@ -176,7 +177,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
 
             }
-        binding.includeTitle.btnSubmit.setOnClickListener {
+        binding.includeTitle.btnSubmit.clickWithTrigger {
             if (binding.includeTitle.textView.text.toString().substring(4) != "0") {
                 Snackbar.make(this.requireView(),"检验时间未到",Snackbar.LENGTH_SHORT).show()
             } else {

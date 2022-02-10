@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
+import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.bean.response.AdministrativeR023Response
 import com.yxf.vehicleinspection.utils.getScreenHeight
 import com.yxf.vehicleinspection.utils.getScreenWidth
@@ -68,6 +69,7 @@ class AdministrativePicker : DialogFragment() {
         svAdministrative.setOnClickListener {
             svAdministrative.onActionViewExpanded()
         }
+        
         svAdministrative.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
                     administrativeViewModel.getAdministrativeListFromMc(newText?:"").observe(this@AdministrativePicker){

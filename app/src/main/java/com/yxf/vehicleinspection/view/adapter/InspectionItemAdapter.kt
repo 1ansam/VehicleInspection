@@ -54,6 +54,14 @@ class InspectionItemAdapter(
             binding.tvJcry2.text =  "检测人员 2：${bean.Jcry_02}"
             binding.tvJckssj.text = "检测开始时间：${bean.Jckssj}"
             binding.tvJcjssj.text = "检测开始时间：${bean.Jcjssj}"
+            if (bean.Jczt?.contains("未") == true){
+                binding.tvJyzt.apply {
+                    setTextColor(resources.getColor(R.color.red,null))
+                }
+                binding.tvJyxm.apply {
+                    setTextColor(resources.getColor(R.color.red,null))
+                }
+            }
             dataDictionaryViewModel.getMc(FL_AJYWLB,bean.Ajywlb).observe(fragment){
                 binding.tvAjywlb.text = "安检业务类别：$it"
             }
