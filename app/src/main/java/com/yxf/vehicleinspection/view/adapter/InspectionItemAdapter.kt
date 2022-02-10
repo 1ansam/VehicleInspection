@@ -1,5 +1,6 @@
 package com.yxf.vehicleinspection.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +69,7 @@ class InspectionItemAdapter(
             dataDictionaryViewModel.getMc(FL_HJYWLB,bean.Hjywlb).observe(fragment){
                 binding.tvHjywlb.text = "环检业务类别：$it"
             }
-
+            Log.e("TAG", "onBindViewHolder: $bean005", )
         if (bean005 != null){
             when (bean.Jcxm) {
                 "F1" -> dataDictionaryViewModel.getListFromFl(FL_F1XH).observe(fragment) {

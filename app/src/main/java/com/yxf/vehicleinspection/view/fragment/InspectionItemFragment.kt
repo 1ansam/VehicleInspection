@@ -60,18 +60,20 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
                     vehicleInformationList.add(element)
 //                    inspectionItemAdapter.vehicleAllInfoResponse = element
                 }
+
+                vehicleInformationAdapter.data = vehicleInformationList
                 if (it.isNotEmpty()){
                     inspectionItemAdapter.bean005 = it[0]
+                    vehicleInspectionItemViewModel.getVehicleInspectionItem(args.bean002.Ajlsh,
+                        args.bean002.Hjlsh,args.bean002.Ajywlb,args.bean002.Hjywlb).observe(this) {
+                        for (element in it) {
+                            inspectionItemList.add(element)
+                        }
+                        inspectionItemAdapter.data = inspectionItemList
+                    }
                 }
-                vehicleInformationAdapter.data = vehicleInformationList
             }
-        vehicleInspectionItemViewModel.getVehicleInspectionItem(args.bean002.Ajlsh,
-        args.bean002.Hjlsh,args.bean002.Ajywlb,args.bean002.Hjywlb).observe(this) {
-            for (element in it) {
-                inspectionItemList.add(element)
-            }
-            inspectionItemAdapter.data = inspectionItemList
-        }
+
 
 
     }

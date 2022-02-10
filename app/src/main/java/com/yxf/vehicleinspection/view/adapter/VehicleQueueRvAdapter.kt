@@ -50,12 +50,14 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
             binding.tvHjlsh.text = "环检流水号：${bean.Hjlsh}"
             binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
-            if (bean.Jyzt?.contains("未") == true){
-                binding.tvJyzt.apply {
-                    setBackgroundResource(R.color.red)
-                    setTextColor(resources.getColor(R.color.white,null))
+            when(bean.Jyzt?.contains("未")){
+                true -> {
+                    binding.tvJyzt.apply {
+                        setTextColor(resources.getColor(R.color.red,null))
+                    }
                 }
             }
+
         }
         sharedViewModel.hostName.observe(fragment) { hostName ->
 
@@ -112,6 +114,10 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
         }
 
 
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
 

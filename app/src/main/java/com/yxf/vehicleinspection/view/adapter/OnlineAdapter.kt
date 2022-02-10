@@ -27,7 +27,6 @@ class OnlineAdapter : BaseRvAdapter<Jcgw,ItemOnlineBinding>() {
         binding: ItemOnlineBinding,
         bean: Jcgw
     ) {
-        Log.e("TAG", "onBindViewHolder: $itemCount", )
         holder.binding.apply {
             tvGwmc.text = bean.Gwmc
             tvGwzt.text = bean.Gwzt
