@@ -32,6 +32,9 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
     suspend fun deleteSystemParams(){
         systemParamsDao.deleteSystemParams()
     }
+    /**
+     * 获取系统参数
+     */
     fun getSystemParamsData() : LiveData<List<SystemParamsR015Response>> {
         val liveData = MutableLiveData<List<SystemParamsR015Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -73,20 +76,37 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
         })
         return liveData
     }
-
+    /**
+     * 从数据库获取系统参数
+     */
     fun getSystemParamsFromDb() : LiveData<List<SystemParamsR015Response>> {
         return systemParamsDao.getSystemParamsFromDb()
     }
+    /**
+     * 从数据库获取系统参数
+     * @param Sjlb 数据类别（AJ或Hj）
+     */
     fun getSystemParamsFromDb(Sjlb: String) : LiveData<SystemParamsR015Response> {
         return systemParamsDao.getSystemParamsFromDb(Sjlb)
     }
-
-    fun getJyjgbh(Sjlb : String) : LiveData<String>{
+    /**
+     * 获取检验机构编号
+     * @param Sjlb 数据类别（AJ）默认为AJ
+     */
+    fun getJyjgbh(Sjlb : String = "AJ") : LiveData<String>{
         return systemParamsDao.getJyjgbh(Sjlb)
     }
-    fun getWebPass(Sjlb : String): LiveData<String> {
+    /**
+     * 获取检验业务授权码
+     * @param Sjlb 数据类别（AJ）默认为AJ
+     */
+    fun getWebPass(Sjlb : String = "AJ"): LiveData<String> {
         return systemParamsDao.getWebPass(Sjlb)
     }
+
+    /**
+     * 获取流水号首字母
+     */
     fun getLshSzm() : LiveData<String>{
         return systemParamsDao.getLshSzm()
     }

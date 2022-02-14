@@ -26,6 +26,10 @@ import java.util.ArrayList
  *   机动车队列仓库
  */
 class VehicleQueueRepository {
+    /**
+     * 获取机动车待检队列
+     * @param hphm 号牌号码
+     */
     fun getInspectionQueue(hphm: String): LiveData<List<VehicleQueueR002Response>>{
         val liveData = MutableLiveData<List<VehicleQueueR002Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -73,7 +77,10 @@ class VehicleQueueRepository {
         })
         return liveData
     }
-
+    /**
+     * 获取机动车未收费队列
+     * @param hphm
+     */
     fun getChargeQueue(hphm: String): LiveData<List<VehicleQueueR002Response>>{
         val liveData = MutableLiveData<List<VehicleQueueR002Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -122,72 +129,7 @@ class VehicleQueueRepository {
         return liveData
     }
 
-    fun getReplenishQueue(hphm: String): LiveData<List<VehicleQueueR002Response>>{
-        val liveData = MutableLiveData<List<VehicleQueueR002Response>>()
-        val call = RetrofitService.create(QueryService::class.java).query(
-            QUERY_VEHICLE_QUEUE,
-            getIpAddress(),
-            getJsonData(VehicleQueueR002Request(hphm))
-        )
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response != null){
-                    if (response.isSuccessful){
-                        val stringResponse = response.body()?.string()
-                        val commonResponse = GsonSingleton.instance
-                            .fromJson(stringResponse, CommonResponse::class.java)
-                        if (commonResponse.Code == "1"){
-                            val beanList = ArrayList<VehicleQueueR002Response>()
-                            for (element in commonResponse.Body) {
-                                val bodyJson =
-                                    GsonSingleton.instance.toJson(element)
-                                val bean = GsonSingleton.instance
-                                    .fromJson(bodyJson, VehicleQueueR002Response::class.java)
-                                if (bean.Sfsf == "1"){
-                                    beanList.add(bean)
-                                }
-                            }
-                            liveData.value = beanList
-                        }else{
-                            if (commonResponse.Code == null){
-                                Toast.makeText(MyApp.context, "Code=Null", Toast.LENGTH_SHORT).show()
-                            }else{
-                                Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }else{
-                        Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
-                    }
-                }else {
-                    Toast.makeText(MyApp.context, "response = null", Toast.LENGTH_SHORT).show()
-                }
-            }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(MyApp.context, "${t.message}", Toast.LENGTH_LONG).show()
-            }
-        })
-        return liveData
-    }
-    fun getInspectionDataQueue(hphm: String): LiveData<List<VehicleQueueR002Response>> {
-        val liveData = MutableLiveData<List<VehicleQueueR002Response>>()
-        val dataService = RetrofitService.create(QueryService::class.java)
-        val call = dataService.query(
-            QUERY_VEHICLE_QUEUE,
-            getIpAddress(),
-            getJsonData(VehicleQueueR002Request(hphm))
-        )
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                response2ListBean(response, liveData)
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(MyApp.context, "${t.message}", Toast.LENGTH_LONG).show()
-            }
-        })
-        return liveData
-    }
 
 
 }

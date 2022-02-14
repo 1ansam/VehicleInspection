@@ -24,10 +24,10 @@ import retrofit2.Response
  *   @param dao 数据库操作对象
  */
 class DataDictionaryRepository(private val dao : DataDictionaryDao) {
-    /**
-     * 从远程服务器获取数据字典
-     */
     var rowNum = 0
+    /**
+     * 从服务器获取数据字典
+     */
     fun getDictionaryData() : LiveData<List<DataDictionaryR003Response>>{
         val liveData = MutableLiveData<List<DataDictionaryR003Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -71,6 +71,9 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
         return liveData
     }
 
+    /**
+     * 从数据库获取数据字典
+     */
     fun getDataDictionaryFromDb() : LiveData<List<DataDictionaryR003Response>>{
         return dao.getDataDictionaryFromDb()
     }
@@ -84,7 +87,6 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     /**
      * 更新数据列表
      * 更新操作只可更新当前数据库中存在的数据
-     * 如数据库结构发生改变请使用database Migrate迁移数据库版本
      * @param dataDictionaryListResponse 数据对象列表
      */
     suspend fun updateDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>){
@@ -108,11 +110,21 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     fun getMc(Fl : String,Dm : String): LiveData<String> {
         return dao.getMc(Fl, Dm)
     }
-
+    /**
+     *  约束Fl和Mc字段得到Dm
+     *  @param Fl 分类代码
+     *  @param Mc 子类名称
+     *  @return LiveData
+     */
     fun getDm(Fl : String,Mc : String) : LiveData<String>{
         return dao.getDm(Fl, Mc)
     }
-
+    /**
+     *  约束Fl和McList字段得到DmList
+     *  @param Fl 分类代码
+     *  @param McList 名称列表
+     *  @return LiveData
+     */
     fun getDmList(Fl : String, McList : List<String>): LiveData<List<String>>{
         return dao.getDmList(Fl,McList)
     }
@@ -124,11 +136,19 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     fun getListFromFl(Fl: String) : LiveData<List<DataDictionaryR003Response>>{
         return dao.getListFromFl(Fl)
     }
-
+    /**
+     *  约束Fl得到该Fl所对应的Mc列表
+     *  @param Fl 分类代码
+     *  @return LiveData
+     */
     fun getMcListFromFl(Fl : String) : LiveData<List<String>>{
         return dao.getListMcFromFl(Fl)
     }
-
+    /**
+     *  约束Fl得到该Fl所对应的对象列表
+     *  @param FlList 分类代码列表
+     *  @return LiveData
+     */
     fun getListFromFl(FlList : List<String>) : LiveData<List<DataDictionaryR003Response>>{
         return dao.getListFromFl(FlList)
     }

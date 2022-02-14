@@ -23,6 +23,10 @@ import retrofit2.Retrofit
  *   time:2021/12/22
  */
 class ChargeRepository {
+    /**
+     * 从服务器获取收费状态
+     * @param oid 订单编号
+     */
     fun getChargeStatus(oid : String) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -43,6 +47,9 @@ class ChargeRepository {
         return liveData
     }
 
+    /**
+     * 上传收费信息
+     */
     fun postChargePayment(saveChargeInfoW004Request: SaveChargeInfoW004Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -62,6 +69,9 @@ class ChargeRepository {
         return liveData
     }
 
+    /**
+     * 从服务器获取开票信息
+     */
     fun getInvoiceParams() : LiveData<InvoiceParamsR025Response>{
         val liveData = MutableLiveData<InvoiceParamsR025Response>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -83,7 +93,9 @@ class ChargeRepository {
         })
         return liveData
     }
-
+    /**
+     * 上传开票信息
+     */
     fun postInvoice(saveInvoiceW005Request: SaveInvoiceW005Request) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -102,7 +114,9 @@ class ChargeRepository {
         })
         return liveData
     }
-
+    /**
+     * 获取客户信息
+     */
     fun getBuyerParams(buyerParamsR026Request: BuyerParamsR026Request) : LiveData<BuyerParamsR026Response>{
         val liveData = MutableLiveData<BuyerParamsR026Response>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -121,7 +135,10 @@ class ChargeRepository {
         })
         return liveData
     }
-
+    /**
+     * 获取收费信息
+     * @param ajlsh 安检流水号
+     */
     fun getChargeInfo(ajlsh: String): LiveData<SaveChargeInfoW004Request> {
         val liveData = MutableLiveData<SaveChargeInfoW004Request>()
         val call = RetrofitService.create(QueryService::class.java).query(

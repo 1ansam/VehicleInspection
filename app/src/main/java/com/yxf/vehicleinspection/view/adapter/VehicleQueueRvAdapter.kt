@@ -50,10 +50,41 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
             binding.tvHjlsh.text = "环检流水号：${bean.Hjlsh}"
             binding.tvTime.text = bean.Djrq
             binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
-            when(bean.Jyzt?.contains("未")){
-                true -> {
+            when(bean.Sfsf){
+                "0" ->{
+                    binding.tvSfsf.apply {
+                        text = "未收费 "
+                        setTextColor(resources.getColor(R.color.red,null))
+                    }
+                }
+                "1" ->{
+                    binding.tvSfsf.apply {
+                        text = "已收费 "
+                    }
+                }
+            }
+            when(bean.Sfkp){
+                "0" ->{
+                    binding.tvSfkp.apply {
+                        text = "未开票"
+                        setTextColor(resources.getColor(R.color.red,null))
+                    }
+                }
+                "1" ->{
+                    binding.tvSfkp.apply {
+                        text = "已开票"
+                    }
+                }
+            }
+            when{
+                bean.Jyzt?.contains("未") == true -> {
                     binding.tvJyzt.apply {
                         setTextColor(resources.getColor(R.color.red,null))
+                    }
+                }
+                bean.Jyzt?.contains("结束") == true ->{
+                    binding.tvJyzt.apply {
+                        setTextColor(resources.getColor(R.color.blue,null))
                     }
                 }
             }

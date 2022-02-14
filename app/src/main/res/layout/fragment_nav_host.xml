@@ -77,9 +77,11 @@ tools:context=".view.fragment.NavHostFragment">
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:drawablePadding="40dp"
+                android:gravity="start|center_vertical"
                 android:text="预约查询及注册登记"
                 android:textSize="24sp"
-                app:drawableLeftCompat="@drawable/ic_register"
+                app:drawableLeftCompat="@drawable/ic_sign"
                 app:drawableRightCompat="@drawable/ic_next" />
 
             <TextView
@@ -88,6 +90,8 @@ tools:context=".view.fragment.NavHostFragment">
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:drawablePadding="40dp"
+                android:gravity="start|center_vertical"
                 android:text="@string/charge"
                 android:textSize="24sp"
                 app:drawableLeftCompat="@drawable/ic_cny"
@@ -99,6 +103,8 @@ tools:context=".view.fragment.NavHostFragment">
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:drawablePadding="40dp"
+                android:gravity="start|center_vertical"
                 android:text="@string/personInspectionItem"
                 android:textSize="24sp"
                 app:drawableLeftCompat="@drawable/ic_searcher"
@@ -110,6 +116,8 @@ tools:context=".view.fragment.NavHostFragment">
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:drawablePadding="40dp"
+                android:gravity="start|center_vertical"
                 android:text="数据补传"
                 android:textSize="24sp"
                 app:drawableLeftCompat="@drawable/ic_dispatch"
@@ -121,11 +129,12 @@ tools:context=".view.fragment.NavHostFragment">
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="24sp"
+                android:drawablePadding="40dp"
+                android:gravity="start|center_vertical"
                 android:text="@string/verifySignature"
+                android:textSize="24sp"
                 app:drawableLeftCompat="@drawable/ic_verify_signature"
-                app:drawableRightCompat="@drawable/ic_next"
-                />
+                app:drawableRightCompat="@drawable/ic_next" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

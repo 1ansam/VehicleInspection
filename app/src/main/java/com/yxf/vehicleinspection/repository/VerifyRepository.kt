@@ -23,6 +23,11 @@ import retrofit2.Response
  *   time:2021/12/17
  */
 class VerifyRepository {
+    /**
+     * 获取待审核队列
+     * @param hphm 号牌号码
+     * @param shyw 审核业务（"0"=同检 "1"=安检 "2"=环检）
+     */
     fun getVerifyDataQueue(hphm: String, shyw : String): LiveData<List<ModerationQueueR013Response>> {
         val liveData = MutableLiveData<List<ModerationQueueR013Response>>()
         val dataService = RetrofitService.create(QueryService::class.java)
@@ -43,7 +48,9 @@ class VerifyRepository {
         return liveData
     }
     /**
-     * @param Lsh 流水号
+     * 获取机动车检验照片
+     * @param ajLsh 安检流水号
+     * @param hjLsh 环检流水号
      */
     fun getVehicleImage(ajLsh : String, hjLsh : String) : LiveData<List<VehicleImageR007Response>> {
         val liveData = MutableLiveData<List<VehicleImageR007Response>>()
@@ -65,6 +72,11 @@ class VerifyRepository {
         })
         return liveData
     }
+    /**
+     * 获取机动车检验视频
+     * @param ajLsh 安检流水号
+     * @param hjLsh 环检流水号
+     */
     fun getVehicleVideo(ajLsh : String, hjLsh : String) : LiveData<List<VehicleVideoR008Response>> {
         val liveData = MutableLiveData<List<VehicleVideoR008Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(

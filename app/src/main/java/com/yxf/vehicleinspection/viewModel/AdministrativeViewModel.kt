@@ -14,6 +14,9 @@ import java.lang.IllegalArgumentException
 class AdministrativeViewModel(val administrativeRepository: AdministrativeRepository) :
     ViewModel() {
     val insertEnd = MutableLiveData<Boolean>()
+    /**
+     * 从服务器获取行政区划数据
+     */
     fun getAdministrativeList() : LiveData<List<AdministrativeR023Response>>{
         return administrativeRepository.getAdministrativeList()
     }
@@ -26,6 +29,10 @@ class AdministrativeViewModel(val administrativeRepository: AdministrativeReposi
     fun deleteAdministrative() = viewModelScope.launch {
         administrativeRepository.deleteAdministrative()
     }
+    /**
+     * 从数据库按名称获取行政区划
+     * @param xzqhmc 行政区划名称
+     */
     fun getAdministrativeListFromMc(xzqhmc : String) : LiveData<List<AdministrativeR023Response>>{
         return administrativeRepository.getAdministrativeListFromMc(xzqhmc)
     }

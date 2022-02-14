@@ -93,9 +93,11 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_enterRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_register_grey"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:fabCustomSize="70dp"
+        android:src="@drawable/ic_register"
+        app:maxImageSize="50dp"
         app:backgroundTint="@color/lightBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

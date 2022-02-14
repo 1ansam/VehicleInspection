@@ -24,7 +24,14 @@ import retrofit2.Response
  *   time:2021/12/21
  */
 class ChargeItemRepository(private val dao : ChargeItemDao) {
+    //数据行数初始化为0
+    //从服务器获取数据时重新赋值
+    //为与插入数据做比对
     var rowNum = 0
+
+    /**
+     * 从服务器获取收费条目
+     */
     fun getChargeItem() : LiveData<List<ChargeItemR004Response>>{
         val liveData = MutableLiveData<List<ChargeItemR004Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -68,6 +75,9 @@ class ChargeItemRepository(private val dao : ChargeItemDao) {
         return liveData
     }
 
+    /**
+     * 从数据库获取收费条目
+     */
     fun getChargeItemFromDb(): LiveData<List<ChargeItemR004Response>> {
         return dao.getChargeItemFromDb()
     }

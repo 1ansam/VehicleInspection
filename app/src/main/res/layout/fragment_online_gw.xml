@@ -21,9 +21,9 @@
             android:id="@+id/tvDispatchTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="车辆调度"
+            android:text="安检上线"
             android:textColor="@color/grey"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -64,7 +64,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/startInspection" />
+            android:text="@string/startInspection"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -79,50 +80,136 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:background="@drawable/border_top_bottom"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="1"
                     android:gravity="start"
-                    android:text="流水号" />
+                    android:text="引车员："
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/tvLsh"
+                    android:id="@+id/tvYcyName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="start" />
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:background="@drawable/border_top_bottom"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="1"
                     android:gravity="start"
-                    android:text="号牌号码" />
+                    android:text="流水号："
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tvLsh"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_top_bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="号牌号码："
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/tvHphm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_top_bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:gravity="start"/>
+                    android:gravity="start"
+                    android:text="号牌种类："
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tvHpzl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_top_bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="线号："
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tvJcxh"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

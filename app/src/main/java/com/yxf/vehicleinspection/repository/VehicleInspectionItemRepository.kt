@@ -22,6 +22,13 @@ import retrofit2.Response
  *   time:2021/11/4
  */
 class VehicleInspectionItemRepository {
+    /**
+     * 获取机动车检验项目
+     * @param Ajlsh 安检流水号
+     * @param Hjlsh 环检流水号
+     * @param Ajywlb 安检业务类别
+     * @param Hjywlb 胡安检业务类别
+     */
     fun getVehicleInspectionItem(Ajlsh : String, Hjlsh : String, Ajywlb : String, Hjywlb : String): LiveData<List<VehicleInspectionItemR006Response>> {
         val liveData = MutableLiveData<List<VehicleInspectionItemR006Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(

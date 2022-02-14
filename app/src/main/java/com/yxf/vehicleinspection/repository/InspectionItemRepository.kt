@@ -29,6 +29,9 @@ import kotlin.reflect.typeOf
  *   time:2021/11/4
  */
 class InspectionItemRepository {
+    /**
+     * 从服务器获取所有用户信息
+     */
     fun getUserInfo(): LiveData<List<UserInfoR001Response>> {
         val liveData = MutableLiveData<List<UserInfoR001Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -51,7 +54,14 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 从服务器获取检验照片信息
+     * @param Jyxm 检验项目
+     * @param Ajywlb 安检业务类别
+     * @param Hjywlb 环检业务类别
+     * @param Ajlsh 安检流水号
+     * @param Hjlsh 环检流水号
+     */
     fun getImageItemData(
         Jyxm: String,
         Ajywlb: String,
@@ -76,7 +86,14 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 从服务器获取人工检验项目
+     * @param Jyxm 检验项目
+     * @param Ajywlb 安检业务类别
+     * @param Hjywlb 环检业务类别
+     * @param Ajlsh 安检流水号
+     * @param Hjlsh 环检流水号
+     */
     fun getSelectItemData(
         Jyxm: String,
         Ajywlb: String,
@@ -102,11 +119,16 @@ class InspectionItemRepository {
         return liveData
     }
 
+    /**
+     * 联网查询内需要填写项目列表
+     */
     fun getNetworkQueryInfoName(): List<String> {
         return listOf("联网查询结果描述", "机动车所有人", "手机号码", "联系地址", "邮政编码")
     }
 
-
+    /**
+     * 上传机动车检验照片信息
+     */
     fun postInspectionPhotoW007(list: List<InspectionPhotoW007Request>): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call =
@@ -127,6 +149,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
+    /**
+     * 上传机动车检验照片信息
+     */
     fun postInspectionPhotoW007(inspectionPhotoW007Request: InspectionPhotoW007Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call =
@@ -147,7 +172,15 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 上传人工检验项目信息
+     *   @param T 检测数据bean 见See Also
+     *   @see ExteriorArtificialProjectRequest
+     *   @see ChassisArtificialProjectRequest
+     *   @see DynamicArtificialProjectRequest
+     *   @see NetworkQueryArtificialProjectRequest
+     *   @see UniqueArtificialProjectRequest
+     */
     fun <T> postArtificialProjectW011(list: List<ArtificialProjectW011Request<T>>): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -167,7 +200,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 上传保存视频信息
+     */
     fun postSaveVideoW008(saveVideoW008Request: SaveVideoW008Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -187,7 +222,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 上传项目开始信息
+     */
     fun postProjectStartW010(projectStartW010Request: ProjectStartW010Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -207,7 +244,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 上传项目结束信息
+     */
     fun postProjectEndW012(projectEndW012Request: ProjectEndW012Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -227,7 +266,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 上传文件
+     */
     fun postUploadFile(file: File, requestBody: RequestBody): LiveData<String> {
         val liveData = MutableLiveData<String>()
         val call = RetrofitService.create(UploadFile::class.java).upload(
@@ -246,7 +287,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 触发摄像头拍照
+     */
     fun postTakePhoto(takePhotoW009Request: TakePhotoW009Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -266,7 +309,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 查询人工检验项目最短时间
+     */
     fun getLeastestTime(ajcx: String, jyxm: String): MutableLiveData<LeastestTimeR019Response> {
         val liveData = MutableLiveData<LeastestTimeR019Response>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -285,7 +330,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 开始上线
+     */
     fun startOnline(startOnlineW015Request: StartOnlineW015Request): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -304,7 +351,9 @@ class InspectionItemRepository {
         })
         return liveData
     }
-
+    /**
+     * 获取上线状态信息
+     */
     fun getOnlineStatus(onlineStatusR024Request: OnlineStatusR024Request): LiveData<OnlineStatusR024Response> {
         val liveData = MutableLiveData<OnlineStatusR024Response>()
 
@@ -367,8 +416,5 @@ class InspectionItemRepository {
         })
 
         return liveData
-    }
-    fun getRefreshOnlineData(onlineStatusR024Request: OnlineStatusR024Request) : LiveData<OnlineStatusR024Response>{
-        return getOnlineStatus(onlineStatusR024Request)
     }
 }

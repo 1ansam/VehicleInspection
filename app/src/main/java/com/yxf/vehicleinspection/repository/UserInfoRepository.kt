@@ -26,7 +26,9 @@ import retrofit2.Response
 class UserInfoRepository {
     val isLogin = MutableLiveData<Boolean>()
 
-
+    /**
+     * 获取用户登录状态
+     */
     fun getUserLogin(username: String, password: String): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -47,7 +49,9 @@ class UserInfoRepository {
         })
         return liveData
     }
-
+    /**
+     * 获取用户信息
+     */
     fun getUser(username: String, password: String) : LiveData<UserInfoR001Response>{
         val liveData = MutableLiveData<UserInfoR001Response>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -94,6 +98,9 @@ class UserInfoRepository {
         })
         return liveData
     }
+    /**
+     * 获取App版本号
+     */
     fun getVersion():LiveData<VersionCodeResponseR021>{
         val liveData = MutableLiveData<VersionCodeResponseR021>()
         val call = RetrofitService.create(QueryService::class.java).query(

@@ -19,8 +19,7 @@ import java.util.*
 
 class ModerationQueueFragment : BaseBindingFragment<FragmentModerationQueueBinding>() {
     lateinit var adapter : VehicleModerationRvAdapter
-    val verifyViewModel by viewModels<VerifyViewModel> { VerifyViewModelFactory((requireActivity().application as MyApp).verifyRepository) }
-    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val verifyViewModel by viewModels<VerifyViewModel> { VerifyViewModelFactory((requireActivity().application as MyApp).verifyRepository) }
     private val dataDictionaryViewModel by viewModels<DataDictionaryViewModel> { DataDictionaryViewModelFactory((requireActivity().application as MyApp).dataDictionaryRepository) }
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED

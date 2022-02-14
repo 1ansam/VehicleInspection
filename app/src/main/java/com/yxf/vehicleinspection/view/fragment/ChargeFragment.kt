@@ -41,6 +41,10 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         var collectMoney = args.collectMoney
         val sign = getSignFromCollectMoney(collectMoney)
         val wbean004 = args.wbean004
+        val bean002 = args.bean002
+        binding.tvAmount.text = "金额: ${collectMoney.amt/100}"
+        binding.tvOid.text = "订单编号: ${collectMoney.oid}"
+        binding.tvHphm.text = "号牌号码:${bean002.Hphm}"
         wbean004.chargeOrder.Sign = sign
         collectMoney = CollectMoney(collectMoney.appid,collectMoney.c,collectMoney.oid,collectMoney.amt,collectMoney.trxreserve,sign,collectMoney.key)
         url += getStringFromCollectMoney(collectMoney)

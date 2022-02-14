@@ -24,6 +24,9 @@ import retrofit2.Response
  *   time:2021/12/14
  */
 class AdministrativeRepository(private val dao : AdministrativeDao) {
+    //数据行数初始化为0
+    //从服务器获取数据时重新赋值
+    //为与插入数据做比对
     var rowNum = 0
     suspend fun insertAdministrativeList(administrativeList: List<AdministrativeR023Response>): List<Long> {
         return dao.insertAdministrativeList(administrativeList)
@@ -32,6 +35,10 @@ class AdministrativeRepository(private val dao : AdministrativeDao) {
     suspend fun deleteAdministrative(){
         return dao.deleteAdministrative()
     }
+
+    /**
+     * 从服务器获取行政区划数据
+     */
     fun getAdministrativeList() : LiveData<List<AdministrativeR023Response>>{
         val liveData = MutableLiveData<List<AdministrativeR023Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -74,6 +81,11 @@ class AdministrativeRepository(private val dao : AdministrativeDao) {
         })
         return liveData
     }
+
+    /**
+     * 从数据库按名称获取行政区划
+     * @param xzqhmc 行政区划名称
+     */
     fun getAdministrativeListFromMc(xzqhmc : String) : LiveData<List<AdministrativeR023Response>>{
         return dao.getAdministrativeListFromMc(xzqhmc)
     }

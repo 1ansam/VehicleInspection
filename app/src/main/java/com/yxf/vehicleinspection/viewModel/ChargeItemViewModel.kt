@@ -11,11 +11,15 @@ import kotlinx.coroutines.launch
  */
 class ChargeItemViewModel(private val chargeItemRepository: ChargeItemRepository) : ViewModel() {
     var insertEnd = MutableLiveData<Boolean>()
-
+    /**
+     * 从服务器获取收费条目
+     */
     fun getChargeItem(): LiveData<List<ChargeItemR004Response>> {
         return chargeItemRepository.getChargeItem()
     }
-
+    /**
+     * 从数据库获取收费条目
+     */
     fun getChargeItemFromDb(): LiveData<List<ChargeItemR004Response>> {
         return chargeItemRepository.getChargeItemFromDb()
     }

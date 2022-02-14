@@ -23,6 +23,15 @@ import retrofit2.Response
  *   time:2021/12/2
  */
 class RegisterRepository {
+    /**
+     * 获取车辆信息
+     * @param Hphm 号牌号码
+     * @param Hpzl 号牌种类
+     * @param Clsbdh 车辆识别代号
+     * @param Ajywlb 安检业务类别
+     * @param Hjywlb 环检业务类别
+     * @param Jyjgbh 检验机构编号
+     */
     fun getVehicleInfo(Hphm : String, Hpzl : String, Clsbdh : String, Ajywlb : String, Hjywlb : String, Jyjgbh : String) : LiveData<VehicleAllInfoR022Response>{
         val liveData = MutableLiveData<VehicleAllInfoR022Response>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -41,6 +50,9 @@ class RegisterRepository {
         })
         return liveData
     }
+    /**
+     * 上传车辆信息
+     */
     fun postSaveVehicleInfo(saveVehicleInfoW003Request: SaveVehicleInfoW003Request) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -60,7 +72,9 @@ class RegisterRepository {
         })
         return liveData
     }
-
+    /**
+     * 获取安检预约信息
+     */
     fun getAppointmentAJ(): LiveData<List<AppointmentAjR010Response>> {
         val liveData = MutableLiveData<List<AppointmentAjR010Response>>()
         val call = RetrofitService.create(QueryService::class.java).query(
@@ -79,7 +93,9 @@ class RegisterRepository {
         })
         return liveData
     }
-
+    /**
+     * 将车辆登录需要填写的信息与json代号一一对应
+     */
     fun getTextMap() : Map<String, String> {
         val textMap = mutableMapOf<String,String>()
         textMap["xszbh"] = "行驶证编号"
@@ -125,6 +141,9 @@ class RegisterRepository {
         textMap["DPF"] = "DPF（柴油）"
         return textMap
     }
+    /**
+     * 将机动车状态代码存储在Map中以供调用
+     */
     fun getZtDmMap() : Map<String,String>{
         val map = mutableMapOf<String,String>()
         map["A"] = "正常"
@@ -145,6 +164,9 @@ class RegisterRepository {
         map["Q"] = "逾期未检验"
         return map
     }
+    /**
+     * 将机动车状态代码存储在Map中以供调用
+     */
 
     fun getZtMcMap() : Map<String,String>{
         val map = mutableMapOf<String,String>()
@@ -166,7 +188,9 @@ class RegisterRepository {
         map["逾期未检验"] = "Q"
         return map
     }
-
+    /**
+     * 环检检验项目
+     */
     fun getHjJyxm() : List<String>{
         return mutableListOf("环保外观","环保底盘","OBD","尾气")
     }

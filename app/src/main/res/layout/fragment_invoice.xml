@@ -253,19 +253,22 @@
                     android:layout_weight="0.3"
                     android:text="总价"/>
             </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvInvoiceItem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnInvoice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:fabCustomSize="70dp"
+        app:maxImageSize="50dp"
         android:backgroundTint="@color/lightBlue"
-        android:src="@drawable/icon_yes"
+        android:src="@drawable/ic_invoice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

@@ -56,11 +56,36 @@
         android:textColor="@color/red"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.247"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivQRCode"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toStartOf="@+id/ivQRCode"
         app:layout_constraintTop_toBottomOf="@+id/ivQRCode"
         app:layout_constraintVertical_bias="0.56" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline26"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivQRCode"
+        app:layout_constraintTop_toTopOf="@+id/guideline30">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="start"
+            android:text="订单编号："/>
+        <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHphm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:gravity="start"
+        android:text="号牌号码："/>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
@@ -96,10 +121,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnInvoice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:fabCustomSize="70dp"
+        app:maxImageSize="50dp"
         app:backgroundTint="@color/lightBlue"
-        android:src="@drawable/ic_fapiao"
+        android:src="@drawable/ic_charged"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

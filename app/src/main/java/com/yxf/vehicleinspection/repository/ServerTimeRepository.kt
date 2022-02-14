@@ -22,6 +22,9 @@ import retrofit2.Response
  *   time:2021/11/11
  */
 class ServerTimeRepository {
+    /**
+     * 获取服务器时间
+     */
     fun getServerTime() : LiveData<ServerTimeR011Response>{
         val liveData = MutableLiveData<ServerTimeR011Response>()
         val call = RetrofitService.create(QueryService::class.java).query(

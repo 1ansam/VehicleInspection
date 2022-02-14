@@ -19,6 +19,9 @@ import retrofit2.Response
  *   time:2021/11/10
  */
 class SignatureRepository {
+    /**
+     * 上传签名
+     */
     fun postSignature(saveSignatureW006Request: SaveSignatureW006Request) : LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
@@ -38,6 +41,9 @@ class SignatureRepository {
         })
         return liveData
     }
+    /**
+     * 上传审核信息
+     */
     fun postVerifyInfo(saveVerifyInfoW013Request: SaveVerifyInfoW013Request):LiveData<Boolean>{
         val liveData = MutableLiveData<Boolean>()
         val call = RetrofitService.create(WriteService::class.java).write(
