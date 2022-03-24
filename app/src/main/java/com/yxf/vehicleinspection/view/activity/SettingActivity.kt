@@ -1,21 +1,14 @@
 package com.yxf.vehicleinspection.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.edit
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.databinding.ActivitySettingBinding
 import com.yxf.vehicleinspection.singleton.SharedP
-import com.yxf.vehicleinspection.utils.getWifiRssi
-import com.yxf.vehicleinspection.utils.setForceUnable
 import com.yxf.vehicleinspection.utils.setVisibility
 import com.yxf.vehicleinspection.viewModel.*
 
@@ -39,11 +32,11 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
         binding.tvPort.setText(SharedP.instance.getString("ipPort", "80"))
 
         binding.button.setOnClickListener {
-            SharedP.instance.edit().apply {
+            SharedP.instance.edit{
                 putString("ipAddress", binding.tvIpAddress.text.toString())
                 putString("ipPort", binding.tvPort.text.toString())
-                apply()
             }
+
 
             BaseUrlHelper.instance.setHostField(binding.tvIpAddress.text.toString())
             BaseUrlHelper.instance.setPortField(binding.tvPort.text.toString().toInt())

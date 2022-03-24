@@ -1,7 +1,6 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.app.Activity.RESULT_OK
-import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.BitmapFactory
@@ -10,9 +9,10 @@ import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.util.Xml
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -33,13 +33,14 @@ import com.yxf.vehicleinspection.utils.*
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemImageAdapter
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
-import com.yxf.vehicleinspection.view.adapter.YcySpinnerAdapter
-import com.yxf.vehicleinspection.viewModel.*
+import com.yxf.vehicleinspection.viewModel.InspectionItemViewModel
+import com.yxf.vehicleinspection.viewModel.InspectionItemViewModelFactory
+import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
+import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
@@ -132,7 +133,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             .observe(this) {
                 count = object : CountDownTimer(it.Yqsc.toInt() * 1000L, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
-                        binding.includeTitle.textView.text = "外观查验${millisUntilFinished / 1000}"
+                        binding.includeTitle.textView.text = resources.getString(R.string.F1_sj,millisUntilFinished/1000)
                     }
                     override fun onFinish() {
                         Snackbar.make(this@ExteriorFragment.requireView(),"检验时间已到可以提交查验",Snackbar.LENGTH_SHORT).show()

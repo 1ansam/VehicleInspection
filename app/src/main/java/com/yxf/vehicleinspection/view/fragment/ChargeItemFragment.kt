@@ -1,14 +1,8 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,8 +15,6 @@ import com.yxf.vehicleinspection.bean.CollectMoney
 import com.yxf.vehicleinspection.bean.request.ChargeDetail
 import com.yxf.vehicleinspection.bean.request.ChargeOrder
 import com.yxf.vehicleinspection.bean.request.SaveChargeInfoW004Request
-import com.yxf.vehicleinspection.bean.response.ChargeItemR004Response
-import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 import com.yxf.vehicleinspection.databinding.FragmentChargeItemBinding
 import com.yxf.vehicleinspection.utils.date2String
 import com.yxf.vehicleinspection.view.adapter.ChargeItemAdapter
@@ -30,10 +22,7 @@ import com.yxf.vehicleinspection.viewModel.ChargeItemViewModel
 import com.yxf.vehicleinspection.viewModel.ChargeItemViewModelFactory
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
-import org.w3c.dom.Text
-import java.lang.StringBuilder
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
     val chargeItemAdapter = ChargeItemAdapter()
@@ -63,7 +52,7 @@ class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
                             bean004 ->
                         val oid = getOid()
                         val wbean004 = SaveChargeInfoW004Request(ChargeOrder(args.bean002.Ajlsh,bean015.Appid,bean015.C,oid,(getAmt(chargeItemAdapter)*100).toString(),"05|Q1#"+args.bean002.Hphm+"|X#其他备注信息","",bean015.Md5key),
-                            getChargeDetails(chargeItemAdapter,bean004,oid))
+                            getChargeDetails(chargeItemAdapter, oid))
                         val collectMoney = CollectMoney(bean015.Appid,bean015.C,oid,getAmt(chargeItemAdapter)*100,"05|Q1#"+args.bean002.Hphm+"|X#其他备注信息","",bean015.Md5key)
                         val action = ChargeItemFragmentDirections.actionChargeItemFragmentToChargeFragment(args.bean002,collectMoney,bean015.C1,wbean004)
                         findNavController().navigate(action)
@@ -78,7 +67,7 @@ class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
 
         }
     }
-    fun getChargeDetails(chargeItemAdapter: ChargeItemAdapter, chargeItems : List<ChargeItemR004Response>, oid : String) : List<ChargeDetail>{
+    private fun getChargeDetails(chargeItemAdapter: ChargeItemAdapter, oid: String) : List<ChargeDetail>{
         val list = ArrayList<ChargeDetail>()
         for (index in 0 until chargeItemAdapter.itemCount){
             var detailNo = 0
@@ -99,7 +88,7 @@ class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
         }
         return list
     }
-    fun getAmt(chargeItemAdapter : ChargeItemAdapter) : Int{
+    private fun getAmt(chargeItemAdapter : ChargeItemAdapter) : Int{
         var amt = 0
         for (index in 0 until chargeItemAdapter.itemCount){
             val holder = binding.rvChargeItem.findViewHolderForAdapterPosition(index)
@@ -114,7 +103,7 @@ class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
         return amt
     }
 
-    fun getOid() : String{
+    private fun getOid() : String{
         val string = StringBuilder()
         val random = "${date2String(Date(), "yyyyMMddHHmmss")}${
             String.format(

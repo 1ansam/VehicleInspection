@@ -25,7 +25,7 @@ class AdministrativeAdapter : BaseRvAdapter<AdministrativeR023Response,ItemAdmin
         binding: ItemAdministrativeBinding,
         bean: AdministrativeR023Response
     ) {
-        holder.binding.apply {
+        binding.apply {
             tvXzqhdm.text = bean.Xzqhdm
             tvXzqhmc.text = bean.Xzqhmc
         }

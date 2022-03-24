@@ -1,7 +1,6 @@
 package com.yxf.vehicleinspection.view.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
  *   author:yxf
  *   time:2021/11/25
  */
-class YcySpinnerAdapter(activity : Activity, val resourceId : Int, val data : List<UserInfoR001Response>)
+class YcySpinnerAdapter(activity : Activity, private val resourceId : Int, val data : List<UserInfoR001Response>)
     : ArrayAdapter<UserInfoR001Response>(activity,resourceId,data){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(resourceId,parent,false)

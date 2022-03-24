@@ -2,28 +2,18 @@ package com.yxf.vehicleinspection.view.activity
 
 import android.Manifest
 import android.content.Intent
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.permissionx.guolindev.PermissionX
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.databinding.ActivityWelcomeBinding
-import com.yxf.vehicleinspection.service.UploadFile
-import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.getWifiRssi
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModelFactory
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModel
 import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
-import okhttp3.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.File
 
 class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
 
@@ -79,39 +69,7 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
             startActivity(intent)
             finish()
 
-//                takeVideoIntent.resolveActivity(packageManager)?.also {
-//                    Log.e("TAG", "init: $it", )
-//                    startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
-//                }
 
-
-
-//            val filePath = "${Environment.getExternalStorageDirectory().absoluteFile}/DCIM/Screenshots/Record_2021-11-09-16-08-21.mp4"
-//            val file = File(filePath)
-//            val mediaType : MediaType? = MediaType.parse("multipart/form-data")
-//            val requestBody = RequestBody.create(mediaType,file)
-//            val call1 = RetrofitService.create(UploadFile::class.java).upload(
-//                uploadFile("file",file,requestBody)
-//            )
-//            val call2 = RetrofitService.create(UploadFile::class.java).upload2(
-//                uploadFile2("objFile",file,requestBody)
-//            )
-//            val call3 = RetrofitService.create(UploadFile::class.java).upload2(
-//                uploadFile2("file",file,requestBody)
-//            )
-//            call2.enqueue(object : Callback<ResponseBody>{
-//                override fun onResponse(
-//                    call: Call<ResponseBody>,
-//                    response: Response<ResponseBody>
-//                ) {
-//                    Log.e("TAG", "onResponse: ${response.code()}", )
-//                    Log.e("TAG", "onResponse: $response", )
-//                }
-//
-//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                    Log.e("TAG", "onFailure: ${t.message}", )
-//                }
-//            })
 
 
         }
@@ -119,29 +77,7 @@ class WelcomeActivity : BaseBindingActivity<ActivityWelcomeBinding>() {
             intent = Intent(this,SettingActivity::class.java)
             startActivity(intent)
             finish()
-//            binding.pbSync.visibility = View.VISIBLE
-//            dataDictionaryViewModel.deleteDataDictionary()
-//            systemParamsViewModel.deleteSystemParams()
-//            dataDictionaryViewModel.getDataDictionary().observe(this) { listDataDictionary ->
-//                Log.e("TAG", "init: insertDataDictionaryStart", )
-//                dataDictionaryViewModel.insertDataDictionary(listDataDictionary)
-//                systemParamsViewModel.getSystemParamsData().observe(this){ listSystemParams ->
-//                    systemParamsViewModel.insertSystemParams(listSystemParams)
-//                    dataDictionaryViewModel.insertEnd.observe(this){
-//                        if (it){
-//                            systemParamsViewModel.insertEnd.observe(this){
-//                                if (it){
-//                                    binding.pbSync.visibility = View.GONE
-//                                    Toast.makeText(this, "参数同步成功", Toast.LENGTH_SHORT).show()
-//                                }
-//                            }
-//
-//                        }
-//                    }
-//                }
-//
-//
-//            }
+
 
 
         }

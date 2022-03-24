@@ -1,13 +1,11 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.Jcgw
-import com.yxf.vehicleinspection.bean.response.OnlineStatusR024Response
 import com.yxf.vehicleinspection.databinding.ItemOnlineBinding
 
 /**

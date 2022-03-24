@@ -11,7 +11,7 @@ import java.lang.IllegalArgumentException
  *   author:yxf
  *   time:2021/12/14
  */
-class AdministrativeViewModel(val administrativeRepository: AdministrativeRepository) :
+class AdministrativeViewModel(private val administrativeRepository: AdministrativeRepository) :
     ViewModel() {
     val insertEnd = MutableLiveData<Boolean>()
     /**

@@ -1,17 +1,9 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.content.Context
-import android.media.MediaMetadataRetriever
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.MediaController
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.yxf.vehicleinspection.MyApp.Companion.context
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.base.BaseUrlHelper
 import com.yxf.vehicleinspection.bean.response.VehicleVideoR008Response
 import com.yxf.vehicleinspection.databinding.VehicleVideoItemBinding
 import com.yxf.vehicleinspection.view.VideoPickerFragment
@@ -36,13 +28,10 @@ class VehicleVideoRvAdapter(val fragment: VehicleImageVideoFragment) : BaseRvAda
         binding: VehicleVideoItemBinding,
         bean: VehicleVideoR008Response,
     ) {
-        holder.binding.tvZpmc.text = bean.Spmc
-        holder.binding.vvVideo.setOnClickListener {
+        binding.tvZpmc.text = bean.Spmc
+        binding.vvVideo.setOnClickListener {
             VideoPickerFragment(bean).show(fragment.childFragmentManager,bean.Xmbh)
         }
-//        holder.binding.vvVideo.apply {
-//            setVideoPath("${BaseUrlHelper.instance.httpUrl}${bean.Lxdz}")
-//            seekTo(1)
-//        }
+
     }
 }

@@ -276,7 +276,6 @@ class UniqueFragment : BaseBindingFragment<FragmentUniqueBinding>() {
             args.bean002.Ajjccs,args.bean002.Hjjccs
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
-        Log.e("TAG", "getPostArtificialData: $list")
         return list
 
     }

@@ -1,6 +1,5 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,21 +47,13 @@ class InspectionItemAdapter(
         bean: VehicleInspectionItemR006Response,
     ) {
 
-        holder.apply {
-            binding.tvJyxm.text =   "检测项目：${bean.Xmmc}"
-            binding.tvJyzt.text =   "检测状态：${bean.Jczt}"
-            binding.tvJcry1.text =  "检测人员 1：${bean.Jcry_01}"
-            binding.tvJcry2.text =  "检测人员 2：${bean.Jcry_02}"
-            binding.tvJckssj.text = "检测开始时间：${bean.Jckssj}"
-            binding.tvJcjssj.text = "检测开始时间：${bean.Jcjssj}"
-//            if (bean.Jczt?.contains("未") == true){
-//                binding.tvJyzt.apply {
-//                    setTextColor(resources.getColor(R.color.red,null))
-//                }
-//                binding.tvJyxm.apply {
-//                    setTextColor(resources.getColor(R.color.red,null))
-//                }
-//            }
+        binding.apply {
+            tvJyxm.text =   root.resources.getString(R.string.jcxm_,bean.Xmmc)
+            tvJyzt.text =   root.resources.getString(R.string.jczt_,bean.Jczt)
+            tvJcry1.text =  root.resources.getString(R.string.jcry1_,bean.Jcry_01)
+            tvJcry2.text =  root.resources.getString(R.string.jcry2_,bean.Jcry_02)
+            tvJckssj.text = root.resources.getString(R.string.jckssj_,bean.Jckssj)
+            tvJcjssj.text = root.resources.getString(R.string.jcjssj_,bean.Jcjssj)
             when{
                 bean.Jczt?.contains("未") == true ->{
                     binding.tvJyzt.apply {
@@ -82,12 +73,11 @@ class InspectionItemAdapter(
                 }
             }
             dataDictionaryViewModel.getMc(FL_AJYWLB,bean.Ajywlb).observe(fragment){
-                binding.tvAjywlb.text = "安检业务类别：$it"
+                binding.tvAjywlb.text = binding.root.resources.getString(R.string.ajywlb_,it)
             }
             dataDictionaryViewModel.getMc(FL_HJYWLB,bean.Hjywlb).observe(fragment){
-                binding.tvHjywlb.text = "环检业务类别：$it"
+                binding.tvHjywlb.text = binding.root.resources.getString(R.string.hjywlb_,it)
             }
-            Log.e("TAG", "onBindViewHolder: $bean005", )
         if (bean005 != null){
             when (bean.Jcxm) {
                 "F1" -> dataDictionaryViewModel.getListFromFl(FL_F1XH).observe(fragment) {
@@ -157,7 +147,7 @@ class InspectionItemAdapter(
             }
         }
         if (bean.Jczt == "完成")
-            holder.binding.lvLineNumber.visibility = View.GONE
+            binding.lvLineNumber.visibility = View.GONE
             holder.itemView.setOnClickListener {
         }
         }

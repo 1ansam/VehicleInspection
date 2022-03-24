@@ -13,12 +13,10 @@ import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.QUERY_VEHICLE_QUEUE
 import com.yxf.vehicleinspection.utils.getIpAddress
 import com.yxf.vehicleinspection.utils.getJsonData
-import com.yxf.vehicleinspection.utils.response2ListBean
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 /**
  *   author:yxf
@@ -39,35 +37,31 @@ class VehicleQueueRepository {
         )
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response != null){
-                    if (response.isSuccessful){
-                        val stringResponse = response.body()?.string()
-                        val commonResponse = GsonSingleton.instance
-                            .fromJson(stringResponse, CommonResponse::class.java)
-                        if (commonResponse.Code == "1"){
-                            val beanList = ArrayList<VehicleQueueR002Response>()
-                            for (element in commonResponse.Body) {
-                                val bodyJson =
-                                    GsonSingleton.instance.toJson(element)
-                                val bean = GsonSingleton.instance
-                                    .fromJson(bodyJson, VehicleQueueR002Response::class.java)
-                                if (bean.Sfsf == "1"){
-                                    beanList.add(bean)
-                                }
-                            }
-                            liveData.value = beanList
-                        }else{
-                            if (commonResponse.Code == null){
-                                Toast.makeText(MyApp.context, "Code=Null", Toast.LENGTH_SHORT).show()
-                            }else{
-                                Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful){
+                    val stringResponse = response.body()?.string()
+                    val commonResponse = GsonSingleton.instance
+                        .fromJson(stringResponse, CommonResponse::class.java)
+                    if (commonResponse.Code == "1"){
+                        val beanList = ArrayList<VehicleQueueR002Response>()
+                        for (element in commonResponse.Body) {
+                            val bodyJson =
+                                GsonSingleton.instance.toJson(element)
+                            val bean = GsonSingleton.instance
+                                .fromJson(bodyJson, VehicleQueueR002Response::class.java)
+                            if (bean.Sfsf == "1"){
+                                beanList.add(bean)
                             }
                         }
+                        liveData.value = beanList
                     }else{
-                        Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
+                        if (commonResponse.Code == null){
+                            Toast.makeText(MyApp.context, "Code=Null", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }else {
-                    Toast.makeText(MyApp.context, "response = null", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
 

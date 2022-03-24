@@ -1,26 +1,18 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
-import android.view.View
-import androidx.appcompat.widget.SearchView
-import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.response.AppointmentAjR010Response
 import com.yxf.vehicleinspection.databinding.FragmentAppointmentAjBinding
-import com.yxf.vehicleinspection.databinding.FragmentVehicleQueueBinding
-import com.yxf.vehicleinspection.repository.VehicleQueueRepository
 import com.yxf.vehicleinspection.view.adapter.AppointmentAjAdapter
-import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
-import com.yxf.vehicleinspection.viewModel.*
-import java.util.*
+import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
+import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModelFactory
+import com.yxf.vehicleinspection.viewModel.RegisterViewModel
+import com.yxf.vehicleinspection.viewModel.RegisterViewModelFactory
 
 
 class AppointmentAjFragment : BaseBindingFragment<FragmentAppointmentAjBinding>() {

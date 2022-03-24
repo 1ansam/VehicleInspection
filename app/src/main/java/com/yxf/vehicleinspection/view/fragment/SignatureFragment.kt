@@ -1,22 +1,17 @@
 package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
-import android.os.Build
-import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
-import android.view.WindowInsets
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yxf.vehicleinspection.MyApp
-import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.request.SaveSignatureW006Request
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentSignatureBinding
-import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.date2String
 import com.yxf.vehicleinspection.utils.getScreenHeight
 import com.yxf.vehicleinspection.utils.getScreenWidth
@@ -29,7 +24,7 @@ import java.util.*
 
 
 class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
-    val signatureViewModel by viewModels<SignatureViewModel> { SignatureViewModelFactory((requireActivity().application as MyApp).signatureRepository) }
+    private val signatureViewModel by viewModels<SignatureViewModel> { SignatureViewModelFactory((requireActivity().application as MyApp).signatureRepository) }
     val args : SignatureFragmentArgs by navArgs()
     lateinit var bean001 : UserInfoR001Response
     override fun init() {
@@ -77,6 +72,7 @@ class SignatureFragment : BaseBindingFragment<FragmentSignatureBinding>() {
                                 findNavController().navigate(action)
                             }
                             hostName.equals(NavHostFragment.HOSTNAME_REPLENISH) -> {
+                                Toast.makeText(this.context, "签名补传成功", Toast.LENGTH_SHORT).show()
                                 val action = SignatureFragmentDirections.actionSignatureFragmentPopIncludingReplenishFragment()
                                 findNavController().navigate(action)
                             }

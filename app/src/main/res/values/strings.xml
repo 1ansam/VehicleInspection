@@ -58,6 +58,38 @@
     <string name="back">返回</string>
     <string name="clear">清除</string>
     <string name="commit">提交</string>
+    <!--检验项目信息 -->
+    <string name="jcxm_">检验项目：%1$s</string>
+    <string name="jczt_">检测状态：%1$s</string>
+    <string name="jcry1_">检测人员 1：%1$s</string>
+    <string name="jcry2_">检测人员 2：%1$s</string>
+    <string name="jckssj_">检测开始时间：%1$s</string>
+    <string name="jcjssj_">检测开始时间：%1$s</string>
+    <string name="ajywlb_">安检业务类别：%1$s</string>
+    <string name="hjywlb_">环检业务类别：%1$s</string>
+
+    <!-- 照片信息 -->
+    <string name="zpajdm_">照片安检代码：%1$s</string>
+    <string name="zphjdm_">照片环检代码：%1$s</string>
+
+    <!-- 车辆信息 -->
+    <string name="wkcc_">%1$s * %2$s * %3$s</string>
+
+    <!-- 车辆审核 -->
+    <string name="ajlsh_">安检流水号：%1$s</string>
+    <string name="hjlsh_">环检流水号：%1$s</string>
+
+    <!-- 车辆队列 -->
+    <string name="jyzt_">%1$s  %2$s</string>
+
+    <!-- 车辆收费 -->
+    <string name="amount_">金额：%1$d</string>
+    <string name="oid_">订单编号：%1$s</string>
+    <string name="hphm_">号牌号码：%1$s</string>
+    <!-- 查验时间 -->
+    <string name="F1_sj">外观查验 %1$d</string>
+    <string name="C1_sj">底盘查验 %1$d</string>
+    <string name="DC_sj">动态查验 %1$d</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

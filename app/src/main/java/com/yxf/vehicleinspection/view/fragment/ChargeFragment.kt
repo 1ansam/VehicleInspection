@@ -13,15 +13,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.yxf.vehicleinspection.MyApp
+import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.CollectMoney
-import com.yxf.vehicleinspection.bean.request.ChargeOrder
-import com.yxf.vehicleinspection.bean.response.OnlineStatusR024Response
 import com.yxf.vehicleinspection.databinding.FragmentChargeBinding
-import com.yxf.vehicleinspection.utils.date2String
 import com.yxf.vehicleinspection.utils.getSignFromCollectMoney
 import com.yxf.vehicleinspection.utils.getStringFromCollectMoney
-import com.yxf.vehicleinspection.viewModel.*
+import com.yxf.vehicleinspection.viewModel.ChargeViewModel
+import com.yxf.vehicleinspection.viewModel.ChargeViewModelFactory
+import com.yxf.vehicleinspection.viewModel.VehicleAllInfoViewModel
+import com.yxf.vehicleinspection.viewModel.VehicleAllInfoViewModelFactory
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -42,9 +43,9 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         val sign = getSignFromCollectMoney(collectMoney)
         val wbean004 = args.wbean004
         val bean002 = args.bean002
-        binding.tvAmount.text = "金额: ${collectMoney.amt/100}"
-        binding.tvOid.text = "订单编号: ${collectMoney.oid}"
-        binding.tvHphm.text = "号牌号码:${bean002.Hphm}"
+        binding.tvAmount.text = resources.getString(R.string.amount_,collectMoney.amt/100)
+        binding.tvOid.text = resources.getString(R.string.oid_,collectMoney.oid)
+        binding.tvHphm.text = resources.getString(R.string.hphm_,bean002.Hphm)
         wbean004.chargeOrder.Sign = sign
         collectMoney = CollectMoney(collectMoney.appid,collectMoney.c,collectMoney.oid,collectMoney.amt,collectMoney.trxreserve,sign,collectMoney.key)
         url += getStringFromCollectMoney(collectMoney)

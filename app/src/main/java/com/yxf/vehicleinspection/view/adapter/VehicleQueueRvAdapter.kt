@@ -2,16 +2,13 @@ package com.yxf.vehicleinspection.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import com.yxf.vehicleinspection.databinding.PersonInspectionItemBinding
 import com.yxf.vehicleinspection.view.fragment.NavHostFragment
@@ -41,15 +38,15 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
     ) {
 
 
-        holder.apply {
-            binding.tvHphm.text = bean.Hphm
-            binding.tvHpzl.text = bean.HpzlCc
-            binding.tvAjywlb.text = "安检：${bean.AjywlbCc}"
-            binding.tvHjywlb.text = "环保：${bean.HjywlbCc}"
-            binding.tvAjlsh.text = "安检流水号：${bean.Ajlsh}"
-            binding.tvHjlsh.text = "环检流水号：${bean.Hjlsh}"
-            binding.tvTime.text = bean.Djrq
-            binding.tvJyzt.text = "${bean.Ywlb}  ${bean.Jyzt}"
+        binding.apply {
+            tvHphm.text = bean.Hphm
+            tvHpzl.text = bean.HpzlCc
+            tvAjywlb.text = root.resources.getString(R.string.ajywlb_,bean.AjywlbCc)
+            tvHjywlb.text = root.resources.getString(R.string.hjywlb_,bean.HjywlbCc)
+            tvAjlsh.text = root.resources.getString(R.string.ajlsh_,bean.Ajlsh)
+            tvHjlsh.text = root.resources.getString(R.string.ajlsh_,bean.Hjlsh)
+            tvTime.text = bean.Djrq
+            tvJyzt.text = root.resources.getString(R.string.jyzt_,bean.Ywlb,bean.Jyzt)
             when(bean.Sfsf){
                 "0" ->{
                     binding.tvSfsf.apply {

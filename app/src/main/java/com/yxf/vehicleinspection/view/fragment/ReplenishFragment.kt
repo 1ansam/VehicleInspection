@@ -54,7 +54,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
     }
     private val inspectionItemImageAdapter = InspectionItemImageAdapter()
     private val args: InspectionItemFragmentArgs by navArgs()
-    lateinit var currentPhotoPath: String
+    private lateinit var currentPhotoPath: String
     private var videoPath: String = ""
     private var holder: RecyclerView.ViewHolder? = null
     private var ivImage: ImageView? = null
@@ -255,7 +255,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
             val ivImage = holder?.itemView?.findViewById<ImageView>(R.id.ivImage)
             val drawable = ivImage?.drawable
             val ivTag = ivImage?.tag.toString()
-            if (ivTag == "1" && ivTag != null) {
+            if (ivTag == "1" ) {
                 val bitmap = getBitmapFromDrawable(drawable!!)
                 val base64 = bitmap2Base64(bitmap)
                 val model = InspectionPhotoW007Request(
@@ -317,7 +317,7 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
         }
     }
     private fun getImageData(
-        Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh: String,
+        Jyxm: String , Ajywlb: String, Hjywlb: String, Ajlsh: String,
         Hjlsh: String,
     ) {
         inspectionItemViewModel.getImageItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh).observe(this) {

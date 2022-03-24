@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.BuyerParamsR026Response
-import com.yxf.vehicleinspection.bean.response.ChargeStatusR014Response
 import com.yxf.vehicleinspection.bean.response.InvoiceParamsR025Response
 import com.yxf.vehicleinspection.service.QueryService
 import com.yxf.vehicleinspection.service.WriteService
@@ -16,7 +15,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 /**
  *   author:yxf

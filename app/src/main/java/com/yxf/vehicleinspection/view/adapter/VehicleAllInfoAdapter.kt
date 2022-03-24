@@ -3,6 +3,7 @@ package com.yxf.vehicleinspection.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
@@ -30,26 +31,26 @@ class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryVi
         binding: RvItemVehicleInformationBinding,
         bean: VehicleAllInfoR005Response,
     ) {
-        holder.apply {
-            binding.tvAjlsh.text = bean.Ajlsh
-            binding.tvHjlsh.text = bean.Hjlsh
-            binding.tvHphm.text = bean.Hphm
-            binding.tvHpzl.text = bean.Hpzl
-            binding.tvHpys.text = bean.Hpys
-            binding.tvCllx.text = bean.Cllx
-            binding.tvWkcc.text = "${bean.Cwkc}*${bean.Cwkk}*${bean.Cwkg}"
-            binding.tvZbzl.text = bean.Zbzl
-            binding.tvLtgg.text = bean.Ltgg
-            binding.tvCcrq.text = bean.Ccrq
+        binding.apply {
+            tvAjlsh.text = bean.Ajlsh
+            tvHjlsh.text = bean.Hjlsh
+            tvHphm.text = bean.Hphm
+            tvHpzl.text = bean.Hpzl
+            tvHpys.text = bean.Hpys
+            tvCllx.text = bean.Cllx
+            tvWkcc.text = root.resources.getString(R.string.wkcc_,bean.Cwkc,bean.Cwkk,bean.Cwkg)
+            tvZbzl.text = bean.Zbzl
+            tvLtgg.text = bean.Ltgg
+            tvCcrq.text = bean.Ccrq
         }
         dataDictionaryViewModel.getMc(FL_HPZL,bean.Hpzl).observe(fragment){
-            holder.binding.tvHpzl.text = it
+            binding.tvHpzl.text = it
         }
         dataDictionaryViewModel.getMc(FL_HPYS,bean.Hpys).observe(fragment){
-            holder.binding.tvHpys.text = it
+            binding.tvHpys.text = it
         }
         dataDictionaryViewModel.getMc(FL_CLLX,bean.Cllx).observe(fragment){
-            holder.binding.tvCllx.text = it
+            binding.tvCllx.text = it
         }
 
     }

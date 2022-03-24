@@ -1,23 +1,19 @@
 package com.yxf.vehicleinspection.view.adapter
 
-import android.graphics.Color
 import android.text.InputFilter
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.res.colorResource
-import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
-import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
 import com.yxf.vehicleinspection.databinding.ItemRegisterBinding
 
 /**
  *   author:yxf
  *   time:2021/12/3
  */
-class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
-    var value : ArrayList<String?> = ArrayList<String?>()
+class RegisterListAdapter : BaseRvAdapter<String,ItemRegisterBinding>() {
+    var value : ArrayList<String?> = ArrayList()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -26,7 +22,7 @@ class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
         parent: ViewGroup,
         viewType: Int,
     ): BaseRvViewHolder<ItemRegisterBinding> {
-        return BaseRvViewHolder(ItemRegisterBinding.inflate(LayoutInflater.from(parent.context,),parent,false))
+        return BaseRvViewHolder(ItemRegisterBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(
@@ -36,9 +32,6 @@ class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
         bean: String,
     ) {
         binding.key.text = bean
-//        when{
-//            binding.key.text.toString() == "里程表读数" -> binding.key.setTextColor(Color.parseColor("#FF0000"))
-//        }
         setTextInput(binding)
         if (!value.isNullOrEmpty()){
             binding.value.setText(value[position])
@@ -49,7 +42,7 @@ class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
     override fun getItemCount(): Int {
         return data.size
     }
-    private fun setTextInput(binding: ItemRegisterBinding,){
+    private fun setTextInput(binding: ItemRegisterBinding){
         when(binding.key.text.toString()){
             "联系电话" -> {
                 binding.value.apply {
@@ -127,12 +120,6 @@ class RegisterListAdapter() : BaseRvAdapter<String,ItemRegisterBinding>() {
                 binding.value.apply {
                     inputType = InputType.TYPE_CLASS_NUMBER
                     filters = arrayOf(InputFilter.LengthFilter(8))
-                }
-            }
-            "核定载客" -> {
-                binding.value.apply {
-                    inputType = InputType.TYPE_CLASS_NUMBER
-                    filters = arrayOf(InputFilter.LengthFilter(3))
                 }
             }
 

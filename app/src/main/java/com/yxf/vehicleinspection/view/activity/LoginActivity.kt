@@ -9,34 +9,27 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.FileProvider
+import androidx.core.content.edit
+import androidx.paging.Config
 import com.permissionx.guolindev.PermissionX
+import com.yxf.vehicleinspection.BuildConfig
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.databinding.ActivityLoginBinding
 import com.yxf.vehicleinspection.singleton.SharedP
-import com.yxf.vehicleinspection.utils.FILE_PROVIDER
 import com.yxf.vehicleinspection.utils.setVisibility
 import com.yxf.vehicleinspection.viewModel.LoginViewModel
 import com.yxf.vehicleinspection.viewModel.LoginViewModelFactory
 import java.io.File
-import java.io.IOException
 
 
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
-    private var id: Long = 0L
-    private lateinit var downloadManager : DownloadManager
-    private val TAG = "LoginActivity"
     private val loginViewModel by viewModels<LoginViewModel> { LoginViewModelFactory((application as MyApp).userInfoRepository) }
     override fun init() {
         binding.tvVersion.text = packageManager.getPackageInfo(this.packageName,0).versionName
@@ -82,9 +75,9 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                     .setMessage("检测到有更新，请更新app")
                     .setPositiveButton("确定"
 
-                    ) { dialog, which ->
+                    ) { _, _ ->
                         downloadApk("http://${SharedP.instance.getString("ipAddress","192.168.1.1")}:${SharedP.instance.getString("ipPort","80")}/apk/app-release.apk")
-
+                        setVisibility(this,binding.pbLogin,false)
 
                     }
                     .setCancelable(false)
@@ -98,15 +91,16 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
         binding.btnLogin.clickWithTrigger {
             if (binding.cbRememberUsername.isChecked) {
-                SharedP.instance.edit().apply {
+                SharedP.instance.edit{
                     putString("username", binding.tvUsername.text.toString())
-                    apply()
                 }
+
             }else{
-                SharedP.instance.edit().apply{
+                //使用edit高阶函数
+                SharedP.instance.edit{
                     putString("username","")
-                    apply()
                 }
+
             }
 
             setVisibility(this,binding.pbLogin,true)
@@ -133,19 +127,19 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
     fun downloadApk(downloadPath : String){
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        var uri = Uri.parse(downloadPath)
-        var request = DownloadManager.Request(uri)
+        val uri = Uri.parse(downloadPath)
+        val request = DownloadManager.Request(uri)
         request.setDestinationInExternalPublicDir("Download","app-release.apk")
         request.setMimeType("application/vnd.android.package-archive")
         request.allowScanningByMediaScanner()
         request.setVisibleInDownloadsUi(true)
-        var refernece = downloadManager.enqueue(request)
-        var filter  = IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-        var receive : BroadcastReceiver = object : BroadcastReceiver(){
+        val refernece = downloadManager.enqueue(request)
+        val filter  = IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        val receive : BroadcastReceiver = object : BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
-                var myDownloadId = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
+                val myDownloadId = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1)
                 if (refernece == myDownloadId){
-                    var downloadFileUri = downloadManager.getUriForDownloadedFile(refernece)
+                    val downloadFileUri = downloadManager.getUriForDownloadedFile(refernece)
                     if (downloadFileUri!=null){
                         openAPK(downloadFileUri)
                     }
@@ -156,8 +150,8 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     }
 
     private fun openAPK(content: Uri) {
-        var apkFile = File(content.toString())
-        var intent = Intent(Intent.ACTION_VIEW)
+        val apkFile = File(content.toString())
+        val intent = Intent(Intent.ACTION_VIEW)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -174,7 +168,6 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 666 && resultCode == RESULT_OK){
-            Log.e(TAG, "onActivityResult: yes", )
             downloadApk("http://${SharedP.instance.getString("ipAddress","192.168.1.1")}:${SharedP.instance.getString("ipPort","80")}/apk/app-release.apk")
         }
     }

@@ -1,6 +1,5 @@
 package com.yxf.vehicleinspection.repository
 
-import android.app.DownloadManager
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,10 +17,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import java.io.File
-import java.util.*
-import kotlin.concurrent.timerTask
 import kotlin.reflect.typeOf
 
 /**

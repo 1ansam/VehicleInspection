@@ -31,45 +31,45 @@ class InspectionItemSelectAdapter(val fragment : Fragment) : BaseRvAdapter<Artif
         binding: ItemExteriorSelectBinding,
         bean: ArtificialProject,
     ) {
-        holder.binding.tvXmms.text = bean.Xmms
-        holder.binding.tvXmdm.text = bean.Xmdm
-        holder.binding.ivJyyq.setOnClickListener {
+        binding.tvXmms.text = bean.Xmms
+        binding.tvXmdm.text = bean.Xmdm
+        binding.ivJyyq.setOnClickListener {
             JyyqPickerFragment(bean.Jyyq).show(fragment.childFragmentManager,bean.Xmdm)
         }
         var selected : Boolean? = null
-        holder.binding.ivSelected.tag = "0"
+        binding.ivSelected.tag = "0"
         if (bean.Sycx == "1"){
-            holder.binding.ivSelected.setImageResource(R.drawable.icon_yes)
-            holder.binding.ivSelected.tag = "1"
+            binding.ivSelected.setImageResource(R.drawable.icon_yes)
+            binding.ivSelected.tag = "1"
             selected = true
         }
 
-        holder.binding.ivSelected.setOnClickListener {
+        binding.ivSelected.setOnClickListener {
             if (selected != null){
                 selected = !selected!!
                 if (selected!!){
-                    holder.binding.ivSelected.setImageResource(R.drawable.icon_yes)
-                    holder.binding.ivSelected.tag = "1"
-                    holder.binding.etBz.visibility = View.GONE
+                    binding.ivSelected.setImageResource(R.drawable.icon_yes)
+                    binding.ivSelected.tag = "1"
+                    binding.etBz.visibility = View.GONE
                 }else{
-                    holder.binding.ivSelected.setImageResource(R.drawable.ic_baseline_clear_24)
-                    holder.binding.ivSelected.tag = "2"
-                    holder.binding.etBz.visibility = View.VISIBLE
+                    binding.ivSelected.setImageResource(R.drawable.ic_baseline_clear_24)
+                    binding.ivSelected.tag = "2"
+                    binding.etBz.visibility = View.VISIBLE
                 }
             }
 
         }
-        holder.binding.ivSelected.setOnLongClickListener {
+        binding.ivSelected.setOnLongClickListener {
             if (selected != null) {
                 selected = null
-                holder.binding.ivSelected.setImageResource(R.drawable.icon_block)
-                holder.binding.ivSelected.tag = "0"
-                holder.binding.etBz.visibility = View.GONE
+                binding.ivSelected.setImageResource(R.drawable.icon_block)
+                binding.ivSelected.tag = "0"
+                binding.etBz.visibility = View.GONE
             } else {
                 selected = true
-                holder.binding.ivSelected.setImageResource(R.drawable.icon_yes)
-                holder.binding.ivSelected.tag = "1"
-                holder.binding.etBz.visibility = View.GONE
+                binding.ivSelected.setImageResource(R.drawable.icon_yes)
+                binding.ivSelected.tag = "1"
+                binding.etBz.visibility = View.GONE
             }
 
 

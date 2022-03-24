@@ -2,7 +2,6 @@ package com.yxf.vehicleinspection.view.fragment
 
 import android.content.pm.ActivityInfo
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -20,7 +19,10 @@ import com.yxf.vehicleinspection.base.clickWithTrigger
 import com.yxf.vehicleinspection.bean.request.*
 import com.yxf.vehicleinspection.bean.response.UserInfoR001Response
 import com.yxf.vehicleinspection.databinding.FragmentChassisBinding
-import com.yxf.vehicleinspection.utils.*
+import com.yxf.vehicleinspection.utils.CHASSIS
+import com.yxf.vehicleinspection.utils.CHASSIS_HJ
+import com.yxf.vehicleinspection.utils.setVisibility
+import com.yxf.vehicleinspection.utils.string2String
 import com.yxf.vehicleinspection.view.activity.DisplayActivity
 import com.yxf.vehicleinspection.view.adapter.InspectionItemSelectAdapter
 import com.yxf.vehicleinspection.viewModel.InspectionItemViewModel
@@ -75,7 +77,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             .observe(this) {
                 count = object : CountDownTimer(it.Yqsc.toInt() * 1000L, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
-                        binding.includeTitle.textView.text = "底盘查验${millisUntilFinished / 1000}"
+                        binding.includeTitle.textView.text = resources.getString(R.string.C1_sj,millisUntilFinished/1000)
                     }
                     override fun onFinish() {
                         Snackbar.make(this@ChassisFragment.requireView(),"检验时间已到可以提交查验", Snackbar.LENGTH_SHORT).show()
@@ -240,7 +242,6 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             args.bean002.Hjjccs
         )
         list.add(ArtificialProjectW011Request(args.bean006.Jcxm,chassisArtificialProjectRequest))
-        Log.e("TAG", "getPostArtificialData: $list", )
         return list
 
     }

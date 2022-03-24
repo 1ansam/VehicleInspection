@@ -4,8 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import com.yxf.vehicleinspection.R
 import com.yxf.vehicleinspection.base.BaseRvAdapter
 import com.yxf.vehicleinspection.base.BaseRvViewHolder
@@ -16,7 +14,7 @@ import com.yxf.vehicleinspection.databinding.ItemRegisterSpinnerBinding
  *   time:2021/12/3
  */
 class RegisterSpinnerAdapter(val context : Context) : BaseRvAdapter<String, ItemRegisterSpinnerBinding>() {
-    var spinnerData : List<List<String>> = ArrayList()
+    private var spinnerData : List<List<String>> = ArrayList()
     set(value) {
         field = value
         notifyDataSetChanged()

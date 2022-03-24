@@ -30,7 +30,7 @@ class AppointmentAjAdapter(private val owner: LifecycleOwner, private val dataDi
         binding: ItemAppointmentAjBinding,
         bean: AppointmentAjR010Response
     ) {
-        holder.binding.apply {
+        binding.apply {
             tvHphm.text = bean.hphm
             dataDictionaryViewModel.getMc(FL_HPZL,bean.hpzl).observe(owner){
                 tvHpzl.text = it
