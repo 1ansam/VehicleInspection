@@ -359,14 +359,19 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                     val ztDmList = ArrayList<String>()
                                     var ztMcString = ""
                                     if (ztDm != null) {
+
                                         for (index in ztDm.indices-1){
                                             val string = ztDm.substring(index,index+1)
                                             ztDmList.add(string)
                                         }
-                                        for (element in ztDmList){
+                                        ztDmList.forEach {
                                             ztMcString += ","
-                                            ztMcString += registerViewModel.ztDmMap[element]
+                                            ztMcString += registerViewModel.ztDmMap[it]
                                         }
+//                                        for (element in ztDmList){
+//                                            ztMcString += ","
+//                                            ztMcString += registerViewModel.ztDmMap[element]
+//                                        }
                                         if (ztMcString.isNotEmpty()){
                                             ztMcString = ztMcString.substring(1)
                                         }
@@ -463,6 +468,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                     binding.rvTextList,
                                     registerListAdapter
                                 )
+
                                 for (element in dataDictionaryList) {
                                     if (element.Fl == FL_HPZL && element.Mc == binding.spHpzl.selectedItem.toString()) {
                                         valueMap["hpzl"] = element.Dm
@@ -565,10 +571,14 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                 valueMap["csys"] =
                                     "${valueMap["csys1"]}${valueMap["csys2"]}${valueMap["csys3"]}"
                                 var ajJyxmString = ""
-                                for (element in jyxmList) {
+                                jyxmList.forEach {
                                     ajJyxmString += ","
-                                    ajJyxmString += element
+                                    ajJyxmString += it
                                 }
+//                                for (element in jyxmList) {
+//                                    ajJyxmString += ","
+//                                    ajJyxmString += element
+//                                }
                                 if (ajJyxmString.isNotEmpty()) {
                                     valueMap["ajJyxmString"] = ajJyxmString.substring(1)
                                 }

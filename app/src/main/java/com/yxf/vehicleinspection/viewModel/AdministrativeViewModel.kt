@@ -4,7 +4,11 @@ import androidx.lifecycle.*
 import com.yxf.vehicleinspection.bean.response.AdministrativeR023Response
 import com.yxf.vehicleinspection.repository.AdministrativeRepository
 import com.yxf.vehicleinspection.repository.DataDictionaryRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import java.lang.IllegalArgumentException
 
 /**
@@ -20,6 +24,8 @@ class AdministrativeViewModel(private val administrativeRepository: Administrati
     fun getAdministrativeList() : LiveData<List<AdministrativeR023Response>>{
         return administrativeRepository.getAdministrativeList()
     }
+
+
     fun insertAdministrativeList(administrativeList: List<AdministrativeR023Response>) = viewModelScope.launch {
         administrativeRepository.insertAdministrativeList(administrativeList)
         if (administrativeRepository.rowNum == administrativeRepository.insertAdministrativeList(administrativeList).size){
@@ -39,11 +45,13 @@ class AdministrativeViewModel(private val administrativeRepository: Administrati
 }
 class AdministrativeViewModelFactory(private val administrativeRepository: AdministrativeRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AdministrativeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return AdministrativeViewModel(administrativeRepository) as T
         }
         throw IllegalArgumentException("未知ViewModel")
     }
+
+
 }

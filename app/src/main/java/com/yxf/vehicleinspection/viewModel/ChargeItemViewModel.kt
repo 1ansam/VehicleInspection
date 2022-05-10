@@ -40,7 +40,7 @@ class ChargeItemViewModel(private val chargeItemRepository: ChargeItemRepository
     }
 }
 class ChargeItemViewModelFactory(val chargeItemRepository: ChargeItemRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ChargeItemViewModel::class.java)){
             return ChargeItemViewModel(chargeItemRepository) as T
         }

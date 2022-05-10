@@ -141,7 +141,8 @@ class InspectionItemAdapter(
                     binding.lvLineNumber.onItemClickListener =
                         AdapterView.OnItemClickListener{
                                 _,_,position,_ ->
-                            fragment.findNavController().navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToOnlineFragment(bean,bean005!!,it[position].Dm,bean002))
+                            fragment.findNavController().navigate(InspectionItemFragmentDirections.actionInspectionItemFragmentToOnlineFragment(
+                                bean,bean005!!,it[position].Dm,bean002))
                         }
                 }
             }

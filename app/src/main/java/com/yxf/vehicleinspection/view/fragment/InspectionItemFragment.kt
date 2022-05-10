@@ -52,7 +52,6 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
     private fun getData(Ajlsh : String, Hjlsh : String) {
         val vehicleInformationList =
             ArrayList<VehicleAllInfoR005Response>()
-        val inspectionItemList = ArrayList<VehicleInspectionItemR006Response>()
 
         vehicleAllInfoViewModel.getVehicleAllInfo(Ajlsh,Hjlsh)
             .observe(this) {
@@ -63,13 +62,16 @@ class InspectionItemFragment : BaseBindingFragment<FragmentInspectionItemBinding
 
                 vehicleInformationAdapter.data = vehicleInformationList
                 if (it.isNotEmpty()){
-                    inspectionItemAdapter.bean005 = it[0]
+                    inspectionItemAdapter.bean005 = it.first()
                     vehicleInspectionItemViewModel.getVehicleInspectionItem(args.bean002.Ajlsh,
                         args.bean002.Hjlsh,args.bean002.Ajywlb,args.bean002.Hjywlb).observe(this) {
-                        for (element in it) {
-                            inspectionItemList.add(element)
-                        }
-                        inspectionItemAdapter.data = inspectionItemList
+//                        it.forEach {
+//                            inspectionItemList.add(it)
+//                        }
+//                        for (element in it) {
+//                            inspectionItemList.add(element)
+//                        }
+                        inspectionItemAdapter.data = it
                     }
                 }
             }

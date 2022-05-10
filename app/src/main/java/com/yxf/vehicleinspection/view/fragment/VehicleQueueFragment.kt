@@ -5,9 +5,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.compose.ui.text.toLowerCase
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.R
@@ -21,7 +21,11 @@ import com.yxf.vehicleinspection.view.adapter.VehicleQueueRvAdapter
 import com.yxf.vehicleinspection.viewModel.SharedViewModel
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModel
 import com.yxf.vehicleinspection.viewModel.VehicleQueueViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() {
@@ -71,6 +75,13 @@ class VehicleQueueFragment : BaseBindingFragment<FragmentVehicleQueueBinding>() 
                     binding.pbVehicleQueue.visibility = View.GONE
                     adapter.data = it
                 }
+                //coroutines
+//                lifecycleScope.launch{
+//                    viewModel.getSuspendInspectionQueue(hphm).collect {
+//                        binding.pbVehicleQueue.visibility = View.GONE
+//                        adapter.data = it
+//                    }
+//                }
             }
         }
     }

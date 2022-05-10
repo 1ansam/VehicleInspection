@@ -52,7 +52,7 @@ class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepo
 
 }
 class SystemParamsViewModelFactory(private val systemParamsRepository: SystemParamsRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>) : T{
+    override fun <T : ViewModel> create(modelClass: Class<T>) : T{
         if (modelClass.isAssignableFrom(SystemParamsViewModel::class.java)){
             return SystemParamsViewModel(systemParamsRepository) as T
         }

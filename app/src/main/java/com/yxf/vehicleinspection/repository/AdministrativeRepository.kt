@@ -14,6 +14,8 @@ import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.QUERY_ADMINISTRATIVE
 import com.yxf.vehicleinspection.utils.getIpAddress
 import com.yxf.vehicleinspection.utils.getJsonData
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,13 +57,23 @@ class AdministrativeRepository(private val dao : AdministrativeDao) {
                     rowNum = 0.takeIf{commonResponse.RowNum == null}?:commonResponse.RowNum
                     if (commonResponse.Code == "1"){
                         val beanList = ArrayList<AdministrativeR023Response>()
-                        for (element in commonResponse.Body) {
+
+                        commonResponse.Body.forEach {
                             val bodyJson =
-                                GsonSingleton.instance.toJson(element)
+                                GsonSingleton.instance.toJson(it)
                             beanList.add(
                                 GsonSingleton.instance
-                                .fromJson(bodyJson, AdministrativeR023Response::class.java))
+                                    .fromJson(bodyJson, AdministrativeR023Response::class.java))
                         }
+
+                        //使用forEach替代
+//                        for (element in commonResponse.Body) {
+//                            val bodyJson =
+//                                GsonSingleton.instance.toJson(element)
+//                            beanList.add(
+//                                GsonSingleton.instance
+//                                .fromJson(bodyJson, AdministrativeR023Response::class.java))
+//                        }
                         liveData.value = beanList
                     }else{
                         if (commonResponse.Code == null){
@@ -81,6 +93,8 @@ class AdministrativeRepository(private val dao : AdministrativeDao) {
         })
         return liveData
     }
+
+
 
     /**
      * 从数据库按名称获取行政区划

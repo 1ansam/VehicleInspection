@@ -234,8 +234,8 @@ class RegisterViewModel(val registerRepository: RegisterRepository) : ViewModel(
     val ztMcMap = registerRepository.getZtMcMap()
 }
 class RegisterViewModelFactory(val registerRepository: RegisterRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.equals(RegisterViewModel::class.java)){
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)){
             return RegisterViewModel(registerRepository) as T
         }else{
             throw IllegalArgumentException("未知ViewModel")

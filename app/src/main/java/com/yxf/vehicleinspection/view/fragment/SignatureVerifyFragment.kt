@@ -42,7 +42,6 @@ class SignatureVerifyFragment : BaseBindingFragment<FragmentSignatureBinding>() 
         val mPaintView = PaintView(this.requireContext(),screenWidth,screenHeight)
         binding.tablet.addView(mPaintView)
         mPaintView.requestFocus()
-        val sharedViewModel : SharedViewModel by activityViewModels()
         binding.backFromSignature.setOnClickListener {
             requireActivity().onBackPressed()
         }

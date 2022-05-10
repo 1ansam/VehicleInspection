@@ -560,7 +560,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             val ivImage = holder?.itemView?.findViewById<ImageView>(R.id.ivImage)
             val drawable = ivImage?.drawable
             val ivTag = ivImage?.tag.toString()
-            if (ivTag == "1" && ivTag != null) {
+            if (ivTag == "1") {
                 val bitmap = getBitmapFromDrawable(drawable!!)
                 val base64 = bitmap2Base64(bitmap)
                 val model = InspectionPhotoW007Request(
@@ -1032,12 +1032,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }
 
     }
-    private fun galleryAddPic(file : File) {
-        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-            mediaScanIntent.data = Uri.fromFile(file)
-            this.requireContext().sendBroadcast(mediaScanIntent)
-        }
-    }
+
 
 
 

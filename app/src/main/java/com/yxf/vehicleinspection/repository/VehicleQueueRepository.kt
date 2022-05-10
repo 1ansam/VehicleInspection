@@ -3,6 +3,7 @@ package com.yxf.vehicleinspection.repository
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.request.VehicleQueueR002Request
 import com.yxf.vehicleinspection.bean.response.CommonResponse
@@ -13,6 +14,9 @@ import com.yxf.vehicleinspection.singleton.RetrofitService
 import com.yxf.vehicleinspection.utils.QUERY_VEHICLE_QUEUE
 import com.yxf.vehicleinspection.utils.getIpAddress
 import com.yxf.vehicleinspection.utils.getJsonData
+import com.yxf.vehicleinspection.utils.sureBodyType
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +28,22 @@ import retrofit2.Response
  *   机动车队列仓库
  */
 class VehicleQueueRepository {
+
+    //coroutines
+    suspend fun getSuspendInspectionQueue(hphm: String)= flow<List<VehicleQueueR002Response>>{
+        val response = RetrofitService.create(QueryService::class.java).querySuspend(
+            QUERY_VEHICLE_QUEUE,
+            getIpAddress(),
+            getJsonData(VehicleQueueR002Request(hphm))
+        )
+        val result = response.body()?.Body
+
+        emit(result?:ArrayList())
+
+
+    }
+
+
     /**
      * 获取机动车待检队列
      * @param hphm 号牌号码
@@ -42,16 +62,25 @@ class VehicleQueueRepository {
                     val commonResponse = GsonSingleton.instance
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code == "1"){
-                        val beanList = ArrayList<VehicleQueueR002Response>()
-                        for (element in commonResponse.Body) {
-                            val bodyJson =
-                                GsonSingleton.instance.toJson(element)
-                            val bean = GsonSingleton.instance
-                                .fromJson(bodyJson, VehicleQueueR002Response::class.java)
-                            if (bean.Sfsf == "1"){
-                                beanList.add(bean)
-                            }
-                        }
+                        //使用通用方法确定Body类型传入LiveData
+                        val beanList = sureBodyType<VehicleQueueR002Response>(commonResponse.Body)
+//                        commonResponse.Body.forEach {
+//
+//                            val bodyJson =
+//                                GsonSingleton.instance.toJson(it)
+//                            beanList.add(
+//                                GsonSingleton.instance
+//                                    .fromJson(bodyJson, VehicleQueueR002Response::class.java))
+//                        }
+//                        for (element in commonResponse.Body) {
+//                            val bodyJson =
+//                                GsonSingleton.instance.toJson(element)
+//                            val bean = GsonSingleton.instance
+//                                .fromJson(bodyJson, VehicleQueueR002Response::class.java)
+//                            if (bean.Sfsf == "1"){
+//                                beanList.add(bean)
+//                            }
+//                        }
                         liveData.value = beanList
                     }else{
                         if (commonResponse.Code == null){

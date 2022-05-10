@@ -26,7 +26,7 @@ class VerifyViewModel(private val verifyRepository: VerifyRepository) : ViewMode
     }
 }
 class VerifyViewModelFactory(private val verifyRepository: VerifyRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VerifyViewModel::class.java)){
             return VerifyViewModel(verifyRepository) as T
         }else{

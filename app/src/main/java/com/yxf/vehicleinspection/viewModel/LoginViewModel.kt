@@ -25,7 +25,7 @@ class LoginViewModel(private val repository: UserInfoRepository) : ViewModel() {
     }
 }
 class LoginViewModelFactory(val repository: UserInfoRepository): ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return LoginViewModel(repository) as T

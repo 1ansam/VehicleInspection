@@ -223,10 +223,14 @@ class ReplenishFragment : BaseBindingFragment<FragmentReplenishBinding>() {
         vehicleAllInfoViewModel.getVehicleAllInfo(Ajlsh,Hjlsh)
             .observe(this) {
                 if (it.isNotEmpty()){
-                    for (element in it) {
-                        vehicleInformationList.add(element)
-                        bean005 = element
+                    it.forEach {
+                        vehicleInformationList.add(it)
+                        bean005 = it
                     }
+//                    for (element in it) {
+//                        vehicleInformationList.add(element)
+//                        bean005 = element
+//                    }
                     binding.apply {
                         binding.includeTitle.btnSubmit.isEnabled = true
                         btnRecordF2.isEnabled = true

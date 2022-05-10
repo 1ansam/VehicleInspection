@@ -21,7 +21,7 @@ class SignatureViewModel(val repository : SignatureRepository) : ViewModel() {
     }
 }
 class SignatureViewModelFactory(val repository : SignatureRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignatureViewModel::class.java)){
             return SignatureViewModel(repository) as T
         }

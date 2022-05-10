@@ -28,7 +28,7 @@ class ModerationQueueFragment : BaseBindingFragment<FragmentModerationQueueBindi
         binding.rvModerationQueue.adapter = adapter
         binding.rvModerationQueue.setHasFixedSize(true)
         binding.rbTjsh.isChecked = true
-        binding.rgShyw.setOnCheckedChangeListener { group, checkedId ->
+        binding.rgShyw.setOnCheckedChangeListener { group, _ ->
             getQueueData(binding.svModerationQueue.query.toString(),group)
         }
         binding.svModerationQueue.setOnClickListener {

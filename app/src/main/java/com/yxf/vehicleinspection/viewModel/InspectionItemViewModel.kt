@@ -140,7 +140,7 @@ class InspectionItemViewModel(private val inspectionItemRepository: InspectionIt
 }
 class InspectionItemViewModelFactory(private val inspectionItemRepository: InspectionItemRepository,
                                      private val serverTimeRepository: ServerTimeRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(InspectionItemViewModel::class.java)){
             return InspectionItemViewModel(inspectionItemRepository,serverTimeRepository) as T
         }

@@ -157,9 +157,12 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
         binding.rvSelect.adapter = inspectionItemSelectAdapter
         inspectionItemViewModel.getUserInfo().observe(this){
             val nameList = ArrayList<String>()
-            for (element in it){
-                nameList.add("${element.TrueName}+${element.ID}")
+            it.forEach {
+                nameList.add("${it.TrueName}+${it.ID}")
             }
+//            for (element in it){
+//                nameList.add("${element.TrueName}+${element.ID}")
+//            }
             val ycyAdapter = ArrayAdapter(this.requireActivity(),R.layout.ycy_item_layout,nameList)
             binding.spYcy.adapter = ycyAdapter
 

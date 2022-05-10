@@ -96,7 +96,7 @@ class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedVi
                          if (bean.Sfsf == "1"&& bean.Sfkp == "0"){
                             vehicleAllInfoViewModel.getVehicleAllInfo(bean.Ajlsh,bean.Hjlsh).observe(fragment){
                                 if (it.isNotEmpty()){
-                                    val bean005 = it[0]
+                                    val bean005 = it.first()
                                     chargeViewModel.getChargeInfo(bean005.Ajlsh).observe(fragment){
                                             wbean004 ->
                                         val action =

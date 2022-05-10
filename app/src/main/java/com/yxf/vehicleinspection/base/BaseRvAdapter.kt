@@ -26,7 +26,7 @@ abstract class BaseRvAdapter<E : Any, V : ViewBinding> : RecyclerView.Adapter<Ba
         return data.size
     }
     override fun onBindViewHolder(holder : BaseRvViewHolder<V>,position : Int){
-        onBindViewHolder(holder, holder.adapterPosition,holder.binding,data[holder.adapterPosition])
+        onBindViewHolder(holder, holder.bindingAdapterPosition,holder.binding,data[holder.bindingAdapterPosition])
     }
     abstract fun onBindViewHolder(holder : BaseRvViewHolder<V>, position : Int,binding: V, bean : E)
 

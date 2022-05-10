@@ -2,11 +2,6 @@ package com.yxf.vehicleinspection.view.fragment
 
 
 import android.content.pm.ActivityInfo
-import android.net.Uri
-import android.provider.MediaStore
-import android.widget.MediaController
-import androidx.compose.foundation.interaction.FocusInteraction
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -37,7 +32,7 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
         binding.rvLeft.adapter = imageRvAdapter
         binding.rvRight.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvRight.adapter = videoRvAdapter
-        getImageData(args.bean013.Ajlsh,args.bean013.Hjlsh,args.bean013.Ajjccs)
+        getImageData(args.bean013.Ajlsh, args.bean013.Hjlsh)
 
         binding.btnPass.setOnClickListener {
             val action = VehicleImageVideoFragmentDirections.actionVehicleImageVideoFragmentToSignatureVerifyFragment(args.bean013,1)
@@ -52,7 +47,7 @@ class VehicleImageVideoFragment : BaseBindingFragment<FragmentVehicleImageVideoB
             it.findNavController().navigate(action)
         }
     }
-    private fun getImageData(ajLsh : String,hjLsh : String, Jccs : Int) {
+    private fun getImageData(ajLsh: String, hjLsh: String) {
         verifyViewModel.getVehicleImage(ajLsh,hjLsh).observe(this) {
             val list = ArrayList<VehicleImageR007Response>()
             for (element in it){

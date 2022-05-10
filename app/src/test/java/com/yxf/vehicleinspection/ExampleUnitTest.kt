@@ -19,7 +19,7 @@ import kotlin.concurrent.timerTask
 class ExampleUnitTest(){
     @Test
     fun main(){
-
+        val linkedList = LinkedList<String>()
     }
 
 }

@@ -18,9 +18,12 @@ class YcySpinnerAdapter(activity : Activity, private val resourceId : Int, val d
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater.from(context).inflate(resourceId,parent,false)
         val ycyName = view.findViewById<TextView>(R.id.tvYcyName)
-        for (element in data){
+        data.forEach {
             ycyName.text = data[position].TrueName
         }
+//        for (element in data){
+//            ycyName.text = data[position].TrueName
+//        }
         return view
     }
 }

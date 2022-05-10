@@ -47,7 +47,7 @@ class VehicleAllInfoViewModel(val repository: VehicleAllInfoRepository) : ViewMo
 }
 class VehicleAllInfoViewModelFactory(private val repository: VehicleAllInfoRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VehicleAllInfoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return VehicleAllInfoViewModel(repository) as T

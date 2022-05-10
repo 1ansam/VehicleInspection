@@ -102,7 +102,7 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
 }
 class DataDictionaryViewModelFactory(private val dataDictionaryRepository: DataDictionaryRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DataDictionaryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return DataDictionaryViewModel(dataDictionaryRepository) as T

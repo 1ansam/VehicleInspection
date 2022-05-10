@@ -1,7 +1,10 @@
 package com.yxf.vehicleinspection.service
 
+import com.yxf.vehicleinspection.bean.response.CommonResponse
+import com.yxf.vehicleinspection.bean.response.VehicleQueueR002Response
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -22,4 +25,13 @@ interface QueryService {
         @Query("zdbs") zdbs: String,
         @Query("jsonData") jsonData: String,
     ): Call<ResponseBody>
+
+
+    //coroutines
+    @POST("VehicleInspection/Query")
+    suspend fun querySuspend(
+        @Query("jkId") jkId: String,
+        @Query("zdbs") zdbs: String,
+        @Query("jsonData") jsonData: String
+    ): Response<CommonResponse<VehicleQueueR002Response>>
 }

@@ -16,7 +16,7 @@ class VehicleInspectionItemViewModel(val repository: VehicleInspectionItemReposi
     }
 }
 class VehicleInspectionItemViewModelFactory(val repository: VehicleInspectionItemRepository): ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VehicleInspectionItemViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return VehicleInspectionItemViewModel(repository) as T

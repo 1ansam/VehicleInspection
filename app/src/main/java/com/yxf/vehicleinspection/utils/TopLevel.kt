@@ -21,11 +21,14 @@ import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.bean.CollectMoney
 import com.yxf.vehicleinspection.bean.request.CommonRequest
 import com.yxf.vehicleinspection.bean.response.CommonResponse
 import com.yxf.vehicleinspection.singleton.GsonSingleton
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -306,9 +309,12 @@ fun <T> getJsonData(element : T) : String{
  */
 fun <T> getJsonData(elements : List<T>) : String{
     val requestArray = ArrayList<T>()
-    for (element in elements){
-        requestArray.add(element)
+    elements.forEach {
+        requestArray.add(it)
     }
+//    for (element in elements){
+//        requestArray.add(element)
+//    }
     return GsonSingleton.instance.toJson(CommonRequest(requestArray))
 }
 //IpUtil
@@ -443,6 +449,8 @@ fun string2String(stringDate: String,oldFormat: String,newFormat: String) : Stri
     simpleDateFormat = SimpleDateFormat(newFormat)
     return simpleDateFormat.format(date)
 }
+
+
 /**
  * 调用函数根据responseCode判断请求是否成功并将boolean值存入LiveData中
  * @param response 远程服务器响应数据
@@ -594,6 +602,8 @@ fun Spinner.setText(text: String) {
         }
     }
 }
+
+
 fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
     val comparator = kotlin.Comparator{
         key1 : String, key2 : String ->
@@ -608,11 +618,16 @@ fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
     treeMap["trxreserve"] = collectMoney.trxreserve
     treeMap["sign"] = collectMoney.sign
     treeMap["key"] = collectMoney.key
-    for(element in treeMap.entries){
-        if (element.value.isNotBlank()){
-            stringBuilder.append(element.key).append("=").append(URLEncoder.encode(element.value,"utf-8")).append("&")
+    treeMap.entries.forEach {
+        if (it.value.isNotBlank()){
+            stringBuilder.append(it.key).append("=").append(URLEncoder.encode(it.value,"utf-8")).append("&")
         }
     }
+//    for(element in treeMap.entries){
+//        if (element.value.isNotBlank()){
+//            stringBuilder.append(element.key).append("=").append(URLEncoder.encode(element.value,"utf-8")).append("&")
+//        }
+//    }
     if (stringBuilder.isNotBlank()){
         val string = stringBuilder.toString()
         return string.substring(0,string.length -1)
@@ -688,7 +703,13 @@ fun setVisibility(activity: Activity, view : View, visibility : Boolean){
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 }
-fun a(){
-
+inline fun <reified E> sureBodyType(list : List<Any?>) : List<E>{
+    val newList = ArrayList<E>()
+    list.forEach {
+        newList.add(
+            GsonSingleton.instance.fromJson(GsonSingleton.instance.toJson(it),E::class.java)
+        )
+    }
+    return newList
 }
 

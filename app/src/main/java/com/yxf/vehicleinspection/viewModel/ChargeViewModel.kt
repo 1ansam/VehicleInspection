@@ -54,7 +54,7 @@ class ChargeViewModel(private val chargeRepository: ChargeRepository) : ViewMode
     }
 }
 class ChargeViewModelFactory(private val chargeRepository: ChargeRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ChargeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ChargeViewModel(chargeRepository) as T
