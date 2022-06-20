@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.bean.response.AdministrativeR023Response
 /**
  *   author:yxf
  *   time:2021/12/14
+ *   行政区划数据库操作类
  */
 @Dao
 interface AdministrativeDao {

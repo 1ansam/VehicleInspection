@@ -7,6 +7,7 @@ import com.yxf.vehicleinspection.bean.response.ChargeItemR004Response
 /**
  *   author:yxf
  *   time:2021/12/21
+ *   收费项目数据库操作类
  */
 @Dao
 interface ChargeItemDao {

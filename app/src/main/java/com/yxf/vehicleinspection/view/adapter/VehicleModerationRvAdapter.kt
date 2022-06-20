@@ -19,6 +19,7 @@ import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 /**
  *   author:yxf
  *   time:2021/10/15
+ *   车辆审核Adapter
  */
 class VehicleModerationRvAdapter(private val fragment : Fragment , private val dataDictionaryViewModel: DataDictionaryViewModel) : BaseRvAdapter<ModerationQueueR013Response,PersonInspectionItemBinding>() {
 

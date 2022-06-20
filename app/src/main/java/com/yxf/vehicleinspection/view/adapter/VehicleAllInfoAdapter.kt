@@ -16,6 +16,7 @@ import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 /**
  *   author:yxf
  *   time:2021/10/19
+ *   车辆详细信息Adapter
  */
 class VehicleAllInfoAdapter(val fragment: Fragment, private val dataDictionaryViewModel: DataDictionaryViewModel) : BaseRvAdapter<VehicleAllInfoR005Response,RvItemVehicleInformationBinding>() {
     override fun onCreateViewHolder(

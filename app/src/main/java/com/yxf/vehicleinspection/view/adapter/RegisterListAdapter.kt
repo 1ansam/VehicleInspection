@@ -11,6 +11,7 @@ import com.yxf.vehicleinspection.databinding.ItemRegisterBinding
 /**
  *   author:yxf
  *   time:2021/12/3
+ *   注册登记信息列表
  */
 class RegisterListAdapter : BaseRvAdapter<String,ItemRegisterBinding>() {
     var value : ArrayList<String?> = ArrayList()

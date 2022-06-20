@@ -11,6 +11,7 @@ import retrofit2.http.Query
 /**
  *   author:yxf
  *   time:2021/10/11
+ *   retrofit公共查询请求接口
  */
 interface QueryService {
     /**

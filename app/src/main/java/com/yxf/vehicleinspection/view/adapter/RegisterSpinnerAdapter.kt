@@ -12,6 +12,7 @@ import com.yxf.vehicleinspection.databinding.ItemRegisterSpinnerBinding
 /**
  *   author:yxf
  *   time:2021/12/3
+ *   注册登记下拉框Adapter
  */
 class RegisterSpinnerAdapter(val context : Context) : BaseRvAdapter<String, ItemRegisterSpinnerBinding>() {
     private var spinnerData : List<List<String>> = ArrayList()

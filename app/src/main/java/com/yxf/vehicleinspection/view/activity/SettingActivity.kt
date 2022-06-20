@@ -12,6 +12,10 @@ import com.yxf.vehicleinspection.singleton.SharedP
 import com.yxf.vehicleinspection.utils.setVisibility
 import com.yxf.vehicleinspection.viewModel.*
 
+
+/**
+ * 网络设置Activity
+ */
 class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
     private val dataDictionaryViewModel: DataDictionaryViewModel by viewModels {
         DataDictionaryViewModelFactory((application as MyApp).dataDictionaryRepository)
@@ -30,7 +34,7 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
         binding.titleSetting.Alltitle.text = "参数设置"
         binding.tvIpAddress.setText(SharedP.instance.getString("ipAddress", "192.168.1.1"))
         binding.tvPort.setText(SharedP.instance.getString("ipPort", "80"))
-
+        //设置保存并同步数据库
         binding.button.setOnClickListener {
             SharedP.instance.edit{
                 putString("ipAddress", binding.tvIpAddress.text.toString())

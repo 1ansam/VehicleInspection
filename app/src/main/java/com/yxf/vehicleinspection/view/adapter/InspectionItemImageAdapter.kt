@@ -11,6 +11,7 @@ import com.yxf.vehicleinspection.databinding.VehicleImageItemBinding
 /**
  * @author : yxf
  * @Date : 2021/11/7
+ * 检验项目照片Adapter
  **/
 class InspectionItemImageAdapter : BaseRvAdapter<ImageItemR017Response, VehicleImageItemBinding>() {
 

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingFragment
 import com.yxf.vehicleinspection.bean.response.VehicleAllInfoR005Response
-import com.yxf.vehicleinspection.bean.response.VehicleInspectionItemR006Response
 import com.yxf.vehicleinspection.databinding.FragmentInspectionItemBinding
 import com.yxf.vehicleinspection.view.adapter.InspectionItemAdapter
 import com.yxf.vehicleinspection.view.adapter.VehicleAllInfoAdapter

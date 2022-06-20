@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.databinding.ItemInvoiceBinding
 /**
  *   author:yxf
  *   time:2021/12/23
+ *   收费Adapter
  */
 class InvoiceAdapter : BaseRvAdapter<ChargeDetail,ItemInvoiceBinding>() {
     override fun onCreateViewHolder(

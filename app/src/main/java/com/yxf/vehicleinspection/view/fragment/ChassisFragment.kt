@@ -32,8 +32,8 @@ import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
 
 class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
     private lateinit var count: CountDownTimer
-    private var AjJyjghb = ""
-    private var HjJyjghb = ""
+    private var AjJyjgbh = ""
+    private var HjJyjgbh = ""
     private var AjJkxlh = ""
     private var beginTime = ""
     private var endTime = ""
@@ -42,27 +42,37 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
     private val systemParamsViewModel by viewModels<SystemParamsViewModel> {
         SystemParamsViewModelFactory((requireActivity().application as MyApp).systemParamsRepository)
     }
-    lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
+    private lateinit var inspectionItemSelectAdapter: InspectionItemSelectAdapter
     private val args: ChassisFragmentArgs by navArgs()
 
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
+        //获取参数 写入项目开始
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-            AjJyjghb = it
+            //安检检验机构编号
+            ajJyjgbh ->
+            AjJyjgbh = ajJyjgbh
             systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-                HjJyjghb = it
+                //环检检验机构编号
+                hjjyjgbh ->
+                HjJyjgbh = hjjyjgbh
                 systemParamsViewModel.getWebPass("AJ").observe(this){
-                    AjJkxlh = it
+                    //安检接口序列号
+                    ajjkxlh ->
+                    AjJkxlh = ajjkxlh
                     inspectionItemViewModel.getServerTime().observe(this) {
-                        beginTime = it.Sj
+                        //服务器时间
+                        serverTime ->
+                        beginTime = serverTime.Sj
                         inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
-                            AjJyjghb,args.jcxh,args.bean005.Hphm,
+                            AjJyjgbh,args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
                             beginTime,args.bean006.Ajywlb,args.bean006.Hjywlb,AjJkxlh,
                             args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs
                         )).observe(this){
-                            if (it){
+                            w10Success ->
+                            if (w10Success){
                                 getSelectData( args.bean006.Jcxm,
                                     args.bean006.Ajywlb, args.bean006.Hjywlb,args.bean002.Ajlsh,args.bean002.Hjlsh)
                             }else{
@@ -73,6 +83,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                 }
             }
         }
+        //获取检验项目要求时间并倒计时
         inspectionItemViewModel.getLeastestTime(args.bean005.Ajcx, args.bean006.Jcxm)
             .observe(this) {
                 count = object : CountDownTimer(it.Yqsc.toInt() * 1000L, 1000) {
@@ -84,13 +95,15 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                     }
                 }.start()
             }
+        //提交按钮
         binding.includeTitle.btnSubmit.clickWithTrigger {
             if (binding.includeTitle.textView.text.toString().substring(4) != "0") {
                 Snackbar.make(this.requireView(),"检验时间未到",Snackbar.LENGTH_SHORT).show()
             } else {
                 setVisibility(this.requireActivity(),binding.pbChassisSubmit,true)
                 inspectionItemViewModel.getServerTime().observe(this) {
-                    endTime = it.Sj
+                    serverTime ->
+                    endTime = serverTime.Sj
                     setVisibility(this.requireActivity(),binding.pbChassisSubmit,true)
                     inspectionItemViewModel.postSaveVideoW008(
                         getPostVideoData(
@@ -99,18 +112,21 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
                         )
 
                     ).observe(this) {
-                        if (it) {
+                        w08Success ->
+                        if (w08Success) {
                             inspectionItemViewModel.postArtificialProjectW011(
                                 getPostArtificialData(
                                     inspectionItemSelectAdapter
                                 )
                             ).observe(this) {
-                                if (it) {
+                                w11Success ->
+                                if (w11Success) {
                                     binding.pbChassisSubmit.visibility = View.GONE
                                     inspectionItemViewModel.postProjectEndW012(getPostProjectEndData())
                                         .observe(this) {
+                                            w12Success ->
                                             setVisibility(this.requireActivity(),binding.pbChassisSubmit,false)
-                                            if (it) {
+                                            if (w12Success) {
                                                 Toast.makeText(
                                                     this.context,
                                                     "底盘项目结束",
@@ -158,7 +174,8 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
         inspectionItemViewModel.getUserInfo().observe(this){
             val nameList = ArrayList<String>()
             it.forEach {
-                nameList.add("${it.TrueName}+${it.ID}")
+                user ->
+                nameList.add("${user.TrueName}+${user.ID}")
             }
 //            for (element in it){
 //                nameList.add("${element.TrueName}+${element.ID}")
@@ -167,6 +184,8 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             binding.spYcy.adapter = ycyAdapter
 
         }
+
+        // 底盘拍照按钮
         binding.include.btnRightPhoto.visibility = View.GONE
         binding.include.btnLeftPhoto.text = "底盘检验拍照"
         binding.include.btnLeftPhoto.setOnClickListener{
@@ -187,6 +206,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
 
     }
 
+    //获取人工检验项目数据
     private fun getSelectData(Jyxm: String, Ajywlb: String, Hjywlb: String,Ajlsh : String,
                               Hjlsh : String,){
         inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh).observe(this){
@@ -196,6 +216,8 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
 
         }
     }
+
+    //获取上传视频数据
     private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request {
         return SaveVideoW008Request(0,args.jcxh,args.bean005.Hphm,
             args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
@@ -207,11 +229,15 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             args.bean005.Hjdlsj,"","0",args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs
         )
     }
+
+    //获取上传项目结束数据
     private fun getPostProjectEndData(): ProjectEndW012Request {
-        return ProjectEndW012Request(AjJyjghb,args.jcxh,
+        return ProjectEndW012Request(AjJyjgbh,args.jcxh,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
             args.bean006.Hjywlb,AjJkxlh,args.bean002.Ajlsh,args.bean002.Hjlsh,args.bean002.Ajjccs,args.bean002.Hjjccs)
     }
+
+    //获取上传人工检验项目数据
     private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<ChassisArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<ChassisArtificialProjectRequest>>()
         val listXmlb = ArrayList<Xmlb>()
@@ -225,7 +251,7 @@ class ChassisFragment : BaseBindingFragment<FragmentChassisBinding>() {
             listXmlb.add(xmlb)
         }
         val chassisArtificialProjectRequest = ChassisArtificialProjectRequest(
-            AjJyjghb,
+            AjJyjgbh,
             args.jcxh,
             args.bean005.Hphm,
             args.bean005.Hpzl,

@@ -48,10 +48,15 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
         binding.tvHphm.text = resources.getString(R.string.hphm_,bean002.Hphm)
         wbean004.chargeOrder.Sign = sign
         collectMoney = CollectMoney(collectMoney.appid,collectMoney.c,collectMoney.oid,collectMoney.amt,collectMoney.trxreserve,sign,collectMoney.key)
+
+
+        //创建二维码 使用zxing
         url += getStringFromCollectMoney(collectMoney)
         val encode = BarcodeEncoder()
         val bitmap = encode.encodeBitmap(url, BarcodeFormat.QR_CODE,500,500)
         binding.ivQRCode.setImageBitmap(bitmap)
+
+        //使用handler+timer实现定时获取收费结果
         val handler = object : Handler(Looper.getMainLooper()){
             override fun handleMessage(msg: Message) {
                 val liveData = msg.obj as LiveData<Boolean>
@@ -59,12 +64,13 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                     if (it){
                         timer.cancel()
                         Toast.makeText(MyApp.context, "付款成功", Toast.LENGTH_SHORT).show()
-                        chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
-                                if (it){
+                        chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){ isCharged ->
+                                if (isCharged){
                                     Snackbar.make(this@ChargeFragment.requireView(),"上传付款信息成功",Snackbar.LENGTH_SHORT).show()
                                     vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
-                                        if (it.isNotEmpty()){
-                                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
+                                        vehicleInformationList ->
+                                        if (vehicleInformationList.isNotEmpty()){
+                                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(vehicleInformationList[0],wbean004)
                                             findNavController().navigate(action)
                                         }else{
                                             Toast.makeText(
@@ -83,13 +89,16 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                 }
             }
         }
+
+        //非二维码 已收款跳转开票界面
         binding.btnInvoice.setOnClickListener {
             chargeViewModel.postChargePayment(wbean004).observe(this@ChargeFragment){
                 if (it){
                     Snackbar.make(this@ChargeFragment.requireView(),"上传付款信息成功",Snackbar.LENGTH_SHORT).show()
                     vehicleAllInfoViewModel.getVehicleAllInfo(args.bean002.Ajlsh,args.bean002.Hjlsh).observe(this@ChargeFragment){
-                        if (it.isNotEmpty()){
-                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(it[0],wbean004)
+                        vehicleInformationList ->
+                        if (vehicleInformationList.isNotEmpty()){
+                            val action = ChargeFragmentDirections.actionChargeFragmentToInvoiceFragment(vehicleInformationList[0],wbean004)
                             findNavController().navigate(action)
                         }else{
                             Toast.makeText(
@@ -103,6 +112,7 @@ class ChargeFragment : BaseBindingFragment<FragmentChargeBinding>() {
                 }
             }
         }
+        //定时任务， 每秒获取收费结果
         timer.schedule(timerTask {
             val message = Message()
             message.obj = chargeViewModel.getChargeStatus(collectMoney.oid)

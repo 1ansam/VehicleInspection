@@ -19,6 +19,7 @@ import com.yxf.vehicleinspection.viewModel.*
 /**
  *   author:yxf
  *   time:2021/10/15
+ *   车辆队列Adapter
  */
 class VehicleQueueRvAdapter(private val fragment: Fragment, private val sharedViewModel: SharedViewModel) : BaseRvAdapter<VehicleQueueR002Response,PersonInspectionItemBinding>() {
     private val vehicleAllInfoViewModel = ViewModelProvider(fragment,VehicleAllInfoViewModelFactory((fragment.requireActivity().application as MyApp).vehicleAllInfoRepository))[VehicleAllInfoViewModel::class.java]

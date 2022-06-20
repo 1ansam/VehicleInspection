@@ -81,13 +81,19 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+
+        //获取参数 写入项目开始
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
+            //安检检验机构编号
             AjJyjghb = it
             systemParamsViewModel.getJyjgbh("HJ").observe(this) {
+                //环检检验机构编号
                 HjJyjghb = it
                 systemParamsViewModel.getWebPass("AJ").observe(this) {
+                    //安检接口序列号
                     AjJkxlh = it
                     inspectionItemViewModel.getServerTime().observe(this) {
+                        //服务器时间
                         beginTime = it.Sj
                         inspectionItemViewModel.postProjectStartW010(
                             ProjectStartW010Request(
@@ -129,6 +135,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
             }
         }
+        //获取检验项目要求时间并倒计时
         inspectionItemViewModel.getLeastestTime(args.bean005.Ajcx, args.bean006.Jcxm)
             .observe(this) {
                 count = object : CountDownTimer(it.Yqsc.toInt() * 1000L, 1000) {
@@ -141,15 +148,11 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }.start()
             }
 
+
+
         inspectionItemImageAdapter = InspectionItemImageAdapter()
-        binding.rvImage.layoutManager = LinearLayoutManager(this.requireContext())
-        binding.rvImage.adapter = inspectionItemImageAdapter
-        binding.rvAjSelect.layoutManager = LinearLayoutManager(this.requireContext())
-        binding.rvHjSelect.layoutManager = LinearLayoutManager(this.requireContext())
         inspectionItemAjSelectAdapter = InspectionItemSelectAdapter(this)
         inspectionItemHjSelectAdapter = InspectionItemSelectAdapter(this)
-        binding.rvAjSelect.adapter = inspectionItemAjSelectAdapter
-        binding.rvHjSelect.adapter = inspectionItemHjSelectAdapter
         inspectionItemImageAdapter.onItemViewClickListener =
             object : BaseRvAdapter.OnItemViewClickListener<ImageItemR017Response> {
                 override fun onItemClick(view: View, position: Int, bean: ImageItemR017Response) {
@@ -178,6 +181,21 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
 
 
             }
+        binding.rvImage.apply {
+            layoutManager = LinearLayoutManager(this@ExteriorFragment.requireContext())
+            adapter = inspectionItemImageAdapter
+        }
+
+        binding.rvAjSelect.apply {
+            layoutManager = LinearLayoutManager(this@ExteriorFragment.requireContext())
+            adapter = inspectionItemAjSelectAdapter
+        }
+        binding.rvHjSelect.apply {
+            layoutManager = LinearLayoutManager(this@ExteriorFragment.requireContext())
+            adapter = inspectionItemHjSelectAdapter
+        }
+
+        //提交按钮
         binding.includeTitle.btnSubmit.clickWithTrigger {
             if (binding.includeTitle.textView.text.toString().substring(4) != "0") {
                 Snackbar.make(this.requireView(),"检验时间未到",Snackbar.LENGTH_SHORT).show()
@@ -344,6 +362,8 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
             }
         }
+
+        //轴距(多轴可点击展开)
         binding.tvZj.setOnClickListener {
             zj = !zj
             if (zj) {
@@ -352,6 +372,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 binding.llZj.visibility = View.GONE
             }
         }
+        //单车转向轮轮胎花纹深度(点击展开或收敛)
         binding.tvDczxlhwsd.setOnClickListener {
             dczxllthwsd = !dczxllthwsd
             if (dczxllthwsd) {
@@ -360,6 +381,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 binding.llDczxlhwsd.visibility = View.GONE
             }
         }
+        //单车其他轮轮胎花纹深度(点击展开或收敛)
         binding.tvDcqtlhwsd.setOnClickListener {
             dcqtllthwsd = !dcqtllthwsd
             if (dcqtllthwsd) {
@@ -368,6 +390,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 binding.llDcqtlhwsd.visibility = View.GONE
             }
         }
+        //挂车轮胎花纹深度(点击展开或收敛)
         binding.tvGclthwsd.setOnClickListener {
             gclthwsd = !gclthwsd
             if (gclthwsd) {
@@ -428,6 +451,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 binding.llKqxjz.visibility = View.GONE
             }
         }
+        //外观左拍照按钮
         binding.includeBottomButton.btnLeftPhoto.setOnClickListener {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.postTakePhoto(
@@ -448,6 +472,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
             }
         }
+        //外观右拍照按钮
         binding.includeBottomButton.btnRightPhoto.setOnClickListener {
             binding.pbExteriorSubmit.visibility = View.VISIBLE
             inspectionItemViewModel.postTakePhoto(
@@ -468,60 +493,9 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
                 }
             }
         }
-
-//        systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-//            AjJyjghb = it
-//            systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-//                HjJyjghb = it
-//                systemParamsViewModel.getWebPass("AJ").observe(this) {
-//                    AjJkxlh = it
-//                    inspectionItemViewModel.getServerTime().observe(this) {
-//                        beginTime = it.Sj
-//                        inspectionItemViewModel.postProjectStartW010(
-//                            ProjectStartW010Request(
-//                                AjJyjghb,
-//                                args.jcxh,
-//                                args.bean005.Hphm,
-//                                args.bean005.Hpzl,
-//                                args.bean005.Clsbdh,
-//                                args.bean006.Jcxm,
-//                                args.bean006.Jcxm,
-//                                beginTime,
-//                                args.bean006.Ajywlb,
-//                                args.bean006.Hjywlb,
-//                                AjJkxlh,
-//                                args.bean002.Ajlsh,
-//                                args.bean002.Hjlsh,
-//                                args.bean002.Ajjccs,
-//                                args.bean002.Hjjccs
-//                            )
-//                        ).observe(this) {
-//                            if (it) {
-//                                getImageData(
-//                                    args.bean006.Jcxm,
-//                                    args.bean006.Ajywlb,
-//                                    args.bean006.Hjywlb,
-//                                    args.bean002.Ajlsh,
-//                                    args.bean002.Hjlsh
-//                                )
-//                                getSelectData(
-//                                    args.bean006.Jcxm,
-//                                    args.bean006.Ajywlb, args.bean006.Hjywlb,
-//                                    args.bean002.Ajlsh, args.bean002.Hjlsh
-//                                )
-//                            } else {
-//                                Toast.makeText(MyApp.context, "写入项目开始失败", Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
-
     }
 
-
+    //获取照片数据
     private fun getImageData(
         Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh: String,
         Hjlsh: String,
@@ -530,7 +504,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             inspectionItemImageAdapter.data = it
         }
     }
-
+    //获取人工检验项目数据
     private fun getSelectData(
         Jyxm: String,
         Ajywlb: String,
@@ -552,7 +526,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
             }
     }
 
-
+    //获取上传视频数据
     private fun getPostPhotoData(adapter: InspectionItemImageAdapter): List<InspectionPhotoW007Request> {
         val list = ArrayList<InspectionPhotoW007Request>()
         for (index in 0 until adapter.itemCount) {
@@ -599,7 +573,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         return list
 
     }
-
+    //获取上传人工检验项目数据
     private fun getPostArtificialData(
         ajAdapter: InspectionItemSelectAdapter,
         hjAdapter: InspectionItemSelectAdapter
@@ -683,7 +657,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         return list
 
     }
-
+    //获取轴距
     private fun getZj(): String {
         val oneZj = binding.etOneZj.text.toString()
         val twoZj = binding.etTwoZj.text.toString()
@@ -708,7 +682,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }
         return str
     }
-
+    //获取单车转向轮花纹深度
     private fun getDczxlhwsd(): String {
         val A1 = binding.etTurnA1.text.toString()
         val A2 = binding.etTurnA2.text.toString()
@@ -742,7 +716,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }
         return str
     }
-
+    //获取单车其他轮花纹深度
     private fun getDcqtlhwsd(): String {
         val A1 = binding.etOtherA1.text.toString()
         val A2 = binding.etOtherA2.text.toString()
@@ -857,7 +831,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         }
         return str
     }
-
+    //获取挂车花纹深度
     private fun getGchwsd(): String {
         val A1 = binding.etGcA1.text.toString()
         val A2 = binding.etGcA2.text.toString()
@@ -973,7 +947,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         return str
     }
 
-
+    //创建照片文件
     @Throws(IOException::class)
     private fun createImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -1004,7 +978,7 @@ class ExteriorFragment : BaseBindingFragment<FragmentExteriorBinding>() {
         super.onDestroyView()
         count.cancel()
     }
-
+    //拍照回传
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {

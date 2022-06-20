@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.databinding.ItemAdministrativeBinding
 /**
  *   author:yxf
  *   time:2021/12/14
+ *   行政区划recyclerView adapter
  */
 class AdministrativeAdapter : BaseRvAdapter<AdministrativeR023Response,ItemAdministrativeBinding>() {
     override fun onCreateViewHolder(

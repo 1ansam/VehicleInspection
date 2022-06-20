@@ -25,7 +25,7 @@ import com.yxf.vehicleinspection.viewModel.SystemParamsViewModelFactory
 import java.util.*
 
 class ChargeItemFragment : BaseBindingFragment<FragmentChargeItemBinding>() {
-    val chargeItemAdapter = ChargeItemAdapter()
+    private val chargeItemAdapter = ChargeItemAdapter()
     private val chargeItemViewModel: ChargeItemViewModel by viewModels {
         ChargeItemViewModelFactory((requireActivity().application as MyApp).chargeItemRepository)
     }

@@ -15,9 +15,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
-import androidx.paging.Config
 import com.permissionx.guolindev.PermissionX
-import com.yxf.vehicleinspection.BuildConfig
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.clickWithTrigger
@@ -28,11 +26,14 @@ import com.yxf.vehicleinspection.viewModel.LoginViewModel
 import com.yxf.vehicleinspection.viewModel.LoginViewModelFactory
 import java.io.File
 
-
+/**
+ * 登录Activity
+ */
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     private val loginViewModel by viewModels<LoginViewModel> { LoginViewModelFactory((application as MyApp).userInfoRepository) }
     override fun init() {
         binding.tvVersion.text = packageManager.getPackageInfo(this.packageName,0).versionName
+        //动态请求权限
         PermissionX.init(this)
             .permissions(
                 Manifest.permission.CAMERA,
@@ -50,10 +51,12 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                         Toast.LENGTH_LONG).show()
                 }
             }
+        //获取在SP中的用户名
         if (SharedP.instance.getString("username","")!=null && SharedP.instance.getString("username","")!= ""){
             binding.cbRememberUsername.isChecked = true
         }
         binding.tvUsername.setText(SharedP.instance.getString("username", ""))
+        //未输入用户名和密码的情况下不能点击登录按钮
         binding.btnLogin.isEnabled = false
         val watcher: TextWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -67,8 +70,14 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         }
         binding.tvUsername.addTextChangedListener(watcher)
         binding.tvPassword.addTextChangedListener(watcher)
+
+        //获取当前App版本号和服务器版本号进行比对，如果版本号不一致则提示强制更新
         loginViewModel.getVersion().observe(this){
-            val versionCode = this.packageManager.getPackageInfo(this.packageName,0).versionCode
+            val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                this.packageManager.getPackageInfo(this.packageName,0).longVersionCode
+            } else {
+                this.packageManager.getPackageInfo(this.packageName,0).versionCode
+            }
             val version = this.packageManager.getPackageInfo(this.packageName,0).versionName
             if (!(versionCode.toString() == it.VersionCode && version.toString() == it.Version)){
                 AlertDialog.Builder(this)
@@ -84,11 +93,14 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                     .setTitle("检测更新").create().show()
             }
         }
+
+        // 点击设置按钮
         binding.btnSetting.setOnClickListener {
             startActivity(Intent(this,SettingActivity::class.java))
             finish()
         }
 
+        //点击登录按钮
         binding.btnLogin.clickWithTrigger {
             if (binding.cbRememberUsername.isChecked) {
                 SharedP.instance.edit{
@@ -96,7 +108,6 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 }
 
             }else{
-                //使用edit高阶函数
                 SharedP.instance.edit{
                     putString("username","")
                 }
@@ -104,6 +115,8 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             }
 
             setVisibility(this,binding.pbLogin,true)
+
+            //调用登录接口
             loginViewModel.getUser(
                 binding.tvUsername.text.toString(),
                 binding.tvPassword.text.toString()
@@ -124,7 +137,10 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
     }
 
-
+    /**
+     * 使用downloadManager下载文件
+     * @param downloadPath 下载地址
+     */
     fun downloadApk(downloadPath : String){
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         val uri = Uri.parse(downloadPath)
@@ -148,7 +164,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         }
         registerReceiver(receive,filter)
     }
-
+    //打开安装包安装文件
     private fun openAPK(content: Uri) {
         val apkFile = File(content.toString())
         val intent = Intent(Intent.ACTION_VIEW)
@@ -165,12 +181,12 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 666 && resultCode == RESULT_OK){
-            downloadApk("http://${SharedP.instance.getString("ipAddress","192.168.1.1")}:${SharedP.instance.getString("ipPort","80")}/apk/app-release.apk")
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == 666 && resultCode == RESULT_OK){
+//            downloadApk("http://${SharedP.instance.getString("ipAddress","192.168.1.1")}:${SharedP.instance.getString("ipPort","80")}/apk/app-release.apk")
+//        }
+//    }
 
 
 

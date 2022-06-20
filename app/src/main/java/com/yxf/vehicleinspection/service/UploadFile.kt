@@ -10,6 +10,7 @@ import retrofit2.http.Part
 /**
  *   author:yxf
  *   time:2021/11/16
+ *   retrofit上传文件接口
  */
 interface UploadFile{
     @Multipart

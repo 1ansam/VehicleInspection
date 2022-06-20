@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.databinding.ItemRvJyxmBinding
 /**
  *   author:yxf
  *   time:2021/12/6
+ *   注册登记需要检验的项目Adapter
  */
 class RegisterJyxmAdapter : BaseRvAdapter<String,ItemRvJyxmBinding>() {
     override fun onCreateViewHolder(

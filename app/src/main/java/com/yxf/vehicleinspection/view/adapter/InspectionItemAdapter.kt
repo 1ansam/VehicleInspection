@@ -20,6 +20,7 @@ import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 /**
  *   author:yxf
  *   time:2021/10/19
+ *   检验项目Adapter
  */
 class InspectionItemAdapter(
     val fragment: Fragment,

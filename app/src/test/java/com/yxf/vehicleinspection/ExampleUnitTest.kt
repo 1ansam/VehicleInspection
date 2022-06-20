@@ -2,8 +2,12 @@ package com.yxf.vehicleinspection
 
 
 
+import android.app.Dialog
 import android.util.Log
+import androidx.fragment.app.DialogFragment
+import com.yxf.vehicleinspection.bean.CollectMoney
 import com.yxf.vehicleinspection.utils.date2String
+import com.yxf.vehicleinspection.utils.getStringFromCollectMoney
 import com.yxf.vehicleinspection.utils.string2Date
 import com.yxf.vehicleinspection.view.fragment.RegisterFragment
 import org.junit.Test
@@ -16,10 +20,14 @@ import kotlin.concurrent.timerTask
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+
 class ExampleUnitTest(){
+
     @Test
     fun main(){
-        val linkedList = LinkedList<String>()
+        val collection = CollectMoney("appid","c","oid",100,"trxreserve","sign","key")
+        print(getStringFromCollectMoney(collection))
+
     }
 
 }

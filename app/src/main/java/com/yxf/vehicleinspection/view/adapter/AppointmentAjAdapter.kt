@@ -15,6 +15,7 @@ import com.yxf.vehicleinspection.viewModel.DataDictionaryViewModel
 /**
  *   author:yxf
  *   time:2021/12/9
+ *   安检预约recyclerView Adapter
  */
 class AppointmentAjAdapter(private val owner: LifecycleOwner, private val dataDictionaryViewModel: DataDictionaryViewModel) : BaseRvAdapter<AppointmentAjR010Response, ItemAppointmentAjBinding>() {
     override fun onCreateViewHolder(

@@ -1,3 +1,5 @@
+import org.gradle.util.internal.SimpleMapInterner
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -62,7 +64,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.google.code.gson:gson:2.8.8'
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
@@ -83,4 +84,5 @@ dependencies {
     implementation 'com.github.qingmei2:rximagepicker_support:2.5.6'
     implementation 'com.google.android.exoplayer:exoplayer:2.17.1'
     implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+
 }

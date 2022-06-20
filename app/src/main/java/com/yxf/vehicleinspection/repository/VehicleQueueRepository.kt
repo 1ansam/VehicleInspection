@@ -63,24 +63,25 @@ class VehicleQueueRepository {
                         .fromJson(stringResponse, CommonResponse::class.java)
                     if (commonResponse.Code == "1"){
                         //使用通用方法确定Body类型传入LiveData
-                        val beanList = sureBodyType<VehicleQueueR002Response>(commonResponse.Body)
-//                        commonResponse.Body.forEach {
-//
-//                            val bodyJson =
-//                                GsonSingleton.instance.toJson(it)
-//                            beanList.add(
-//                                GsonSingleton.instance
-//                                    .fromJson(bodyJson, VehicleQueueR002Response::class.java))
-//                        }
-//                        for (element in commonResponse.Body) {
-//                            val bodyJson =
-//                                GsonSingleton.instance.toJson(element)
-//                            val bean = GsonSingleton.instance
-//                                .fromJson(bodyJson, VehicleQueueR002Response::class.java)
-//                            if (bean.Sfsf == "1"){
-//                                beanList.add(bean)
-//                            }
-//                        }
+//                        val beanList = sureBodyType<VehicleQueueR002Response>(commonResponse.Body)
+                        val beanList = ArrayList<VehicleQueueR002Response>()
+                        commonResponse.Body.forEach {
+
+                            val bodyJson =
+                                GsonSingleton.instance.toJson(it)
+                            beanList.add(
+                                GsonSingleton.instance
+                                    .fromJson(bodyJson, VehicleQueueR002Response::class.java))
+                        }
+                        for (element in commonResponse.Body) {
+                            val bodyJson =
+                                GsonSingleton.instance.toJson(element)
+                            val bean = GsonSingleton.instance
+                                .fromJson(bodyJson, VehicleQueueR002Response::class.java)
+                            if (bean.Sfsf == "1"){
+                                beanList.add(bean)
+                            }
+                        }
                         liveData.value = beanList
                     }else{
                         if (commonResponse.Code == null){

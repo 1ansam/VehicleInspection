@@ -14,6 +14,7 @@ import com.yxf.vehicleinspection.view.JyyqPickerFragment
 /**
  *   author:yxf
  *   time:2021/11/9
+ *   检测项目 合格 不合格 不检 Adapter
  */
 class InspectionItemSelectAdapter(val fragment : Fragment) : BaseRvAdapter<ArtificialProject,ItemExteriorSelectBinding>(){
 

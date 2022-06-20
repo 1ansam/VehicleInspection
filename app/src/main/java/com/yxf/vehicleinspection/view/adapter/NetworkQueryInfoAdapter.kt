@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.databinding.ItemNetworkQueryInfoBinding
 /**
  *   author:yxf
  *   time:2021/11/25
+ *   联网查询Adapter
  */
 class NetworkQueryInfoAdapter : BaseRvAdapter<NetworkQueryInfo,ItemNetworkQueryInfoBinding>() {
     override fun onCreateViewHolder(

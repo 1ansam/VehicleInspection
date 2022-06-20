@@ -46,14 +46,23 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
     override fun init() {
         this.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         bean001 = DisplayActivity.bean001 as UserInfoR001Response
+        //获取参数 写入项目开始
         systemParamsViewModel.getJyjgbh("AJ").observe(this) {
-            AjJyjghb = it
+            //安检检验机构编号
+            ajJyjgbh ->
+            AjJyjghb = ajJyjgbh
             systemParamsViewModel.getJyjgbh("HJ").observe(this) {
-                HjJyjghb = it
+                //环检检验机构编号
+                hjjyjgbh ->
+                HjJyjghb = hjjyjgbh
                 systemParamsViewModel.getWebPass("AJ").observe(this){
-                    AjJkxlh = it
+                    //安检接口序列号
+                    ajjkxlh ->
+                    AjJkxlh = ajjkxlh
                     inspectionItemViewModel.getServerTime().observe(this) {
-                        beginTime = it.Sj
+                        //服务器时间
+                        serverTime ->
+                        beginTime = serverTime.Sj
                         inspectionItemViewModel.postProjectStartW010(ProjectStartW010Request(
                             AjJyjghb,args.jcxh,args.bean005.Hphm,
                             args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,
@@ -61,7 +70,8 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                             args.bean002.Ajlsh,args.bean002.Hjlsh,
                             args.bean002.Ajjccs,args.bean002.Hjjccs
                         )).observe(this){
-                            if (it){
+                            w10Success ->
+                            if (w10Success){
                                 getSelectData(args.bean006.Jcxm,
                                     args.bean006.Ajywlb, args.bean006.Hjywlb,
                                     args.bean002.Ajlsh,args.bean002.Hjlsh,
@@ -74,6 +84,7 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                 }
             }
         }
+        //获取检验项目要求时间并倒计时
         inspectionItemViewModel.getLeastestTime(args.bean005.Ajcx, args.bean006.Jcxm)
             .observe(this) {
                 count = object : CountDownTimer(it.Yqsc.toInt() * 1000L, 1000) {
@@ -85,6 +96,7 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                     }
                 }.start()
             }
+        //提交按钮
         binding.includeTitle.btnSubmit.clickWithTrigger {
             if (binding.includeTitle.textView.text.toString().substring(4) != "0") {
                 Snackbar.make(this.requireView(),"检验时间未到",Snackbar.LENGTH_SHORT).show()
@@ -93,7 +105,8 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
 
                 binding.pbDynamicSubmit.visibility = View.VISIBLE
                 inspectionItemViewModel.getServerTime().observe(this) {
-                    endTime = it.Sj
+                    serverTime ->
+                    endTime = serverTime.Sj
                     inspectionItemViewModel.postSaveVideoW008(
                         getPostVideoData(
                             DYNAMIC_BEHIND,
@@ -108,17 +121,19 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
                                     ""
                                 )
                             ).observe(this) {
-                                if (it) {
+                                w08Success ->
+                                if (w08Success) {
                                     inspectionItemViewModel.postArtificialProjectW011(
                                         getPostArtificialData(inspectionItemSelectAdapter)
                                     ).observe(this) {
-
-                                        if (it) {
+                                        w11Success ->
+                                        if (w11Success) {
                                             inspectionItemViewModel.postProjectEndW012(
                                                 getPostProjectEndData()
                                             ).observe(this) {
+                                                w12Success ->
                                                 binding.pbDynamicSubmit.visibility = View.GONE
-                                                if (it) {
+                                                if (w12Success) {
                                                     Toast.makeText(
                                                         this.context,
                                                         "底盘动态项目结束",
@@ -169,13 +184,16 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
         binding.rvSelect.adapter = inspectionItemSelectAdapter
         inspectionItemViewModel.getUserInfo().observe(this){
             val nameList = ArrayList<String>()
-            for (element in it){
-                nameList.add("${element.TrueName}+${element.ID}")
+            it.forEach {
+                user ->
+                nameList.add("${user.TrueName}+${user.ID}")
             }
             val ycyAdapter = ArrayAdapter(this.requireActivity(),R.layout.ycy_item_layout,nameList)
             binding.spYcy.adapter = ycyAdapter
 
         }
+
+        // 动态拍照按钮
         binding.include2.btnLeftPhoto.text = "底盘动态检验开始"
         binding.include2.btnLeftPhoto.setOnClickListener{
             binding.pbDynamicSubmit.visibility = View.VISIBLE
@@ -209,12 +227,16 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             }
         }
     }
-    private fun getSelectData( Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh : String, Hjlsh : String){
+
+    //获取人工检验项目数据
+    private fun getSelectData(Jyxm: String, Ajywlb: String, Hjywlb: String, Ajlsh : String, Hjlsh : String){
         inspectionItemViewModel.getSelectItemData(Jyxm, Ajywlb, Hjywlb, Ajlsh, Hjlsh).observe(this){
 
             inspectionItemSelectAdapter.data = it[0].Xmlb
         }
     }
+
+    //获取上传视频数据
     private fun getPostVideoData(Spbhaj: String,Spbhhj: String) : SaveVideoW008Request {
         return SaveVideoW008Request(0,args.jcxh,args.bean005.Hphm,
             args.bean005.Hpzl,args.bean006.Jcxm,Spbhaj,Spbhhj,args.bean006.Ajywlb,args.bean006.Hjywlb,
@@ -228,12 +250,16 @@ class DynamicFragment : BaseBindingFragment<FragmentDynamicBinding>() {
             args.bean002.Ajjccs,args.bean002.Hjjccs
         )
     }
+
+    //获取上传项目结束数据
     private fun getPostProjectEndData(): ProjectEndW012Request {
         return ProjectEndW012Request(AjJyjghb,args.jcxh,
             args.bean005.Hphm,args.bean005.Hpzl,args.bean005.Clsbdh,args.bean006.Jcxm,args.bean006.Jcxm,endTime,args.bean006.Ajywlb,
             args.bean006.Hjywlb,AjJkxlh,args.bean002.Ajlsh,args.bean002.Hjlsh,
             args.bean002.Ajjccs,args.bean002.Hjjccs)
     }
+
+    //获取上传人工检验项目数据
     private fun getPostArtificialData(adapter: InspectionItemSelectAdapter): List<ArtificialProjectW011Request<DynamicArtificialProjectRequest>> {
         val list = ArrayList<ArtificialProjectW011Request<DynamicArtificialProjectRequest>>()
         val listXmlb = ArrayList<Xmlb>()

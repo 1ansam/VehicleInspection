@@ -12,6 +12,8 @@ import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 /**
  *   author:yxf
  *   time:2021/11/9
+ *   数据库创建类
+ *   详细信息见官方room文档
  */
 @Database(entities = [DataDictionaryR003Response::class,SystemParamsR015Response::class,AdministrativeR023Response::class,ChargeItemR004Response::class],version = 5,exportSchema = false)
 abstract class DataDictionaryDatabase : RoomDatabase() {

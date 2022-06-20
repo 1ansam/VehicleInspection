@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import com.yxf.vehicleinspection.repository.*
 import com.yxf.vehicleinspection.room.DataDictionaryDatabase
@@ -37,9 +38,14 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
         lateinit var manager: ActivityManager
     }
 
+    private fun getCrashLogDir(): String {
+        return getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/log"
+    }
+
     override fun onCreate() {
         super.onCreate()
         this.registerActivityLifecycleCallbacks(this)
+
         context = applicationContext
         manager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         val filter = IntentFilter()
@@ -56,6 +62,8 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
                 }
             }
         },filter)
+
+        CrashHandler.getInstance(applicationContext).setCrashLogDir(getCrashLogDir())
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

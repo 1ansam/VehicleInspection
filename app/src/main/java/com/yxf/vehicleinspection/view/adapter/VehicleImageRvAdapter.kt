@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.databinding.ItemVehicleVerifyBinding
 /**
  *   author:yxf
  *   time:2021/10/28
+ *   车辆照片信息Adapter（审核）
  */
 class VehicleImageRvAdapter : BaseRvAdapter<VehicleImageR007Response,ItemVehicleVerifyBinding>() {
     override fun onCreateViewHolder(

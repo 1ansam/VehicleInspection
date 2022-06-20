@@ -27,12 +27,16 @@ class AppointmentAjFragment : BaseBindingFragment<FragmentAppointmentAjBinding>(
         binding.rvAppointmentAj.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvAppointmentAj.setHasFixedSize(true)
         binding.rvAppointmentAj.adapter = adapter
+
+        //非预约注册onclick
         binding.btnEnterRegister.setOnClickListener {
             val action = AppointmentAjFragmentDirections.actionAppointmentAjFragmentToRegisterFragment(
                 AppointmentAjR010Response("","","",0,"","","")
             )
             findNavController().navigate(action)
         }
+
+
 //        binding.svAppointmentAj.setOnClickListener{
 //            binding.svAppointmentAj.onActionViewExpanded()
 //        }
@@ -46,12 +50,16 @@ class AppointmentAjFragment : BaseBindingFragment<FragmentAppointmentAjBinding>(
 //                return false
 //            }
 //        })
+
+        //下拉刷新
         binding.refresh.setOnRefreshListener {
             getAppointmentAjQueue()
             binding.refresh.isRefreshing = false
         }
     }
 
+
+    //获取安检预约队列
     private fun getAppointmentAjQueue() {
         registerViewModel.getAppointmentAj().observe(this){
             adapter.data = it

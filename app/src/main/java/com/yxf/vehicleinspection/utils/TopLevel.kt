@@ -49,6 +49,7 @@ import kotlin.collections.Map as Map
  *   author:yxf
  *   time:2021/11/15
  *   kotlin顶层函数及常量
+ *
  */
 const val FILE_PROVIDER = "com.yxf.vehicleinspection.fileprovider"
 //数据字典分类常量
@@ -155,133 +156,134 @@ const val FL_JCLSHZT = "zt"
  *  WRITE_ARTIFICIAL_PROJECT 写入人工检验项目
  *  WRITE_PROJECT_END 写入项目结束
  */
-const val QUERY_ALL_USER = "LYYDJKR001"
-const val QUERY_VEHICLE_QUEUE = "LYYDJKR002"
-const val QUERY_DATA_DICTIONARY = "LYYDJKR003"
-const val QUERY_CHARGE_LIST = "LYYDJKR004"
-const val QUERY_VEHICLE_ALL_INFO = "LYYDJKR005"
-const val QUERY_VEHICLE_INSPECTION_ITEM = "LYYDJKR006"
-const val QUERY_VEHICLE_IMAGE = "LYYDJKR007"
-const val QUERY_VEHICLE_VIDEO = "LYYDJKR008"
-const val QUERY_ADMISSION_INFO = "LYYDJKR009"
-const val QUERY_APPOINTMENT_AJ = "LYYDJKR010"
-const val QUERY_SERVER_TIME = "LYYDJKR011"
-const val QUERY_BREAK_AND_AXIS_LOAD_CURVE = "LYYDJKR012"
-const val QUERY_VERIFY_QUEUE = "LYYDJKR013"
-const val QUERY_CHARGE_STATUS = "LYYDJKR014"
-const val QUERY_SYSTEM_PARAMS = "LYYDJKR015"
-const val QUERY_IMAGE_ITEM = "LYYDJKR017"
-const val QUERY_LEASTEST_TIME = "LYYDJKR019"
-const val QUERY_ARTIFICIAL_PROJECT = "LYYDJKR020"
-const val QUERY_VERSION = "LYYDJKR021"
-const val QUERY_VEHICLE_INFO = "LYYDJKR022"
-const val QUERY_ADMINISTRATIVE = "LYYDJKR023"
-const val QUERY_ONLINE_STUTAS = "LYYDJKR024"
-const val QUERY_INVOICE_PARAMS = "LYYDJKR025"
-const val QUERY_BUYER_PARAMS = "LYYDJKR026"
-const val WRITE_USER_LOGIN = "LYYDJKW001"
-const val WRITE_SAVE_VEHICLE_INFO = "LYYDJKW003"
-const val WRITE_SAVE_CHARGE_INFO = "LYYDJKW004"
-const val WRITE_SAVE_INVOICE_INFO = "LYYDJKW005"
-const val WRITE_SAVE_SIGNATURE = "LYYDJKW006"
-const val WRITE_INSPECTION_PHOTO = "LYYDJKW007"
-const val WRITE_SAVE_VIDEO = "LYYDJKW008"
-const val WRITE_TAKE_PHOTO = "LYYDJKW009"
-const val WRITE_PROJECT_START = "LYYDJKW010"
-const val WRITE_ARTIFICIAL_PROJECT = "LYYDJKW011"
-const val WRITE_PROJECT_END = "LYYDJKW012"
-const val WRITE_VERIFY_INFO = "LYYDJKW013"
-const val WRITE_START_ONLINE = "LYYDJKW015"
+const val QUERY_ALL_USER = "LYYDJKR001" // 查询所有用户信息
+const val QUERY_VEHICLE_QUEUE = "LYYDJKR002" // 查询待检车辆队列
+const val QUERY_DATA_DICTIONARY = "LYYDJKR003" // 查询数据字典
+const val QUERY_CHARGE_LIST = "LYYDJKR004" // 查询收费列表
+const val QUERY_VEHICLE_ALL_INFO = "LYYDJKR005" // 查询车辆所有信息
+const val QUERY_VEHICLE_INSPECTION_ITEM = "LYYDJKR006" // 查询车辆检验项目
+const val QUERY_VEHICLE_IMAGE = "LYYDJKR007" // 查询车辆照片
+const val QUERY_VEHICLE_VIDEO = "LYYDJKR008" // 查询车辆视频
+const val QUERY_ADMISSION_INFO = "LYYDJKR009" // 查询入场信息
+const val QUERY_APPOINTMENT_AJ = "LYYDJKR010" // 查询安检预约信息
+const val QUERY_SERVER_TIME = "LYYDJKR011" // 查询服务器时间
+const val QUERY_BREAK_AND_AXIS_LOAD_CURVE = "LYYDJKR012" // 查询制动和轴加载
+const val QUERY_VERIFY_QUEUE = "LYYDJKR013" // 查询审核队列
+const val QUERY_CHARGE_STATUS = "LYYDJKR014" // 查询收费状态
+const val QUERY_SYSTEM_PARAMS = "LYYDJKR015" // 查询系统参数
+const val QUERY_IMAGE_ITEM = "LYYDJKR017" // 查询照片项目
+const val QUERY_LEASTEST_TIME = "LYYDJKR019" // 查询人工检验项目最短用时
+const val QUERY_ARTIFICIAL_PROJECT = "LYYDJKR020" // 查询人工检验项目
+const val QUERY_VERSION = "LYYDJKR021" // 查询app版本号
+const val QUERY_VEHICLE_INFO = "LYYDJKR022" // 查询车辆信息
+const val QUERY_ADMINISTRATIVE = "LYYDJKR023" // 查询行政区划
+const val QUERY_ONLINE_STUTAS = "LYYDJKR024" // 查询上线状态
+const val QUERY_INVOICE_PARAMS = "LYYDJKR025" // 查询开票信息
+const val QUERY_BUYER_PARAMS = "LYYDJKR026" // 查询客户信息
+const val WRITE_USER_LOGIN = "LYYDJKW001" // 写入用户登录
+const val WRITE_SAVE_VEHICLE_INFO = "LYYDJKW003" // 写入车辆信息
+const val WRITE_SAVE_CHARGE_INFO = "LYYDJKW004" // 写入收费信息
+const val WRITE_SAVE_INVOICE_INFO = "LYYDJKW005" // 写入开票信息
+const val WRITE_SAVE_SIGNATURE = "LYYDJKW006" // 写入签名信息
+const val WRITE_INSPECTION_PHOTO = "LYYDJKW007" // 写入检验照片
+const val WRITE_SAVE_VIDEO = "LYYDJKW008" // 写入保存视频
+const val WRITE_TAKE_PHOTO = "LYYDJKW009" // 触发摄像头拍照
+const val WRITE_PROJECT_START = "LYYDJKW010" // 写入项目开始
+const val WRITE_ARTIFICIAL_PROJECT = "LYYDJKW011" // 写入人工检验项目
+const val WRITE_PROJECT_END = "LYYDJKW012" // 写入项目结束
+const val WRITE_VERIFY_INFO = "LYYDJKW013" // 写入审核信息
+const val WRITE_START_ONLINE = "LYYDJKW015" // 写入上线开始
 //视频代码常量
 /*
- * SIDE_SLIP 侧滑
- * PARKING_BREAK 驻车制动
- * ONE_AXIS_BREAK 一轴制动
- * TWO_AXIS_BREAK 二轴制动
- * THREE_AXIS_BREAK 三轴制动
- * FOUR_AXIS_BREAK 四轴制动
- * FIVE_AXIS_BREAK 五轴制动
- * CHASSIS 底盘
- * POWER 动力性
- * DYNAMIC 底盘动态
- * EXTERIOR_FRONT 外观前
- * EXTERIOR_BEHIDE 外观后
- * LEFT_LIGHT 左外灯
- * RIGHT_LIGHT 右外灯
- * ONE_AXIS_LOAD_BREAK 一轴加载制动
- * TWO_AXIS_LOAD_BREAK 二轴加载制动
- * THREE_AXIS_LOAD_BREAK 三轴加载制动
- * FOUR_AXIS_LOAD_BREAK 四轴加载制动
- * EXPANDED_SIZE_FRONT 外廓尺寸前
- * EXPANDED_SIZE_BESIDE 外廓尺寸侧
- * ROAD_TEST_BREAK_START 路试制动开始
- * ROAD_TEST_BREAK_STOP 路试制动结束
- * SPEED 车速
- * CURB_QUALITY_FRONT 整备质量前
- * CURB_QUALITY_BEHIND 整备质量后
- * RAMP_PARKING_FRONT 坡道驻车前
- * RAMP_PARKING_BEHIDE 坡道驻车后
- * VIN_FAR_TO_CLOSED 车架号由远及近
- * AROUND_VEHICLE 环视车辆一周
- * TIRE_TREAD_DEPTH 测量轮胎花纹深度尺寸
- * UNIQUE_FRONT 唯一性检查前
- * UNIQUE_BEHIND = 唯一性检查后
- * ONE_AXIS_PARKING_BREAK 驻车制动（一轴）
- * TWO_AXIS_PARKING_BREAK 驻车制动（二轴）
- * THREE_AXIS_PARKING_BREAK 驻车制动（三轴）
- * FOUR_AXIS_PARKING_BREAK 驻车制动（四轴）
- * FIVE_AXIS_PARKING_BREAK 驻车制动（五轴）
- * ONLINE_FRONT_HJ 上线检测前视频
- * ONLINE_BEHIND_HJ 上线检测后视频
- * ONLINE_MOVE_HJ 上线检测移动视频
- * CHASSIS_HJ 底盘检测视频
- * EXTERIOR_LEFT_FRONT_HJ 外观检测左前视频
- * EXTERIOR_RIGHT_BEHIND_HJ 外观检测右后视频
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
-const val SIDE_SLIP = "A1"
-const val PARKING_BREAK = "B0"
-const val ONE_AXIS_BREAK = "B1"
-const val TWO_AXIS_BREAK = "B2"
-const val THREE_AXIS_BREAK = "B3"
-const val FOUR_AXIS_BREAK = "B4"
-const val FIVE_AXIS_BREAK = "B5"
-const val CHASSIS = "C1"
-const val POWER = "CG"
-const val DYNAMIC_BEHIND = "DC"
-const val DYNAMIC_FRONT = "DC0"
-const val EXTERIOR_FRONT = "F1"
-const val EXTERIOR_BEHIDE = "F0"
-const val LEFT_LIGHT = "H1"
-const val RIGHT_LIGHT = "H4"
-const val ONE_AXIS_LOAD_BREAK = "L1"
-const val TWO_AXIS_LOAD_BREAK = "L2"
-const val THREE_AXIS_LOAD_BREAK = "L3"
-const val FOUR_AXIS_LOAD_BREAK = "L4"
-const val EXPANDED_SIZE_FRONT= "M1"
-const val EXPANDED_SIZE_BESIDE = "M2"
-const val ROAD_TEST_BREAK_START = "R"
-const val ROAD_TEST_BREAK_STOP = "R0"
-const val SPEED = "S1"
-const val CURB_QUALITY_FRONT = "Z1"
-const val CURB_QUALITY_BEHIND = "Z2"
-const val RAMP_PARKING_FRONT = "R8"
-const val RAMP_PARKING_BEHIDE = "R9"
-const val VIN_FAR_TO_CLOSED = "F2"
-const val AROUND_VEHICLE = "F3"
-const val TIRE_TREAD_DEPTH = "F4"
-const val UNIQUE_FRONT = "UC"
-const val UNIQUE_BEHIND = "UC0"
-const val ONE_AXIS_PARKING_BREAK = "B01"
-const val TWO_AXIS_PARKING_BREAK = "B02"
-const val THREE_AXIS_PARKING_BREAK = "B03"
-const val FOUR_AXIS_PARKING_BREAK = "B04"
-const val FIVE_AXIS_PARKING_BREAK = "B05"
-const val ONLINE_FRONT_HJ = "100404"
-const val ONLINE_BEHIND_HJ = "100401"
-const val ONLINE_MOVE_HJ = "100402"
-const val CHASSIS_HJ = "100203"
-const val EXTERIOR_LEFT_FRONT_HJ = "100201"
-const val EXTERIOR_RIGHT_BEHIND_HJ = "100202"
+const val SIDE_SLIP = "A1" // SIDE_SLIP 侧滑
+const val PARKING_BREAK = "B0" // PARKING_BREAK 驻车制动
+const val ONE_AXIS_BREAK = "B1" // ONE_AXIS_BREAK 一轴制动
+const val TWO_AXIS_BREAK = "B2" // TWO_AXIS_BREAK 二轴制动
+const val THREE_AXIS_BREAK = "B3" // THREE_AXIS_BREAK 三轴制动
+const val FOUR_AXIS_BREAK = "B4" // FOUR_AXIS_BREAK 四轴制动
+const val FIVE_AXIS_BREAK = "B5" // FIVE_AXIS_BREAK 五轴制动
+const val CHASSIS = "C1" // CHASSIS 底盘
+const val POWER = "CG" // POWER 动力性
+const val DYNAMIC_BEHIND = "DC" // DYNAMIC_BEHIND 底盘动态后
+const val DYNAMIC_FRONT = "DC0" // DYNAMIC_FRONT 底盘动态后
+const val EXTERIOR_FRONT = "F1" // EXTERIOR_FRONT 外观前
+const val EXTERIOR_BEHIDE = "F0" // EXTERIOR_BEHIDE 外观后
+const val LEFT_LIGHT = "H1" // LEFT_LIGHT 左外灯
+const val RIGHT_LIGHT = "H4" // RIGHT_LIGHT 右外灯
+const val ONE_AXIS_LOAD_BREAK = "L1" // ONE_AXIS_LOAD_BREAK 一轴加载制动
+const val TWO_AXIS_LOAD_BREAK = "L2" // TWO_AXIS_LOAD_BREAK 二轴加载制动
+const val THREE_AXIS_LOAD_BREAK = "L3" // THREE_AXIS_LOAD_BREAK 三轴加载制动
+const val FOUR_AXIS_LOAD_BREAK = "L4" // FOUR_AXIS_LOAD_BREAK 四轴加载制动
+const val EXPANDED_SIZE_FRONT= "M1" // EXPANDED_SIZE_FRONT 外廓尺寸前
+const val EXPANDED_SIZE_BESIDE = "M2" // EXPANDED_SIZE_BESIDE 外廓尺寸侧
+const val ROAD_TEST_BREAK_START = "R" // ROAD_TEST_BREAK_START 路试制动开始
+const val ROAD_TEST_BREAK_STOP = "R0" // ROAD_TEST_BREAK_STOP 路试制动结束
+const val SPEED = "S1" // SPEED 车速
+const val CURB_QUALITY_FRONT = "Z1" // CURB_QUALITY_FRONT 整备质量前
+const val CURB_QUALITY_BEHIND = "Z2" // CURB_QUALITY_BEHIND 整备质量后
+const val RAMP_PARKING_FRONT = "R8" // RAMP_PARKING_FRONT 坡道驻车前
+const val RAMP_PARKING_BEHIDE = "R9" // RAMP_PARKING_BEHIDE 坡道驻车后
+const val VIN_FAR_TO_CLOSED = "F2" // VIN_FAR_TO_CLOSED 车架号由远及近
+const val AROUND_VEHICLE = "F3" // AROUND_VEHICLE 环视车辆一周
+const val TIRE_TREAD_DEPTH = "F4" // TIRE_TREAD_DEPTH 测量轮胎花纹深度尺寸
+const val UNIQUE_FRONT = "UC" // UNIQUE_FRONT 唯一性检查前
+const val UNIQUE_BEHIND = "UC0" // UNIQUE_BEHIND = 唯一性检查后
+const val ONE_AXIS_PARKING_BREAK = "B01" // ONE_AXIS_PARKING_BREAK 驻车制动（一轴）
+const val TWO_AXIS_PARKING_BREAK = "B02" // TWO_AXIS_PARKING_BREAK 驻车制动（二轴）
+const val THREE_AXIS_PARKING_BREAK = "B03" // THREE_AXIS_PARKING_BREAK 驻车制动（三轴）
+const val FOUR_AXIS_PARKING_BREAK = "B04" // FOUR_AXIS_PARKING_BREAK 驻车制动（四轴）
+const val FIVE_AXIS_PARKING_BREAK = "B05" // FIVE_AXIS_PARKING_BREAK 驻车制动（五轴）
+const val ONLINE_FRONT_HJ = "100404" // ONLINE_FRONT_HJ 上线检测前视频
+const val ONLINE_BEHIND_HJ = "100401" // ONLINE_BEHIND_HJ 上线检测后视频
+const val ONLINE_MOVE_HJ = "100402" // ONLINE_MOVE_HJ 上线检测移动视频
+const val CHASSIS_HJ = "100203" // CHASSIS_HJ 底盘检测视频
+const val EXTERIOR_LEFT_FRONT_HJ = "100201" // EXTERIOR_LEFT_FRONT_HJ 外观检测左前视频
+const val EXTERIOR_RIGHT_BEHIND_HJ = "100202" // EXTERIOR_RIGHT_BEHIND_HJ 外观检测右后视频
 
 //请求拍照
 const val REQUEST_IMAGE_CAPTURE = 101
@@ -332,9 +334,10 @@ fun getIpAddress() : String {
         Toast.makeText(MyApp.context,"WIFI未打开", Toast.LENGTH_SHORT).show()
         return ""
     }
-//    return "192.168.2.132"
 
 }
+
+//获取Wifi信号强度
 
 fun getWifiRssi(): Int {
     val wifiManager : WifiManager = MyApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -568,11 +571,14 @@ inline fun <reified E> response2Bean(response : Response<ResponseBody>, liveData
 
     return liveData
 }
+
+// 获取上传文件Body
 fun uploadFile(fileName : String,file : File,requestBody : RequestBody) : MultipartBody.Part{
     val part = MultipartBody.Part.createFormData(fileName,file.name,requestBody)
     return part
 }
 
+//获取屏幕高度
 fun getScreenHeight(activity: Activity): Int {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
         val windowMetrics = activity.window.windowManager.currentWindowMetrics
@@ -584,6 +590,8 @@ fun getScreenHeight(activity: Activity): Int {
         mDisplayMetrics.heightPixels
     }
 }
+
+// 获取屏幕宽度
 fun getScreenWidth(activity : Activity): Int {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
         val windowMetrics = activity.window.windowManager.currentWindowMetrics
@@ -595,6 +603,8 @@ fun getScreenWidth(activity : Activity): Int {
         mDisplayMetrics.widthPixels
     }
 }
+
+//Spinner扩展函数 设置字符串（只能设置spinner中有的）
 fun Spinner.setText(text: String) {
     for (i in 0 until this.adapter.count) {
         if (this.adapter.getItem(i).toString().contains(text)) {
@@ -603,7 +613,7 @@ fun Spinner.setText(text: String) {
     }
 }
 
-
+// 获取收费信息字符串以供加密
 fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
     val comparator = kotlin.Comparator{
         key1 : String, key2 : String ->
@@ -618,7 +628,7 @@ fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
     treeMap["trxreserve"] = collectMoney.trxreserve
     treeMap["sign"] = collectMoney.sign
     treeMap["key"] = collectMoney.key
-    treeMap.entries.forEach {
+    treeMap.forEach {
         if (it.value.isNotBlank()){
             stringBuilder.append(it.key).append("=").append(URLEncoder.encode(it.value,"utf-8")).append("&")
         }
@@ -637,6 +647,7 @@ fun getStringFromCollectMoney(collectMoney: CollectMoney) : String{
 
 }
 
+// MD5加密方法
 fun md5(b : ByteArray) : String {
     val md = MessageDigest.getInstance("MD5")
     md.reset()
@@ -653,10 +664,11 @@ fun md5(b : ByteArray) : String {
     return outStrBuf.toString()
 }
 
+//获取Sign
 fun getSignFromCollectMoney(collectMoney: CollectMoney) : String{
     val comparator = kotlin.Comparator{
             key1 : String, key2 : String ->
-        key1.compareTo(key2)
+        key1.compareTo(key2,false)
     }
     val treeMap = TreeMap<String,String>(comparator)
     var stringBuilder = StringBuilder()
@@ -683,16 +695,17 @@ fun getSignFromCollectMoney(collectMoney: CollectMoney) : String{
     }else{
         throw IllegalArgumentException("未找到付款信息")
     }
-
-
-
 }
+
+
 fun setForceUnable(viewGroup: ViewGroup, isUnable : Boolean){
     for (index in 0 until viewGroup.childCount){
         viewGroup[index].isEnabled = isUnable
     }
 }
 
+
+//设置View可见性
 fun setVisibility(activity: Activity, view : View, visibility : Boolean){
     if (visibility){
         view.visibility = View.VISIBLE
@@ -703,6 +716,8 @@ fun setVisibility(activity: Activity, view : View, visibility : Boolean){
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 }
+
+
 inline fun <reified E> sureBodyType(list : List<Any?>) : List<E>{
     val newList = ArrayList<E>()
     list.forEach {

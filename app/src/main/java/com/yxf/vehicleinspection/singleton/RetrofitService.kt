@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit
 /**
  *   author:yxf
  *   time:2021/9/29
+ *   retrofit 单例
  */
 object RetrofitService {
 

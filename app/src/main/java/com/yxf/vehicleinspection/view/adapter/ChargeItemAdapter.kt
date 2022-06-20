@@ -10,6 +10,7 @@ import com.yxf.vehicleinspection.databinding.ItemChargeBinding
 /**
  *   author:yxf
  *   time:2021/12/22
+ *   收费条目RecyclerView Adapter
  */
 class ChargeItemAdapter : BaseRvAdapter<ChargeItemR004Response, ItemChargeBinding>() {
     override fun onCreateViewHolder(

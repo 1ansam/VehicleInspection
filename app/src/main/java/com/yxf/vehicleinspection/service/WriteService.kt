@@ -9,6 +9,7 @@ import retrofit2.http.Query
 /**
  *   author:yxf
  *   time:2021/10/11
+ *   retrofit公共写入接口
  */
 interface WriteService {
     /**

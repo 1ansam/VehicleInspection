@@ -7,6 +7,7 @@ import com.yxf.vehicleinspection.bean.response.SystemParamsR015Response
 /**
  *   author:yxf
  *   time:2021/11/11
+ *   系统变量数据库操作类
  */
 @Dao
 interface SystemParamsDao {

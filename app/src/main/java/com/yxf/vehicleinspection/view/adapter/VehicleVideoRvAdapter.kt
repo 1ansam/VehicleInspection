@@ -12,6 +12,7 @@ import com.yxf.vehicleinspection.view.fragment.VehicleImageVideoFragment
 /**
  *   author:yxf
  *   time:2021/10/28
+ *   车辆视频信息Adapter（审核）
  */
 class VehicleVideoRvAdapter(val fragment: VehicleImageVideoFragment) : BaseRvAdapter<VehicleVideoR008Response, VehicleVideoItemBinding>() {
     override fun onCreateViewHolder(

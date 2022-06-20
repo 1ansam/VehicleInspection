@@ -11,6 +11,7 @@ import com.yxf.vehicleinspection.databinding.ItemOnlineBinding
 /**
  *   author:yxf
  *   time:2021/12/20
+ *   上线Adapter
  */
 class OnlineAdapter : BaseRvAdapter<Jcgw,ItemOnlineBinding>() {
     override fun onCreateViewHolder(
