@@ -28,8 +28,9 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
     /**
      * 从服务器获取数据字典
      */
-    fun getDictionaryData() : LiveData<List<DataDictionaryR003Response>>{
+    fun getDictionaryData() : Pair<LiveData<List<DataDictionaryR003Response>>,LiveData<String>>{
         val liveData = MutableLiveData<List<DataDictionaryR003Response>>()
+        val message = MutableLiveData<String>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_DATA_DICTIONARY,
             getIpAddress(),
@@ -53,22 +54,26 @@ class DataDictionaryRepository(private val dao : DataDictionaryDao) {
                         liveData.value = beanList
                     }else{
                         if (commonResponse.Code == null){
+                            message.value = "服务器Code=Null"
                             Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
                         }else{
+                            message.value = commonResponse.Message
                             Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else{
+                    message.value = response.message()
                     Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
                 }
 
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                message.value = t.message
                 Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
             }
         })
-        return liveData
+        return Pair(liveData,message)
     }
 
     /**

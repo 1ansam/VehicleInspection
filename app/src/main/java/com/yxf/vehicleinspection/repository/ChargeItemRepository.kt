@@ -32,8 +32,9 @@ class ChargeItemRepository(private val dao : ChargeItemDao) {
     /**
      * 从服务器获取收费条目
      */
-    fun getChargeItem() : LiveData<List<ChargeItemR004Response>>{
+    fun getChargeItem() : Pair<LiveData<List<ChargeItemR004Response>>,LiveData<String>>{
         val liveData = MutableLiveData<List<ChargeItemR004Response>>()
+        val message = MutableLiveData<String>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_CHARGE_LIST,
             getIpAddress(),
@@ -58,21 +59,25 @@ class ChargeItemRepository(private val dao : ChargeItemDao) {
                         liveData.value = beanList
                     }else{
                         if (commonResponse.Code == null){
+                            message.value = "服务器Code=Null"
                             Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
                         }else{
+                            message.value = commonResponse.Message
                             Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else{
+                    message.value = response.message()
                     Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                message.value = t.message
                 Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
             }
         })
-        return liveData
+        return Pair(liveData,message)
     }
 
     /**

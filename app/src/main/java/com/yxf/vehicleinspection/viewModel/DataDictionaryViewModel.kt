@@ -16,7 +16,7 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
     /**
      * 从远程服务器获取数据字典
      */
-    fun getDataDictionary(): LiveData<List<DataDictionaryR003Response>>{
+    fun getDataDictionary(): Pair<LiveData<List<DataDictionaryR003Response>>, LiveData<String>> {
         return dataDictionaryRepository.getDictionaryData()
     }
 
@@ -28,8 +28,8 @@ class DataDictionaryViewModel(private val dataDictionaryRepository: DataDictiona
      * @param dataDictionaryListResponse 数据对象列表
      */
     fun insertDataDictionary(dataDictionaryListResponse: List<DataDictionaryR003Response>) = viewModelScope.launch {
-        dataDictionaryRepository.insertDataDictionary(dataDictionaryListResponse)
-        if (dataDictionaryRepository.insertDataDictionary(dataDictionaryListResponse).size == dataDictionaryRepository.rowNum){
+        val dataDictionary = dataDictionaryRepository.insertDataDictionary(dataDictionaryListResponse)
+        if (dataDictionary.size == dataDictionaryRepository.rowNum){
             insertEnd.value = true
         }
     }

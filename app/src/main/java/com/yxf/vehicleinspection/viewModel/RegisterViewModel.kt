@@ -2,6 +2,7 @@ package com.yxf.vehicleinspection.viewModel
 
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.yxf.vehicleinspection.view.adapter.RegisterJyxmAdapter
 import com.yxf.vehicleinspection.view.adapter.RegisterListAdapter
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 /**
  *   author:yxf
@@ -199,6 +201,20 @@ class RegisterViewModel(val registerRepository: RegisterRepository) : ViewModel(
         }
         return hjJyxmString
     }
+
+
+    fun getValueListMap(view : RecyclerView) : LinkedHashMap<String,MutableList<String>>{
+        val map = textListMap
+        for(index in 0 until view.adapter!!.itemCount){
+            val holder = view.findViewHolderForAdapterPosition(index)
+            val textView = holder?.itemView?.findViewById<TextView>(R.id.key)
+            val clearEditText = holder?.itemView?.findViewById<EditText>(R.id.value)
+            map.get(textView?.text.toString())?.set(1,clearEditText?.text.toString())
+        }
+
+        return map
+    }
+
     fun getValueMap(textList : RecyclerView,adapter: RegisterListAdapter): MutableMap<String, String> {
         val map = mutableMapOf<String, String>()
         for (index in 0 until adapter.itemCount) {
@@ -228,7 +244,54 @@ class RegisterViewModel(val registerRepository: RegisterRepository) : ViewModel(
 
         return map
     }
+
+
+
+//    val textMap = LinkedHashMap<String,MutableList<String>>()
+//    textMap["xszbh"  ] = mutableListOf("行驶证编号","")
+//    textMap["clpp1"  ] = mutableListOf("车辆品牌","")
+//    textMap["clxh"   ] = mutableListOf("车辆型号","")
+//    textMap["fdjxh"  ] = mutableListOf("发动机型号","")
+//    textMap["fdjh"   ] = mutableListOf("发动机号","")
+//    textMap["syr"    ] = mutableListOf("所有人","")
+//    textMap["lxdh"   ] = mutableListOf("联系电话","")
+//    textMap["zt"     ] = mutableListOf("机动车状态","")
+//    textMap["zzcmc"  ] = mutableListOf("制造厂名称","")
+//    textMap["qdzs"   ] = mutableListOf("驱动轴数","")
+//    textMap["qdzw"   ] = mutableListOf("驱动轴位","")
+//    textMap["zczs"   ] = mutableListOf("驻车轴数","")
+//    textMap["zczw"   ] = mutableListOf("驻车轴位","")
+//    textMap["zs"     ] = mutableListOf("轴数","")
+//    textMap["zj"     ] = mutableListOf("轴距","")
+//    textMap["zzs"    ] = mutableListOf("主轴数","")
+//    textMap["qzs"    ] = mutableListOf("前轴数","")
+//    textMap["qlj"    ] = mutableListOf("前轮距","")
+//    textMap["hlj"    ] = mutableListOf("后轮距","")
+//    textMap["zzl"    ] = mutableListOf("总质量","")
+//    textMap["zbzl"   ] = mutableListOf("整备质量","")
+//    textMap["kqxjzw" ] = mutableListOf("空气悬架轴位","")
+//    textMap["zxzs"   ] = mutableListOf("转向轴数","")
+//    textMap["bzzw"   ] = mutableListOf("并装轴位","")
+//    textMap["hdzk"   ] = mutableListOf("核定载客","")
+//    textMap["hdzzl"  ] = mutableListOf("核定载质量","")
+//    textMap["zqyzl"  ] = mutableListOf("准牵引质量","")
+//    textMap["zdsjcs" ] = mutableListOf("最大设计车速","")
+//    textMap["gl"     ] = mutableListOf("功率","")
+//    textMap["pl"     ] = mutableListOf("排量","")
+//    textMap["pqgs"   ] = mutableListOf("排气管数","")
+//    textMap["lcbds"  ] = mutableListOf("里程表读数","")
+//    textMap["edzs"   ] = mutableListOf("额定转速","")
+//    textMap["ltgg"   ] = mutableListOf("轮胎规格","")
+//    textMap["qgs"    ] = mutableListOf("气缸数","")
+//    textMap["lxdz"   ] = mutableListOf("联系地址","")
+//    textMap["sjr"    ] = mutableListOf("送检人姓名","")
+//    textMap["sjrdh"  ] = mutableListOf("送检人电话","")
+//    textMap["sjrsfzh"] = mutableListOf("送检人身份证号","")
+//    textMap["SCR"    ] = mutableListOf("SCR（柴油）","")
+//    textMap["DPF"    ] = mutableListOf("DPF（柴油）","")
+
     val textMap = registerRepository.getTextMap()
+    val textListMap = registerRepository.getTextListMap()
     val hjJyxmList = registerRepository.getHjJyxm()
     val ztDmMap = registerRepository.getZtDmMap()
     val ztMcMap = registerRepository.getZtMcMap()

@@ -43,9 +43,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE,)
             .request { allGranted, _, deniedList ->
-                if (allGranted) {
-                    Toast.makeText(this, "已获取所需权限", Toast.LENGTH_SHORT).show()
-                } else {
+                if (!allGranted) {
                     Toast.makeText(this,
                         "未获取到: $deniedList",
                         Toast.LENGTH_LONG).show()

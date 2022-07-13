@@ -21,14 +21,14 @@ class AdministrativeViewModel(private val administrativeRepository: Administrati
     /**
      * 从服务器获取行政区划数据
      */
-    fun getAdministrativeList() : LiveData<List<AdministrativeR023Response>>{
+    fun getAdministrativeList() : Pair<LiveData<List<AdministrativeR023Response>>, LiveData<String>> {
         return administrativeRepository.getAdministrativeList()
     }
 
 
     fun insertAdministrativeList(administrativeList: List<AdministrativeR023Response>) = viewModelScope.launch {
-        administrativeRepository.insertAdministrativeList(administrativeList)
-        if (administrativeRepository.rowNum == administrativeRepository.insertAdministrativeList(administrativeList).size){
+        val administrative = administrativeRepository.insertAdministrativeList(administrativeList)
+        if (administrativeRepository.rowNum == administrative.size){
             insertEnd.value = true
         }
     }

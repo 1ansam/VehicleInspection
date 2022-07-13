@@ -12,7 +12,7 @@ import java.lang.IllegalArgumentException
  */
 class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepository) : ViewModel() {
     val insertEnd = MutableLiveData<Boolean>()
-    fun getSystemParamsData() : LiveData<List<SystemParamsR015Response>> {
+    fun getSystemParamsData() : Pair<LiveData<List<SystemParamsR015Response>>, LiveData<String>> {
         return systemParamsRepository.getSystemParamsData()
     }
     fun getSystemParamsDataFromDb() : LiveData<List<SystemParamsR015Response>> {
@@ -37,8 +37,8 @@ class SystemParamsViewModel(private val systemParamsRepository: SystemParamsRepo
         return systemParamsRepository.getLshSzm()
     }
     fun insertSystemParams(systemParamsList: List<SystemParamsR015Response>) = viewModelScope.launch {
-        systemParamsRepository.insertSystemParams(systemParamsList)
-        if (systemParamsRepository.rowNum == systemParamsRepository.insertSystemParams(systemParamsList).size){
+        val systemParams = systemParamsRepository.insertSystemParams(systemParamsList)
+        if (systemParamsRepository.rowNum == systemParams.size){
             insertEnd.value = true
         }
     }

@@ -47,6 +47,7 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
         this.registerActivityLifecycleCallbacks(this)
 
         context = applicationContext
+        CrashHandler.getInstance(context).setCrashLogDir(getCrashLogDir())
         manager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         val filter = IntentFilter()
         filter.apply {
@@ -63,7 +64,7 @@ class MyApp : Application(),Application.ActivityLifecycleCallbacks{
             }
         },filter)
 
-        CrashHandler.getInstance(applicationContext).setCrashLogDir(getCrashLogDir())
+
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

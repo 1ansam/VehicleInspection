@@ -14,7 +14,7 @@ class ChargeItemViewModel(private val chargeItemRepository: ChargeItemRepository
     /**
      * 从服务器获取收费条目
      */
-    fun getChargeItem(): LiveData<List<ChargeItemR004Response>> {
+    fun getChargeItem(): Pair<LiveData<List<ChargeItemR004Response>>, LiveData<String>> {
         return chargeItemRepository.getChargeItem()
     }
     /**

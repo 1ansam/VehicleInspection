@@ -4,6 +4,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.edit
+import com.google.android.material.snackbar.Snackbar
 import com.yxf.vehicleinspection.MyApp
 import com.yxf.vehicleinspection.base.BaseBindingActivity
 import com.yxf.vehicleinspection.base.BaseUrlHelper
@@ -48,38 +49,84 @@ class SettingActivity : BaseBindingActivity<ActivitySettingBinding>() {
             systemParamsViewModel.deleteSystemParams()
             administrativeViewModel.deleteAdministrative()
             chargeItemViewModel.deleteChargeItem()
-            dataDictionaryViewModel.getDataDictionary().observe(this) { dataDictionaryList ->
-                setVisibility(this,binding.pbSync,true)
+            setVisibility(this,binding.pbSync,true)
+            dataDictionaryViewModel.getDataDictionary().second.observe(this){
+                if (it.isNotEmpty()){
+                    setVisibility(this,binding.pbSync,false)
+                    Snackbar.make(binding.root,it,Snackbar.LENGTH_SHORT).show()
+                    return@observe
+                }
+            }
+            dataDictionaryViewModel.getDataDictionary().first.observe(this) dataDictionary@{ dataDictionaryList ->
+
                 dataDictionaryViewModel.insertDataDictionary(dataDictionaryList)
-                systemParamsViewModel.getSystemParamsData().observe(this) { systemParamsList ->
+                systemParamsViewModel.getSystemParamsData().second.observe(this){
+                    if (it.isNotEmpty()){
+                        setVisibility(this,binding.pbSync,false)
+                        Snackbar.make(binding.root,it,Snackbar.LENGTH_SHORT).show()
+                        return@observe
+                    }
+                }
+                systemParamsViewModel.getSystemParamsData().first.observe(this) systemParamsData@{ systemParamsList ->
+
                     systemParamsViewModel.insertSystemParams(systemParamsList)
-                    administrativeViewModel.getAdministrativeList()
-                        .observe(this) { administrativeList ->
+                    administrativeViewModel.getAdministrativeList().second.observe(this){
+                        if (it.isNotEmpty()){
+                            setVisibility(this,binding.pbSync,false)
+                            Snackbar.make(binding.root,it,Snackbar.LENGTH_SHORT).show()
+                            return@observe
+                        }
+                    }
+                    administrativeViewModel.getAdministrativeList().first
+                        .observe(this) adminstrative@{ administrativeList ->
+
                             administrativeViewModel.insertAdministrativeList(administrativeList)
-                            chargeItemViewModel.getChargeItem().observe(this){ chargeItemList ->
+                            chargeItemViewModel.getChargeItem().second.observe(this){
+                                if (it.isNotEmpty()){
+                                    setVisibility(this,binding.pbSync,false)
+                                    Snackbar.make(binding.root,it,Snackbar.LENGTH_SHORT).show()
+                                    return@observe
+                                }
+                            }
+                            chargeItemViewModel.getChargeItem().first.observe(this) chargeItem@{ chargeItemList ->
                                 chargeItemViewModel.insertChargeItem(chargeItemList)
                                 dataDictionaryViewModel.insertEnd.observe(this) {
-
                                     if (it) {
                                         systemParamsViewModel.insertEnd.observe(this) {
                                             if (it) {
                                                 administrativeViewModel.insertEnd.observe(this) {
                                                     if (it) {
                                                         setVisibility(this,binding.pbSync,false)
-                                                        Toast.makeText(
-                                                            this,
-                                                            "参数同步成功",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-                                                        intent =
-                                                            Intent(this, LoginActivity::class.java)
+                                                        Toast.makeText(this,"参数同步成功", Toast.LENGTH_SHORT).show()
+                                                        intent = Intent(this, LoginActivity::class.java)
                                                         startActivity(intent)
                                                         finish()
+                                                    }else{
+                                                        setVisibility(this,binding.pbSync,false)
+                                                        Toast.makeText(
+                                                            this,
+                                                            "administrative同步失败",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
                                                     }
                                                 }
+                                            }else{
+                                                setVisibility(this,binding.pbSync,false)
+                                                Toast.makeText(
+                                                    this,
+                                                    "systemParams同步失败",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                             }
 
                                         }
+                                    }else{
+                                        setVisibility(this,binding.pbSync,false)
+                                        Toast.makeText(
+                                            this,
+                                            "dataDictionary同步失败",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
 
                                 }

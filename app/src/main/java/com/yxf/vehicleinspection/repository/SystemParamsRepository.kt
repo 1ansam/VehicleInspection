@@ -35,8 +35,9 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
     /**
      * 获取系统参数
      */
-    fun getSystemParamsData() : LiveData<List<SystemParamsR015Response>> {
+    fun getSystemParamsData() : Pair<LiveData<List<SystemParamsR015Response>>,LiveData<String>> {
         val liveData = MutableLiveData<List<SystemParamsR015Response>>()
+        val message = MutableLiveData<String>()
         val call = RetrofitService.create(QueryService::class.java).query(
             QUERY_SYSTEM_PARAMS,
             getIpAddress(),
@@ -60,21 +61,25 @@ class SystemParamsRepository(private val systemParamsDao: SystemParamsDao) {
                         liveData.value = beanList
                     }else{
                         if (commonResponse.Code == null){
+                            message.value = "服务器Code=Null"
                             Toast.makeText(MyApp.context, "服务器Code=Null", Toast.LENGTH_SHORT).show()
                         }else{
+                            message.value = commonResponse.Message
                             Toast.makeText(MyApp.context, commonResponse.Message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else{
+                    message.value = response.message()
                     Toast.makeText(MyApp.context, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                message.value = t.message
                 Toast.makeText(MyApp.context, t.message, Toast.LENGTH_SHORT).show()
             }
         })
-        return liveData
+        return Pair(liveData,message)
     }
     /**
      * 从数据库获取系统参数
