@@ -14,9 +14,6 @@ import java.lang.IllegalArgumentException
  */
 class LoginViewModel(private val repository: UserInfoRepository) : ViewModel() {
     val isLogin = repository.isLogin
-    fun isLoading(username: String, password: String): LiveData<Boolean> {
-        return repository.getUserLogin(username,password)
-    }
     fun getUser(username: String, password: String):LiveData<UserInfoR001Response>{
         return repository.getUser(username, password)
     }

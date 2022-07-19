@@ -479,7 +479,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         .observe(this) { dataDictionaryList ->
                             dataDictionaryViewModel.getDmList(
                                 FL_JYXM,
-                                registerViewModel.getAjJyxm(binding.rvAjJyxm, registerAjJyxmAdapter)
+                                registerViewModel.getAjJyxm(binding.rvAjJyxm)
                             ).observe(this) { jyxmList ->
 
                                 val valueMap = registerViewModel.getValueListMap(
@@ -606,8 +606,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                                         mutableListOf("ajJyxmString", ajJyxmString.substring(1))
                                 }
                                 var hjJyxmString = registerViewModel.getHjJyxmString(
-                                    binding.rvHjJyxm,
-                                    registerHjJyxmAdapter
+                                    binding.rvHjJyxm
                                 )
                                 if (hjJyxmString.isNotEmpty()) {
                                     valueMap["环检检验项目"] =
